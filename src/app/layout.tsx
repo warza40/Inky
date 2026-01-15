@@ -29,8 +29,14 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {/* Global Navigation */}
-        <header className="w-full px-6 py-6">
-          <nav className="mx-auto flex max-w-6xl items-center justify-between">
+        <header
+          className="
+            fixed top-0 left-0 right-0 z-50
+            bg-white/80 backdrop-blur
+            border-b border-neutral-200
+          "
+        >
+          <div className="pl-20 pr-12 py-4 flex justify-between items-center">
             <span className="text-sm font-medium">
               Rachana Mandal
             </span>
@@ -52,7 +58,7 @@ export default function RootLayout({
                 </a>
               </li>
             </ul>
-          </nav>
+          </div>
         </header>
 
         {/* Page Content */}
