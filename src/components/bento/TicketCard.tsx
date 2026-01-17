@@ -24,7 +24,7 @@ export function TicketCard({
         h-full
         rounded-[24px]
         border border-neutral-200
-        bg-white
+        bg-transparent
         p-4
         overflow-hidden
       "
@@ -38,7 +38,7 @@ export function TicketCard({
           h-6 w-12
           -translate-x-1/2 -translate-y-1/2
           rounded-b-full
-          bg-neutral-50
+          bg-transparent
           border border-neutral-200
           border-t-0
         "
@@ -53,7 +53,7 @@ export function TicketCard({
           h-6 w-12
           -translate-x-1/2 translate-y-1/2
           rounded-t-full
-          bg-neutral-50
+          bg-transparent
           border border-neutral-200
           border-b-0
         "
