@@ -7,15 +7,15 @@ export function BentoGrid() {
   return (
     <section className="max-w-7xl mx-auto px-8">
       {/* Blinkybot GIF above card 1 */}
-      <div className="mb-4 flex justify-start">
+      <div className="mb-6 flex justify-start">
         <Link href="/">
           <Image
             src="/blinkybot.gif"
             alt="Rachana Mandal"
-            width={64}
-            height={64}
+            width={84}
+            height={84}
             priority
-            className="w-16 h-16 object-contain"
+            className="w-[84px] h-[84px] object-contain"
           />
         </Link>
       </div>
@@ -113,9 +113,9 @@ export function BentoGrid() {
               </Link>
             </div>
 
-            {/* Stack I use section */}
+            {/* Reach out to me section */}
             <div className="mt-auto pt-6 border-t border-neutral-200/50">
-              <h3 className="text-lg font-bold text-neutral-900 mb-4">Stack I use</h3>
+              <h3 className="text-lg font-bold text-neutral-900 mb-4">Reach out to me</h3>
               <div className="flex gap-4 items-center">
                 <div className="w-10 h-10 rounded-lg bg-neutral-100 flex items-center justify-center">
                   <span className="text-xs">📄</span>

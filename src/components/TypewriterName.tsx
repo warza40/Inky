@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
-const SHORT = "/RM";
-const FULL = "/Rachana Mandal";
+const SHORT = "RM";
+const FULL = "Rachana Mandal";
 
 const TYPE_INTERVAL = 60;
 const START_DELAY = 300;
@@ -55,7 +55,7 @@ export function TypewriterName() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="text-4xl md:text-5xl font-semibold tracking-tight"
+      className="text-2xl md:text-3xl font-semibold tracking-tight"
     >
       {text}
       {isTyping && (

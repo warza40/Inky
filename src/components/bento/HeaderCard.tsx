@@ -29,11 +29,19 @@ export function HeaderCard() {
 
       {/* 3. Bio text below H1 */}
       <p className="text-base leading-relaxed text-neutral-900 mb-6">
-        Hi, I'm Rachana — Senior UX Designer with 6+ years of experience designing complex
-        product systems across UX, behavioural design, and emerging AI workflows.
+        I work on complex product systems where clarity often breaks down.
+        <br /><br />
+        While my past roles haven't always allowed space to address long-term impacts directly, I care deeply about how products shape behavior and everyday work — and I design with an intent to reduce mental effort and unnecessary friction wherever possible.
       </p>
 
-      {/* 4. Nav items below bio */}
+      {/* Tag chip/pill below bio */}
+      <div className="mb-6">
+        <span className="inline-flex items-center px-2 py-1 rounded-lg bg-black text-white text-xs font-medium">
+          6 + years, B2B, SaaS, Supply chain, Telecom etc
+        </span>
+      </div>
+
+      {/* 4. Nav items below tag */}
       <nav className="flex flex-col gap-3 mt-auto">
         <Link
           href="/work"
