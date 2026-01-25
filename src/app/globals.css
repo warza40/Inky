@@ -91,6 +91,12 @@ body {
   grid-column: 2 / 4; /* spans column 2 and 3 */
 }
 
+.case-main {
+  min-height: 100vh;
+  padding-top: 4rem;
+  padding-bottom: 3rem;
+}
+
 @media (max-width: 1024px) {
   .bento-grid {
     grid-template-columns: 1fr;

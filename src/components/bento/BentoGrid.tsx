@@ -59,13 +59,14 @@ export function BentoGrid() {
           </div>
         </div>
 
-        {/* Row 1: Column 3 - Image card */}
+        {/* Row 1: Column 3 - Omantel Case Study card */}
         <div className="bento-card card-3">
           <TicketCard
-            title="Writing & Essays"
-            tag="BLOG"
-            image="/images/writing.jpg"
-            href="/blog"
+            title="Reducing Operational Dependency Through Self-Serve Bulk Activations"
+            subtitle="A system-level redesign inside a Telecom giant's enterprise portal"
+            tag="B2B, UI/UX"
+            image="/om-bento.png"
+            href="/case/omantel-bulk-activation"
           />
         </div>
 
