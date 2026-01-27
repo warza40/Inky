@@ -10,7 +10,6 @@ export function Problem({ problem }: ProblemProps) {
 
   return (
     <>
-      <h2 className="text-2xl font-bold text-neutral-900 mb-6">Problem</h2>
       <div className="space-y-4">
         {problem.map((item, index) => {
           if (item.collapsible && item.title) {

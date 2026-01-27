@@ -20,11 +20,20 @@ export function CaseLayout({ children, title, subtitle, caseStudy }: CaseLayoutP
   if (caseStudy?.sections.problem.length) {
     sections.push({ id: "problem", label: "Problem" });
   }
+  if (caseStudy?.sections.understanding) {
+    sections.push({ id: "understanding", label: "Understanding" });
+  }
   if (caseStudy?.sections.constraints.length) {
     sections.push({ id: "constraints", label: "Constraints" });
   }
   if (caseStudy?.sections.decisions.length) {
     sections.push({ id: "decisions", label: "Decisions" });
+  }
+  if (caseStudy?.sections.outcome) {
+    sections.push({ id: "outcome", label: "Outcome and Impact" });
+  }
+  if (caseStudy?.sections.reflection) {
+    sections.push({ id: "reflection", label: "Reflection" });
   }
   if (caseStudy?.images && caseStudy.images.length > 0) {
     sections.push({ id: "visuals", label: "Visuals" });

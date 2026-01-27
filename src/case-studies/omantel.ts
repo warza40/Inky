@@ -15,6 +15,11 @@ export interface CaseStudy {
       content: string;
       collapsible?: boolean;
     }>;
+    understanding?: {
+      title: string;
+      content: string;
+      expandedContent?: string;
+    };
     constraints: Array<{
       title?: string;
       content: string;
@@ -32,6 +37,8 @@ export interface CaseStudy {
         caption?: string;
       }>;
     }>;
+    outcome?: string;
+    reflection?: string;
   };
   images?: Array<{
     src: string;
@@ -62,36 +69,22 @@ export const omantelCase: CaseStudy = {
         collapsible: true,
       },
     ],
+    understanding: {
+      title: "Understanding the existing system (before redesign)",
+      content: "Before proposing solutions, I focused on building a correct mental model of how bulk activations actually worked.\n\nThis included understanding:\n\n• The end-to-end bulk activation flow\n• Enterprise tiers, roles, and access levels\n• Credit limits and eligibility logic\n• Common failure points at scale\n\nThis foundation helped ensure that design decisions aligned with how the system behaved in reality.",
+      expandedContent: "Expanded section shows early sense-making artefacts, system maps, and flow breakdowns used to understand constraints and risks.",
+    },
     constraints: [
       {
-        content: "The system needed to integrate with legacy backend systems that had strict rate limits and validation requirements.",
+        content: "This project was shaped by certain constraints from the start:\n\n• The business vision was already defined\n• There was no generative user research phase\n• Strict eligibility and credit rules governed what was possible\n• Delivery timelines were aggressive\n• The system relied on multiple backend services\n\nThe system needed to integrate with legacy backend systems that had strict rate limits and validation requirements.",
       },
       {
         title: "Technical Constraints",
         content: "API rate limits of 100 requests per minute. Batch processing required to avoid system overload. Data validation needed to happen before submission.",
         collapsible: true,
       },
-      {
-        title: "Understanding the existing system (before redesign)",
-        content: "Before proposing solutions, I focused on building a correct mental model of how bulk activations actually worked.\n\nThis included understanding:\n\n• The end-to-end bulk activation flow\n• Enterprise tiers, roles, and access levels\n• Credit limits and eligibility logic\n• Common failure points at scale\n\nThis foundation helped ensure that design decisions aligned with how the system behaved in reality.",
-        collapsible: true,
-        expandedContent: "Expanded section shows early sense-making artefacts, system maps, and flow breakdowns used to understand constraints and risks.",
-      },
     ],
     decisions: [
-      {
-        title: "Progressive Batch Processing",
-        description: "Implemented a queue-based system that processes activations in configurable batch sizes with progress tracking and error handling.",
-        rationale: "Rate limits required batching, but users needed visibility into progress. A queue system allows for retries and provides real-time feedback.",
-        impact: "Reduced activation time from hours to minutes. Error rate dropped from 12% to 0.3%.",
-        images: [
-          {
-            src: "/images/omantel-bulk-activation.jpg",
-            alt: "Progressive batch processing interface",
-            caption: "Batch processing with progress tracking",
-          },
-        ],
-      },
       {
         title: "Template-Based Input",
         description: "Created CSV template system with validation that allows users to prepare data offline and upload in bulk.",
@@ -158,6 +151,8 @@ export const omantelCase: CaseStudy = {
         ],
       },
     ],
+    outcome: "While formal metrics were not tracked, the design focused on preventing known failure points in the legacy process.\n\nThe redesigned bulk activation experience:\n\n• Replaced manual, error-prone workflows with a structured self-service flow\n• Supported both quick actions and high-volume enterprise needs\n• Aligned with system constraints while improving usability.",
+    reflection: "This project reinforced that enterprise design is less about creating flexibility and more about managing responsibility at scale.\n\nIn a system where small mistakes can multiply quickly, the goal is often to reduce cognitive load, surface constraints clearly, and help users make confident decisions without dramatically changing the experience. Working within strict business rules, evolving requirements, and tight timelines made me appreciate the close collaboration with engineering. It strengthened my belief that, at scale, thoughtful limitations can be as valuable as new features.",
   },
   images: [
     {

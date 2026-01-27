@@ -1,24 +1,13 @@
-import Image from "next/image";
 import Link from "next/link";
 import { TicketCard } from "./TicketCard";
 import { HeaderCard } from "./HeaderCard";
+import { AnimatedBlinkybot } from "./AnimatedBlinkybot";
 
 export function BentoGrid() {
   return (
     <section className="max-w-7xl mx-auto px-8">
-      {/* Blinkybot GIF above card 1 */}
-      <div className="mb-6 flex justify-start">
-        <Link href="/">
-          <Image
-            src="/blinkybot.gif"
-            alt="Rachana Mandal"
-            width={84}
-            height={84}
-            priority
-            className="w-[84px] h-[84px] object-contain"
-          />
-        </Link>
-      </div>
+      {/* Animated Blinkybot scanning across the page */}
+      <AnimatedBlinkybot />
 
       <div className="bento-grid">
         {/* Row 1-2: Column 1 - Combined Header/Bio card (tall, spans 2 rows) */}
