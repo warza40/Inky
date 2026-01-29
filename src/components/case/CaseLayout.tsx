@@ -20,8 +20,8 @@ export function CaseLayout({ children, title, subtitle, caseStudy }: CaseLayoutP
   if (caseStudy?.sections.problem.length) {
     sections.push({ id: "problem", label: "Problem" });
   }
-  if (caseStudy?.sections.understanding) {
-    sections.push({ id: "understanding", label: "Understanding" });
+  if (caseStudy?.sections.secondaryWork) {
+    sections.push({ id: "secondary-work", label: "Secondary work" });
   }
   if (caseStudy?.sections.constraints.length) {
     sections.push({ id: "constraints", label: "Constraints" });

@@ -70,45 +70,100 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
         </MotionSection>
       )}
 
-      {/* Understanding Section */}
-      {caseStudy.sections.understanding && (
-        <MotionSection id="understanding">
-          <Collapsible title={caseStudy.sections.understanding.title}>
-            <div className="text-base text-neutral-700 leading-relaxed">
-              {(() => {
-                const lines = caseStudy.sections.understanding.content.split('\n').filter(line => line.trim());
-                const bulletPoints: string[] = [];
-                const textParts: string[] = [];
-                
-                lines.forEach((line) => {
-                  const trimmed = line.trim();
-                  if (trimmed.startsWith('•')) {
-                    bulletPoints.push(trimmed.replace(/^•\s*/, ''));
-                  } else if (trimmed) {
-                    textParts.push(trimmed);
-                  }
-                });
-
-                return (
-                  <>
-                    {textParts.map((para, paraIndex) => (
-                      <p key={paraIndex} className="mb-4">{para}</p>
-                    ))}
-                    {bulletPoints.length > 0 && (
-                      <ul className="list-disc list-inside space-y-2 mb-4 ml-4">
-                        {bulletPoints.map((point, pointIndex) => (
-                          <li key={pointIndex}>{point}</li>
-                        ))}
-                      </ul>
-                    )}
-                    {caseStudy.sections.understanding.expandedContent && (
-                      <p className="mt-4 text-sm text-neutral-600 italic">
-                        {caseStudy.sections.understanding.expandedContent}
-                      </p>
-                    )}
-                  </>
-                );
-              })()}
+      {/* Secondary Work Section (collapsed) – includes Understanding as first subsection */}
+      {caseStudy.sections.secondaryWork && (
+        <MotionSection id="secondary-work">
+          <Collapsible title={caseStudy.sections.secondaryWork.title}>
+            <div className="text-base text-neutral-700 leading-relaxed space-y-6">
+              {caseStudy.sections.secondaryWork.subsections.map((sub, index) => (
+                <div key={index}>
+                  {index > 0 && (
+                    <hr className="border-neutral-200 my-6" aria-hidden />
+                  )}
+                  <h3 className="text-lg font-semibold text-neutral-900 mb-3">
+                    {sub.title}
+                  </h3>
+                  {sub.content ? (
+                    (() => {
+                      const lines = sub.content
+                        .split("\n")
+                        .filter((line) => line.trim());
+                      type Block =
+                        | { type: "para"; text: string }
+                        | { type: "bullets"; items: string[] }
+                        | { type: "numbered"; items: string[] };
+                      const blocks: Block[] = [];
+                      let bulletAcc: string[] = [];
+                      let numberedAcc: string[] = [];
+                      const flushBullets = () => {
+                        if (bulletAcc.length) {
+                          blocks.push({ type: "bullets", items: [...bulletAcc] });
+                          bulletAcc = [];
+                        }
+                      };
+                      const flushNumbered = () => {
+                        if (numberedAcc.length) {
+                          blocks.push({ type: "numbered", items: [...numberedAcc] });
+                          numberedAcc = [];
+                        }
+                      };
+                      lines.forEach((line) => {
+                        const trimmed = line.trim();
+                        if (trimmed.startsWith("•")) {
+                          flushNumbered();
+                          bulletAcc.push(trimmed.replace(/^•\s*/, ""));
+                        } else {
+                          const numMatch = trimmed.match(/^\d+\.\s*(.+)$/);
+                          if (numMatch) {
+                            flushBullets();
+                            numberedAcc.push(numMatch[1]);
+                          } else if (trimmed) {
+                            flushBullets();
+                            flushNumbered();
+                            blocks.push({ type: "para", text: trimmed });
+                          }
+                        }
+                      });
+                      flushBullets();
+                      flushNumbered();
+                      return (
+                        <>
+                          {blocks.map((block, i) =>
+                            block.type === "para" ? (
+                              <p key={i} className="mb-4">
+                                {block.text}
+                              </p>
+                            ) : block.type === "bullets" ? (
+                              <ul
+                                key={i}
+                                className="list-disc list-inside space-y-2 mb-4 ml-4"
+                              >
+                                {block.items.map((point, j) => (
+                                  <li key={j}>{point}</li>
+                                ))}
+                              </ul>
+                            ) : (
+                              <ol
+                                key={i}
+                                className="list-decimal list-inside space-y-2 mb-4 ml-4"
+                              >
+                                {block.items.map((point, j) => (
+                                  <li key={j}>{point}</li>
+                                ))}
+                              </ol>
+                            )
+                          )}
+                          {sub.expandedContent && (
+                            <p className="mt-4 text-sm text-neutral-600 italic">
+                              {sub.expandedContent}
+                            </p>
+                          )}
+                        </>
+                      );
+                    })()
+                  ) : null}
+                </div>
+              ))}
             </div>
           </Collapsible>
         </MotionSection>

@@ -20,6 +20,14 @@ export interface CaseStudy {
       content: string;
       expandedContent?: string;
     };
+    secondaryWork?: {
+      title: string;
+      subsections: Array<{
+        title: string;
+        content: string;
+        expandedContent?: string;
+      }>;
+    };
     constraints: Array<{
       title?: string;
       content: string;
@@ -69,10 +77,23 @@ export const omantelCase: CaseStudy = {
         collapsible: true,
       },
     ],
-    understanding: {
-      title: "Understanding the existing system (before redesign)",
-      content: "Before proposing solutions, I focused on building a correct mental model of how bulk activations actually worked.\n\nThis included understanding:\n\n• The end-to-end bulk activation flow\n• Enterprise tiers, roles, and access levels\n• Credit limits and eligibility logic\n• Common failure points at scale\n\nThis foundation helped ensure that design decisions aligned with how the system behaved in reality.",
-      expandedContent: "Expanded section shows early sense-making artefacts, system maps, and flow breakdowns used to understand constraints and risks.",
+    secondaryWork: {
+      title: "Secondary work",
+      subsections: [
+        {
+          title: "Understanding the existing system (before redesign)",
+          content:
+            "Before proposing solutions, I focused on building a correct mental model of how bulk activations actually worked.\n\nThis included understanding:\n\n• The end-to-end bulk activation flow\n• Enterprise tiers, roles, and access levels\n• Credit limits and eligibility logic\n• Common failure points at scale\n\nThis foundation helped ensure that design decisions aligned with how the system behaved in reality.",
+          expandedContent:
+            "Expanded section shows early sense-making artefacts, system maps, and flow breakdowns used to understand constraints and risks.",
+        },
+        { title: "User flows", content: "" },
+        {
+          title: "Pre-release experience validation",
+          content:
+            "As the feature approached release, I worked closely with engineering to review production-ready builds.\n\n1. Testing key flows end to end\n\n2. Identifying experience gaps, logic issues, and edge cases\n\n3. Flagging inconsistencies between intended behaviour and system output\n\n4. Iterating quickly with developers before phased rollout",
+        },
+      ],
     },
     constraints: [
       {
@@ -86,10 +107,10 @@ export const omantelCase: CaseStudy = {
     ],
     decisions: [
       {
-        title: "Template-Based Input",
+        title: "Helping enterprise users submit bulk orders confidently",
         description: "Created CSV template system with validation that allows users to prepare data offline and upload in bulk.",
         rationale: "Users needed to work with existing data formats. CSV templates provide familiarity and allow for offline preparation.",
-        impact: "Reduced data entry errors by 85%. Users can prepare activations during downtime.",
+        impact: "By aligning the input format with how enterprise users already work, bulk submissions became easier to prepare, review, and submit - this reduced the number of errors, reduced dependency on the internal team and early validation of data.",
         images: [
           {
             src: "/images/omantel-bulk-activation.jpg",
