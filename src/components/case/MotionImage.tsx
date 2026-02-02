@@ -195,7 +195,12 @@ export function MotionImage({
                       background: PRIMARY_COLOR,
                       boxShadow: "0 2px 8px rgba(255, 141, 40, 0.4), inset 0 1px 0 rgba(255,255,255,0.2)",
                       transformOrigin: "top right",
-                      ...(src.includes("Key-Decision-1") || src.includes("Decision-1.png")
+                      ...(src.includes("Key-Decision-1") ||
+                      src.includes("Decision-1.png") ||
+                      src.includes("Key-Decision-3") ||
+                      src.includes("Decision-3.png") ||
+                      src.includes("Key-Decision-4") ||
+                      src.includes("Decision-4.png")
                         ? {
                             transform: "rotate(45deg) translate(calc(8% + 80px), calc(18% + 65px))",
                           }

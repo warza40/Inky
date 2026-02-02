@@ -484,8 +484,8 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
         </MotionSection>
       )}
 
-      {/* Images */}
-      {caseStudy.images && caseStudy.images.length > 0 && (
+      {/* Images (legacy) */}
+      {caseStudy.images && caseStudy.images.length > 0 && !caseStudy.visualsSections && (
         <MotionSection id="visuals">
           <h2 className="text-2xl font-bold text-neutral-900 mb-6">Visuals</h2>
           <div className="space-y-6">
@@ -497,6 +497,39 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
                 caption={image.caption}
                 fill
               />
+            ))}
+          </div>
+        </MotionSection>
+      )}
+
+      {/* Noteworthy iterations – 4 sections one below the other */}
+      {caseStudy.visualsSections && caseStudy.visualsSections.length > 0 && (
+        <MotionSection id="visuals">
+          <h2 className="text-2xl font-bold text-neutral-900 mb-6">Noteworthy iterations</h2>
+          <div className="space-y-10">
+            {caseStudy.visualsSections.map((section, index) => (
+              <div key={index} className="border-b border-neutral-200/50 pb-10 last:border-0 last:pb-0">
+                {section.title && (
+                  <h3 className="text-lg font-semibold text-neutral-900 mb-4">{section.title}</h3>
+                )}
+                {section.image && (
+                  <figure className="rounded-xl overflow-hidden border border-neutral-200/50 w-full">
+                    <div className="relative w-full aspect-video bg-neutral-100">
+                      <img
+                        src={section.image.src}
+                        alt={section.image.alt}
+                        className="w-full h-full object-contain"
+                        style={{ display: "block" }}
+                      />
+                    </div>
+                    {section.image.caption && (
+                      <figcaption className="p-4 bg-neutral-50 text-sm text-neutral-600">
+                        {section.image.caption}
+                      </figcaption>
+                    )}
+                  </figure>
+                )}
+              </div>
             ))}
           </div>
         </MotionSection>

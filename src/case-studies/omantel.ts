@@ -53,6 +53,15 @@ export interface CaseStudy {
     alt: string;
     caption?: string;
   }>;
+  /** Bottom Visuals section split into 4 subsections, one below the other */
+  visualsSections?: Array<{
+    title?: string;
+    image?: {
+      src: string;
+      alt: string;
+      caption?: string;
+    };
+  }>;
 }
 
 export const omantelCase: CaseStudy = {
@@ -144,9 +153,9 @@ export const omantelCase: CaseStudy = {
         impact: "Bulk actions became traceable, verifiable, and easier to explain after the fact.",
         images: [
           {
-            src: "/images/omantel-bulk-activation.jpg",
+            src: "/Key-Decision-3.png",
             alt: "Unified history view",
-            caption: "History view showing batch and order status",
+            caption: "History and tracking",
           },
         ],
       },
@@ -157,9 +166,9 @@ export const omantelCase: CaseStudy = {
         impact: "The experience avoided cognitive overload on mobile while still supporting meaningful on-the-go actions.",
         images: [
           {
-            src: "/images/omantel-bulk-activation.jpg",
+            src: "/Key-Decision-4.png",
             alt: "Mobile interface for bulk actions",
-            caption: "Mobile view with limited bulk actions",
+            caption: "Limiting bulk actions on mobile",
           },
         ],
       },
@@ -168,13 +177,7 @@ export const omantelCase: CaseStudy = {
         description: "In the previous process, a single invalid entry could cause the entire batch to fail. Validation was moved earlier in the flow, both at form level and during file uploads, so issues were surfaced before submission.",
         rationale: "Prevented full batch reprocessing. Reduced reliance on support teams. Gave users clearer feedback before committing.",
         impact: "Bulk actions became more predictable and less fragile, even at larger volumes.",
-        images: [
-          {
-            src: "/images/omantel-bulk-activation.jpg",
-            alt: "Early validation interface",
-            caption: "Validation feedback during file upload",
-          },
-        ],
+        images: [],
       },
     ],
     outcome: "While formal metrics were not tracked, the design focused on preventing known failure points in the legacy process.\n\nThe redesigned bulk activation experience:\n\n• Replaced manual, error-prone workflows with a structured self-service flow\n• Supported both quick actions and high-volume enterprise needs\n• Aligned with system constraints while improving usability.",
@@ -186,5 +189,17 @@ export const omantelCase: CaseStudy = {
       alt: "Bulk Activation Interface",
       caption: "Main bulk activation interface with progress tracking",
     },
+  ],
+  visualsSections: [
+    {
+      image: {
+        src: "/Noteworthy-1.png",
+        alt: "Noteworthy visual",
+        caption: "Noteworthy 1",
+      },
+    },
+    {},
+    {},
+    {},
   ],
 };

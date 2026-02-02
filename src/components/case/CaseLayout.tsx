@@ -35,8 +35,11 @@ export function CaseLayout({ children, title, subtitle, caseStudy }: CaseLayoutP
   if (caseStudy?.sections.reflection) {
     sections.push({ id: "reflection", label: "Reflection" });
   }
-  if (caseStudy?.images && caseStudy.images.length > 0) {
-    sections.push({ id: "visuals", label: "Visuals" });
+  if ((caseStudy?.images && caseStudy.images.length > 0) || (caseStudy?.visualsSections && caseStudy.visualsSections.length > 0)) {
+    sections.push({
+      id: "visuals",
+      label: caseStudy?.visualsSections?.length ? "Noteworthy iterations" : "Visuals",
+    });
   }
 
   return (
