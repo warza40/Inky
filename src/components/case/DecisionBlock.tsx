@@ -42,9 +42,13 @@ export function DecisionBlock({ decision, index }: DecisionBlockProps) {
 
       {displayImages.length > 0 && (
         <>
-          <div className="mt-6 pt-6 border-t border-neutral-200/50">
+          <div className="mt-6 pt-6 border-t border-neutral-200/50 w-full">
             <h4 className="text-sm font-semibold text-neutral-700 mb-4">Visuals</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div
+              className={`grid gap-4 w-full max-w-full ${
+                displayImages.length === 2 ? "grid-cols-2" : "grid-cols-1"
+              }`}
+            >
               {displayImages.map((image, imageIndex) => (
                 <MotionImage
                   key={imageIndex}
@@ -52,6 +56,8 @@ export function DecisionBlock({ decision, index }: DecisionBlockProps) {
                   alt={image.alt}
                   caption={image.caption}
                   fill
+                  objectFit="contain"
+                  lightbox
                 />
               ))}
             </div>

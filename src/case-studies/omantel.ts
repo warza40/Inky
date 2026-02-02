@@ -108,27 +108,32 @@ export const omantelCase: CaseStudy = {
     decisions: [
       {
         title: "Helping enterprise users submit bulk orders confidently",
-        description: "Created CSV template system with validation that allows users to prepare data offline and upload in bulk.",
-        rationale: "Users needed to work with existing data formats. CSV templates provide familiarity and allow for offline preparation.",
+        description: "Created CSV template system with validation that allows users to prepare data offline and upload in bulk; along with a search and modify system for users that needed to make quick requests.",
+        rationale: "Re-inventing the wheel could have added to the learning curve for the user. CSV templates provide familiarity and allow for offline preparation and the search by MSISDN(Number) and modify method was to cater to the seasoned users.",
         impact: "By aligning the input format with how enterprise users already work, bulk submissions became easier to prepare, review, and submit - this reduced the number of errors, reduced dependency on the internal team and early validation of data.",
         images: [
           {
-            src: "/images/omantel-bulk-activation.jpg",
-            alt: "CSV template system",
-            caption: "Template-based input interface",
+            src: "/Key-Decision-1.png",
+            alt: "Bulk orders: CSV template and search by MSISDN",
+            caption: "Helping enterprise users submit bulk orders confidently",
           },
         ],
       },
       {
         title: "Preserving context to prevent bulk errors",
         description: "When updating values at scale, losing sight of the current state increases the chance of mistakes. For each record, the existing credit limit and the proposed new limit were shown side by side in the same table.",
-        rationale: "Why this mattered: Reduced reliance on memory. Made changes easier to review and reason about. Supported deliberate decision-making under pressure.",
-        impact: "Outcome: Users could review bulk changes with greater confidence before submission.",
+        rationale: "Reduced reliance on memory. Made changes easier to review and reason about. Supported deliberate decision-making under pressure.",
+        impact: "Users could review bulk changes with greater confidence before submission.",
         images: [
           {
-            src: "/images/omantel-bulk-activation.jpg",
+            src: "/Key-Decision-2-v2.png",
             alt: "Context preservation in bulk activation",
-            caption: "Side-by-side comparison of existing and proposed limits",
+            caption: "Preserving context to prevent bulk errors",
+          },
+          {
+            src: "/Key-Decision-2.5.png",
+            alt: "Context preservation – detail",
+            caption: "Apply to all scenario",
           },
         ],
       },
