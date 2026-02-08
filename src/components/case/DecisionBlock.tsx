@@ -30,13 +30,13 @@ export function DecisionBlock({ decision, index }: DecisionBlockProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-neutral-200/50">
         <div>
           <h4 className="text-sm font-semibold text-neutral-700 mb-3">Rationale</h4>
-          <p className="text-sm text-neutral-600 leading-relaxed whitespace-pre-line">
+          <p className="text-sm text-neutral-600 leading-snug whitespace-pre-line [line-height:1.4]">
             {decision.rationale}
           </p>
         </div>
         <div>
           <h4 className="text-sm font-semibold text-neutral-700 mb-3">Impact</h4>
-          <p className="text-sm text-neutral-600 leading-relaxed whitespace-pre-line">
+          <p className="text-sm text-neutral-600 leading-snug whitespace-pre-line [line-height:1.4]">
             {decision.impact}
           </p>
         </div>

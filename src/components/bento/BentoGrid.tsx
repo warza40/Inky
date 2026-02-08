@@ -65,7 +65,7 @@ export function BentoGrid() {
             title="Real estate connectivity solution"
             subtitle="Connectivity and experience for real estate"
             tag="B2B · UX"
-            image="/images/design-system.jpg"
+            image="/REC.png"
             href="/case/real-estate-connectivity"
           />
         </div>
@@ -121,14 +121,14 @@ export function BentoGrid() {
           </div>
         </div>
 
-        {/* Row 3: Column 3 - Contact card */}
+        {/* Row 3: Column 3 - Warehouse operations case study */}
         <div className="bento-card card-8">
           <TicketCard
-            title="Enterprise Data Platform"
-            subtitle="Designing scalable analytics systems across orgs"
-            tag="B2B SAAS"
+            title="Bringing Clarity to Warehouse Operations at Scale"
+            subtitle="Clarity and operations at scale"
+            tag="B2B · OPERATIONS"
             image="/images/enterprise.jpg"
-            href="/work/enterprise"
+            href="/case/warehouse-operations"
           />
         </div>
       </div>

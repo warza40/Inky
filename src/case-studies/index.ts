@@ -1,12 +1,14 @@
 import { omantelCase } from "./omantel";
 import { anotherCase } from "./another-case";
 import { realEstateConnectivityCase } from "./real-estate-connectivity";
+import { warehouseOperationsCase } from "./warehouse-operations";
 import type { CaseStudy } from "./omantel";
 
 export const caseStudies: CaseStudy[] = [
   omantelCase,
   anotherCase,
   realEstateConnectivityCase,
+  warehouseOperationsCase,
 ];
 
 export function getCaseStudy(slug: string): CaseStudy | undefined {

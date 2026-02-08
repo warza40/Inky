@@ -19,6 +19,8 @@ interface MotionImageProps {
   height?: number;
   objectFit?: "cover" | "contain";
   lightbox?: boolean;
+  /** Custom tooltip when hovering over the image (when lightbox is true). Default: "Click to view better" */
+  hoverTooltip?: string;
 }
 
 export function MotionImage({
@@ -31,7 +33,9 @@ export function MotionImage({
   height,
   objectFit = "cover",
   lightbox = false,
+  hoverTooltip: hoverTooltipProp,
 }: MotionImageProps) {
+  const hoverTooltipText = hoverTooltipProp ?? "Click to view better";
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [hoverTooltip, setHoverTooltip] = useState<{ x: number; y: number } | null>(null);
   const [tapePosition, setTapePosition] = useState<{ top: number; right: number } | null>(null);
@@ -90,6 +94,7 @@ export function MotionImage({
           src={src}
           alt={alt}
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 896px"
           className={objectFit === "contain" ? "object-contain" : "object-cover"}
         />
       ) : (
@@ -133,7 +138,7 @@ export function MotionImage({
                 top: hoverTooltip.y + 12,
               }}
             >
-              Click to view better
+              {hoverTooltipText}
             </span>,
             document.body
           )}
@@ -163,7 +168,7 @@ export function MotionImage({
               >
                 <motion.div
                   ref={lightboxContainerRef}
-                  className="relative w-full max-w-4xl aspect-video max-h-[85vh] min-h-[200px] mx-auto"
+                  className="relative w-full max-w-6xl aspect-video max-h-[92vh] min-h-[200px] mx-auto"
                   initial={{ scale: 0.95 }}
                   animate={{ scale: 1 }}
                   exit={{ scale: 0.95 }}
@@ -175,7 +180,7 @@ export function MotionImage({
                     alt={alt}
                     fill
                     className="object-contain"
-                    sizes="(max-width: 896px) 100vw, 896px"
+                    sizes="(max-width: 896px) 100vw, (max-width: 1280px) 90vw, 1152px"
                     onLoad={(e) => {
                       const img = e.target as HTMLImageElement;
                       if (img?.naturalWidth && img?.naturalHeight) {
@@ -195,24 +200,24 @@ export function MotionImage({
                       background: PRIMARY_COLOR,
                       boxShadow: "0 2px 8px rgba(255, 141, 40, 0.4), inset 0 1px 0 rgba(255,255,255,0.2)",
                       transformOrigin: "top right",
-                      ...(src.includes("Key-Decision-1") ||
-                      src.includes("Decision-1.png") ||
-                      src.includes("Key-Decision-3") ||
-                      src.includes("Decision-3.png") ||
-                      src.includes("Key-Decision-4") ||
-                      src.includes("Decision-4.png")
-                        ? {
-                            transform: "rotate(45deg) translate(calc(8% + 80px), calc(18% + 65px))",
-                          }
-                        : tapePosition
+                      ...(tapePosition
                           ? {
-                              top: tapePosition.top,
+                              top: tapePosition.top + 56,
                               right: tapePosition.right,
-                              transform: "rotate(45deg) translate(8%, -8%)",
+                              transform: "rotate(45deg) translate(2%, -2%)",
                             }
-                          : {
-                              transform: "rotate(45deg) translate(calc(8% + 80px), calc(18% + 65px))",
-                            }),
+                          : src.includes("Key-Decision-1") ||
+                            src.includes("Decision-1.png") ||
+                            src.includes("Key-Decision-3") ||
+                            src.includes("Decision-3.png") ||
+                            src.includes("Key-Decision-4") ||
+                            src.includes("Decision-4.png")
+                            ? {
+                                transform: "rotate(45deg) translate(calc(8% + 80px), calc(18% + 65px))",
+                              }
+                            : {
+                                transform: "rotate(45deg) translate(calc(8% + 80px), calc(18% + 65px))",
+                              }),
                     }}
                     aria-label="Close"
                   >

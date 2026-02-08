@@ -19,13 +19,13 @@ export interface CaseStudy {
       title: string;
       content: string;
       expandedContent?: string;
-    };
-    secondaryWork?: {
-      title: string;
-      subsections: Array<{
-        title: string;
-        content: string;
-        expandedContent?: string;
+      /** Optional visuals: one container per item, rendered one below the other. Omit src for an empty container. */
+      images?: Array<{
+        src?: string;
+        alt?: string;
+        caption?: string;
+        /** Tooltip shown when hovering over the image (for lightbox thumbnails) */
+        hoverTooltip?: string;
       }>;
     };
     constraints: Array<{
@@ -86,24 +86,6 @@ export const omantelCase: CaseStudy = {
         collapsible: true,
       },
     ],
-    secondaryWork: {
-      title: "Secondary work",
-      subsections: [
-        {
-          title: "Understanding the existing system (before redesign)",
-          content:
-            "Before proposing solutions, I focused on building a correct mental model of how bulk activations actually worked.\n\nThis included understanding:\n\n• The end-to-end bulk activation flow\n• Enterprise tiers, roles, and access levels\n• Credit limits and eligibility logic\n• Common failure points at scale\n\nThis foundation helped ensure that design decisions aligned with how the system behaved in reality.",
-          expandedContent:
-            "Expanded section shows early sense-making artefacts, system maps, and flow breakdowns used to understand constraints and risks.",
-        },
-        { title: "User flows", content: "" },
-        {
-          title: "Pre-release experience validation",
-          content:
-            "As the feature approached release, I worked closely with engineering to review production-ready builds.\n\n1. Testing key flows end to end\n\n2. Identifying experience gaps, logic issues, and edge cases\n\n3. Flagging inconsistencies between intended behaviour and system output\n\n4. Iterating quickly with developers before phased rollout",
-        },
-      ],
-    },
     constraints: [
       {
         content: "This project was shaped by certain constraints from the start:\n\n• The business vision was already defined\n• There was no generative user research phase\n• Strict eligibility and credit rules governed what was possible\n• Delivery timelines were aggressive\n• The system relied on multiple backend services\n\nThe system needed to integrate with legacy backend systems that had strict rate limits and validation requirements.",
