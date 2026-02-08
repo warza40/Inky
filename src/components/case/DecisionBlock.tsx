@@ -19,22 +19,24 @@ export function DecisionBlock({ decision, index }: DecisionBlockProps) {
           <h3 className="text-xl font-bold text-neutral-900 mb-2">
             {decision.title}
           </h3>
-          <p className="text-base text-neutral-700 leading-relaxed mb-4">
-            {decision.description}
-          </p>
+          {decision.description ? (
+            <p className="text-base text-neutral-700 leading-relaxed mb-4">
+              {decision.description}
+            </p>
+          ) : null}
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-neutral-200/50">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-neutral-200/50">
         <div>
-          <h4 className="text-sm font-semibold text-neutral-700 mb-2">Rationale</h4>
-          <p className="text-sm text-neutral-600 leading-relaxed">
+          <h4 className="text-sm font-semibold text-neutral-700 mb-3">Rationale</h4>
+          <p className="text-sm text-neutral-600 leading-relaxed whitespace-pre-line">
             {decision.rationale}
           </p>
         </div>
         <div>
-          <h4 className="text-sm font-semibold text-neutral-700 mb-2">Impact</h4>
-          <p className="text-sm text-neutral-600 leading-relaxed">
+          <h4 className="text-sm font-semibold text-neutral-700 mb-3">Impact</h4>
+          <p className="text-sm text-neutral-600 leading-relaxed whitespace-pre-line">
             {decision.impact}
           </p>
         </div>

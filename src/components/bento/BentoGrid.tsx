@@ -59,14 +59,14 @@ export function BentoGrid() {
           />
         </div>
 
-        {/* Row 2: Column 2 - Design System card */}
+        {/* Row 2: Column 2 - Real estate connectivity case study */}
         <div className="bento-card card-4">
           <TicketCard
-            title="Design System 2.0"
-            subtitle="Governance and scale"
-            tag="DESIGN SYSTEMS"
+            title="Real estate connectivity solution"
+            subtitle="Connectivity and experience for real estate"
+            tag="B2B · UX"
             image="/images/design-system.jpg"
-            href="/work/design-system"
+            href="/case/real-estate-connectivity"
           />
         </div>
 
