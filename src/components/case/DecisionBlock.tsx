@@ -1,4 +1,5 @@
 import type { CaseStudy } from "@/case-studies/omantel";
+import { useState } from "react";
 import { MotionImage } from "./MotionImage";
 
 interface DecisionBlockProps {
@@ -7,65 +8,121 @@ interface DecisionBlockProps {
 }
 
 export function DecisionBlock({ decision, index }: DecisionBlockProps) {
-  const displayImages = decision.images?.slice(0, 2) || [];
+  const displayImages = decision.images ?? [];
+  const [open, setOpen] = useState(index === 0);
 
   return (
-    <div className="mb-8 p-6 rounded-xl bg-white border border-neutral-200/50 hover:shadow-md transition-shadow">
-      <div className="flex items-start gap-4 mb-4">
-        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-neutral-900 text-white flex items-center justify-center text-sm font-bold">
-          {index + 1}
-        </div>
-        <div className="flex-1">
-          <h3 className="text-xl font-bold text-neutral-900 mb-2">
-            {decision.title}
-          </h3>
+    <div className={`cs-decision${open ? " open" : ""}`}>
+      <button
+        type="button"
+        className="cs-decision-head"
+        onClick={() => setOpen((prev) => !prev)}
+        aria-expanded={open}
+      >
+        <span className="cs-decision-num">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <div>
+          <h3 className="cs-decision-title">{decision.title}</h3>
           {decision.description ? (
-            <p className="text-base text-neutral-700 leading-relaxed mb-4">
-              {decision.description}
-            </p>
+            <p className="cs-decision-body">{decision.description}</p>
           ) : null}
         </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-neutral-200/50">
-        <div>
-          <h4 className="text-sm font-semibold text-neutral-700 mb-3">Rationale</h4>
-          <p className="text-sm text-neutral-600 leading-snug whitespace-pre-line [line-height:1.4]">
-            {decision.rationale}
-          </p>
-        </div>
-        <div>
-          <h4 className="text-sm font-semibold text-neutral-700 mb-3">Impact</h4>
-          <p className="text-sm text-neutral-600 leading-snug whitespace-pre-line [line-height:1.4]">
-            {decision.impact}
-          </p>
-        </div>
-      </div>
-
-      {displayImages.length > 0 && (
-        <>
-          <div className="mt-6 pt-6 border-t border-neutral-200/50 w-full">
-            <h4 className="text-sm font-semibold text-neutral-700 mb-4">Visuals</h4>
-            <div
-              className={`grid gap-4 w-full max-w-full ${
-                displayImages.length === 2 ? "grid-cols-2" : "grid-cols-1"
-              }`}
+        <div className="cs-decision-toggle" aria-hidden="true">
+          <span className="cs-decision-toggle-icon" aria-hidden>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 14 14"
+              fill="none"
+              className="cs-decision-chevron"
+              aria-hidden
             >
-              {displayImages.map((image, imageIndex) => (
-                <MotionImage
-                  key={imageIndex}
-                  src={image.src}
-                  alt={image.alt}
-                  caption={image.caption}
-                  fill
-                  objectFit="contain"
-                  lightbox
-                />
-              ))}
+              <path
+                d="M2 4.5L7 9.5L12 4.5"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
+        </div>
+      </button>
+
+      <div className="cs-decision-body-wrap">
+        <div className="cs-ri-grid">
+          <div className="cs-ri-col">
+            <div className="cs-ri-label">Rationale</div>
+            <p className="cs-ri-text whitespace-pre-line">
+              {decision.rationale}
+            </p>
+          </div>
+          <div className="cs-ri-col">
+            <div className="cs-ri-label">Impact</div>
+            <p className="cs-ri-text whitespace-pre-line">
+              {decision.impact}
+            </p>
+          </div>
+        </div>
+
+        {decision.designResponse && (
+          <div
+            className="cs-ri-grid"
+            style={{ borderTop: "1px solid #f0eeea" }}
+          >
+            <div className="cs-ri-col" style={{ gridColumn: "1 / -1" }}>
+              <div className="cs-ri-label">Solutioning</div>
+              <p className="cs-ri-text whitespace-pre-line">
+                {decision.designResponse}
+              </p>
             </div>
           </div>
-        </>
-      )}
+        )}
+
+        {displayImages.length > 0 && (
+          <div className="cs-visual-wrap">
+            {displayImages.map((image, imageIndex) => {
+              const isVideo = /\.(mov|mp4|webm)(\?|$)/i.test(image.src);
+              return (
+                <div
+                  key={imageIndex}
+                  className="cs-visual-frame"
+                  style={{
+                    marginBottom:
+                      imageIndex < displayImages.length - 1 ? "16px" : 0,
+                  }}
+                >
+                  <div className="cs-visual-img">
+                    {isVideo ? (
+                      <video
+                        src={image.src}
+                        controls
+                        playsInline
+                        className="w-full aspect-video object-contain"
+                        aria-label={image.alt}
+                      />
+                    ) : (
+                      <div className="relative w-full aspect-video">
+                        <MotionImage
+                          src={image.src}
+                          alt={image.alt}
+                          caption={image.caption}
+                          fill
+                          objectFit="contain"
+                          lightbox
+                        />
+                      </div>
+                    )}
+                  </div>
+                  {image.caption && (
+                    <div className="cs-visual-caption">{image.caption}</div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -19,6 +19,8 @@ export interface CaseStudy {
       title: string;
       content: string;
       expandedContent?: string;
+      /** Optional sub header shown above the visuals container */
+      visualsTitle?: string;
       /** Optional visuals: one container per item, rendered one below the other. Omit src for an empty container. */
       images?: Array<{
         src?: string;
@@ -27,6 +29,38 @@ export interface CaseStudy {
         /** Tooltip shown when hovering over the image (for lightbox thumbnails) */
         hoverTooltip?: string;
       }>;
+      /** Optional subsection after the divider (e.g. Approach): title, goal, content, bullets */
+      afterDivider?: {
+        title: string;
+        goal?: string;
+        content?: string;
+        bullets?: string[];
+      };
+      /** Optional subsection after the Approach divider (e.g. Secondary Research): title + content (use \\n\\n for paragraphs) */
+      afterApproachDivider?: {
+        title: string;
+        content: string;
+      };
+      /** Optional subsection after Secondary Research (divider + Personas): title, intro, bullets, content */
+      afterSecondaryResearchDivider?: {
+        title: string;
+        intro: string;
+        bullets?: string[];
+        content: string;
+      };
+      /** Optional subsection after Personas (divider + e.g. System-Level Exploration): title, intro, bullets, content, optional workflows */
+      afterPersonasDivider?: {
+        title: string;
+        intro: string;
+        bullets?: string[];
+        content: string;
+        /** Optional workflow list: intro, items (title + description), closing */
+        workflowsIntro?: string;
+        workflows?: Array<{ title: string; description: string }>;
+        workflowsClosing?: string;
+        /** Optional images shown one below the other (e.g. Flow 1, Flow 2) */
+        images?: Array<{ src: string; alt?: string; caption?: string }>;
+      };
     };
     constraints: Array<{
       title?: string;
@@ -36,9 +70,11 @@ export interface CaseStudy {
     }>;
     decisions: Array<{
       title: string;
-      description: string;
+      description?: string;
       rationale: string;
       impact: string;
+      /** Optional "Solutioning" paragraph(s), shown after Rationale/Impact */
+      designResponse?: string;
       images?: Array<{
         src: string;
         alt: string;
@@ -59,6 +95,10 @@ export interface CaseStudy {
     image?: {
       src: string;
       alt: string;
+      caption?: string;
+    };
+    video?: {
+      src: string;
       caption?: string;
     };
   }>;
@@ -175,13 +215,24 @@ export const omantelCase: CaseStudy = {
   visualsSections: [
     {
       image: {
-        src: "/Noteworthy-1.png",
+        src: "/Omantel%20assets/Noteworthy%201.png",
         alt: "Noteworthy visual",
-        caption: "Noteworthy 1",
+        caption: "Positioning the entry point of the bulk action flow for the user.",
       },
     },
-    {},
-    {},
-    {},
+    {
+      image: {
+        src: "/Omantel%20assets/Noteworthy%202.png",
+        alt: "Noteworthy visual 2",
+        caption: "Evolution of the bulk actions request submission flow",
+      },
+    },
+    {
+      image: {
+        src: "/Omantel%20assets/Noteworthy%203.gif",
+        alt: "Noteworthy 3",
+        caption: "The column configurator",
+      },
+    },
   ],
 };

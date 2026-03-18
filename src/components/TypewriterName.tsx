@@ -51,16 +51,13 @@ export function TypewriterName() {
   };
 
   return (
-    <motion.h1
+    <motion.span
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="text-2xl md:text-3xl font-semibold tracking-tight"
+      className="typewriter-name inline-block text-xl md:text-2xl font-semibold tracking-tight text-white"
     >
       {text}
-      {isTyping && (
-        <span className="ml-[2px] animate-pulse">|</span>
-      )}
-    </motion.h1>
+    </motion.span>
   );
 }

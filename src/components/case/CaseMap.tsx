@@ -1,94 +1,54 @@
 "use client";
 
+import { useState } from "react";
 import type { CaseStudy } from "@/case-studies/omantel";
 import { Collapsible } from "./Collapsible";
 import { DecisionBlock } from "./DecisionBlock";
 import { MotionSection } from "./MotionSection";
 import { MotionImage } from "./MotionImage";
 import { Problem } from "./Problem";
+import { X } from "lucide-react";
 
 interface CaseMapProps {
   caseStudy: CaseStudy;
 }
 
 export function CaseMap({ caseStudy }: CaseMapProps) {
-  return (
-    <div className="space-y-12">
-      {/* Context Section */}
-      {caseStudy.sections.context && (
-        <MotionSection id="context">
-          <h2 className="text-2xl font-bold text-neutral-900 mb-6">Context</h2>
-          <p className="text-base text-neutral-700 leading-relaxed whitespace-pre-line">
-            {caseStudy.sections.context}
-          </p>
-        </MotionSection>
-      )}
+  const [noteworthyFullViewIndex, setNoteworthyFullViewIndex] = useState<number | null>(null);
 
+  return (
+    <div>
       {/* Problem Section */}
       {caseStudy.sections.problem.length > 0 && (
-        <MotionSection id="problem">
-          <div className="relative mb-6">
-            <h2 className="text-2xl font-bold text-neutral-900 relative inline-block">
-              <span className="relative inline-block">
-                Problem
-                <svg
-                  className="absolute -bottom-2"
-                  width="100"
-                  height="14"
-                  viewBox="0 0 100 14"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ right: "-10px" }}
-                >
-                  {/* Top arc - longer */}
-                  <path
-                    d="M 0 5 Q 25 1, 50 3 T 80 5"
-                    stroke="#FF8D28"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    fill="none"
-                    style={{
-                      filter: "drop-shadow(0 0 0.5px rgba(255, 141, 40, 0.3))",
-                    }}
-                  />
-                  {/* Bottom arc - shorter, curves upward, 2px gap */}
-                  <path
-                    d="M 15 10 Q 35 6, 50 7 T 60 8"
-                    stroke="#FF8D28"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    fill="none"
-                    style={{
-                      filter: "drop-shadow(0 0 0.5px rgba(255, 141, 40, 0.3))",
-                    }}
-                  />
-                </svg>
-              </span>
-            </h2>
-          </div>
+        <MotionSection id="problem" title="Problem">
           <Problem problem={caseStudy.sections.problem} />
         </MotionSection>
       )}
 
       {/* Understanding Section (collapsible) */}
       {caseStudy.sections.understanding && (
-        <MotionSection id="understanding">
-          <Collapsible title={caseStudy.sections.understanding.title}>
-            <div className="text-base text-neutral-700 leading-relaxed">
+        <MotionSection id="understanding" title={caseStudy.sections.understanding.title}>
+          <Collapsible title={caseStudy.sections.understanding.title} hideTitle>
+            <div className="case-body text-neutral-700 dark:text-neutral-300">
               {(() => {
                 const lines = caseStudy.sections.understanding.content
                   .split("\n")
                   .filter((line) => line.trim());
                 const bulletPoints: string[] = [];
                 const textParts: string[] = [];
+                let showDividerAfterVisuals = false;
                 lines.forEach((line) => {
                   const trimmed = line.trim();
                   if (trimmed.startsWith("•")) {
                     bulletPoints.push(trimmed.replace(/^•\s*/, ""));
+                  } else if (trimmed === "---") {
+                    showDividerAfterVisuals = true;
                   } else if (trimmed) {
                     textParts.push(trimmed);
                   }
                 });
+                const images = caseStudy.sections.understanding.images ?? [];
+                const hasVisualsBlock = showDividerAfterVisuals || images.length > 0;
                 return (
                   <>
                     {textParts.map((para, i) => (
@@ -104,82 +64,257 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
                       </ul>
                     )}
                     {caseStudy.sections.understanding.expandedContent && (
-                      <p className="mt-4 text-sm text-neutral-600 italic">
+                      <p className="mt-4 case-body text-neutral-600 dark:text-neutral-400 italic">
                         {caseStudy.sections.understanding.expandedContent}
                       </p>
+                    )}
+                    {hasVisualsBlock && (
+                      <div className="case-divider mt-6 pt-6 border-t border-[var(--case-border)] space-y-6">
+                        {caseStudy.sections.understanding.visualsTitle && (
+                          <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100 mb-3">
+                            {caseStudy.sections.understanding.visualsTitle}
+                          </h3>
+                        )}
+                        {images.length > 0 ? (
+                          images.map((img, idx) => (
+                            <div key={idx} className="w-full">
+                              {img.src ? (
+                                <MotionImage
+                                  src={img.src}
+                                  alt={img.alt ?? "Understanding visual"}
+                                  caption={img.caption}
+                                  fill
+                                  objectFit="contain"
+                                  lightbox
+                                  hoverTooltip={img.hoverTooltip}
+                                />
+                              ) : (
+                                <div className="w-full aspect-video rounded-xl border border-[var(--case-border)] bg-[var(--background)]" />
+                              )}
+                            </div>
+                          ))
+                        ) : (
+                          <div className="min-h-[120px] rounded-xl border border-[var(--case-border)] bg-[var(--background)]" aria-label="Visuals placeholder" />
+                        )}
+                      </div>
+                    )}
+                    {showDividerAfterVisuals && (
+                      <hr className="border-[var(--case-border)] my-6" aria-hidden />
+                    )}
+                    {showDividerAfterVisuals &&
+                      caseStudy.sections.understanding.afterDivider && (
+                        <div className="mt-6">
+                          <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100 mb-3">
+                            {caseStudy.sections.understanding.afterDivider.title}
+                          </h3>
+                          {caseStudy.sections.understanding.afterDivider.goal && (
+                            <p className="mb-4">
+                              <span className="font-bold text-neutral-800 dark:text-neutral-200">Goal :</span>{" "}
+                              {caseStudy.sections.understanding.afterDivider.goal}
+                            </p>
+                          )}
+                          {caseStudy.sections.understanding.afterDivider.content && (
+                            <p className="mb-4">
+                              {caseStudy.sections.understanding.afterDivider.content}
+                            </p>
+                          )}
+                          {caseStudy.sections.understanding.afterDivider.bullets &&
+                            caseStudy.sections.understanding.afterDivider.bullets.length > 0 && (
+                              <ul className="list-disc list-inside space-y-2 ml-4">
+                                {caseStudy.sections.understanding.afterDivider.bullets.map(
+                                  (item, i) => (
+                                    <li key={i}>{item}</li>
+                                  )
+                                )}
+                              </ul>
+                            )}
+                        </div>
+                      )}
+                    {showDividerAfterVisuals &&
+                      caseStudy.sections.understanding.afterDivider && (
+                        <hr className="border-[var(--case-border)] my-6" aria-hidden />
+                      )}
+                    {showDividerAfterVisuals &&
+                      caseStudy.sections.understanding.afterApproachDivider && (
+                        <div className="mt-6">
+                          <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100 mb-3">
+                            {caseStudy.sections.understanding.afterApproachDivider.title}
+                          </h3>
+                          <div className="space-y-4">
+                            {caseStudy.sections.understanding.afterApproachDivider.content
+                              .split("\n\n")
+                              .filter((p) => p.trim())
+                              .map((para, i) => (
+                                <p key={i} className="mb-0">
+                                  {para.trim()}
+                                </p>
+                              ))}
+                          </div>
+                        </div>
+                      )}
+                    {caseStudy.sections.understanding.afterSecondaryResearchDivider && (
+                      <>
+                        <hr className="border-[var(--case-border)] my-6" aria-hidden />
+                        <div className="mt-6">
+                          <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100 mb-3">
+                            {caseStudy.sections.understanding.afterSecondaryResearchDivider.title}
+                          </h3>
+                          {caseStudy.sections.understanding.afterSecondaryResearchDivider.intro && (
+                            <div className="space-y-4 mb-4">
+                              {caseStudy.sections.understanding.afterSecondaryResearchDivider.intro
+                                .split("\n\n")
+                                .filter((p) => p.trim())
+                                .map((para, i) => (
+                                  <p key={i} className="mb-0">
+                                    {para.trim()}
+                                  </p>
+                                ))}
+                            </div>
+                          )}
+                          {caseStudy.sections.understanding.afterSecondaryResearchDivider.bullets &&
+                            caseStudy.sections.understanding.afterSecondaryResearchDivider.bullets
+                              .length > 0 && (
+                              <ul className="list-disc list-inside space-y-2 ml-4 mb-4">
+                                {caseStudy.sections.understanding.afterSecondaryResearchDivider.bullets.map(
+                                  (item, i) => (
+                                    <li key={i}>{item}</li>
+                                  )
+                                )}
+                              </ul>
+                            )}
+                          {caseStudy.sections.understanding.afterSecondaryResearchDivider.content && (
+                            <div className="space-y-4">
+                              {caseStudy.sections.understanding.afterSecondaryResearchDivider.content
+                                .split("\n\n")
+                                .filter((p) => p.trim())
+                                .map((para, i) => (
+                                  <p key={i} className="mb-0">
+                                    {para.trim()}
+                                  </p>
+                                ))}
+                            </div>
+                          )}
+                        </div>
+                      </>
+                    )}
+                    {caseStudy.sections.understanding.afterPersonasDivider && (
+                      <>
+                        <hr className="border-[var(--case-border)] my-6" aria-hidden />
+                        <div className="mt-6">
+                          <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100 mb-3">
+                            {caseStudy.sections.understanding.afterPersonasDivider.title}
+                          </h3>
+                          {caseStudy.sections.understanding.afterPersonasDivider.intro && (
+                            <div className="space-y-4 mb-4">
+                              {caseStudy.sections.understanding.afterPersonasDivider.intro
+                                .split("\n\n")
+                                .filter((p) => p.trim())
+                                .map((para, i) => (
+                                  <p key={i} className="mb-0">
+                                    {para.trim()}
+                                  </p>
+                                ))}
+                            </div>
+                          )}
+                          {caseStudy.sections.understanding.afterPersonasDivider.bullets &&
+                            caseStudy.sections.understanding.afterPersonasDivider.bullets.length >
+                              0 && (
+                              <ul className="list-disc list-inside space-y-2 ml-4 mb-4">
+                                {caseStudy.sections.understanding.afterPersonasDivider.bullets.map(
+                                  (item, i) => (
+                                    <li key={i}>{item}</li>
+                                  )
+                                )}
+                              </ul>
+                            )}
+                          {caseStudy.sections.understanding.afterPersonasDivider.content && (
+                            <div className="space-y-4">
+                              {caseStudy.sections.understanding.afterPersonasDivider.content
+                                .split("\n\n")
+                                .filter((p) => p.trim())
+                                .map((para, i) => (
+                                  <p key={i} className="mb-0">
+                                    {para.trim()}
+                                  </p>
+                                ))}
+                            </div>
+                          )}
+                          {caseStudy.sections.understanding.afterPersonasDivider.images &&
+                            caseStudy.sections.understanding.afterPersonasDivider.images.length >
+                              0 && (
+                              <div className="grid grid-cols-1 gap-4 w-full max-w-full mt-6">
+                                {caseStudy.sections.understanding.afterPersonasDivider.images.map(
+                                  (img, i) => (
+                                    <MotionImage
+                                      key={i}
+                                      src={img.src}
+                                      alt={img.alt ?? ""}
+                                      caption={img.caption}
+                                      fill
+                                      objectFit="contain"
+                                      lightbox
+                                    />
+                                  )
+                                )}
+                              </div>
+                            )}
+                          {(caseStudy.sections.understanding.afterPersonasDivider.workflowsIntro ||
+                            caseStudy.sections.understanding.afterPersonasDivider.workflows?.length ||
+                            caseStudy.sections.understanding.afterPersonasDivider.workflowsClosing) && (
+                            <Collapsible
+                              title="Exploring high frequency workflows"
+                              className="mt-6"
+                            >
+                              <div className="case-body text-neutral-700 dark:text-neutral-300">
+                                {caseStudy.sections.understanding.afterPersonasDivider.workflowsIntro && (
+                                  <p className="mb-4">
+                                    {caseStudy.sections.understanding.afterPersonasDivider.workflowsIntro}
+                                  </p>
+                                )}
+                                {caseStudy.sections.understanding.afterPersonasDivider.workflows &&
+                                  caseStudy.sections.understanding.afterPersonasDivider.workflows
+                                    .length > 0 && (
+                                    <ul className="space-y-4 mb-4 list-none ml-0">
+                                      {caseStudy.sections.understanding.afterPersonasDivider.workflows.map(
+                                        (item, i) => (
+                                          <li key={i}>
+                                            <strong className="text-neutral-900 dark:text-neutral-100">
+                                              {item.title}
+                                            </strong>
+                                            <br />
+                                            <span className="text-neutral-700 dark:text-neutral-300">
+                                              {item.description}
+                                            </span>
+                                          </li>
+                                        )
+                                      )}
+                                    </ul>
+                                  )}
+                                {caseStudy.sections.understanding.afterPersonasDivider.workflowsClosing && (
+                                  <p className="mb-0">
+                                    {
+                                      caseStudy.sections.understanding.afterPersonasDivider
+                                        .workflowsClosing
+                                    }
+                                  </p>
+                                )}
+                              </div>
+                            </Collapsible>
+                          )}
+                        </div>
+                      </>
                     )}
                   </>
                 );
               })()}
             </div>
-            {caseStudy.sections.understanding.images &&
-              caseStudy.sections.understanding.images.length > 0 && (
-                <div className="mt-6 pt-6 border-t border-neutral-200/50 space-y-6">
-                  {caseStudy.sections.understanding.images.map((img, idx) => (
-                    <div key={idx} className="w-full">
-                      {img.src ? (
-                        <MotionImage
-                          src={img.src}
-                          alt={img.alt ?? "Understanding visual"}
-                          caption={img.caption}
-                          fill
-                          objectFit="contain"
-                          lightbox
-                          hoverTooltip={img.hoverTooltip}
-                        />
-                      ) : (
-                        <div className="w-full aspect-video rounded-xl border border-neutral-200/50 bg-neutral-100" />
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
           </Collapsible>
         </MotionSection>
       )}
 
       {/* Constraints Section */}
       {caseStudy.sections.constraints.length > 0 && (
-        <MotionSection id="constraints">
-          <div className="relative mb-6">
-            <h2 className="text-2xl font-bold text-neutral-900 relative inline-block">
-              <span className="relative inline-block">
-                Constraints
-                <svg
-                  className="absolute -bottom-2"
-                  width="120"
-                  height="14"
-                  viewBox="0 0 120 14"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ right: "0" }}
-                >
-                  {/* Top arc - longer */}
-                  <path
-                    d="M 0 5 Q 30 1, 60 3 T 96 5"
-                    stroke="#FF8D28"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    fill="none"
-                    style={{
-                      filter: "drop-shadow(0 0 0.5px rgba(255, 141, 40, 0.3))",
-                    }}
-                  />
-                  {/* Bottom arc - shorter, curves upward, 2px gap */}
-                  <path
-                    d="M 20 10 Q 40 6, 60 7 T 72 8"
-                    stroke="#FF8D28"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    fill="none"
-                    style={{
-                      filter: "drop-shadow(0 0 0.5px rgba(255, 141, 40, 0.3))",
-                    }}
-                  />
-                </svg>
-              </span>
-            </h2>
-          </div>
+        <MotionSection id="constraints" title="Constraints">
           <div className="space-y-4">
             {caseStudy.sections.constraints.map((item, index) => {
               if (item.collapsible && item.title) {
@@ -203,7 +338,7 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
 
                 return (
                   <Collapsible key={index} title={item.title}>
-                    <div className="text-base text-neutral-700 leading-relaxed">
+                    <div className="case-body text-neutral-700 dark:text-neutral-300">
                       {textParts.map((para, paraIndex) => (
                         <p key={paraIndex} className="mb-4">{para}</p>
                       ))}
@@ -218,7 +353,7 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
                         <p className="mb-4">{conclusion}</p>
                       )}
                       {item.expandedContent && (
-                        <p className="mt-4 text-sm text-neutral-600 italic">
+                        <p className="mt-4 case-body text-neutral-600 dark:text-neutral-400 italic">
                           {item.expandedContent}
                         </p>
                       )}
@@ -229,11 +364,11 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
               return (
                 <div key={index} className="mb-6">
                   {item.title && (
-                    <h3 className="text-xl font-semibold text-neutral-900 mb-3">
+                    <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100 mb-3">
                       {item.title}
                     </h3>
                   )}
-                  <div className="text-base text-neutral-700 leading-relaxed">
+                  <div className="case-body text-neutral-700 dark:text-neutral-300">
                     {(() => {
                       const lines = item.content.split('\n').filter(line => line.trim());
                       const bulletPoints: string[] = [];
@@ -279,50 +414,12 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
 
       {/* Decisions Section */}
       {caseStudy.sections.decisions.length > 0 && (
-        <MotionSection id="decisions">
-          <div className="relative mb-6">
-            <h2 className="text-2xl font-bold text-neutral-900 relative inline-block">
-              Key{" "}
-              <span className="relative inline-block">
-                Decisions
-                <svg
-                  className="absolute -bottom-2"
-                  width="120"
-                  height="14"
-                  viewBox="0 0 120 14"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ right: "0" }}
-                >
-                  {/* Top arc - longer */}
-                  <path
-                    d="M 0 5 Q 30 1, 60 3 T 96 5"
-                    stroke="#FF8D28"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    fill="none"
-                    style={{
-                      filter: "drop-shadow(0 0 0.5px rgba(255, 141, 40, 0.3))",
-                    }}
-                  />
-                  {/* Bottom arc - shorter, curves upward, 2px gap */}
-                  <path
-                    d="M 20 10 Q 40 6, 60 7 T 72 8"
-                    stroke="#FF8D28"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    fill="none"
-                    style={{
-                      filter: "drop-shadow(0 0 0.5px rgba(255, 141, 40, 0.3))",
-                    }}
-                  />
-                </svg>
-              </span>
-            </h2>
-          </div>
-          <div className="space-y-4">
+        <MotionSection id="decisions" title="Key Decisions">
+          <div className="space-y-0">
             {caseStudy.sections.decisions.map((decision, index) => (
-              <DecisionBlock key={index} decision={decision} index={index} />
+              <div key={index} className="case-decision-card">
+                <DecisionBlock decision={decision} index={index} />
+              </div>
             ))}
           </div>
         </MotionSection>
@@ -330,48 +427,8 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
 
       {/* Outcome and Impact Section */}
       {caseStudy.sections.outcome && (
-        <MotionSection id="outcome">
-          <div className="relative mb-6">
-            <h2 className="text-2xl font-bold text-neutral-900 relative inline-block">
-              Outcome and{" "}
-              <span className="relative inline-block">
-                Impact
-                <svg
-                  className="absolute -bottom-2"
-                  width="120"
-                  height="14"
-                  viewBox="0 0 120 14"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ right: "0" }}
-                >
-                  {/* Top arc - longer */}
-                  <path
-                    d="M 0 5 Q 30 1, 60 3 T 96 5"
-                    stroke="#FF8D28"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    fill="none"
-                    style={{
-                      filter: "drop-shadow(0 0 0.5px rgba(255, 141, 40, 0.3))",
-                    }}
-                  />
-                  {/* Bottom arc - shorter, curves upward, 2px gap */}
-                  <path
-                    d="M 20 10 Q 40 6, 60 7 T 72 8"
-                    stroke="#FF8D28"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    fill="none"
-                    style={{
-                      filter: "drop-shadow(0 0 0.5px rgba(255, 141, 40, 0.3))",
-                    }}
-                  />
-                </svg>
-              </span>
-            </h2>
-          </div>
-          <div className="text-base text-neutral-700 leading-relaxed">
+        <MotionSection id="outcome" title="Outcome and Impact">
+          <div className="case-body opacity-90">
             {(() => {
               const lines = caseStudy.sections.outcome.split('\n').filter(line => line.trim());
               const bulletPoints: string[] = [];
@@ -402,52 +459,22 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
               );
             })()}
           </div>
+          <figure className="mt-8 w-full overflow-hidden rounded-xl border-[var(--case-border)] border bg-[var(--background)] flex items-center justify-center min-h-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/Outcome_new.gif"
+              alt="Outcome"
+              className="w-full max-w-full h-auto object-contain"
+              style={{ display: "block" }}
+            />
+          </figure>
         </MotionSection>
       )}
 
       {/* Reflection Section */}
       {caseStudy.sections.reflection && (
-        <MotionSection id="reflection">
-          <div className="relative mb-6">
-            <h2 className="text-2xl font-bold text-neutral-900 relative inline-block">
-              <span className="relative inline-block">
-                Reflection
-                <svg
-                  className="absolute -bottom-2"
-                  width="120"
-                  height="14"
-                  viewBox="0 0 120 14"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ right: "0" }}
-                >
-                  {/* Top arc - longer */}
-                  <path
-                    d="M 0 5 Q 30 1, 60 3 T 96 5"
-                    stroke="#FF8D28"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    fill="none"
-                    style={{
-                      filter: "drop-shadow(0 0 0.5px rgba(255, 141, 40, 0.3))",
-                    }}
-                  />
-                  {/* Bottom arc - shorter, curves upward, 2px gap */}
-                  <path
-                    d="M 20 10 Q 40 6, 60 7 T 72 8"
-                    stroke="#FF8D28"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    fill="none"
-                    style={{
-                      filter: "drop-shadow(0 0 0.5px rgba(255, 141, 40, 0.3))",
-                    }}
-                  />
-                </svg>
-              </span>
-            </h2>
-          </div>
-          <p className="text-base text-neutral-700 leading-relaxed whitespace-pre-line">
+        <MotionSection id="reflection" title="Reflection">
+          <p className="case-body whitespace-pre-line opacity-90">
             {caseStudy.sections.reflection}
           </p>
         </MotionSection>
@@ -455,8 +482,7 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
 
       {/* Images (legacy) */}
       {caseStudy.images && caseStudy.images.length > 0 && !caseStudy.visualsSections && (
-        <MotionSection id="visuals">
-          <h2 className="text-2xl font-bold text-neutral-900 mb-6">Visuals</h2>
+        <MotionSection id="visuals" title="Visuals">
           <div className="space-y-6">
             {caseStudy.images.map((image, index) => (
               <MotionImage
@@ -471,36 +497,98 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
         </MotionSection>
       )}
 
-      {/* Noteworthy iterations – 4 sections one below the other */}
+      {/* Noteworthy iterations – cs visual style, click to open full view */}
       {caseStudy.visualsSections && caseStudy.visualsSections.length > 0 && (
-        <MotionSection id="visuals">
-          <h2 className="text-2xl font-bold text-neutral-900 mb-6">Noteworthy iterations</h2>
-          <div className="space-y-10">
-            {caseStudy.visualsSections.map((section, index) => (
-              <div key={index} className="border-b border-neutral-200/50 pb-10 last:border-0 last:pb-0">
-                {section.title && (
-                  <h3 className="text-lg font-semibold text-neutral-900 mb-4">{section.title}</h3>
-                )}
-                {section.image && (
-                  <figure className="rounded-xl overflow-hidden border border-neutral-200/50 w-full">
-                    <div className="relative w-full aspect-video bg-neutral-100">
+        <MotionSection id="visuals" title="Noteworthy iterations">
+          <div className="cs-noteworthy-grid">
+            {caseStudy.visualsSections.map((section, index) => {
+              const media = section.image || section.video;
+              if (!media) return null;
+              const caption = section.image?.caption ?? section.video?.caption;
+              return (
+                <button
+                  key={index}
+                  type="button"
+                  className="cs-visual-frame cs-visual-clickable"
+                  onClick={() => setNoteworthyFullViewIndex(index)}
+                  aria-label={section.image ? section.image.alt : "View video"}
+                >
+                  <div className="cs-visual-img">
+                    {section.image ? (
                       <img
                         src={section.image.src}
                         alt={section.image.alt}
-                        className="w-full h-full object-contain"
-                        style={{ display: "block" }}
+                        className="w-full h-auto block object-contain"
                       />
-                    </div>
-                    {section.image.caption && (
-                      <figcaption className="p-4 bg-neutral-50 text-sm text-neutral-600">
-                        {section.image.caption}
-                      </figcaption>
-                    )}
-                  </figure>
-                )}
-              </div>
-            ))}
+                    ) : section.video ? (
+                      <video
+                        src={section.video.src}
+                        className="w-full block"
+                        muted
+                        playsInline
+                        preload="metadata"
+                      />
+                    ) : null}
+                  </div>
+                  {caption && (
+                    <div className="cs-visual-caption">{caption}</div>
+                  )}
+                </button>
+              );
+            })}
           </div>
+
+          {/* Full-view lightbox */}
+          {noteworthyFullViewIndex !== null && (() => {
+            const section = caseStudy.visualsSections![noteworthyFullViewIndex];
+            if (!section) return null;
+            const caption = section.image?.caption ?? section.video?.caption;
+            return (
+              <div
+                className="noteworthy-lightbox"
+                role="dialog"
+                aria-modal="true"
+                aria-label="Full view"
+                onClick={() => setNoteworthyFullViewIndex(null)}
+              >
+                <button
+                  type="button"
+                  className="noteworthy-lightbox-close"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setNoteworthyFullViewIndex(null);
+                  }}
+                  aria-label="Close"
+                >
+                  <X size={24} strokeWidth={1.5} />
+                </button>
+                <div
+                  className="noteworthy-lightbox-inner"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {section.image ? (
+                    <img
+                      src={section.image.src}
+                      alt={section.image.alt}
+                      className="noteworthy-lightbox-media"
+                    />
+                  ) : section.video ? (
+                    <video
+                      src={section.video.src}
+                      controls
+                      autoPlay
+                      className="noteworthy-lightbox-media"
+                    >
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : null}
+                  {caption && (
+                    <p className="noteworthy-lightbox-caption">{caption}</p>
+                  )}
+                </div>
+              </div>
+            );
+          })()}
         </MotionSection>
       )}
     </div>

@@ -28,7 +28,7 @@ export function Problem({ problem }: ProblemProps) {
 
             return (
               <Collapsible key={index} title={item.title}>
-                <div className="text-base text-neutral-700 leading-relaxed">
+                <div className="case-body opacity-90">
                   <ol className="list-decimal list-inside space-y-2 mb-4 ml-2">
                     {bulletPoints.map((point, pointIndex) => (
                       <li key={pointIndex}>{point.replace(/^\d+\.\s*/, '')}</li>
@@ -44,11 +44,11 @@ export function Problem({ problem }: ProblemProps) {
           return (
             <div key={index} className="mb-6">
               {item.title && (
-                <h3 className="text-xl font-semibold text-neutral-900 mb-3">
+                <h3 className="case-subsection-title">
                   {item.title}
                 </h3>
               )}
-              <p className="text-base text-neutral-700 leading-relaxed whitespace-pre-line">
+              <p className="case-body whitespace-pre-line opacity-90">
                 {item.content}
               </p>
             </div>

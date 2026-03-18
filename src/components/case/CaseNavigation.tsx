@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface CaseNavigationProps {
@@ -10,14 +9,27 @@ interface CaseNavigationProps {
     label: string;
   }>;
   className?: string;
+  variant?: "default" | "voice-garden" | "cs";
 }
 
-export function CaseNavigation({ sections, className }: CaseNavigationProps) {
-  const [activeSection, setActiveSection] = useState<string>(sections[0]?.id || "");
+function pad(i: number): string {
+  return String(i).padStart(2, "0");
+}
+
+export function CaseNavigation({ sections, className, variant = "default" }: CaseNavigationProps) {
+  const [activeSection, setActiveSection] = useState<string>(sections[0]?.id ?? "");
+  const activeTabRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (hash && sections.some((s) => s.id === hash)) {
+      setActiveSection(hash);
+    }
+  }, [sections]);
 
   useEffect(() => {
     const observerOptions = {
-      rootMargin: "-80px 0px -80% 0px",
+      rootMargin: "-140px 0px -50% 0px",
       threshold: 0,
     };
 
@@ -48,6 +60,15 @@ export function CaseNavigation({ sections, className }: CaseNavigationProps) {
     };
   }, [sections]);
 
+  useEffect(() => {
+    if (variant !== "cs") return;
+    activeTabRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+  }, [activeSection, variant]);
+
   const handleClick = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -56,37 +77,33 @@ export function CaseNavigation({ sections, className }: CaseNavigationProps) {
     }
   };
 
+  const isVg = variant === "voice-garden";
+  const isCs = variant === "cs";
+  const content = sections.map(({ id, label }, index) => {
+    const active = activeSection === id;
+    return (
+      <button
+        key={id}
+        type="button"
+        ref={isCs && active ? activeTabRef : undefined}
+        data-section={id}
+        onClick={() => handleClick(id)}
+        className={cn(
+          isCs ? "cs-tab" : isVg ? "vg-nav-item" : "case-nav-item text-left",
+          active && "active"
+        )}
+      >
+        {isCs || isVg ? label : `${pad(index + 1)} ${label.toUpperCase()}`}
+      </button>
+    );
+  });
+
+  if (isVg || isCs) {
+    return <>{content}</>;
+  }
   return (
-    <nav className={cn("case-navigation", className)}>
-      <ul className="flex flex-col gap-2">
-        {sections.map(({ id, label }) => {
-          const active = activeSection === id;
-          return (
-            <motion.li
-              key={id}
-              animate={{ opacity: active ? 1 : 0.5 }}
-              transition={{ duration: 0.2 }}
-              className="cursor-pointer"
-              onClick={() => handleClick(id)}
-            >
-              <button
-                className={cn(
-                  "text-sm font-medium text-neutral-900 hover:text-neutral-700 transition-colors text-left relative pl-3",
-                  active && "font-semibold"
-                )}
-              >
-                {active && (
-                  <span
-                    className="absolute left-0 top-0 bottom-0 w-0.5 rounded-full"
-                    style={{ backgroundColor: "#FF8D28" }}
-                  />
-                )}
-                {label}
-              </button>
-            </motion.li>
-          );
-        })}
-      </ul>
+    <nav className={cn("flex flex-col min-h-0", className)}>
+      {content}
     </nav>
   );
 }

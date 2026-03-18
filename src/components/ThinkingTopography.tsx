@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 const COLORS = ["#966EA0", "#CBADDE", "#223057"];
 
@@ -280,13 +281,21 @@ export default function ThinkingTopography({
 
   if (!enabled) return null;
 
-  return (
+  const canvas = (
     <canvas
       id="thinking-topography"
       ref={canvasRef}
+      className="pointer-events-none"
       style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 0,
         opacity,
       }}
     />
   );
+
+  return typeof document !== "undefined"
+    ? createPortal(canvas, document.body)
+    : null;
 }

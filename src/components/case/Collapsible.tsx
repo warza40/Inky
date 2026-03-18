@@ -1,45 +1,39 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface CollapsibleProps {
   children: React.ReactNode;
   title?: string;
   className?: string;
+  /** When true, only show the reveal control (for use under a section header) */
+  hideTitle?: boolean;
 }
 
-export function Collapsible({ children, title, className }: CollapsibleProps) {
+export function Collapsible({ children, title, className, hideTitle }: CollapsibleProps) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className={cn("collapsible", className)}>
+    <div className={cn("cs-reveal-wrapper", open && "open", className)}>
       <button
+        type="button"
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between p-4 bg-neutral-50 hover:bg-neutral-100 transition-colors text-left rounded-xl border border-neutral-200/50 mb-2"
+        className={cn("cs-reveal", open && "open")}
+        aria-expanded={open}
       >
-        {title && <h3 className="text-lg font-semibold text-neutral-900">{title}</h3>}
-        <span className="text-sm font-medium text-neutral-600 ml-auto">
-          {open ? "Hide details ↑" : "Reveal details ↓"}
+        <span className="cs-reveal-label">{title ?? "Details"}</span>
+        <span className="cs-reveal-btn">
+          {open ? "Hide" : "Reveal"}
+          <span className="cs-reveal-arrow">{open ? "↑" : "↓"}</span>
         </span>
       </button>
 
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="collapsible-content overflow-hidden"
-          >
-            <div className="p-4 bg-white rounded-xl border border-neutral-200/50">
-              {children}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div className={cn("cs-reveal-content", open && "open")}>
+        <div className="cs-reveal-inner pt-4 pb-2">
+          {children}
+        </div>
+      </div>
     </div>
   );
 }

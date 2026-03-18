@@ -15,10 +15,11 @@ const sectionVariants = {
 interface MotionSectionProps {
   children: React.ReactNode;
   id?: string;
+  title?: string;
   className?: string;
 }
 
-export function MotionSection({ children, id, className }: MotionSectionProps) {
+export function MotionSection({ children, id, title, className }: MotionSectionProps) {
   return (
     <motion.section
       id={id}
@@ -26,9 +27,15 @@ export function MotionSection({ children, id, className }: MotionSectionProps) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
-      className={cn("section", className)}
+      className={cn("cs-section", className)}
     >
-      {children}
+      {title != null && (
+        <div className="cs-section-head">
+          <div className="cs-section-bar amber" aria-hidden />
+          <h2 className="cs-section-label">{title}</h2>
+        </div>
+      )}
+      <div className="cs-section-body">{children}</div>
     </motion.section>
   );
 }

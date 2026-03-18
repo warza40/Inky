@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { CaseMain } from "./CaseMain";
 import { CaseNavigation } from "./CaseNavigation";
 import type { CaseStudy } from "@/case-studies/omantel";
+import { CaseStudyDirection } from "./CaseStudyDirection";
 
 interface CaseLayoutProps {
   children: React.ReactNode;
@@ -11,9 +11,12 @@ interface CaseLayoutProps {
   caseStudy?: CaseStudy;
 }
 
+function formatLabel(str: string): string {
+  return str.replace(/\s+/g, " ").trim();
+}
+
 export function CaseLayout({ children, title, subtitle, caseStudy }: CaseLayoutProps) {
-  // Build navigation sections based on available content
-  const sections = [];
+  const sections: Array<{ id: string; label: string }> = [];
   if (caseStudy?.sections.context) {
     sections.push({ id: "context", label: "Context" });
   }
@@ -35,56 +38,74 @@ export function CaseLayout({ children, title, subtitle, caseStudy }: CaseLayoutP
   if (caseStudy?.sections.reflection) {
     sections.push({ id: "reflection", label: "Reflection" });
   }
-  if ((caseStudy?.images && caseStudy.images.length > 0) || (caseStudy?.visualsSections && caseStudy.visualsSections.length > 0)) {
+  if (
+    (caseStudy?.images && caseStudy.images.length > 0) ||
+    (caseStudy?.visualsSections && caseStudy.visualsSections.length > 0)
+  ) {
     sections.push({
       id: "visuals",
       label: caseStudy?.visualsSections?.length ? "Noteworthy iterations" : "Visuals",
     });
   }
 
+  const overview = caseStudy?.overview;
+
   return (
     <CaseMain>
-      <article className="min-h-screen pt-16 pb-12">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="flex gap-12">
-            {/* Navigation Sidebar */}
-            {sections.length > 0 && (
-              <aside className="hidden lg:block w-48 flex-shrink-0 sticky top-24 h-fit">
-                <CaseNavigation sections={sections} />
-              </aside>
-            )}
-
-            {/* Main Content */}
-            <div className="flex-1 max-w-4xl">
-              {/* Back button */}
-              <Link
-                href="/"
-                className="inline-flex items-center gap-2 text-neutral-600 hover:text-neutral-900 transition-colors mb-8"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span>Back to home</span>
-              </Link>
-
-              {/* Header */}
-              <header className="mb-12">
-                <h1 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-4">
-                  {title}
-                </h1>
-                {subtitle && (
-                  <p className="text-xl text-neutral-600 leading-relaxed">
-                    {subtitle}
-                  </p>
-                )}
-              </header>
-
-              {/* Content */}
-              <div className="prose prose-neutral max-w-none">
-                {children}
-              </div>
-            </div>
+      <div className="cs-page">
+        <CaseStudyDirection
+          title={formatLabel(title)}
+          heroGradient={["#E8392A", "#FF8844", "#F5B800"]}
+        />
+        <div className="cs-nav-wrap">
+          <div className="cs-breadcrumb" aria-label="Breadcrumb">
+            <Link href="/" className="cs-bc-home">
+              Home
+            </Link>
+            <span className="cs-bc-sep">/</span>
+            <span className="cs-bc-current">{formatLabel(title)}</span>
           </div>
+          {sections.length > 0 && (
+            <div className="cs-tabs" id="cs-tabs" aria-label="Case sections">
+              <CaseNavigation sections={sections} variant="cs" />
+            </div>
+          )}
         </div>
-      </article>
+
+        <main className="cs-main">
+          <header className="cs-hero fade-in" id="context">
+            {overview && (
+              <div className="cs-meta-row fade-in" style={{ ["--delay" as any]: "80ms" }}>
+                <div className="cs-meta-col">
+                  <div className="cs-meta-label">Role</div>
+                  <div className="cs-meta-val">
+                    {formatLabel(overview.role)}
+                  </div>
+                </div>
+                <div className="cs-meta-col">
+                  <div className="cs-meta-label">Context</div>
+                  <div className="cs-meta-val">
+                    {formatLabel(overview.context)}
+                  </div>
+                </div>
+                <div className="cs-meta-col">
+                  <div className="cs-meta-label">Company</div>
+                  <div className="cs-meta-val">
+                    {formatLabel(overview.company)}
+                  </div>
+                </div>
+              </div>
+            )}
+            {caseStudy?.sections?.context && (
+              <p className="cs-context-text fade-in" style={{ ["--delay" as any]: "120ms" }}>
+                {caseStudy.sections.context}
+              </p>
+            )}
+          </header>
+
+          <div className="cs-content">{children}</div>
+        </main>
+      </div>
     </CaseMain>
   );
 }

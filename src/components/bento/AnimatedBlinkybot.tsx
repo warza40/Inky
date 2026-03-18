@@ -3,18 +3,21 @@
 import Image from "next/image";
 import Link from "next/link";
 
+const SIZE = 100;
+
 export function AnimatedBlinkybot() {
   return (
-    <div className="mb-6 relative h-[84px] overflow-visible">
+    <div className="mb-6 relative overflow-visible" style={{ height: SIZE }}>
       <div className="absolute left-0">
         <Link href="/" className="block">
           <Image
             src="/blinkybot.gif"
             alt="Rachana Mandal"
-            width={84}
-            height={84}
+            width={SIZE}
+            height={SIZE}
             priority
-            className="w-[84px] h-[84px] object-contain"
+            className="object-contain"
+            style={{ width: SIZE, height: SIZE }}
           />
         </Link>
       </div>
