@@ -366,6 +366,7 @@ html.dark .home-page-main,
 .home-layout .hero {
   justify-content: flex-start !important;
   padding: 48px 24px 40px !important;
+  overflow: visible !important; /* keep side arrows visible (avoid clipping) */
 }
 .home-layout .hero-stack-wrap {
   margin-top: 0;
@@ -391,15 +392,20 @@ html.dark .home-page-main,
 }
 
 .home-layout .hero-headline {
-  font-size: clamp(22px, 2.8vw, 36px);
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.025em;
-  max-width: 960px; /* wide enough for the bio to fit in 3 lines */
+  font-size: clamp(16px, 2.2vw, 22px);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  max-width: 960px;
+  margin-left: 0;
+  margin-right: auto;
   margin-bottom: 32px;
+  text-align: left;
 }
 .home-layout .hero-subtitle {
   margin-bottom: 12px;
+  text-align: left;
+  color: #1a1a1a;
 }
 
 @media (min-width: 1280px) {
@@ -407,7 +413,7 @@ html.dark .home-page-main,
     padding: 52px 24px 40px !important;
   }
   .home-layout .hero-headline {
-    font-size: 38px;
+    font-size: 24px;
     max-width: 960px;
     margin-bottom: 36px;
   }
@@ -415,7 +421,7 @@ html.dark .home-page-main,
 
 @media (min-width: 1024px) and (max-width: 1279px) {
   .home-layout .hero-headline {
-    font-size: 32px;
+    font-size: 20px;
     max-width: 960px;
   }
 }
@@ -425,10 +431,10 @@ html.dark .home-page-main,
     padding: 40px 32px 32px !important;
   }
   .home-layout .hero-headline {
-    font-size: 26px;
-    max-width: 704px; /* viewport: 768-64 = 704 */
+    font-size: 18px;
+    max-width: 704px;
     margin-bottom: 28px;
-    line-height: 1.2;
+    line-height: 1.5;
   }
   .home-layout .hero-bio-copy {
     max-width: 704px !important;
@@ -453,10 +459,10 @@ html.dark .home-page-main,
     margin-bottom: 10px;
   }
   .home-layout .hero-headline {
-    font-size: clamp(20px, 5.5vw, 26px);
+    font-size: clamp(15px, 4.5vw, 18px);
     max-width: 100%;
     margin-bottom: 24px;
-    line-height: 1.2;
+    line-height: 1.5;
   }
   .home-layout .hero-bio-copy {
     max-width: 100% !important;
@@ -877,15 +883,15 @@ html.dark .home-page-main,
   margin-bottom: 16px;
 }
 
-/* Role line — centred (homepage-nav-fixes §3, .hero-role) */
+/* Role line — black, left-aligned */
 .hero-subtitle {
   font-family: var(--font-poppins), "Poppins", sans-serif;
   font-size: 13px;
   font-weight: 600;
-  color: #888;
+  color: #1a1a1a;
   letter-spacing: 0.02em;
   margin-bottom: 16px;
-  text-align: center;
+  text-align: left;
   text-wrap: balance;
   white-space: nowrap;
 }
@@ -893,20 +899,20 @@ html.dark .home-page-main,
   color: rgba(255, 255, 255, 0.85);
 }
 
-/* Bio headline — centred, tight max-width (homepage-nav-fixes §2) */
+/* Bio headline — left-aligned, lighter weight */
 .hero-headline {
   font-family: var(--font-poppins), "Poppins", sans-serif;
-  font-size: clamp(20px, 3vw, 30px);
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  font-size: clamp(16px, 2.2vw, 22px);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
   color: #171717;
   max-width: 580px;
-  margin-left: auto;
+  margin-left: 0;
   margin-right: auto;
   margin-top: 0;
   margin-bottom: 0;
-  text-align: center;
+  text-align: left;
   white-space: normal;
   overflow-wrap: break-word;
   hyphens: auto;
@@ -968,6 +974,30 @@ html.dark .home-page-main,
 }
 .dark .home-layout .home-hero-bio {
   color: rgba(255, 255, 255, 0.9);
+}
+
+/* Typewriter name centered in the header */
+.home-header-typewriter {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.home-header-typewriter .typewriter-name {
+  font-family: var(--font-poppins), "Poppins", sans-serif;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em;
+  color: #1a1a1a !important;
+  text-transform: none !important;
+  text-decoration: none;
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .home-header-typewriter { display: none; }
 }
 
 /* Homepage nav — sticky, opaque bg (homepage-nav-fixes) */

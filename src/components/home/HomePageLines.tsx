@@ -20,9 +20,9 @@ export function HomePageLines() {
     <div className="home-layout text-foreground min-h-full flex flex-col">
       <HomepageFixes />
       <header className="home-header" aria-label="Site header">
-        <Link href="/" className="home-header-name">
-          Rachana Mandal
-        </Link>
+        <div className="home-header-typewriter" aria-hidden="true">
+          <TypewriterName />
+        </div>
         <nav className="home-header-ctas" aria-label="Links">
           {NAV_LINKS.map((item) => {
             const Icon = item.icon;
@@ -49,9 +49,6 @@ export function HomePageLines() {
       <section className="hero" aria-label="Hero">
         <HeroBgReact />
         <div className="hero-text">
-          <h1 className="hero-title">
-            <TypewriterName />
-          </h1>
           <div className="hero-bio-copy">
             <p className="hero-subtitle">Senior UX Designer | Strategist</p>
             <p className="hero-headline">
