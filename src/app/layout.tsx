@@ -1,54 +1,59 @@
 import "./globals.css";
 import ThinkingTopography from "@/components/ThinkingTopography";
 import { ThemeProvider } from "@/contexts/ThemeContext";
-import { Questrial, Fraunces, DM_Sans, Inter, Poppins } from "next/font/google";
+import { Lora, Instrument_Serif, DM_Sans, DM_Mono, Noto_Serif_JP } from "next/font/google";
 
-const questrial = Questrial({ weight: "400", variable: "--font-questrial", display: "swap" });
-
-const fraunces = Fraunces({
+const lora = Lora({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-lora",
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-instrument",
   display: "swap",
 });
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
+  weight: ["300", "400", "500"],
   variable: "--font-dm-sans",
   display: "swap",
 });
 
-const inter = Inter({
+const dmMono = DM_Mono({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["300", "400"],
+  variable: "--font-dm-mono",
   display: "swap",
 });
 
-const poppins = Poppins({
+const notoSerifJP = Noto_Serif_JP({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-poppins",
+  weight: ["200", "300"],
+  variable: "--font-noto-jp",
   display: "swap",
 });
 
-const themeScript = `
-(function() {
-  try {
-    var theme = localStorage.getItem('rachana-portfolio-theme');
-    if (theme === 'dark') document.documentElement.classList.add('dark');
-    else document.documentElement.classList.remove('dark');
-  } catch (e) {}
-})();
-`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${questrial.variable} ${fraunces.variable} ${dmSans.variable} ${inter.variable} ${poppins.variable}`}
+      className={`${lora.variable} ${instrumentSerif.variable} ${dmSans.variable} ${dmMono.variable} ${notoSerifJP.variable}`}
     >
-      <body className="nebula-body text-neutral-900 dark:text-neutral-100">
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,300;1,400;1,500&family=Cabinet+Grotesk:wght@700;800;900&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&family=Noto+Serif+JP:wght@200;300&display=swap" rel="stylesheet" />
+      </head>
+      <body className="nebula-body text-neutral-900">
         <ThemeProvider>
           <div className="app-root">
             <ThinkingTopography />
