@@ -2179,6 +2179,9 @@ html.dark .home-page-main,
 @media (max-width: 1024px) {
   .writing-section { padding: 56px 32px 64px; }
   .about-section { padding: 56px 32px 64px; }
+  .about-intro-row {
+    gap: 24px 40px;
+  }
   .wr-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px;
@@ -2187,6 +2190,13 @@ html.dark .home-page-main,
 @media (max-width: 768px) {
   .writing-section { padding: 48px 24px 56px; }
   .about-section { padding: 48px 24px 56px; }
+  .about-intro-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .about-photo-frame {
+    max-width: 220px;
+  }
   .writing-section-header { flex-direction: column; align-items: flex-start; gap: 16px; }
   .wr-info { padding: 8px 12px 10px; gap: 10px; }
   .wr-title { font-size: 14px; }
@@ -2257,18 +2267,71 @@ html.dark .home-page-main,
   background: var(--color-border);
   margin-bottom: 28px;
 }
-.about-section-body {
-  max-width: var(--layout-prose-max);
+.about-intro-row {
+  display: grid;
+  grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
+  gap: 28px 48px;
+  align-items: start;
+  margin-bottom: 28px;
 }
-.about-section-body p {
+.about-photo-frame {
+  margin: 0;
+  max-width: 280px;
+  width: 100%;
+  align-self: start;
+}
+.about-photo-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--color-border);
+  display: block;
+  background: var(--color-ground-tertiary);
+}
+/* About — editorial cards (Warmth DS: stacked bands, peach/grey accent strip + italic body) */
+.about-intro-cards {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--color-ground-primary);
+}
+.about-ed-card {
+  border-bottom: 1px solid var(--color-border);
+  margin: 0;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+.about-ed-card:last-child {
+  border-bottom: none;
+}
+.about-ed-card-strip {
+  display: block;
+  width: 100%;
+  height: 5px;
+  flex-shrink: 0;
+}
+.about-ed-card--warm .about-ed-card-strip {
+  background: var(--color-madder-100);
+}
+.about-ed-card--neutral .about-ed-card-strip {
+  background: var(--color-ground-tertiary);
+}
+.about-ed-card-body {
   font-family: var(--font-serif);
   font-size: 15px;
-  line-height: 1.75;
-  color: var(--color-ink-500);
-  margin: 0 0 1rem;
-}
-.about-section-body p:last-child {
-  margin-bottom: 0;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--color-ink-700);
+  margin: 0;
+  padding: 18px 20px 22px;
 }
 
 /* ── Site footer ─────────────────────────────────── */
@@ -3918,6 +3981,10 @@ body:has(.cs-page) {
   position: relative;
   white-space: nowrap;
   transition: color 200ms cubic-bezier(0.4,0,0.2,1);
+}
+.cs-tab:focus-visible {
+  outline: 2px solid var(--color-madder-700);
+  outline-offset: 4px;
 }
 .cs-tab:hover {
   color: var(--color-ink-700);    /* clear step up, not yet active */

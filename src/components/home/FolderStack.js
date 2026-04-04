@@ -91,6 +91,7 @@ const CSS = `
 .fs-wrapper{display:flex;flex-direction:column;align-items:flex-start;width:460px;font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;}
 .fs-tabs{display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;justify-content:center;gap:10px;margin-bottom:16px;width:100%;}
 .fs-tab{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;padding:8px 14px;font-family:var(--font-inter,'Inter'),system-ui,sans-serif;font-size:13px;font-weight:500;color:#171717;cursor:pointer;border:none;outline:none;background:transparent;border:1px solid rgba(0,0,0,0.2);border-radius:6px;transition:border-color .2s,color .2s,background .2s;}
+.fs-tab:focus-visible{outline:2px solid #c41e3a;outline-offset:2px;}
 .fs-tab:not(.fs-active):hover{border-color:#171717;background:rgba(0,0,0,0.04);}
 .fs-outer{width:460px;padding-top:0;margin-bottom:0;}
 .fs-stack{position:relative;width:460px;height:400px;cursor:pointer;touch-action:pan-y;}

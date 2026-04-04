@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warmth DS — Accessibility Checker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --parchment:  #f5efe4; --paper: #ede6d8; --linen: #e4dccf;
+  --warm-white: #faf7f2;
+  --ink: #1c1812; --ink-soft: #6b5e4e; --ink-whisper: #a89880; --ink-ghost: #d4c8b8;
+  --madder: #b84c3a; --madder-wash: #f0dbd6;
+  --moss: #5a6b4a; --moss-soft: #8a9e78; --moss-wash: #dde6d4;
+  --ochre: #c8903a; --ochre-wash: #f0e0c4;
+  --slate: #3a4a5c; --slate-wash: #d0dce8;
+  --void: #141412; --charcoal: #1e1e1a; --bone: #f0ece0;
+  --ink-mid: #2a2620; /* primary export hover */
+}
+
+html { font-size: 16px; }
+body { background: var(--parchment); color: var(--ink); font-family: 'DM Mono', monospace; }
+
+/* ── PAGE LAYOUT ── */
+.page { max-width: 1100px; margin: 0 auto; padding: 0 48px 80px; }
+
+/* ── HEADER ── */
+.header {
+  padding: 48px 0 36px;
+  border-bottom: 1px solid var(--linen);
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.h-left {}
+.h-tag { font-size: 8px; letter-spacing: .26em; text-transform: uppercase; color: var(--madder); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+.h-tag::before { content: ''; width: 12px; height: 1px; background: var(--madder); }
+.h-title { font-family: 'Lora', serif; font-weight: 500; font-size: clamp(22px,3vw,32px); letter-spacing: -.02em; color: var(--ink); line-height: 1.1; }
+.h-title em { font-style: italic; color: var(--madder); }
+.h-sub { font-family: 'Lora', serif; font-style: italic; font-size: 13px; color: var(--ink-whisper); margin-top: 5px; }
+
+.h-right { text-align: right; }
+.score-ring { width: 80px; height: 80px; position: relative; display: inline-flex; align-items: center; justify-content: center; }
+.score-ring svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+.score-num { font-family: 'Lora', serif; font-weight: 700; font-size: 22px; letter-spacing: -.04em; color: var(--ink); z-index: 1; }
+.score-label { font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-ghost); margin-top: 4px; text-align: center; }
+
+/* ── URL INPUT ── */
+.input-zone {
+  background: var(--warm-white);
+  border: 1px solid var(--linen);
+  padding: 20px 24px;
+  margin-bottom: 32px;
+  display: flex; gap: 12px; align-items: center;
+}
+.url-input {
+  flex: 1; background: var(--parchment); border: 1px solid var(--linen);
+  padding: 9px 14px; font-family: 'DM Mono', monospace; font-size: 12px;
+  color: var(--ink); outline: none; transition: border-color .2s;
+}
+.url-input:focus { border-color: var(--madder); }
+.url-input::placeholder { color: var(--ink-ghost); }
+.check-btn {
+  background: var(--madder); color: var(--parchment);
+  border: none; padding: 9px 20px; font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
+  cursor: pointer; transition: all .2s; white-space: nowrap;
+}
+.check-btn:hover { background: #a04030; }
+.check-btn:disabled { background: var(--ink-ghost); cursor: not-allowed; }
+.manual-label { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-ghost); }
+
+/* ── PROGRESS BAR ── */
+.progress-wrap { margin-bottom: 32px; display: none; }
+.progress-bar { height: 2px; background: var(--linen); overflow: hidden; }
+.progress-fill { height: 100%; background: var(--madder); width: 0%; transition: width .3s; }
+.progress-label { font-size: 9px; letter-spacing: .12em; color: var(--ink-ghost); margin-top: 6px; }
+
+/* ── SUMMARY STRIP ── */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3px;
+  background: var(--linen);
+  border: 1px solid var(--linen);
+  margin-bottom: 32px;
+}
+
+.summary-cell {
+  background: var(--warm-white);
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.summary-cell:hover { background: var(--paper); }
+.summary-cell.active { background: var(--paper); }
+
+.sc-num {
+  font-family: 'Lora', serif; font-weight: 700;
+  font-size: 28px; letter-spacing: -.04em; line-height: 1;
+  margin-bottom: 4px;
+}
+.sc-num.pass { color: var(--moss); }
+.sc-num.fail { color: var(--madder); }
+.sc-num.warn { color: var(--ochre); }
+.sc-num.info { color: var(--slate); }
+
+.sc-label { font-size: 8px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-ghost); }
+
+/* ── CATEGORY TABS ── */
+.cat-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--linen);
+  gap: 0;
+  margin-bottom: 24px;
+  overflow-x: auto;
+}
+.cat-tab {
+  font-family: 'DM Mono', monospace; font-weight: 300;
+  font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
+  padding: 10px 18px; background: transparent; border: none;
+  color: var(--ink-whisper); cursor: pointer; white-space: nowrap;
+  position: relative; transition: color .2s;
+}
+.cat-tab::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+  height: 2px; background: var(--ink); transform: scaleX(0);
+  transform-origin: left; transition: transform .25s cubic-bezier(.4,0,.2,1);
+}
+.cat-tab:hover { color: var(--ink-soft); }
+.cat-tab.active { font-weight: 400; color: var(--ink); }
+.cat-tab.active::after { transform: scaleX(1); }
+
+/* ── CHECKLIST ── */
+.checklist { display: flex; flex-direction: column; gap: 0; }
+
+.check-item {
+  border-bottom: 1px solid var(--linen);
+  overflow: hidden;
+  transition: background .15s;
+}
+.check-item:last-child { border-bottom: none; border-top: 1px solid var(--linen); }
+.check-item:first-child { border-top: 1px solid var(--linen); }
+
+.check-header {
+  display: grid;
+  grid-template-columns: 48px 1fr auto auto;
+  gap: 16px;
+  padding: 14px 20px;
+  align-items: center;
+  cursor: pointer;
+}
+.check-header:hover { background: var(--warm-white); }
+
+/* Status toggle */
+.status-toggle {
+  width: 28px; height: 28px;
+  border-radius: 0; border: 1px solid var(--linen);
+  background: transparent; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s; flex-shrink: 0; font-size: 13px;
+}
+.status-toggle.pass  { background: var(--moss-wash); border-color: var(--moss-soft); color: var(--moss); }
+.status-toggle.fail  { background: var(--madder-wash); border-color: var(--madder); color: var(--madder); }
+.status-toggle.warn  { background: var(--ochre-wash); border-color: var(--ochre); color: var(--ochre); }
+.status-toggle.skip  { background: var(--paper); border-color: var(--linen); color: var(--ink-ghost); }
+
+.check-criterion {}
+.cc-id {
+  font-size: 8px; letter-spacing: .14em; color: var(--madder);
+  margin-bottom: 3px; display: flex; align-items: center; gap: 8px;
+}
+.cc-badge {
+  font-size: 7px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 1px 7px; background: var(--madder-wash); color: var(--madder);
+}
+.cc-badge.aa { background: var(--madder-wash); color: var(--madder); }
+.cc-badge.aaa { background: var(--slate-wash); color: var(--slate); }
+.cc-badge.bp  { background: var(--ochre-wash); color: var(--ochre); }
+
+.cc-name {
+  font-family: 'Lora', serif; font-weight: 500;
+  font-size: 13px; color: var(--ink); letter-spacing: -.01em;
+}
+
+.cc-impact {
+  font-size: 8px; letter-spacing: .14em; text-transform: uppercase;
+  text-align: right; white-space: nowrap; padding-left: 12px;
+}
+.impact-critical { color: var(--madder); }
+.impact-serious  { color: var(--ochre); }
+.impact-moderate { color: var(--slate); }
+.impact-minor    { color: var(--ink-ghost); }
+
+.check-expand { color: var(--ink-ghost); font-size: 11px; transition: transform .2s; flex-shrink: 0; }
+.check-item.open .check-expand { transform: rotate(180deg); }
+
+/* Expanded detail */
+.check-detail {
+  display: none;
+  padding: 0 20px 18px 84px;
+  border-top: 1px solid var(--linen);
+}
+.check-item.open .check-detail { display: block; }
+
+.cd-desc {
+  font-family: 'Lora', serif; font-style: italic;
+  font-size: 12px; color: var(--ink-soft); line-height: 1.75;
+  margin-bottom: 10px; margin-top: 12px;
+}
+
+.cd-how {
+  font-size: 11px; color: var(--ink-soft); line-height: 1.7;
+  margin-bottom: 10px;
+}
+
+.cd-code {
+  background: var(--charcoal); color: rgba(240,236,224,.7);
+  padding: 10px 14px; font-size: 10.5px; line-height: 1.7;
+  font-family: 'DM Mono', monospace; overflow-x: auto;
+  margin-bottom: 10px;
+}
+.cd-code .good { color: #8a9e78; }
+.cd-code .bad  { color: #d4705e; }
+.cd-code .cm   { color: rgba(240,236,224,.25); }
+
+.cd-ref {
+  font-size: 9px; letter-spacing: .1em; color: var(--madder);
+  text-decoration: none;
+}
+.cd-ref:hover { text-decoration: underline; }
+
+/* Notes textarea */
+.cd-note {
+  width: 100%; margin-top: 10px;
+  background: var(--paper); border: 1px solid var(--linen);
+  padding: 8px 12px; font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--ink-soft); resize: vertical;
+  min-height: 50px; outline: none; transition: border-color .2s;
+}
+.cd-note:focus { border-color: var(--madder); }
+.cd-note::placeholder { color: var(--ink-ghost); }
+
+/* ── CONTRAST CHECKER ── */
+.contrast-tool {
+  background: var(--warm-white); border: 1px solid var(--linen);
+  padding: 24px; margin-top: 32px;
+}
+.ct-title { font-family: 'Lora', serif; font-weight: 500; font-size: 15px; color: var(--ink); letter-spacing: -.01em; margin-bottom: 14px; }
+.ct-grid { display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: end; }
+.ct-input-wrap {}
+.ct-label { font-size: 8px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 6px; }
+.ct-row { display: flex; align-items: center; gap: 10px; }
+.ct-swatch { width: 28px; height: 28px; border: 1px solid var(--linen); flex-shrink: 0; }
+.ct-hex {
+  background: var(--parchment); border: 1px solid var(--linen);
+  padding: 6px 10px; font-family: 'DM Mono', monospace;
+  font-size: 12px; color: var(--ink); outline: none; width: 110px;
+  transition: border-color .2s;
+}
+.ct-hex:focus { border-color: var(--madder); }
+.ct-result {}
+.ct-ratio {
+  font-family: 'Lora', serif; font-weight: 700;
+  font-size: 32px; letter-spacing: -.04em; line-height: 1;
+}
+.ct-ratio.pass { color: var(--moss); }
+.ct-ratio.fail { color: var(--madder); }
+.ct-badges { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+.ct-badge {
+  font-size: 8px; letter-spacing: .14em; text-transform: uppercase;
+  padding: 2px 8px;
+}
+.ct-badge.pass { background: var(--moss-wash); color: var(--moss); }
+.ct-badge.fail { background: var(--madder-wash); color: var(--madder); }
+
+/* Preview box */
+.ct-preview {
+  margin-top: 14px; padding: 16px 20px;
+  border: 1px solid var(--linen);
+}
+.ct-preview-text { font-family: 'Lora', serif; font-size: 18px; line-height: 1.5; }
+.ct-preview-small { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; margin-top: 6px; }
+
+/* ── WARMTH DS SPECIFIC CHECKS ── */
+.wds-section {
+  background: var(--charcoal); padding: 24px; margin-top: 32px;
+  border: 1px solid rgba(240,236,224,.06);
+}
+.wds-title { font-family: 'Lora', serif; font-weight: 500; font-size: 15px; color: var(--bone); opacity: .75; letter-spacing: -.01em; margin-bottom: 4px; }
+.wds-sub { font-family: 'Lora', serif; font-style: italic; font-size: 12px; color: rgba(240,236,224,.3); line-height: 1.6; margin-bottom: 18px; }
+
+.wds-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+.wds-check {
+  background: rgba(240,236,224,.03); border: 1px solid rgba(240,236,224,.06);
+  padding: 14px 16px; cursor: pointer; transition: background .15s;
+}
+.wds-check:hover { background: rgba(240,236,224,.05); }
+.wds-check-name { font-size: 11px; color: rgba(240,236,224,.5); margin-bottom: 4px; line-height: 1.4; }
+.wds-check-ratio {
+  font-family: 'Lora', serif; font-weight: 700;
+  font-size: 20px; letter-spacing: -.03em; line-height: 1;
+}
+.wds-check-ratio.pass { color: var(--moss-soft); }
+.wds-check-ratio.fail { color: #d4705e; }
+.wds-check-label { font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: rgba(240,236,224,.18); margin-top: 3px; }
+
+/* ── EXPORT ── */
+.export-row {
+  display: flex; gap: 10px; margin-top: 32px;
+  padding-top: 24px; border-top: 1px solid var(--linen);
+}
+.export-btn {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  letter-spacing: .16em; text-transform: uppercase;
+  padding: 9px 18px; border: 1px solid var(--linen);
+  background: transparent; color: var(--ink-soft);
+  cursor: pointer; transition: all .2s;
+}
+.export-btn:hover { border-color: var(--madder); color: var(--madder); }
+.export-btn.primary { background: var(--ink); color: var(--bone); border-color: var(--ink); }
+.export-btn.primary:hover { background: var(--ink-mid); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="h-left">
+      <div class="h-tag">Warmth DS · Accessibility Checker · WCAG 2.1 AA</div>
+      <div class="h-title">Portfolio <em>accessibility</em> audit.</div>
+      <div class="h-sub">Manual + automated checks. Built for the Warmth DS portfolio. Mark each item as you go.</div>
+    </div>
+    <div class="h-right">
+      <div class="score-ring">
+        <svg viewBox="0 0 80 80" width="80" height="80">
+          <circle cx="40" cy="40" r="34" stroke="var(--linen)" stroke-width="5" fill="none"/>
+          <circle cx="40" cy="40" r="34" stroke="var(--moss)" stroke-width="5" fill="none"
+            stroke-dasharray="213.6" stroke-dashoffset="213.6"
+            id="score-ring-fill" stroke-linecap="square" style="transition:stroke-dashoffset .5s;"/>
+        </svg>
+        <div class="score-num" id="score-num">—</div>
+      </div>
+      <div class="score-label">AA score</div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary" id="summary">
+    <div class="summary-cell" onclick="filterBy('all')">
+      <div class="sc-num info" id="count-total">0</div>
+      <div class="sc-label">Total checks</div>
+    </div>
+    <div class="summary-cell" onclick="filterBy('pass')">
+      <div class="sc-num pass" id="count-pass">0</div>
+      <div class="sc-label">Passing</div>
+    </div>
+    <div class="summary-cell" onclick="filterBy('fail')">
+      <div class="sc-num fail" id="count-fail">0</div>
+      <div class="sc-label">Failing</div>
+    </div>
+    <div class="summary-cell" onclick="filterBy('warn')">
+      <div class="sc-num warn" id="count-warn">0</div>
+      <div class="sc-label">Review needed</div>
+    </div>
+  </div>
+
+  <!-- CATEGORY TABS -->
+  <div class="cat-tabs" id="cat-tabs">
+    <button class="cat-tab active" onclick="filterCat('all',this)">All</button>
+    <button class="cat-tab" onclick="filterCat('perceivable',this)">Perceivable</button>
+    <button class="cat-tab" onclick="filterCat('operable',this)">Operable</button>
+    <button class="cat-tab" onclick="filterCat('understandable',this)">Understandable</button>
+    <button class="cat-tab" onclick="filterCat('robust',this)">Robust</button>
+    <button class="cat-tab" onclick="filterCat('portfolio',this)">Portfolio-specific</button>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="checklist" id="checklist"></div>
+
+  <!-- CONTRAST CHECKER TOOL -->
+  <div class="contrast-tool">
+    <div class="ct-title">Contrast ratio calculator</div>
+    <div class="ct-grid">
+      <div class="ct-input-wrap">
+        <div class="ct-label">Foreground colour</div>
+        <div class="ct-row">
+          <input type="color" class="ct-swatch" id="fg-picker" value="#1c1812" oninput="syncHex('fg')">
+          <input type="text"  class="ct-hex"    id="fg-hex"    value="#1c1812" oninput="syncPicker('fg')" maxlength="7" placeholder="#000000">
+        </div>
+      </div>
+      <div class="ct-input-wrap">
+        <div class="ct-label">Background colour</div>
+        <div class="ct-row">
+          <input type="color" class="ct-swatch" id="bg-picker" value="#f5efe4" oninput="syncHex('bg')">
+          <input type="text"  class="ct-hex"    id="bg-hex"    value="#f5efe4" oninput="syncPicker('bg')" maxlength="7" placeholder="#ffffff">
+        </div>
+      </div>
+      <div class="ct-result">
+        <div class="ct-ratio" id="ct-ratio">—</div>
+        <div class="ct-badges" id="ct-badges"></div>
+      </div>
+    </div>
+    <div class="ct-preview" id="ct-preview">
+      <div class="ct-preview-text" id="ct-preview-text">The quick brown fox jumps over the lazy dog.</div>
+      <div class="ct-preview-small" id="ct-preview-small">DM Mono · Small label text · 9px</div>
+    </div>
+  </div>
+
+  <!-- WARMTH DS SPECIFIC PALETTE CHECKS -->
+  <div class="wds-section">
+    <div class="wds-title">Warmth DS palette — pre-checked contrast ratios</div>
+    <div class="wds-sub">All primary text/background combinations used across the portfolio. Click any to load into the calculator.</div>
+    <div class="wds-grid" id="wds-grid"></div>
+  </div>
+
+  <!-- EXPORT -->
+  <div class="export-row">
+    <button class="export-btn primary" onclick="exportReport()">↓ Export PDF report</button>
+    <button class="export-btn" onclick="exportJSON()">↓ Export JSON</button>
+    <button class="export-btn" onclick="resetAll()">Reset all</button>
+  </div>
+
+</div>
+
+<script>
+/* ════════════════════
+   CHECKLIST DATA
+   WCAG 2.1 AA — portfolio-focused
+════════════════════ */
+const CHECKS = [
+
+  /* ── PERCEIVABLE ── */
+  {
+    id: 'P01', cat: 'perceivable', level: 'AA', wcag: '1.1.1',
+    name: 'Images have meaningful alt text',
+    impact: 'critical',
+    desc: 'Every <img> has an alt attribute. Decorative images have alt="".',
+    how: 'Inspect each image. Informational images describe what they show. Decorative images (symbol grid, grain texture, constellation SVG) use alt="" or role="presentation".',
+    code: `<span class="good">&lt;!-- Good: informational --&gt;
+&lt;img src="sketch.jpg" alt="Hand-drawn process sketch showing decision fork between dashboard and mental model redesign"&gt;
+
+<span class="good">&lt;!-- Good: decorative --&gt;</span>
+&lt;img src="grain.png" alt="" role="presentation"&gt;
+
+<span class="bad">&lt;!-- Bad: no alt --&gt;</span>
+&lt;img src="sketch.jpg"&gt;`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html',
+    status: 'skip'
+  },
+
+  {
+    id: 'P02', cat: 'perceivable', level: 'AA', wcag: '1.3.1',
+    name: 'Semantic heading hierarchy',
+    impact: 'serious',
+    desc: 'Headings use h1–h6 in logical order. No skipping from h2 to h4. The portfolio page title is h1.',
+    how: 'Run: document.querySelectorAll("h1,h2,h3,h4,h5,h6") and check the sequence makes sense as an outline.',
+    code: `<span class="good">&lt;h1&gt;Your Name — UX Designer&lt;/h1&gt;
+&lt;h2&gt;Selected work&lt;/h2&gt;
+  &lt;h3&gt;Warehouse operations redesign&lt;/h3&gt;</span>
+
+<span class="bad">&lt;!-- Bad: visual heading styled with a div --&gt;</span>
+&lt;div class="big-text"&gt;Selected work&lt;/div&gt;`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html',
+    status: 'skip'
+  },
+
+  {
+    id: 'P03', cat: 'perceivable', level: 'AA', wcag: '1.4.1',
+    name: 'Colour alone not used to convey meaning',
+    impact: 'serious',
+    desc: 'The content graph bar uses colour to show process distribution. This must also be conveyed via text or pattern.',
+    how: 'Check the content graph bar — does it have a legend with text labels? Check that the active tab state uses both colour AND weight/underline. Check the status dot (available) has a text label beside it.',
+    code: `<span class="good">&lt;!-- Good: colour + text + shape --&gt;
+&lt;div class="cg-segment discover" aria-label="Discover: 20%"&gt;&lt;/div&gt;
+
+<span class="good">&lt;!-- Status dot with text --&gt;</span>
+&lt;span class="status-dot" aria-hidden="true"&gt;&lt;/span&gt;
+&lt;span&gt;Available · Remote&lt;/span&gt;</span>`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html',
+    status: 'skip'
+  },
+
+  {
+    id: 'P04', cat: 'perceivable', level: 'AA', wcag: '1.4.3',
+    name: 'Text contrast — body copy (4.5:1)',
+    impact: 'critical',
+    desc: 'Body text must have a contrast ratio of at least 4.5:1 against its background.',
+    how: 'Check: ink (#1c1812) on parchment (#f5efe4) = 14.3:1 ✓. Check: ink-soft (#6b5e4e) on parchment = 5.8:1 ✓. Check: ink-whisper (#a89880) on parchment = 2.8:1 ✗ — avoid for body text, use only for labels.',
+    code: `<span class="good">&lt;!-- Pass: ink on parchment --&gt;
+color: #1c1812; background: #f5efe4; /* 14.3:1 */
+
+<span class="bad">&lt;!-- Fail: ink-whisper on parchment --&gt;</span>
+color: #a89880; background: #f5efe4; /* 2.8:1 ✗ */
+
+<span class="good">&lt;!-- Safe grey for labels (not body) --&gt;</span>
+color: #6b5e4e; /* 5.8:1 — passes AA */</span>`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html',
+    status: 'skip'
+  },
+
+  {
+    id: 'P05', cat: 'perceivable', level: 'AA', wcag: '1.4.3',
+    name: 'Text contrast — large text (3:1)',
+    impact: 'critical',
+    desc: 'Text 18pt+ (24px+) or 14pt+ bold (18.67px+ bold) needs only 3:1 ratio. Madder headings must still pass.',
+    how: 'Madder (#b84c3a) on parchment (#f5efe4) = 4.1:1 ✓ for large text. Madder on warm-white (#faf7f2) = 4.3:1 ✓. Madder on paper (#ede6d8) = 3.8:1 ✓.',
+    code: `<span class="good">&lt;!-- Madder heading on parchment: 4.1:1 --&gt;
+color: #b84c3a; background: #f5efe4; /* ✓ AA large */
+
+<span class="bad">&lt;!-- Madder-soft on parchment: 2.9:1 --&gt;</span>
+color: #d4705e; background: #f5efe4; /* ✗ fails */
+<span class="good">/* Use madder-soft only on dark backgrounds */</span></span>`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html',
+    status: 'skip'
+  },
+
+  {
+    id: 'P06', cat: 'perceivable', level: 'AA', wcag: '1.4.4',
+    name: 'Text resizes to 200% without loss of content',
+    impact: 'serious',
+    desc: 'Zoom the browser to 200%. No text should overflow, be cut off, or overlap other content.',
+    how: 'Cmd+Plus to 200% in browser. Check the hero headline, nav links, card titles. Check the tab labels don\'t overflow their container. The garden section should still be usable.',
+    code: `<span class="good">&lt;!-- Use clamp() for responsive type --&gt;
+font-size: clamp(24px, 3.5vw, 48px);
+
+<span class="bad">&lt;!-- Avoid fixed px on containers --&gt;</span>
+.nav { height: 60px; overflow: hidden; } /* clips zoomed text */</span>`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html',
+    status: 'skip'
+  },
+
+  {
+    id: 'P07', cat: 'perceivable', level: 'AA', wcag: '1.4.10',
+    name: 'Content reflows at 320px viewport width',
+    impact: 'serious',
+    desc: 'No horizontal scrolling at 320px width (equivalent to 400% zoom on 1280px screen). All content should be readable in a single column.',
+    how: 'Set DevTools to 320px width. Check the hero, card grid, tabs, and garden section all stack correctly. The two-column hero should become single column.',
+    code: `<span class="good">@media (max-width: 480px) {
+  .hero { grid-template-columns: 1fr; }
+  .featured-card { grid-template-columns: 1fr; }
+  .work-section { padding: 24px; }
+}</span>`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/reflow.html',
+    status: 'skip'
+  },
+
+  {
+    id: 'P08', cat: 'perceivable', level: 'AA', wcag: '1.4.11',
+    name: 'Non-text contrast (UI components) 3:1',
+    impact: 'serious',
+    desc: 'Form inputs, buttons, and focus indicators need 3:1 contrast against adjacent colours. The card border on hover must have 3:1.',
+    how: 'Madder (#b84c3a) border on parchment (#f5efe4) = 4.1:1 ✓. The linen (#e4dccf) border at rest = 1.6:1 — this is acceptable as the default rest state, as long as hover/focus provides sufficient contrast.',
+    code: `<span class="good">&lt;!-- Focus ring: 2px solid madder --&gt;
+.card:focus-visible {
+  outline: 2px solid #b84c3a; /* 4.1:1 ✓ */
+  outline-offset: 3px;
+}</span>`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html',
+    status: 'skip'
+  },
+
+  /* ── OPERABLE ── */
+  {
+    id: 'O01', cat: 'operable', level: 'AA', wcag: '2.1.1',
+    name: 'All functionality accessible via keyboard',
+    impact: 'critical',
+    desc: 'Tab through the entire page. Every interactive element — nav links, cards, garden canvas, buttons, tabs — must be reachable and usable with keyboard alone.',
+    how: 'Press Tab from the browser address bar. Confirm focus hits: nav links → hero CTA → work cards → garden mode buttons → footer links. Press Enter/Space to activate each. No keyboard traps.',
+    code: `<span class="good">&lt;!-- Cards need tabindex --&gt;
+&lt;div class="featured-card" tabindex="0" role="article"
+  onkeydown="if(event.key==='Enter')this.click()"&gt;
+
+<span class="good">&lt;!-- Garden: keyboard plant --&gt;</span>
+canvas.addEventListener('keydown', (e) =&gt; {
+  if (e.key === 'Enter') plantAtCenter();
+});</span>`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/keyboard.html',
+    status: 'skip'
+  },
+
+  {
+    id: 'O02', cat: 'operable', level: 'AA', wcag: '2.1.3',
+    name: 'No keyboard trap in garden or modal',
+    impact: 'critical',
+    desc: 'The garden canvas must not trap keyboard focus. Pressing Tab should always exit the canvas.',
+    how: 'Tab into the garden controls. Press Tab again — focus should move to the next element outside the garden section, not loop inside it.',
+    code: `<span class="good">&lt;!-- Garden canvas is not focusable itself --&gt;
+&lt;div class="garden-canvas" role="img"
+  aria-label="Shared garden — ${document.getElementById ? '' : ''}flowers planted by visitors"&gt;
+  &lt;!-- Focusable only: the control buttons --&gt;
+  &lt;button class="gc-btn"&gt;All&lt;/button&gt;
+&lt;/div&gt;</span>`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/no-keyboard-trap.html',
+    status: 'skip'
+  },
+
+  {
+    id: 'O03', cat: 'operable', level: 'AA', wcag: '2.4.3',
+    name: 'Focus order is logical',
+    impact: 'serious',
+    desc: 'Tab order follows the visual reading order: top-left to bottom-right. Focus doesn\'t jump unexpectedly.',
+    how: 'Tab through the page and watch the focus ring. It should follow: Logo → Nav links → Status → Hero content → CTA → Work cards → Garden → Footer.',
+    code: `<span class="good">&lt;!-- Avoid positive tabindex values --&gt;
+tabindex="0" /* correct: natural DOM order */
+
+<span class="bad">tabindex="3" /* wrong: disrupts flow */</span>
+
+<span class="good">&lt;!-- Fixed nav: doesn't disrupt tab order --&gt;</span>
+/* nav is first in DOM, so Tab hits it first */</span>`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/focus-order.html',
+    status: 'skip'
+  },
+
+  {
+    id: 'O04', cat: 'operable', level: 'AA', wcag: '2.4.7',
+    name: 'Focus indicator visible',
+    impact: 'serious',
+    desc: 'Every focusable element shows a clear focus ring. The default browser outline must not be removed without a replacement.',
+    how: 'Tab through the page with :focus-visible styles in DevTools. Confirm each focused element has a visible ring. The madder 2px outline on cards is correct.',
+    code: `<span class="good">/* Global focus style */
+:focus-visible {
+  outline: 2px solid #b84c3a;
+  outline-offset: 3px;
+}
+
+/* Remove only with replacement */
+.btn:focus { outline: none; }
+.btn:focus-visible { box-shadow: 0 0 0 2px #b84c3a; }</span>`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/focus-visible.html',
+    status: 'skip'
+  },
+
+  {
+    id: 'O05', cat: 'operable', level: 'AA', wcag: '2.4.4',
+    name: 'Link purpose is clear from context',
+    impact: 'moderate',
+    desc: 'Every link clearly describes its destination. "Click here" and bare arrows fail. "Read the case study →" passes.',
+    how: 'Check all CTA links. The "Read the case study" CTA is good. The "→" only CTAs in the compact cards need an aria-label. The nav links pass — their text is their purpose.',
+    code: `<span class="good">&lt;a href="/case-study"&gt;Read the case study →&lt;/a&gt;
+
+&lt;!-- Arrow-only: add aria-label --&gt;</span>
+&lt;a href="/work" aria-label="View all case studies"&gt;→&lt;/a&gt;
+
+<span class="bad">&lt;a href="/case-study"&gt;Click here&lt;/a&gt; &lt;!-- fails --&gt;</span>`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context.html',
+    status: 'skip'
+  },
+
+  {
+    id: 'O06', cat: 'operable', level: 'AA', wcag: '2.3.1',
+    name: 'No content flashes more than 3 times/second',
+    impact: 'critical',
+    desc: 'The cursor blink animation and plant growth animations must not flash. The sway animation is safe.',
+    how: 'Check the cursor blink CSS — step-end timing is safe (not a flash). The plant grow-in animation is a single occurrence, not repetitive. The animated status dot is safe — it\'s a slow pulse.',
+    code: `<span class="good">/* Cursor blink: step-end is NOT a flash */
+animation: blink 1.1s step-end infinite;
+
+/* Slow pulse: safe (not 3Hz) */
+animation: pulse 2.5s ease-in-out infinite;</span>
+
+<span class="bad">/* Would be dangerous: */
+animation: flash 0.2s linear infinite; /* 5Hz ✗ */</span>`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/three-flashes-or-below-threshold.html',
+    status: 'skip'
+  },
+
+  {
+    id: 'O07', cat: 'operable', level: 'AA', wcag: '2.5.3',
+    name: 'Touch target size ≥ 24×24px (WCAG 2.2)',
+    impact: 'serious',
+    desc: 'All interactive elements on mobile must be at least 24×24px. Prefer 44×44px for primary actions.',
+    how: 'In mobile DevTools, check the nav links (height: 60px → ✓), garden mode buttons (padding 5px 12px → borderline), the tiny mode controls. The status toggle in the checklist should be at least 44×44.',
+    code: `<span class="good">/* Garden mode buttons — increase padding on mobile */
+@media (max-width: 768px) {
+  .gc-btn { padding: 10px 18px; min-height: 44px; }
+  .nav-link { padding: 10px 0; }
+}</span>`,
+    ref: 'https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html',
+    status: 'skip'
+  },
+
+  /* ── UNDERSTANDABLE ── */
+  {
+    id: 'U01', cat: 'understandable', level: 'AA', wcag: '3.1.1',
+    name: 'Language of page declared',
+    impact: 'serious',
+    desc: 'The HTML element has a lang attribute. This enables correct screen reader pronunciation.',
+    how: 'Check: <html lang="en">. If the page includes Japanese text (設計の哲学), mark those spans with lang="ja".',
+    code: `<span class="good">&lt;html lang="en"&gt;
+
+&lt;!-- Japanese text inline --&gt;
+&lt;span lang="ja"&gt;設計の哲学&lt;/span&gt;
+&lt;span lang="ja"&gt;職人の仕事&lt;/span&gt;</span>`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/language-of-page.html',
+    status: 'skip'
+  },
+
+  {
+    id: 'U02', cat: 'understandable', level: 'AA', wcag: '3.2.1',
+    name: 'No unexpected context change on focus',
+    impact: 'moderate',
+    desc: 'Focusing an element must not automatically trigger navigation or a major change. Hover states that reveal content are fine. Auto-submitting on focus is not.',
+    how: 'Tab through the nav — it should not auto-navigate. Tab to a card — it should not auto-open the case study. The garden canvas focusing should not auto-plant.',
+    code: `<span class="good">/* Hover reveals info — fine */
+.card:hover .card-detail { display: block; }
+
+/* Focus does NOT trigger click */
+.card:focus { /* style only */ }</span>`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/on-focus.html',
+    status: 'skip'
+  },
+
+  {
+    id: 'U03', cat: 'understandable', level: 'AA', wcag: '3.3.2',
+    name: 'Labels and instructions for inputs',
+    impact: 'serious',
+    desc: 'Any input field — the garden mode buttons, any future contact form — must have a visible label or aria-label.',
+    how: 'The garden mode buttons use visible text ("All", "Flowers", "Saplings") — they pass. A contact form email input needs a <label> or aria-label. Never rely on placeholder alone.',
+    code: `<span class="good">&lt;label for="email"&gt;Email address&lt;/label&gt;
+&lt;input type="email" id="email" name="email"
+  placeholder="hello@yourname.com"&gt;
+
+<span class="bad">&lt;!-- Placeholder-only: fails --&gt;</span>
+&lt;input type="email" placeholder="Email address"&gt;</span>`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions.html',
+    status: 'skip'
+  },
+
+  /* ── ROBUST ── */
+  {
+    id: 'R01', cat: 'robust', level: 'AA', wcag: '4.1.2',
+    name: 'Name, role, value for all UI components',
+    impact: 'critical',
+    desc: 'Custom interactive components — the card divs, tabs, garden canvas — must expose their role and state to assistive technology via ARIA.',
+    how: 'Cards need role="article". The tab system needs role="tablist" / role="tab" / aria-selected. The garden canvas needs role="img" with aria-label. The cursor blink span should be aria-hidden.',
+    code: `<span class="good">&lt;nav role="navigation" aria-label="Main navigation"&gt;
+
+&lt;div role="tablist" aria-label="Case study sections"&gt;
+  &lt;button role="tab" aria-selected="true"&gt;Context&lt;/button&gt;
+
+&lt;div class="garden-canvas" role="img"
+  aria-label="Visitor garden with 847 flowers"&gt;
+
+&lt;span class="cursor-blink" aria-hidden="true"&gt;&lt;/span&gt;</span>`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value.html',
+    status: 'skip'
+  },
+
+  {
+    id: 'R02', cat: 'robust', level: 'AA', wcag: '4.1.3',
+    name: 'Status messages conveyed to screen readers',
+    impact: 'moderate',
+    desc: 'When a flower is planted, the count update must be announced. When the garden loads, a summary should be available.',
+    how: 'Add an aria-live region for the flower count. When count updates, screen readers announce it.',
+    code: `<span class="good">&lt;!-- Live region for count --&gt;
+&lt;div aria-live="polite" aria-atomic="true"
+  class="visually-hidden" id="garden-announcement"&gt;
+&lt;/div&gt;
+
+&lt;!-- Update on plant --&gt;
+document.getElementById('garden-announcement')
+  .textContent = \`${847} flowers planted\`;</span>`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/status-messages.html',
+    status: 'skip'
+  },
+
+  {
+    id: 'R03', cat: 'robust', level: 'BP', wcag: 'Best practice',
+    name: 'Reduced motion preference respected',
+    impact: 'serious',
+    desc: 'Users who set "prefers-reduced-motion: reduce" should see no plant growth animations, no sway, no cursor blink. The garden still works — it just plants instantly.',
+    how: 'Add a @media (prefers-reduced-motion: reduce) block that disables or reduces all animations.',
+    code: `<span class="good">@media (prefers-reduced-motion: reduce) {
+  .cursor-blink { animation: none; opacity: 1; }
+  .plant { animation: none !important; }
+  .status-dot { animation: none; }
+  .scroll-line::after { animation: none; }
+  * { transition-duration: 0.01ms !important; }
+}</span>`,
+    ref: 'https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion',
+    status: 'skip'
+  },
+
+  /* ── PORTFOLIO-SPECIFIC ── */
+  {
+    id: 'PS01', cat: 'portfolio', level: 'BP', wcag: 'Portfolio',
+    name: 'Case study images described for screen readers',
+    impact: 'serious',
+    desc: 'Wireframe screenshots, user journey maps, and process sketches need descriptive alt text that explains what the image communicates, not just what it shows.',
+    how: 'Bad: alt="Wireframe". Good: alt="Low-fidelity wireframe of the task assignment flow, showing the decision fork between bulk assignment and individual assignment patterns".',
+    code: `<span class="bad">&lt;img src="wireframe.jpg" alt="Wireframe"&gt;</span>
+
+<span class="good">&lt;img src="wireframe.jpg"
+  alt="Decision fork wireframe showing two paths:
+  bulk assign (left) and individual assign (right),
+  with annotation reading \'operators prefer batch\'"&gt;</span>`,
+    ref: 'https://www.w3.org/WAI/tutorials/images/decision-tree/',
+    status: 'skip'
+  },
+
+  {
+    id: 'PS02', cat: 'portfolio', level: 'BP', wcag: 'Portfolio',
+    name: 'Protected case studies have accessible notice',
+    impact: 'moderate',
+    desc: 'Password-protected or NDA case studies must clearly state this, accessible to screen readers — not just visually implied.',
+    how: 'If a card links to a protected case study, add: <span class="visually-hidden">This case study is password protected. Contact me for access.</span>',
+    code: `<span class="good">&lt;div class="card-lock-notice" role="alert"&gt;
+  &lt;span aria-hidden="true"&gt;🔒&lt;/span&gt;
+  &lt;span class="visually-hidden"&gt;
+    NDA protected. Contact for access.
+  &lt;/span&gt;
+  &lt;span aria-hidden="true"&gt;Request access →&lt;/span&gt;
+&lt;/div&gt;</span>`,
+    ref: null,
+    status: 'skip'
+  },
+
+  {
+    id: 'PS03', cat: 'portfolio', level: 'BP', wcag: 'Portfolio',
+    name: 'SVG symbol illustrations have roles',
+    impact: 'moderate',
+    desc: 'The constellation SVG, symbol library SVGs, and garden plant SVGs need either aria-hidden (decorative) or title+desc (informational).',
+    how: 'Garden plants: aria-hidden="true" (decorative). Hero constellation: role="img" aria-label="Symbol constellation showing design practice values". Symbol library: if used as icons, each needs a title.',
+    code: `<span class="good">&lt;!-- Decorative SVG --&gt;
+&lt;svg aria-hidden="true" focusable="false"&gt;...&lt;/svg&gt;
+
+&lt;!-- Informational SVG --&gt;
+&lt;svg role="img" aria-labelledby="sym-title"&gt;
+  &lt;title id="sym-title"&gt;Research symbol — magnifying glass&lt;/title&gt;
+&lt;/svg&gt;</span>`,
+    ref: 'https://www.w3.org/WAI/tutorials/images/complex/',
+    status: 'skip'
+  },
+
+  {
+    id: 'PS04', cat: 'portfolio', level: 'BP', wcag: 'Portfolio',
+    name: 'Garden has non-mouse alternative',
+    impact: 'moderate',
+    desc: 'Keyboard users and screen reader users cannot click the garden canvas. There must be an alternative way to participate or the feature is clearly marked as decorative.',
+    how: 'Add a keyboard shortcut (e.g. Space bar while garden section is in view) that plants at a random position. Add aria-label to the garden section explaining it\'s an interactive decoration.',
+    code: `<span class="good">&lt;section aria-label="Visitor garden — decorative interactive element.
+  Press Space to plant a flower."&gt;
+
+window.addEventListener('keydown', (e) =&gt; {
+  if (e.key === ' ' &amp;&amp; gardenInView()) {
+    plantAtRandom();
+    e.preventDefault();
+  }
+});</span>`,
+    ref: null,
+    status: 'skip'
+  },
+
+  {
+    id: 'PS05', cat: 'portfolio', level: 'BP', wcag: 'Portfolio',
+    name: 'Journal layer does not interfere with text selection',
+    impact: 'moderate',
+    desc: 'The journal layer overlay (fixed div with pointer-events: none) must not block text selection or interactive elements.',
+    how: 'Confirm the journal layer has pointer-events: none and is below content z-index. Test: select text on the page — it should work normally. Click all interactive elements — none should be blocked.',
+    code: `<span class="good">.journal-layer {
+  pointer-events: none; /* ← critical */
+  z-index: 1; /* below content z-index: 2+ */
+  position: fixed;
+}</span>
+
+<span class="bad">/* Wrong: blocks clicks */
+.journal-layer {
+  pointer-events: all; /* ✗ */
+}</span>`,
+    ref: null,
+    status: 'skip'
+  },
+
+  {
+    id: 'PS06', cat: 'portfolio', level: 'AA', wcag: '1.4.12',
+    name: 'Text spacing overrides do not break layout',
+    impact: 'moderate',
+    desc: 'Users may override: line-height 1.5×, letter-spacing 0.12em, word-spacing 0.16em, paragraph spacing 2×. The layout must not break.',
+    how: 'Install the "Text Spacing" bookmarklet (accessibilitybookmarklets.com). Run it on your portfolio. Check for text overflow, overlapping elements, or clipped content.',
+    code: `<span class="good">/* Avoid fixed heights that clip text */
+.card-title { min-height: 48px; } /* not height: 48px */
+
+/* Use gap not margin for spacing between flex items */
+.hero-meta { display: flex; gap: 28px; }</span>`,
+    ref: 'https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html',
+    status: 'skip'
+  },
+];
+
+/* ════════════════════
+   WARMTH DS PALETTE CONTRAST PAIRS
+════════════════════ */
+const WDS_PAIRS = [
+  { name: 'Ink on Parchment',      fg: '#1c1812', bg: '#f5efe4', usage: 'Body text, headings' },
+  { name: 'Ink-soft on Parchment', fg: '#6b5e4e', bg: '#f5efe4', usage: 'Secondary text, body italic' },
+  { name: 'Madder on Parchment',   fg: '#b84c3a', bg: '#f5efe4', usage: 'Labels, section tags' },
+  { name: 'Madder on Warm-white',  fg: '#b84c3a', bg: '#faf7f2', usage: 'Hero accent text' },
+  { name: 'Ink on Paper',          fg: '#1c1812', bg: '#ede6d8', usage: 'Card body text' },
+  { name: 'Bone on Void',          fg: '#f0ece0', bg: '#141412', usage: 'Dark section headlines' },
+  { name: 'Bone on Charcoal',      fg: '#f0ece0', bg: '#1e1e1a', usage: 'Footer text' },
+  { name: 'Madder-soft on Void',   fg: '#d4705e', bg: '#141412', usage: 'Dark section accent' },
+  { name: 'Moss-soft on Void',     fg: '#8a9e78', bg: '#141412', usage: 'Available status' },
+  { name: 'Ink-300 on Parchment',  fg: '#a89880', bg: '#f5efe4', usage: 'Ghost labels — NOT body' },
+  { name: 'Ink-ghost on Paper',    fg: '#d4c8b8', bg: '#ede6d8', usage: 'Dividers only — fails AA' },
+  { name: 'Terra on Void',         fg: '#d47858', bg: '#141412', usage: 'Visual library accent' },
+];
+
+/* ════════════════════
+   CONTRAST CALCULATION
+════════════════════ */
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return [r,g,b];
+}
+
+function luminance([r,g,b]) {
+  const sRGB = [r,g,b].map(c => {
+    c = c/255;
+    return c <= 0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4);
+  });
+  return 0.2126*sRGB[0] + 0.7152*sRGB[1] + 0.0722*sRGB[2];
+}
+
+function contrastRatio(fg, bg) {
+  const L1 = luminance(hexToRgb(fg));
+  const L2 = luminance(hexToRgb(bg));
+  const lighter = Math.max(L1,L2);
+  const darker  = Math.min(L1,L2);
+  return ((lighter+0.05)/(darker+0.05)).toFixed(2);
+}
+
+/* ════════════════════
+   STATE
+════════════════════ */
+let statuses = {};
+let currentCat = 'all';
+let currentFilter = 'all';
+
+function getStatus(id) { return statuses[id] || 'skip'; }
+
+/* ════════════════════
+   RENDER CHECKLIST
+════════════════════ */
+function renderChecklist() {
+  const container = document.getElementById('checklist');
+  container.innerHTML = '';
+
+  const visible = CHECKS.filter(c => {
+    const catOk = currentCat === 'all' || c.cat === currentCat;
+    const status = getStatus(c.id);
+    const filterOk = currentFilter === 'all' || status === currentFilter;
+    return catOk && filterOk;
+  });
+
+  visible.forEach(check => {
+    const status = getStatus(check.id);
+    const el = document.createElement('div');
+    el.className = 'check-item';
+    el.id = 'item-' + check.id;
+
+    const statusIcon = { pass:'✓', fail:'✗', warn:'?', skip:'○' }[status] || '○';
+    const impactClass = 'impact-' + check.impact;
+
+    el.innerHTML = `
+      <div class="check-header" onclick="toggleItem('${check.id}')">
+        <button class="status-toggle ${status}" onclick="cycleStatus(event,'${check.id}')" title="Click to change status">
+          ${statusIcon}
+        </button>
+        <div class="check-criterion">
+          <div class="cc-id">
+            ${check.wcag !== 'Best practice' && check.wcag !== 'Portfolio' ? `WCAG ${check.wcag}` : check.wcag}
+            <span class="cc-badge ${check.level.toLowerCase()}">${check.level}</span>
+          </div>
+          <div class="cc-name">${check.name}</div>
+        </div>
+        <div class="cc-impact ${impactClass}">${check.impact}</div>
+        <div class="check-expand">▾</div>
+      </div>
+      <div class="check-detail">
+        <div class="cd-desc">${check.desc}</div>
+        <div class="cd-how"><strong style="font-weight:400;color:var(--ink);">How to check:</strong> ${check.how}</div>
+        ${check.code ? `<div class="cd-code">${check.code}</div>` : ''}
+        ${check.ref ? `<a class="cd-ref" href="${check.ref}" target="_blank">→ WCAG reference</a>` : ''}
+        <textarea class="cd-note" placeholder="Add a note for this check…" onchange="saveNote('${check.id}',this.value)">${localStorage.getItem('note-'+check.id)||''}</textarea>
+      </div>
+    `;
+    container.appendChild(el);
+  });
+}
+
+function toggleItem(id) {
+  const el = document.getElementById('item-'+id);
+  if (el) el.classList.toggle('open');
+}
+
+function cycleStatus(e, id) {
+  e.stopPropagation();
+  const order = ['skip','pass','warn','fail'];
+  const current = getStatus(id);
+  const next = order[(order.indexOf(current)+1) % order.length];
+  statuses[id] = next;
+  localStorage.setItem('status-'+id, next);
+  renderChecklist();
+  updateSummary();
+}
+
+function saveNote(id, val) {
+  localStorage.setItem('note-'+id, val);
+}
+
+/* ════════════════════
+   FILTERING
+════════════════════ */
+function filterCat(cat, btn) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderChecklist();
+}
+
+function filterBy(filter) {
+  currentFilter = filter;
+  renderChecklist();
+}
+
+/* ════════════════════
+   SUMMARY + SCORE
+════════════════════ */
+function updateSummary() {
+  const counts = { pass:0, fail:0, warn:0, skip:0 };
+  CHECKS.forEach(c => { counts[getStatus(c.id)]++; });
+
+  document.getElementById('count-total').textContent = CHECKS.length;
+  document.getElementById('count-pass').textContent  = counts.pass;
+  document.getElementById('count-fail').textContent  = counts.fail;
+  document.getElementById('count-warn').textContent  = counts.warn;
+
+  // Score: pass / (total - skipped)
+  const reviewed = CHECKS.length - counts.skip;
+  const score = reviewed > 0 ? Math.round((counts.pass / reviewed) * 100) : 0;
+  document.getElementById('score-num').textContent = reviewed > 0 ? score + '%' : '—';
+
+  // Ring
+  const ring = document.getElementById('score-ring-fill');
+  const circumference = 213.6;
+  const offset = circumference - (score/100) * circumference;
+  ring.style.strokeDashoffset = offset;
+  ring.style.stroke = score >= 90 ? 'var(--moss)' : score >= 70 ? 'var(--ochre)' : 'var(--madder)';
+}
+
+/* ════════════════════
+   CONTRAST TOOL
+════════════════════ */
+function syncHex(which) {
+  const picker = document.getElementById(which+'-picker');
+  const hex    = document.getElementById(which+'-hex');
+  hex.value = picker.value;
+  updateContrast();
+}
+
+function syncPicker(which) {
+  const hex    = document.getElementById(which+'-hex');
+  const picker = document.getElementById(which+'-picker');
+  if (/^#[0-9a-fA-F]{6}$/.test(hex.value)) {
+    picker.value = hex.value;
+    updateContrast();
+  }
+}
+
+function updateContrast() {
+  const fg = document.getElementById('fg-hex').value;
+  const bg = document.getElementById('bg-hex').value;
+  if (!/^#[0-9a-fA-F]{6}$/.test(fg) || !/^#[0-9a-fA-F]{6}$/.test(bg)) return;
+
+  const ratio = contrastRatio(fg, bg);
+  const ratioEl = document.getElementById('ct-ratio');
+  ratioEl.textContent = ratio + ':1';
+
+  const badges = document.getElementById('ct-badges');
+  const r = parseFloat(ratio);
+  badges.innerHTML = `
+    <span class="ct-badge ${r>=4.5?'pass':'fail'}">AA Normal ${r>=4.5?'✓':'✗'}</span>
+    <span class="ct-badge ${r>=3?'pass':'fail'}">AA Large ${r>=3?'✓':'✗'}</span>
+    <span class="ct-badge ${r>=7?'pass':'fail'}">AAA Normal ${r>=7?'✓':'✗'}</span>
+    <span class="ct-badge ${r>=4.5?'pass':'fail'}">AAA Large ${r>=4.5?'✓':'✗'}</span>
+  `;
+  ratioEl.className = 'ct-ratio ' + (r>=4.5?'pass':'fail');
+
+  const preview = document.getElementById('ct-preview');
+  const previewText = document.getElementById('ct-preview-text');
+  const previewSmall = document.getElementById('ct-preview-small');
+  preview.style.background = bg;
+  preview.style.color = fg;
+  previewText.style.color = fg;
+  previewSmall.style.color = fg;
+}
+
+/* ════════════════════
+   WDS PALETTE GRID
+════════════════════ */
+function renderWDSGrid() {
+  const grid = document.getElementById('wds-grid');
+  WDS_PAIRS.forEach(pair => {
+    const ratio = parseFloat(contrastRatio(pair.fg, pair.bg));
+    const passes = ratio >= 4.5;
+    const el = document.createElement('div');
+    el.className = 'wds-check';
+    el.style.background = pair.bg;
+    el.onclick = () => {
+      document.getElementById('fg-hex').value = pair.fg;
+      document.getElementById('fg-picker').value = pair.fg;
+      document.getElementById('bg-hex').value = pair.bg;
+      document.getElementById('bg-picker').value = pair.bg;
+      updateContrast();
+      document.querySelector('.contrast-tool').scrollIntoView({ behavior:'smooth' });
+    };
+    el.innerHTML = `
+      <div class="wds-check-name" style="color:${pair.fg};opacity:.7;">${pair.name}</div>
+      <div class="wds-check-ratio ${passes?'pass':'fail'}" style="color:${passes?'#5a6b4a':'#d4705e'}">${ratio}:1</div>
+      <div class="wds-check-label" style="color:${pair.fg};opacity:.35;">${pair.usage}</div>
+    `;
+    grid.appendChild(el);
+  });
+}
+
+/* ════════════════════
+   LOAD SAVED STATE
+════════════════════ */
+function loadSaved() {
+  CHECKS.forEach(c => {
+    const saved = localStorage.getItem('status-'+c.id);
+    if (saved) statuses[c.id] = saved;
+  });
+}
+
+/* ════════════════════
+   EXPORT
+════════════════════ */
+function exportReport() { window.print(); }
+
+function exportJSON() {
+  const report = {
+    date: new Date().toISOString(),
+    checks: CHECKS.map(c => ({
+      id: c.id, name: c.name, wcag: c.wcag, level: c.level,
+      status: getStatus(c.id),
+      note: localStorage.getItem('note-'+c.id) || '',
+    }))
+  };
+  const blob = new Blob([JSON.stringify(report, null, 2)], { type:'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'warmth-ds-a11y-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+}
+
+function resetAll() {
+  if (!confirm('Reset all checks? This clears your progress.')) return;
+  CHECKS.forEach(c => {
+    localStorage.removeItem('status-'+c.id);
+    localStorage.removeItem('note-'+c.id);
+  });
+  statuses = {};
+  renderChecklist();
+  updateSummary();
+}
+
+/* ════════════════════
+   INIT
+════════════════════ */
+loadSaved();
+renderChecklist();
+updateSummary();
+renderWDSGrid();
+updateContrast();
+</script>
+</body>
+</html>
