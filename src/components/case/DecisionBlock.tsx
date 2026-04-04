@@ -68,7 +68,7 @@ export function DecisionBlock({ decision, index }: DecisionBlockProps) {
         {decision.designResponse && (
           <div
             className="cs-ri-grid"
-            style={{ borderTop: "1px solid #f0eeea" }}
+            style={{ borderTop: "1px solid var(--color-border)" }}
           >
             <div className="cs-ri-col" style={{ gridColumn: "1 / -1" }}>
               <div className="cs-ri-label">Solutioning</div>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { PixelFooter } from "@/components/home/PixelFooter";
 import { HomepageFixes } from "@/components/home/HomepageFixes";
 import { WorkSection } from "@/components/home/WorkSection";
+import { WritingSection } from "@/components/home/WritingSection";
 
 const CENTER_LINKS = [
   { label: "Work",      href: "#work" },
@@ -56,7 +57,7 @@ export function HomePageLines() {
             insight, complexity to story, problem to&nbsp;solution.
           </p>
           <a href="#work" className="home-hero-cta">
-            See the work <span className="home-hero-cta-arrow">→</span>
+            See the work <span className="home-hero-cta-arrow" aria-hidden />
           </a>
         </div>
 
@@ -84,6 +85,9 @@ export function HomePageLines() {
 
       {/* ── Work ───────────────────────────────────── */}
       <WorkSection />
+
+      {/* ── Writing ─────────────────────────────────── */}
+      <WritingSection />
 
       <PixelFooter />
     </div>

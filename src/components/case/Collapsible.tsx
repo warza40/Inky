@@ -24,7 +24,7 @@ export function Collapsible({ children, title, className, hideTitle }: Collapsib
       >
         <span className="cs-reveal-label">{title ?? "Details"}</span>
         <span className="cs-reveal-btn">
-          {open ? "Hide" : "Reveal"}
+          {open ? "Hide" : "Reveal to read more"}
           <span className="cs-reveal-arrow">{open ? "↑" : "↓"}</span>
         </span>
       </button>
