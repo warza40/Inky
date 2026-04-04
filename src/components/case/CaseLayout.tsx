@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CaseMain } from "./CaseMain";
 import { CaseNavigation } from "./CaseNavigation";
+import { CaseStudyFooter } from "./CaseStudyFooter";
 import type { CaseStudy } from "@/case-studies/omantel";
 import { CaseStudyDirection } from "./CaseStudyDirection";
 
@@ -105,6 +106,7 @@ export function CaseLayout({ children, title, subtitle, caseStudy }: CaseLayoutP
 
           <div className="cs-content">{children}</div>
         </main>
+        <CaseStudyFooter />
       </div>
     </CaseMain>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 interface WritingCard {
@@ -9,146 +10,56 @@ interface WritingCard {
   tags: string[];
   title: string;
   description: string;
-  visual: "notebook" | "rings" | "branches";
+  /** Inline SVG illustration (omit when imageSrc is set) */
+  visual?: "branches";
+  /** Raster hero for the card (e.g. article-specific art) */
+  imageSrc?: string;
+  /** Overrides `.wr-visual-img` object-position when `imageSrc` is set */
+  imageObjectPosition?: string;
   href: string;
+  /** Open in new tab (external Substack, etc.) */
+  external?: boolean;
 }
 
 const WRITING: WritingCard[] = [
   {
-    id: "field-notes",
-    type: "Objects",
-    spot: "Spot",
-    tags: ["Essay", "Field notes"],
-    title: "Field Notes",
+    id: "entry-exit-digital-lending",
+    type: "Finance",
+    spot: "Observational note",
+    tags: [],
+    title: "Entry & Exit in Digital Lending",
     description:
-      "An open notebook, mid-session. Lines of thought, a circle, a question. The artefact of a mind at work.",
-    visual: "notebook",
-    href: "#",
+      "Instant approval on the way in; opaque failures on the way out. When onboarding is built for speed and exit is shaped by risk, users meet an informational asymmetry.",
+    imageSrc: "/images/writing/digital-lending.png",
+    imageObjectPosition: "center 48%",
+    href: "https://open.substack.com/pub/thelilyput/p/entry-and-exit-in-digital-lending?r=g3nqv&utm_campaign=post&utm_medium=web",
+    external: true,
   },
   {
-    id: "clarity-moment",
-    type: "Abstract",
-    spot: "Insight beat",
-    tags: ["Case study", "Process"],
-    title: "The Clarity Moment",
+    id: "gate-kept-degrees",
+    type: "Education",
+    spot: "Long read",
+    tags: [],
+    title: "The System Behind “Gate-kept” Degrees",
     description:
-      "The moment a system clicks. Expanding rings, a warm centre, small marks radiating outward. Abstract but immediately felt.",
-    visual: "rings",
-    href: "#",
+      "The economy built the gate — not designers. On scarcity, credentials, and why the debate about design school often misses who actually holds the keys.",
+    imageSrc: "/images/writing/gate-kept-degrees.png",
+    href: "https://open.substack.com/pub/thelilyput/p/the-system-behind-gate-kept-degrees?r=g3nqv&utm_campaign=post&utm_medium=web",
+    external: true,
   },
   {
-    id: "mental-models",
-    type: "Systems",
-    spot: "Framework",
-    tags: ["Research", "Method"],
-    title: "Mental Models at Work",
+    id: "pattern-beneath-newsletter",
+    type: "Newsletter",
+    spot: "The Pattern Beneath",
+    tags: [],
+    title: "More essays & observational notes",
     description:
-      "What users carry into a product before they even open it. The invisible architecture every interface has to compete with.",
+      "Systems, finance, education, and the interfaces between them — essays that ask who built the gate and what the product refuses to surface.",
     visual: "branches",
-    href: "#",
+    href: "https://substack.com/@thelilyput",
+    external: true,
   },
 ];
-
-function FieldNotesVisual() {
-  return (
-    <svg
-      viewBox="0 0 520 220"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="wr-visual-svg"
-      aria-hidden
-    >
-      {/* Text lines */}
-      {[55, 78, 101, 124, 147, 170].map((y, i) => (
-        <line
-          key={y}
-          x1="32"
-          y1={y}
-          x2={[260, 200, 280, 220, 160, 240][i]}
-          y2={y}
-          stroke="rgba(28,24,18,0.13)"
-          strokeWidth="1"
-        />
-      ))}
-      {/* Circle selection / annotation */}
-      <circle cx="58" cy="148" r="22" fill="none" stroke="rgba(184,76,58,0.38)" strokeWidth="1.5" />
-      {/* Small inline mark */}
-      <circle cx="125" cy="148" r="5" fill="rgba(28,24,18,0.1)" />
-      <line x1="134" y1="148" x2="200" y2="148" stroke="rgba(184,76,58,0.2)" strokeWidth="1" />
-      {/* Arrow to sticky */}
-      <line x1="290" y1="115" x2="340" y2="84" stroke="rgba(28,24,18,0.18)" strokeWidth="1" />
-      <polygon points="340,78 346,88 334,88" fill="rgba(28,24,18,0.16)" />
-      {/* Sticky note */}
-      <rect x="344" y="28" width="130" height="88" fill="#f7e16e" rx="1" />
-      <line x1="344" y1="28" x2="474" y2="28" stroke="rgba(28,24,18,0.08)" strokeWidth="1" />
-      <text x="356" y="52" fontFamily="DM Mono, monospace" fontSize="9.5" fill="rgba(28,24,18,0.72)">why does this</text>
-      <text x="356" y="68" fontFamily="DM Mono, monospace" fontSize="9.5" fill="rgba(28,24,18,0.72)">step exist?</text>
-      {/* Buttons bottom-right */}
-      <rect x="360" y="162" width="52" height="24" rx="3" fill="none" stroke="rgba(28,24,18,0.14)" strokeWidth="1" />
-      <rect x="420" y="162" width="52" height="24" rx="3" fill="none" stroke="rgba(28,24,18,0.14)" strokeWidth="1" />
-      <rect x="380" y="194" width="64" height="20" rx="3" fill="none" stroke="rgba(184,76,58,0.28)" strokeWidth="1" />
-      {/* Tiny count labels */}
-      <text x="378" y="178" fontFamily="DM Mono, monospace" fontSize="7" fill="rgba(28,24,18,0.25)">1</text>
-      <text x="438" y="178" fontFamily="DM Mono, monospace" fontSize="7" fill="rgba(28,24,18,0.25)">1</text>
-    </svg>
-  );
-}
-
-// Pre-computed tick endpoints (cx=260, cy=110, inner r=100, outer r=108).
-// Static values avoid SSR/client Math.sin floating-point divergence.
-const RING_TICKS: [number, number, number, number][] = [
-  [360,     110,       368,     110      ], // 0°
-  [310,     196.603,   314,     203.531  ], // 60°
-  [210,     196.603,   206,     203.531  ], // 120°
-  [160,     110,       152,     110      ], // 180°
-  [210,     23.397,    206,     16.469   ], // 240°
-  [310,     23.397,    314,     16.469   ], // 300°
-];
-
-function RingsVisual() {
-  return (
-    <svg
-      viewBox="0 0 520 220"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="wr-visual-svg"
-      aria-hidden
-    >
-      <circle cx="260" cy="110" r="96" stroke="rgba(184,76,58,0.07)" strokeWidth="1" />
-      <circle cx="260" cy="110" r="70" stroke="rgba(184,76,58,0.11)" strokeWidth="1" />
-      <circle cx="260" cy="110" r="48" stroke="rgba(184,76,58,0.16)" strokeWidth="1" />
-      <circle cx="260" cy="110" r="28" stroke="rgba(184,76,58,0.22)" strokeWidth="1" />
-      {/* Filled centre */}
-      <circle cx="260" cy="110" r="12" fill="rgba(184,76,58,0.38)" />
-      <circle cx="260" cy="110" r="6"  fill="rgba(184,76,58,0.65)" />
-      {/* Tick marks — pre-computed, no runtime trig */}
-      {RING_TICKS.map(([x1, y1, x2, y2], i) => (
-        <line
-          key={i}
-          x1={x1} y1={y1} x2={x2} y2={y2}
-          stroke="rgba(184,76,58,0.22)"
-          strokeWidth="1.5"
-        />
-      ))}
-      {/* Scattered dots */}
-      <circle cx="150" cy="58"  r="2"   fill="rgba(28,24,18,0.12)" />
-      <circle cx="370" cy="72"  r="2"   fill="rgba(28,24,18,0.12)" />
-      <circle cx="90"  cy="138" r="1.5" fill="rgba(28,24,18,0.09)" />
-      <circle cx="440" cy="155" r="1.5" fill="rgba(28,24,18,0.09)" />
-      {/* Label */}
-      <text
-        x="418"
-        y="196"
-        fontFamily="DM Mono, monospace"
-        fontSize="9"
-        fill="rgba(28,24,18,0.22)"
-        fontStyle="italic"
-      >
-        the click
-      </text>
-    </svg>
-  );
-}
 
 function BranchesVisual() {
   const nodes: [number, number][] = [
@@ -166,10 +77,10 @@ function BranchesVisual() {
     [[260, 148], [384, 148]],
   ];
   const labels: [number, number, string][] = [
-    [130, 54, "explicit"],
-    [344, 48, "inferred"],
-    [56, 132, "assumed"],
-    [388, 140, "taught"],
+    [130, 54, "surface"],
+    [344, 48, "omit"],
+    [56, 132, "rights"],
+    [388, 140, "risk"],
   ];
 
   return (
@@ -213,8 +124,6 @@ function BranchesVisual() {
 }
 
 const VISUALS = {
-  notebook: FieldNotesVisual,
-  rings: RingsVisual,
   branches: BranchesVisual,
 };
 
@@ -241,13 +150,39 @@ export function WritingSection() {
 
       <div className="writing-divider" />
 
-      <div className="wr-stack">
+      <div className="wr-grid">
         {WRITING.map((card) => {
-          const Visual = VISUALS[card.visual];
+          const Visual = card.visual ? VISUALS[card.visual] : null;
           return (
-            <Link key={card.id} href={card.href} className="wr-card" aria-label={card.title}>
-              <div className="wr-visual">
-                <Visual />
+            <Link
+              key={card.id}
+              href={card.href}
+              className="wr-card"
+              aria-label={card.title}
+              {...(card.external
+                ? { target: "_blank" as const, rel: "noopener noreferrer" }
+                : {})}
+            >
+              <div
+                className={`wr-visual${card.imageSrc ? " wr-visual--photo" : ""}`}
+              >
+                {card.imageSrc ? (
+                  <Image
+                    src={card.imageSrc}
+                    alt=""
+                    fill
+                    className="wr-visual-img"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    priority={false}
+                    style={
+                      card.imageObjectPosition
+                        ? { objectPosition: card.imageObjectPosition }
+                        : undefined
+                    }
+                  />
+                ) : (
+                  Visual && <Visual />
+                )}
               </div>
               <div className="wr-info">
                 <div className="wr-info-main">
@@ -261,11 +196,13 @@ export function WritingSection() {
                   <h3 className="wr-title">{card.title}</h3>
                   <p className="wr-desc">{card.description}</p>
                 </div>
-                <div className="wr-tags" aria-label="Tags">
-                  {card.tags.map((tag) => (
-                    <span key={tag} className="wr-tag">{tag}</span>
-                  ))}
-                </div>
+                {card.tags.length > 0 && (
+                  <div className="wr-tags" aria-label="Tags">
+                    {card.tags.map((tag) => (
+                      <span key={tag} className="wr-tag">{tag}</span>
+                    ))}
+                  </div>
+                )}
               </div>
             </Link>
           );

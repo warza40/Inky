@@ -3,24 +3,31 @@
 import Link from "next/link";
 import { PixelFooter } from "@/components/home/PixelFooter";
 import { HomepageFixes } from "@/components/home/HomepageFixes";
+import { AboutSection } from "@/components/home/AboutSection";
 import { WorkSection } from "@/components/home/WorkSection";
 import { WritingSection } from "@/components/home/WritingSection";
 
 const CENTER_LINKS = [
-  { label: "Work",      href: "#work" },
-  { label: "Writing",   href: "https://substack.com/@thelilyput",    external: true },
-  { label: "Instagram", href: "https://instagram.com/rachanamandal", external: true },
+  { label: "Work", href: "#work" },
+  { label: "Writing", href: "#writing" },
+  { label: "About me", href: "#about" },
+  {
+    label: "Illustrations",
+    href: "https://instagram.com/rachanamandal",
+    external: true,
+  },
 ];
 
 export function HomePageLines() {
   return (
-    <div className="home-layout text-foreground min-h-full flex flex-col">
+    <div className="home-layout text-foreground flex flex-col">
       <HomepageFixes />
 
       {/* ── Header ─────────────────────────────────── */}
       <header className="home-header" aria-label="Site header">
         <Link href="/" className="home-header-name">
-          Rachana Mandal.
+          Rachana Mandal
+          <em className="home-header-name-accent">.</em>
         </Link>
         <nav className="home-header-nav" aria-label="Primary navigation">
           {CENTER_LINKS.map((item) => (
@@ -43,13 +50,13 @@ export function HomePageLines() {
       </header>
 
       {/* ── Hero ───────────────────────────────────── */}
-      <section className="home-hero" aria-label="Hero">
+      <section className="home-hero" aria-label="Introduction">
         <div className="home-hero-left">
           <p className="home-hero-label">— Senior UX Designer · Strategist</p>
           <h1 className="home-hero-h1">
             I work on complex<br />
-            product systems where<br />
-            <em className="home-hero-em">clarity often breaks down.</em>
+            product systems where{" "}
+            <span className="home-hero-em not-italic">clarity often breaks down.</span>
           </h1>
           <p className="home-hero-caption">
             Every system that feels effortless started with a wall or a board
@@ -88,6 +95,9 @@ export function HomePageLines() {
 
       {/* ── Writing ─────────────────────────────────── */}
       <WritingSection />
+
+      {/* ── About ───────────────────────────────────── */}
+      <AboutSection />
 
       <PixelFooter />
     </div>
