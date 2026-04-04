@@ -3,6 +3,7 @@ import type { CaseStudy } from "./omantel";
 export const warehouseOperationsCase: CaseStudy = {
   slug: "warehouse-operations",
   title: "Bringing Clarity to Warehouse Operations at Scale",
+  heroTitleAccent: "at Scale",
   overview: {
     role: "UX and UI Design",
     context: "Logistics · Operations",

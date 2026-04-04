@@ -53,10 +53,13 @@ export function CaseLayout({ children, title, subtitle, caseStudy }: CaseLayoutP
 
   return (
     <CaseMain>
-      <div className="cs-page">
+      <div
+        className={`cs-page${caseStudy?.warmthTheme ? ` cs-theme-${caseStudy.warmthTheme}` : ""}`}
+      >
         <CaseStudyDirection
           title={formatLabel(title)}
-          heroGradient={["#E8392A", "#FF8844", "#F5B800"]}
+          titleAccent={caseStudy?.heroTitleAccent}
+          warmthTheme={caseStudy?.warmthTheme ?? "madder"}
         />
         <div className="cs-nav-wrap">
           <div className="cs-breadcrumb" aria-label="Breadcrumb">

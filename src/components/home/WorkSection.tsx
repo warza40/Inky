@@ -20,6 +20,25 @@ interface WorkCard {
 
 const WORK: WorkCard[] = [
   {
+    slug: "omantel-bulk-activation",
+    category: "Enterprise",
+    categoryDetail: "Telecom",
+    tag: "enterprise",
+    title: "Designing a Scalable Bulk Activation System",
+    description:
+      "Enterprise customers were managing thousands of SIM activations manually. One invalid record failed the entire batch.",
+    keyDecision:
+      "We aligned bulk uploads with CSV templates and spreadsheets teams already used — familiarity and early validation — instead of a brand-new workflow that would have steepened the learning curve.",
+    imageBg: "#1e1a14",
+    graph: [
+      { flex: 1, color: "#8aa0b4" },
+      { flex: 2, color: "#b84c3a" },
+      { flex: 3, color: "#d4705e" },
+      { flex: 4, color: "#8a9e78" },
+    ],
+    href: "/case/omantel-bulk-activation",
+  },
+  {
     slug: "warehouse-operations",
     category: "Enterprise",
     categoryDetail: "Operations",
@@ -37,23 +56,6 @@ const WORK: WorkCard[] = [
       { flex: 1, color: "#8a9e78" },
     ],
     href: "/case/warehouse-operations",
-  },
-  {
-    slug: "omantel-bulk-activation",
-    category: "Enterprise",
-    categoryDetail: "Telecom",
-    tag: "enterprise",
-    title: "Designing a Scalable Bulk Activation System",
-    description:
-      "Enterprise customers were managing thousands of SIM activations manually. One invalid record failed the entire batch.",
-    imageBg: "#1e1a14",
-    graph: [
-      { flex: 1, color: "#8aa0b4" },
-      { flex: 2, color: "#b84c3a" },
-      { flex: 3, color: "#d4705e" },
-      { flex: 4, color: "#8a9e78" },
-    ],
-    href: "/case/omantel-bulk-activation",
   },
   {
     slug: "real-estate-connectivity",

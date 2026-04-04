@@ -135,7 +135,7 @@ export function WritingSection() {
         <div className="writing-section-header-left">
           <p className="writing-section-label">— Writing</p>
           <h2 className="writing-section-headline">
-            Thinking in public. Notes, essays, frameworks.
+            Thinking in public. Notes, essays, observations.
           </h2>
         </div>
         <a

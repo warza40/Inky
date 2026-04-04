@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import type { CaseStudy } from "@/case-studies/omantel";
 import { Collapsible } from "./Collapsible";
 import { DecisionBlock } from "./DecisionBlock";
@@ -15,6 +16,19 @@ interface CaseMapProps {
 
 export function CaseMap({ caseStudy }: CaseMapProps) {
   const [noteworthyFullViewIndex, setNoteworthyFullViewIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (noteworthyFullViewIndex === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setNoteworthyFullViewIndex(null);
+    };
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [noteworthyFullViewIndex]);
 
   return (
     <div>
@@ -513,82 +527,87 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
                   onClick={() => setNoteworthyFullViewIndex(index)}
                   aria-label={section.image ? section.image.alt : "View video"}
                 >
-                  <div className="cs-visual-img">
-                    {section.image ? (
-                      <img
-                        src={section.image.src}
-                        alt={section.image.alt}
-                        className="w-full h-auto block object-contain"
-                      />
-                    ) : section.video ? (
-                      <video
-                        src={section.video.src}
-                        className="w-full block"
-                        muted
-                        playsInline
-                        preload="metadata"
-                      />
-                    ) : null}
+                  <div className="cs-noteworthy-card-fill">
+                    <div className="cs-visual-img">
+                      {section.image ? (
+                        <img
+                          src={section.image.src}
+                          alt={section.image.alt}
+                          className="w-full h-auto block object-contain"
+                        />
+                      ) : section.video ? (
+                        <video
+                          src={section.video.src}
+                          className="w-full block"
+                          muted
+                          playsInline
+                          preload="metadata"
+                        />
+                      ) : null}
+                    </div>
+                    {caption && (
+                      <div className="cs-visual-caption">{caption}</div>
+                    )}
                   </div>
-                  {caption && (
-                    <div className="cs-visual-caption">{caption}</div>
-                  )}
                 </button>
               );
             })}
           </div>
 
-          {/* Full-view lightbox */}
-          {noteworthyFullViewIndex !== null && (() => {
-            const section = caseStudy.visualsSections![noteworthyFullViewIndex];
-            if (!section) return null;
-            const caption = section.image?.caption ?? section.video?.caption;
-            return (
-              <div
-                className="noteworthy-lightbox"
-                role="dialog"
-                aria-modal="true"
-                aria-label="Full view"
-                onClick={() => setNoteworthyFullViewIndex(null)}
-              >
-                <button
-                  type="button"
-                  className="noteworthy-lightbox-close"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setNoteworthyFullViewIndex(null);
-                  }}
-                  aria-label="Close"
-                >
-                  <X size={24} strokeWidth={1.5} />
-                </button>
+          {/* Full-view lightbox — portaled to body so it stacks above sticky nav */}
+          {typeof document !== "undefined" &&
+            noteworthyFullViewIndex !== null &&
+            (() => {
+              const section = caseStudy.visualsSections![noteworthyFullViewIndex];
+              if (!section) return null;
+              const caption = section.image?.caption ?? section.video?.caption;
+              return createPortal(
                 <div
-                  className="noteworthy-lightbox-inner"
-                  onClick={(e) => e.stopPropagation()}
+                  className="noteworthy-lightbox"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-label="Full view"
+                  onClick={() => setNoteworthyFullViewIndex(null)}
                 >
-                  {section.image ? (
-                    <img
-                      src={section.image.src}
-                      alt={section.image.alt}
-                      className="noteworthy-lightbox-media"
-                    />
-                  ) : section.video ? (
-                    <video
-                      src={section.video.src}
-                      controls
-                      autoPlay
-                      className="noteworthy-lightbox-media"
-                    >
-                      Your browser does not support the video tag.
-                    </video>
-                  ) : null}
-                  {caption && (
-                    <p className="noteworthy-lightbox-caption">{caption}</p>
-                  )}
-                </div>
-              </div>
-            );
-          })()}
+                  <button
+                    type="button"
+                    className="noteworthy-lightbox-close"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setNoteworthyFullViewIndex(null);
+                    }}
+                    aria-label="Close"
+                  >
+                    <X size={24} strokeWidth={1.5} />
+                  </button>
+                  <div
+                    className="noteworthy-lightbox-inner"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {section.image ? (
+                      <img
+                        src={section.image.src}
+                        alt={section.image.alt}
+                        className="noteworthy-lightbox-media"
+                      />
+                    ) : section.video ? (
+                      <video
+                        src={section.video.src}
+                        controls
+                        autoPlay
+                        className="noteworthy-lightbox-media"
+                      >
+                        Your browser does not support the video tag.
+                      </video>
+                    ) : null}
+                    {caption && (
+                      <p className="noteworthy-lightbox-caption">{caption}</p>
+                    )}
+                  </div>
+                </div>,
+                document.body
+              );
+            })()}
         </MotionSection>
       )}
     </div>

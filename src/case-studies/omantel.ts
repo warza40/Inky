@@ -1,6 +1,12 @@
+export type CaseStudyWarmthTheme = "madder" | "moss" | "ochre" | "slate";
+
 export interface CaseStudy {
   slug: string;
   title: string;
+  /** Optional substring of `title` rendered in the case accent on the hero band */
+  heroTitleAccent?: string;
+  /** Warmth DS wash + UI accents (default madder) */
+  warmthTheme?: CaseStudyWarmthTheme;
   overview: {
     role: string;
     context: string;
@@ -107,6 +113,7 @@ export interface CaseStudy {
 export const omantelCase: CaseStudy = {
   slug: "omantel-bulk-activation",
   title: "Designing a scalable bulk activation system",
+  warmthTheme: "moss",
   overview: {
     role: "Senior UX Designer",
     context: "B2B · Enterprise Telecom",

@@ -2,7 +2,9 @@ import { omantelCase } from "./omantel";
 import { anotherCase } from "./another-case";
 import { realEstateConnectivityCase } from "./real-estate-connectivity";
 import { warehouseOperationsCase } from "./warehouse-operations";
-import type { CaseStudy } from "./omantel";
+import type { CaseStudy, CaseStudyWarmthTheme } from "./omantel";
+
+export type { CaseStudy, CaseStudyWarmthTheme };
 
 export const caseStudies: CaseStudy[] = [
   omantelCase,

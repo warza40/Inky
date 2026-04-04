@@ -1,10 +1,61 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import type { CaseStudyWarmthTheme } from "@/case-studies/omantel";
+
+/** Warmth DS vertical wash — color at top, soft fade to paper (wash rule; dominant / people, energy) */
+export type WarmthWashStop = readonly [number, string];
+
+export const WARMTH_DS_MADDER_WASH_STOPS: readonly WarmthWashStop[] = [
+  [0, "#d4705e"],
+  [0.22, "#e8a598"],
+  [0.45, "#f0dbd6"],
+  [0.72, "#f5efe4"],
+  [1, "#faf7f2"],
+] as const;
+
+/** Living · nature, growth, data */
+export const WARMTH_DS_MOSS_WASH_STOPS: readonly WarmthWashStop[] = [
+  [0, "#8a9e78"],
+  [0.22, "#b5c4a8"],
+  [0.45, "#dde6d4"],
+  [0.72, "#f0ede4"],
+  [1, "#faf7f2"],
+] as const;
+
+/** Warmth · skin, light, objects */
+export const WARMTH_DS_OCHRE_WASH_STOPS: readonly WarmthWashStop[] = [
+  [0, "#dba85a"],
+  [0.22, "#e8c890"],
+  [0.45, "#f0e0c4"],
+  [0.72, "#f5efe4"],
+  [1, "#faf7f2"],
+] as const;
+
+/** Receding · shadow, background */
+export const WARMTH_DS_SLATE_WASH_STOPS: readonly WarmthWashStop[] = [
+  [0, "#9ca090"],
+  [0.22, "#c8ccc0"],
+  [0.45, "#e2e4dc"],
+  [0.72, "#f2efe8"],
+  [1, "#faf7f2"],
+] as const;
+
+const WASH_BY_THEME: Record<CaseStudyWarmthTheme, readonly WarmthWashStop[]> = {
+  madder: WARMTH_DS_MADDER_WASH_STOPS,
+  moss: WARMTH_DS_MOSS_WASH_STOPS,
+  ochre: WARMTH_DS_OCHRE_WASH_STOPS,
+  slate: WARMTH_DS_SLATE_WASH_STOPS,
+};
 
 type CaseStudyDirectionOptions = {
   title?: string;
-  heroGradient?: [string, string, string];
+  /** Substring of `title` rendered in the case accent colour (must match exactly) */
+  titleAccent?: string;
+  /** Drives hero wash + `cs-hero-band--*` fallback unless `heroWashStops` is set */
+  warmthTheme?: CaseStudyWarmthTheme;
+  /** Override wash stops (advanced) */
+  heroWashStops?: ReadonlyArray<WarmthWashStop>;
   shapeDensity?: number;
   shapeMinAlpha?: number;
   shapeMaxAlpha?: number;
@@ -91,15 +142,39 @@ type Piece = {
   alpha: number;
 };
 
+function HeroTitle({
+  title,
+  accent,
+}: {
+  title: string;
+  accent?: string;
+}) {
+  if (!accent) return <>{title}</>;
+  const i = title.lastIndexOf(accent);
+  if (i === -1) return <>{title}</>;
+  const before = title.slice(0, i);
+  const after = title.slice(i + accent.length);
+  return (
+    <>
+      {before}
+      <span className="cs-hero-title-accent">{accent}</span>
+      {after}
+    </>
+  );
+}
+
 export function CaseStudyDirection({
   title,
-  heroGradient = ["#E8392A", "#FF8844", "#F5B800"],
+  titleAccent,
+  warmthTheme = "madder",
+  heroWashStops,
   shapeDensity = 0.012,
   shapeMinAlpha = 0.1,
   shapeMaxAlpha = 0.24,
   shapeMinSpeed = 0.002,
   shapeMaxSpeed = 0.008,
 }: CaseStudyDirectionOptions) {
+  const washStops = heroWashStops ?? WASH_BY_THEME[warmthTheme];
   const progressRef = useRef<HTMLDivElement | null>(null);
   const heroCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const shapesCanvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -133,17 +208,17 @@ export function CaseStudyDirection({
           const w = heroCanvas.width;
           const h = heroCanvas.height;
 
-          const g = hctx.createLinearGradient(0, 0, w, h);
-          g.addColorStop(0, heroGradient[0]);
-          g.addColorStop(0.5, heroGradient[1]);
-          g.addColorStop(1, heroGradient[2]);
+          const g = hctx.createLinearGradient(0, 0, 0, h);
+          for (const [offset, color] of washStops) {
+            g.addColorStop(offset, color);
+          }
           hctx.fillStyle = g;
           hctx.fillRect(0, 0, w, h);
 
-          // Pixel grain
-          for (let i = 0; i < 1200; i++) {
-            hctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.08})`;
-            const s = Math.random() * 4 + 1;
+          // Soft paper grain (lighter than previous diagonal fill)
+          for (let i = 0; i < 650; i++) {
+            hctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.045})`;
+            const s = Math.random() * 3 + 0.5;
             hctx.fillRect(
               Math.round(Math.random() * w),
               Math.round(Math.random() * h),
@@ -152,8 +227,8 @@ export function CaseStudyDirection({
             );
           }
 
-          // Grid overlay
-          hctx.strokeStyle = "rgba(255,255,255,0.07)";
+          // Grid overlay — warm ink on wash
+          hctx.strokeStyle = "rgba(28,24,18,0.055)";
           hctx.lineWidth = 0.5;
           for (let x = 0; x < w; x += 14) {
             hctx.beginPath();
@@ -280,7 +355,7 @@ export function CaseStudyDirection({
       fadeObserver?.disconnect();
     };
   }, [
-    heroGradient,
+    washStops,
     shapeDensity,
     shapeMinAlpha,
     shapeMaxAlpha,
@@ -294,13 +369,17 @@ export function CaseStudyDirection({
         <div ref={progressRef} className="cs-progress-bar" id="cs-progress" />
       </div>
       <canvas ref={shapesCanvasRef} className="cs-shapes-canvas" id="shapesCanvas" />
-      <div className="cs-hero-band">
+      <div
+        className={`cs-hero-band${warmthTheme !== "madder" ? ` cs-hero-band--${warmthTheme}` : ""}`}
+      >
         <canvas ref={heroCanvasRef} className="cs-hero-canvas" id="heroCanvas" />
         <div className="cs-hero-overlay" />
         {title ? (
           <div className="cs-hero-overlay-content fade-in">
-            <div className="cs-hero-tag">Case Study</div>
-            <h1 className="cs-hero-title">{title}</h1>
+            <div className="tag tag-default cs-hero-tag">Case Study</div>
+            <h1 className="cs-hero-title">
+              <HeroTitle title={title} accent={titleAccent} />
+            </h1>
           </div>
         ) : null}
       </div>

@@ -2233,6 +2233,7 @@ html.dark .home-page-main,
   background-image: radial-gradient(circle, rgba(28, 24, 18, 0.065) 1px, transparent 1px);
   background-size: 20px 20px;
   background-position: 10px 10px;
+  background-attachment: fixed;
 }
 .about-section-inner {
   position: relative;
@@ -2338,6 +2339,31 @@ html.dark .home-page-main,
 .site-footer {
   background: var(--ink);
   color: var(--parchment);
+}
+
+/* Homepage: journal dot grid continues from About (same phase via fixed attachment) */
+.home-layout .site-footer {
+  position: relative;
+  isolation: isolate;
+}
+.home-layout .site-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle,
+    rgba(245, 239, 228, 0.08) 1px,
+    transparent 1px
+  );
+  background-size: 20px 20px;
+  background-position: 10px 10px;
+  background-attachment: fixed;
+}
+.home-layout .site-footer > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* Main row */
@@ -3788,11 +3814,50 @@ body:has(.cs-page) {
 /* DS Journal Layer — dots mode.
    Dot grid tiles over the parchment ground, imitating a Leuchtturm bullet journal. */
 .cs-page {
+  /* Case accent tokens — default madder; `.cs-theme-moss` overrides */
+  --cs-accent: var(--color-madder-700);
+  --cs-accent-mid: var(--color-madder-500);
+  --cs-accent-soft: var(--color-madder-200);
+  --cs-accent-soft-bg: color-mix(in srgb, var(--color-madder-500) 12%, transparent);
+  --cs-accent-soft-border: color-mix(in srgb, var(--color-madder-500) 30%, transparent);
+  --cs-accent-bar: var(--madder);
+  --cs-footer-link: var(--madder);
+  --cs-footer-link-hover: #c9604c;
   background-color: var(--color-ground-secondary);
   background-image:
     radial-gradient(circle, rgba(28,24,18,0.065) 1px, transparent 1px);
   background-size: 20px 20px;
   background-position: 10px 10px;
+}
+.cs-theme-moss {
+  --cs-accent: var(--color-moss-700);
+  --cs-accent-mid: var(--color-moss-500);
+  --cs-accent-soft: var(--color-moss-200);
+  --cs-accent-soft-bg: color-mix(in srgb, var(--color-moss-500) 12%, transparent);
+  --cs-accent-soft-border: color-mix(in srgb, var(--color-moss-500) 30%, transparent);
+  --cs-accent-bar: var(--moss);
+  --cs-footer-link: var(--moss);
+  --cs-footer-link-hover: #6d8a5c;
+}
+.cs-theme-ochre {
+  --cs-accent: var(--color-ochre-700);
+  --cs-accent-mid: var(--color-ochre-500);
+  --cs-accent-soft: var(--color-ochre-200);
+  --cs-accent-soft-bg: color-mix(in srgb, var(--color-ochre-500) 12%, transparent);
+  --cs-accent-soft-border: color-mix(in srgb, var(--color-ochre-500) 30%, transparent);
+  --cs-accent-bar: var(--color-ochre-700);
+  --cs-footer-link: var(--color-ochre-700);
+  --cs-footer-link-hover: #c09030;
+}
+.cs-theme-slate {
+  --cs-accent: var(--color-ink-700);
+  --cs-accent-mid: var(--color-ink-500);
+  --cs-accent-soft: var(--color-ink-100);
+  --cs-accent-soft-bg: color-mix(in srgb, var(--color-ink-500) 10%, transparent);
+  --cs-accent-soft-border: color-mix(in srgb, var(--color-ink-500) 28%, transparent);
+  --cs-accent-bar: var(--color-ink-700);
+  --cs-footer-link: var(--color-ink-500);
+  --cs-footer-link-hover: var(--color-ink-300);
 }
 
 /* CaseStudy direction — progress + hero band + background shapes + fade-in */
@@ -3811,7 +3876,7 @@ body:has(.cs-page) {
   left: 0;
   width: 0%;
   height: 100%;
-  background: var(--madder);
+  background: var(--cs-accent-bar);
   transition: width 80ms linear;
 }
 .cs-hero-band {
@@ -3819,8 +3884,45 @@ body:has(.cs-page) {
   height: 240px;
   position: relative;
   overflow: hidden;
-  /* Warm base under canvas — avoids a bright/white flash before paint */
-  background-color: var(--color-ground-secondary);
+  /* Madder wash (Warmth DS) — matches canvas; vertical top → paper */
+  background: linear-gradient(
+    180deg,
+    var(--color-madder-500) 0%,
+    color-mix(in srgb, var(--color-madder-500) 55%, var(--color-madder-200) 45%) 22%,
+    var(--color-madder-200) 45%,
+    var(--color-ground-secondary) 72%,
+    var(--color-ground-primary) 100%
+  );
+}
+.cs-hero-band--moss {
+  background: linear-gradient(
+    180deg,
+    var(--color-moss-500) 0%,
+    color-mix(in srgb, var(--color-moss-500) 55%, var(--color-moss-200) 45%) 22%,
+    var(--color-moss-200) 45%,
+    var(--color-ground-secondary) 72%,
+    var(--color-ground-primary) 100%
+  );
+}
+.cs-hero-band--ochre {
+  background: linear-gradient(
+    180deg,
+    var(--color-ochre-500) 0%,
+    color-mix(in srgb, var(--color-ochre-500) 55%, var(--color-ochre-200) 45%) 22%,
+    var(--color-ochre-200) 45%,
+    var(--color-ground-secondary) 72%,
+    var(--color-ground-primary) 100%
+  );
+}
+.cs-hero-band--slate {
+  background: linear-gradient(
+    180deg,
+    #9ca090 0%,
+    color-mix(in srgb, #9ca090 50%, #e2e4dc 50%) 22%,
+    #e2e4dc 45%,
+    var(--color-ground-secondary) 72%,
+    var(--color-ground-primary) 100%
+  );
 }
 @media (min-width: 768px)  { .cs-hero-band { height: 280px; } }
 @media (min-width: 1024px) { .cs-hero-band { height: 320px; } }
@@ -3891,17 +3993,20 @@ body:has(.cs-page) {
     padding-bottom: 36px;
   }
 }
-/* Hero band title — on gradient canvas; use light ground (not body ink) */
+/* Hero band title — ink on gradient (Warmth DS) */
 .cs-hero-title {
   font-family: var(--font-heading);
   font-size: clamp(28px, 4vw, 52px);
   font-weight: 500;
   font-style: normal;
-  color: var(--color-ground-primary);
+  color: var(--color-ink-900);
   line-height: var(--leading-tight);
   letter-spacing: -0.02em;
   max-width: 600px;
   margin: 0;
+}
+.cs-hero-title-accent {
+  color: var(--cs-accent);
 }
 
 /* Case study — site nav bar (sticky top), then breadcrumb + tabs below */
@@ -3926,14 +4031,15 @@ body:has(.cs-page) {
   background: var(--color-ground-tertiary);
   border-bottom: 1px solid var(--color-border);
   padding-top: 3px;
+  padding-bottom: 0;
   padding-left: calc(50% - 390px);
   padding-right: calc(50% - 390px);
 }
 .cs-breadcrumb {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 0 0;
+  gap: var(--space-2);
+  padding: var(--space-3) 0 0;
   font-family: var(--font-label);
   font-size: 11px;
   font-weight: 300;
@@ -3962,20 +4068,20 @@ body:has(.cs-page) {
 .cs-tabs {
   display: flex;
   gap: 0;
-  margin-top: 8px;
+  margin-top: var(--space-3);
   position: relative;
 }
 /* DS underline tab — weight contrast is the mechanism */
 .cs-tab {
   font-family: var(--font-label);
-  font-size: 9px;
-  font-weight: 300;               /* inactive: light, recessive */
-  letter-spacing: 0.2em;
+  font-size: var(--text-sm);
+  font-weight: 400;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  padding: 11px 20px;
+  padding: var(--space-3) var(--space-5);
   background: transparent;
   border: none;
-  color: var(--color-ink-300);    /* ghost-light on parchment */
+  color: var(--color-ink-300);
   cursor: pointer;
   outline: none;
   position: relative;
@@ -3983,22 +4089,24 @@ body:has(.cs-page) {
   transition: color 200ms cubic-bezier(0.4,0,0.2,1);
 }
 .cs-tab:focus-visible {
-  outline: 2px solid var(--color-madder-700);
+  outline: 2px solid var(--cs-accent);
   outline-offset: 4px;
 }
 .cs-tab:hover {
   color: var(--color-ink-700);    /* clear step up, not yet active */
 }
 .cs-tab.active {
-  font-weight: 400;               /* DM Mono top weight — distinct from 300 */
+  font-weight: 500;
   color: var(--color-ink-900);
-  letter-spacing: 0.18em;         /* tighten slightly at heavier weight */
+  letter-spacing: 0.12em;
 }
 /* Scale-reveal indicator — ink, not madder */
 .cs-tab::after {
   content: '';
   position: absolute;
-  bottom: -1px; left: 0; right: 0;
+  bottom: -1px;
+  left: 0;
+  right: 0;
   height: 2px;
   background: var(--color-ink-900);
   transform: scaleX(0);
@@ -4013,11 +4121,11 @@ body:has(.cs-page) {
   margin-left: auto;
   margin-right: auto;
   padding: 48px 32px 80px;
-  scroll-padding-top: 92px; /* clear of sticky nav (progress 3px + nav wrap ~88px) */
+  scroll-padding-top: 108px; /* clear of sticky nav (progress + nav wrap) */
 }
 .cs-section,
 .cs-hero {
-  scroll-margin-top: 92px;
+  scroll-margin-top: 108px;
 }
 .cs-content {
   font-family: var(--font-inter), "Inter", system-ui, sans-serif;
@@ -4069,7 +4177,7 @@ body:has(.cs-page) {
     background 150ms ease;
 }
 .cs-case-footer-back:hover {
-  border-color: var(--madder);
+  border-color: var(--cs-footer-link);
   color: var(--parchment);
 }
 .cs-case-footer-reach {
@@ -4078,13 +4186,13 @@ body:has(.cs-page) {
   font-weight: var(--weight-eyebrow);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--madder);
+  color: var(--cs-footer-link);
   text-decoration: none;
   transition: color 150ms ease;
   margin-left: auto;
 }
 .cs-case-footer-reach:hover {
-  color: #c9604c;
+  color: var(--cs-footer-link-hover);
 }
 .cs-case-footer-divider {
   height: 1px;
@@ -4120,20 +4228,9 @@ body:has(.cs-page) {
 }
 
 .cs-hero { margin-bottom: 36px; }
+/* Uses Warmth DS .tag + .tag-default; spacing only */
 .cs-hero-tag {
-  font-family: var(--font-label);
-  display: inline-flex;
-  align-items: center;
-  font-size: 9px;
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  background: color-mix(in srgb, var(--color-madder-500) 12%, transparent);
-  color: var(--color-madder-700);
-  border: 1px solid color-mix(in srgb, var(--color-madder-500) 30%, transparent);
-  padding: 4px 12px;
-  border-radius: var(--radius-full);
-  margin-bottom: 16px;
+  margin-bottom: var(--space-4);
 }
 .cs-hero h1 {
   font-family: var(--font-heading);
@@ -4199,7 +4296,7 @@ body:has(.cs-page) {
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-widest);
   text-transform: uppercase;
-  color: var(--color-madder-700);
+  color: var(--cs-accent);
   margin: 0;
 }
 .cs-section-label::before {
@@ -4249,11 +4346,11 @@ body:has(.cs-page) {
 .cs-reveal-wrapper.open .cs-reveal {
   border-radius: var(--radius-md) var(--radius-md) 0 0;
   border-bottom-color: transparent;
-  border-color: var(--color-madder-700);
+  border-color: var(--cs-accent);
 }
 .cs-reveal:hover {
   background: var(--color-ground-secondary);
-  border-color: var(--color-madder-700);
+  border-color: var(--cs-accent);
 }
 .cs-reveal-label {
   font-family: var(--font-serif);
@@ -4270,9 +4367,9 @@ body:has(.cs-page) {
   font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-madder-700);
-  background: color-mix(in srgb, var(--color-madder-500) 12%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-madder-500) 30%, transparent);
+  color: var(--cs-accent);
+  background: var(--cs-accent-soft-bg);
+  border: 1px solid var(--cs-accent-soft-border);
   padding: 4px 12px;
   border-radius: var(--radius-full);
   pointer-events: none;
@@ -4296,7 +4393,7 @@ body:has(.cs-page) {
 }
 .cs-reveal-content.open {
   max-height: 2000px;
-  border-color: var(--color-madder-700);
+  border-color: var(--cs-accent);
   border-top: none;
   padding: 16px 18px 20px;
   margin-top: -1px;
@@ -4322,7 +4419,7 @@ body:has(.cs-page) {
     transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .cs-decision:hover {
-  border-color: var(--color-madder-700);
+  border-color: var(--cs-accent);
   box-shadow: var(--shadow-md);
   transform: translateY(-3px);
   z-index: 1;
@@ -4334,13 +4431,16 @@ body:has(.cs-page) {
   top: 0;
   bottom: 0;
   width: 4px;
-  background: var(--madder);
+  background: var(--cs-accent-bar);
   z-index: 1;
 }
 .cs-decision-head {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 14px;
+  row-gap: 10px;
   padding: 20px 18px 18px 24px;
   cursor: pointer;
   user-select: none;
@@ -4351,52 +4451,40 @@ body:has(.cs-page) {
     margin-bottom: 16px;
   }
   .cs-decision-head {
-    gap: 18px;
+    column-gap: 18px;
     padding: 22px 22px 18px 28px;
   }
 }
-/* Unnamed middle div (title + description) grows to push toggle right */
-.cs-decision-head > div:not(.cs-decision-toggle) {
-  flex: 1;
-  min-width: 0;
-}
-/* Circle number badge */
+/* Row 1: number, title, chevron share one baseline row */
 .cs-decision-num {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  border: 1px solid var(--color-border);
-  background: var(--color-ground-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  grid-column: 1;
+  grid-row: 1;
+  margin: 0;
+  padding: 0;
   font-family: var(--font-label);
   font-size: 13px;
   font-weight: 400;
   color: var(--color-ink-900);
   letter-spacing: -0.01em;
-  flex-shrink: 0;
   font-variant-numeric: tabular-nums;
-  transition: background 150ms, border-color 150ms;
-}
-.cs-decision.open .cs-decision-num {
-  background: var(--madder);
-  border-color: var(--madder);
+  line-height: 1.25;
+  min-width: 1.75em;
+  text-align: left;
 }
 @media (min-width: 768px) {
   .cs-decision-num {
-    width: 42px;
-    height: 42px;
     font-size: 14px;
   }
 }
 .cs-decision-title {
+  grid-column: 2;
+  grid-row: 1;
   font-family: var(--font-serif);
   font-size: clamp(14px, 1.2vw, 17px);
   font-weight: 700;
   color: var(--color-ink-900);
   line-height: 1.25;
-  margin-bottom: 6px;
+  margin: 0;
   letter-spacing: -0.02em;
   text-align: left;
 }
@@ -4406,6 +4494,11 @@ body:has(.cs-page) {
   color: var(--color-ink-500);
   line-height: 1.65;
   text-align: left;
+}
+.cs-decision-body--below-title {
+  grid-column: 2 / -1;
+  grid-row: 2;
+  margin: 0;
 }
 /* Expandable body container */
 .cs-decision-body-wrap {
@@ -4418,8 +4511,9 @@ body:has(.cs-page) {
 }
 /* Toggle button — chevron (DecisionCards-chevron.css) */
 .cs-decision-toggle {
+  grid-column: 3;
+  grid-row: 1;
   flex-shrink: 0;
-  align-self: flex-start;
   width: 28px;
   height: 28px;
   border-radius: var(--radius-md);
@@ -4434,8 +4528,8 @@ body:has(.cs-page) {
   border-color: var(--color-ink-100);
 }
 .cs-decision.open .cs-decision-toggle {
-  background: var(--madder);
-  border-color: var(--madder);
+  background: var(--cs-accent-bar);
+  border-color: var(--cs-accent-bar);
 }
 /* Chevron icon — inline SVG, rotates 180deg when open */
 .cs-decision-toggle-icon {
@@ -4477,9 +4571,9 @@ body:has(.cs-page) {
   border-top: 1px solid var(--color-border);
 }
 /* Single column (< 600px): indent aligns text under the title
-   head-left 24px + num 38px + gap 14px = 76px */
+   head-left 24px + num (~1.75em) + gap 14px ≈ 60px */
 .cs-ri-col {
-  padding: 16px 20px 18px 76px;
+  padding: 16px 20px 18px 60px;
 }
 .cs-ri-col:first-child {
   border-bottom: 1px solid var(--color-border);
@@ -4509,7 +4603,7 @@ body:has(.cs-page) {
   font-weight: var(--weight-eyebrow);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-madder-700);
+  color: var(--cs-accent);
   margin-bottom: 10px;
   text-align: left;
 }
@@ -4550,7 +4644,7 @@ body:has(.cs-page) {
   border-radius: 50%;
 }
 .cs-visual-dot:nth-child(1) { background: #E8392A; }
-.cs-visual-dot:nth-child(2) { background: var(--madder); }
+.cs-visual-dot:nth-child(2) { background: var(--cs-accent-bar); }
 .cs-visual-dot:nth-child(3) { background: #1D9E75; }
 .cs-visual-bar-label {
   font-size: 9px;
@@ -4583,13 +4677,22 @@ body:has(.cs-page) {
   line-height: 1.55;
 }
 
-/* Noteworthy iterations grid — same visual frame style */
+/* Noteworthy iterations — grid row height = tallest card; inner fill flex pins caption to card bottom */
 .cs-noteworthy-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
+  align-items: stretch;
 }
-button.cs-visual-clickable {
+.cs-noteworthy-grid > button.cs-visual-clickable {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  align-self: stretch;
+  justify-self: stretch;
+  box-sizing: border-box;
   font: inherit;
   color: inherit;
   text-align: left;
@@ -4604,8 +4707,27 @@ button.cs-visual-clickable {
     box-shadow 200ms ease,
     transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+.cs-noteworthy-grid .cs-noteworthy-card-fill {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  width: 100%;
+  min-width: 0;
+}
+.cs-noteworthy-grid .cs-noteworthy-card-fill .cs-visual-img {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.cs-noteworthy-grid .cs-noteworthy-card-fill .cs-visual-caption {
+  flex-shrink: 0;
+  margin-top: auto;
+}
 button.cs-visual-clickable:hover {
-  border-color: var(--color-madder-700);
+  border-color: var(--cs-accent);
   box-shadow: var(--shadow-md);
   transform: translateY(-3px);
 }
@@ -4727,10 +4849,10 @@ button.cs-visual-clickable:hover {
 /* Nav spacing fine-tune on smaller viewports */
 @media (max-width: 768px) {
   .cs-breadcrumb {
-    padding: 10px 0 0;
+    padding: var(--space-3) 0 0;
   }
   .cs-tabs {
-    margin-top: 6px;
+    margin-top: var(--space-3);
   }
   .cs-bc-current {
     max-width: 220px;
@@ -5685,7 +5807,8 @@ button.cs-visual-clickable:hover {
 .noteworthy-lightbox {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  /* Above sticky case nav (90), site-nav (100), and progress bar (999) */
+  z-index: 10000;
   background: rgba(0, 0, 0, 0.85);
   display: flex;
   align-items: center;

@@ -84,7 +84,7 @@ export function HomePageLines() {
               The real job-to-be-done is trust
             </div>
             <div className="sn sn-mint sn-5">
-              Ask again. Then ask&nbsp;why.
+              B= MAP
             </div>
           </div>
         </div>

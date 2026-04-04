@@ -7,7 +7,6 @@ const ABOUT_ED_CARDS: string[] = [
   `I care about making complexity legible: the right concept at the interface level, and the right conversations with stakeholders so the product doesn't quietly encode the wrong tradeoffs.`,
   `Before that work shows up as UI, it usually shows up as walls, boards, and hard questions. That's the part I lean into. Most of my work happens before the Figma file opens.`,
   `I read rooms. Not whether an idea landed — but how people process it. The format that makes a stakeholder digest something versus perform agreement.`,
-  `The reaction that signals real resistance versus surface discomfort. That reading shapes what I show next, how I frame it, which argument I make aloud and which one I hold.`,
   `The design usually follows once I understand what the room can actually hear.`,
 ];
 

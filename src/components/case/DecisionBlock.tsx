@@ -22,12 +22,7 @@ export function DecisionBlock({ decision, index }: DecisionBlockProps) {
         <span className="cs-decision-num">
           {String(index + 1).padStart(2, "0")}
         </span>
-        <div>
-          <h3 className="cs-decision-title">{decision.title}</h3>
-          {decision.description ? (
-            <p className="cs-decision-body">{decision.description}</p>
-          ) : null}
-        </div>
+        <h3 className="cs-decision-title">{decision.title}</h3>
         <div className="cs-decision-toggle" aria-hidden="true">
           <span className="cs-decision-toggle-icon" aria-hidden>
             <svg
@@ -47,6 +42,11 @@ export function DecisionBlock({ decision, index }: DecisionBlockProps) {
             </svg>
           </span>
         </div>
+        {decision.description ? (
+          <p className="cs-decision-body cs-decision-body--below-title">
+            {decision.description}
+          </p>
+        ) : null}
       </button>
 
       <div className="cs-decision-body-wrap">
@@ -114,9 +114,6 @@ export function DecisionBlock({ decision, index }: DecisionBlockProps) {
                       </div>
                     )}
                   </div>
-                  {image.caption && (
-                    <div className="cs-visual-caption">{image.caption}</div>
-                  )}
                 </div>
               );
             })}
