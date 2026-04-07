@@ -31,7 +31,7 @@ export function Hero() {
               key="rm"
               initial={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
+              transition={{ duration: 0.25, ease: "easeOut" as const }}
               className="text-4xl md:text-5xl font-semibold tracking-tight"
             >
               /RM

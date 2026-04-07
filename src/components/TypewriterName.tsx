@@ -54,7 +54,7 @@ export function TypewriterName() {
     <motion.span
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      transition={{ duration: 0.5, ease: "easeOut" as const }}
       className="typewriter-name inline-block text-xl md:text-2xl font-semibold tracking-tight text-white"
     >
       {text}

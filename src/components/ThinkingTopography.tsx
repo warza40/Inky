@@ -143,7 +143,8 @@ export default function ThinkingTopography({
           const minDist =
             (c.isSecondary || other.isSecondary)
               ? 200
-              : MIN_SEPARATION[c.size] + MIN_SEPARATION[other.size] * 0.5;
+              : MIN_SEPARATION[c.size as ClusterSize] +
+                MIN_SEPARATION[other.size] * 0.5;
           
           if (dist < minDist) {
             tooClose = true;
@@ -157,7 +158,7 @@ export default function ThinkingTopography({
             y,
             word: c.word,
             startTime: c.start,
-            size: c.size,
+            size: c.size as ClusterSize,
             isSecondary: c.isSecondary ?? false,
             numRings: profile.rings,
             maxRadius: minR + Math.random() * (maxR - minR),

@@ -2,7 +2,7 @@
 
 import { createContext, useContext } from "react";
 
-type Theme = "light";
+export type Theme = "light" | "dark";
 
 const ThemeContext = createContext<{
   theme: Theme;

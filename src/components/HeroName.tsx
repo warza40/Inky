@@ -43,7 +43,7 @@ export default function HeroName() {
             key="rm"
             initial={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
+            transition={{ duration: 0.3, ease: "easeOut" as const }}
             className="absolute left-0 top-0 text-3xl font-semibold tracking-tight"
           >
             /RM
@@ -56,7 +56,7 @@ export default function HeroName() {
           key="full"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
+          transition={{ duration: 0.3, ease: "easeOut" as const }}
           className="absolute left-0 top-0 text-3xl font-semibold tracking-tight"
         >
           {typedText}
