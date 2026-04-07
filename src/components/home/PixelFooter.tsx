@@ -28,8 +28,7 @@ export function PixelFooter() {
         <div className="sf-left">
           <p className="sf-name">Rachana Mandal.</p>
           <p className="sf-bio">
-            Senior UX Designer · Available for remote work<br />
-            EU · US · Japan
+            Senior UX Designer · Available for remote work
           </p>
 
           {/* Social links */}
