@@ -159,7 +159,7 @@ export default function ThinkingTopography({
             y,
             word: c.word,
             startTime: c.start,
-            size: c.size,
+            size: c.size as ClusterSize,
             isSecondary: c.isSecondary ?? false,
             numRings: profile.rings,
             maxRadius: minR + Math.random() * (maxR - minR),
