@@ -66,10 +66,12 @@ export function generateContours({
 }
 
 export function getElevation() {
-  const sections = document.querySelectorAll("section[data-elevation]");
+  const sections = document.querySelectorAll<HTMLElement>(
+    "section[data-elevation]"
+  );
   let elevation = 0;
 
-  sections.forEach(section => {
+  sections.forEach((section) => {
     const rect = section.getBoundingClientRect();
     const progress = Math.min(
       Math.max(1 - rect.top / window.innerHeight, 0),
