@@ -3,12 +3,17 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import type { CaseStudy } from "@/case-studies/omantel";
+import { getCaseVisualsPresentation } from "@/case-studies/case-visuals";
 import { Collapsible } from "./Collapsible";
 import { DecisionBlock } from "./DecisionBlock";
 import { MotionSection } from "./MotionSection";
 import { MotionImage } from "./MotionImage";
 import { Problem } from "./Problem";
+import { parseBoldSpans } from "@/lib/case-rich-text";
+import { DisasterRecoveryUnderstanding } from "./DisasterRecoveryUnderstanding";
 import { X } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { lockScrollForOverlay, unlockScrollForOverlay } from "@/lib/overlay-scroll-lock";
 
 interface CaseMapProps {
   caseStudy: CaseStudy;
@@ -16,16 +21,17 @@ interface CaseMapProps {
 
 export function CaseMap({ caseStudy }: CaseMapProps) {
   const [noteworthyFullViewIndex, setNoteworthyFullViewIndex] = useState<number | null>(null);
+  const visualsPresentation = getCaseVisualsPresentation(caseStudy);
 
   useEffect(() => {
     if (noteworthyFullViewIndex === null) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setNoteworthyFullViewIndex(null);
     };
-    document.body.style.overflow = "hidden";
+    lockScrollForOverlay();
     document.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = "";
+      unlockScrollForOverlay();
       document.removeEventListener("keydown", onKey);
     };
   }, [noteworthyFullViewIndex]);
@@ -41,7 +47,15 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
 
       {/* Understanding Section (collapsible) */}
       {caseStudy.sections.understanding && (
-        <MotionSection id="understanding" title={caseStudy.sections.understanding.title}>
+        <>
+          {caseStudy.slug === "disaster-recovery" ? (
+            <MotionSection id="understanding" title={undefined}>
+              <Collapsible title={caseStudy.sections.understanding.title}>
+                <DisasterRecoveryUnderstanding understanding={caseStudy.sections.understanding} />
+              </Collapsible>
+            </MotionSection>
+          ) : (
+            <MotionSection id="understanding" title={caseStudy.sections.understanding.title}>
           <Collapsible title={caseStudy.sections.understanding.title} hideTitle>
             <div className="case-body text-neutral-700 dark:text-neutral-300">
               {(() => {
@@ -191,7 +205,9 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
                               <ul className="list-disc list-inside space-y-2 ml-4 mb-4">
                                 {caseStudy.sections.understanding.afterSecondaryResearchDivider.bullets.map(
                                   (item, i) => (
-                                    <li key={i}>{item}</li>
+                                    <li key={i} className="whitespace-pre-line">
+                                      {item}
+                                    </li>
                                   )
                                 )}
                               </ul>
@@ -202,7 +218,7 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
                                 .split("\n\n")
                                 .filter((p) => p.trim())
                                 .map((para, i) => (
-                                  <p key={i} className="mb-0">
+                                  <p key={i} className="mb-0 whitespace-pre-line">
                                     {para.trim()}
                                   </p>
                                 ))}
@@ -323,7 +339,9 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
               })()}
             </div>
           </Collapsible>
-        </MotionSection>
+            </MotionSection>
+          )}
+        </>
       )}
 
       {/* Constraints Section */}
@@ -331,6 +349,21 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
         <MotionSection id="constraints" title="Constraints">
           <div className="space-y-4">
             {caseStudy.sections.constraints.map((item, index) => {
+              if (item.intro && item.numberedItems && item.numberedItems.length > 0) {
+                return (
+                  <div key={index} className="cs-constraints-block">
+                    <p className="case-body opacity-90 cs-constraints-intro">{item.intro}</p>
+                    <ul className="cs-constraint-list">
+                      {item.numberedItems.map((text, ni) => (
+                        <li key={ni} className="cs-constraint-list-item">
+                          <span className="cs-cl-marker">{String(ni + 1).padStart(2, "0")}</span>
+                          <span>{text}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              }
               if (item.collapsible && item.title) {
                 const lines = item.content.split('\n').filter(line => line.trim());
                 const bulletPoints: string[] = [];
@@ -428,7 +461,11 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
 
       {/* Decisions Section */}
       {caseStudy.sections.decisions.length > 0 && (
-        <MotionSection id="decisions" title="Key Decisions">
+        <MotionSection
+          id="decisions"
+          title="Key Decisions"
+          className={caseStudy.slug === "disaster-recovery" ? "cs-key-decisions-dr" : undefined}
+        >
           <div className="space-y-0">
             {caseStudy.sections.decisions.map((decision, index) => (
               <div key={index} className="case-decision-card">
@@ -439,49 +476,128 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
         </MotionSection>
       )}
 
+      {caseStudy.sections.reportCategories && caseStudy.sections.reportCategories.length > 0 && (
+        <MotionSection id="report-categories" title="Four major report categories">
+          <div className="cs-report-categories-wrap">
+            <div className="cs-report-grid">
+              {caseStudy.sections.reportCategories.map((item, i) => (
+                <div key={i} className="cs-report-card">
+                  <div className="cs-report-num" aria-hidden>
+                    {item.num}
+                  </div>
+                  <div className="cs-report-body">
+                    <div className="cs-report-title">{item.title}</div>
+                    <p className="cs-report-desc">{item.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </MotionSection>
+      )}
+
       {/* Outcome and Impact Section */}
       {caseStudy.sections.outcome && (
         <MotionSection id="outcome" title="Outcome and Impact">
-          <div className="case-body opacity-90">
-            {(() => {
-              const lines = caseStudy.sections.outcome.split('\n').filter(line => line.trim());
-              const bulletPoints: string[] = [];
-              const textParts: string[] = [];
-              
-              lines.forEach((line) => {
-                const trimmed = line.trim();
-                if (trimmed.startsWith('•')) {
-                  bulletPoints.push(trimmed.replace(/^•\s*/, ''));
-                } else if (trimmed) {
-                  textParts.push(trimmed);
-                }
-              });
+          <div
+            className={cn(
+              caseStudy.sections.outcomeImages && caseStudy.sections.outcomeImages.length > 0 && "cs-outcome-inner"
+            )}
+          >
+            <div className="case-body opacity-90">
+              {(() => {
+                const lines = caseStudy.sections.outcome.split("\n").filter((line) => line.trim());
+                const bulletPoints: string[] = [];
+                const textParts: string[] = [];
 
-              return (
-                <>
-                  {textParts.map((para, paraIndex) => (
-                    <p key={paraIndex} className="mb-4">{para}</p>
-                  ))}
-                  {bulletPoints.length > 0 && (
-                    <ul className="list-disc list-inside space-y-2 mb-4 ml-4">
-                      {bulletPoints.map((point, pointIndex) => (
-                        <li key={pointIndex}>{point}</li>
-                      ))}
-                    </ul>
-                  )}
-                </>
-              );
-            })()}
+                lines.forEach((line) => {
+                  const trimmed = line.trim();
+                  if (trimmed.startsWith("•")) {
+                    bulletPoints.push(trimmed.replace(/^•\s*/, ""));
+                  } else if (trimmed) {
+                    textParts.push(trimmed);
+                  }
+                });
+
+                return (
+                  <>
+                    {textParts.map((para, paraIndex) => (
+                      <p key={paraIndex} className="mb-4">
+                        {para}
+                      </p>
+                    ))}
+                    {bulletPoints.length > 0 && (
+                      <ul
+                        className={cn(
+                          "cs-outcome-list",
+                          caseStudy.sections.outcomeImages?.length && "cs-outcome-list--with-visuals"
+                        )}
+                      >
+                        {bulletPoints.map((point, pointIndex) => (
+                          <li key={pointIndex}>{parseBoldSpans(point)}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </>
+                );
+              })()}
+              {caseStudy.sections.outcomePill ? (
+                <div className="cs-outcome-pill">{caseStudy.sections.outcomePill}</div>
+              ) : null}
+            </div>
+            {caseStudy.sections.outcomeImages && caseStudy.sections.outcomeImages.length > 0 && (
+              <div
+                className={cn(
+                  "cs-outcome-visual-wrap",
+                  caseStudy.slug === "disaster-recovery" && "cs-outcome-visual-wrap--intrinsic"
+                )}
+              >
+                {caseStudy.sections.outcomeImages.map((image, imageIndex) => {
+                  const isVideo = /\.(mov|mp4|webm)(\?|$)/i.test(image.src);
+                  return (
+                    <div key={`${image.src}-${imageIndex}`} className="cs-visual-frame">
+                      <div
+                        className={
+                          caseStudy.slug === "disaster-recovery"
+                            ? "cs-visual-img cs-visual-img--contain"
+                            : "cs-visual-img"
+                        }
+                      >
+                        {isVideo ? (
+                          <video
+                            src={image.src}
+                            controls
+                            playsInline
+                            className="w-full aspect-video object-contain"
+                            aria-label={image.alt}
+                          />
+                        ) : caseStudy.slug === "disaster-recovery" ? (
+                          <MotionImage
+                            src={image.src}
+                            alt={image.alt}
+                            caption={image.caption}
+                            intrinsic
+                            lightbox
+                          />
+                        ) : (
+                          <div className="relative w-full aspect-video">
+                            <MotionImage
+                              src={image.src}
+                              alt={image.alt}
+                              caption={image.caption}
+                              fill
+                              objectFit="contain"
+                              lightbox
+                            />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
-          <figure className="mt-8 w-full overflow-hidden rounded-xl border-[var(--case-border)] border bg-[var(--background)] flex items-center justify-center min-h-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/Outcome_new.gif"
-              alt="Outcome"
-              className="w-full max-w-full h-auto object-contain"
-              style={{ display: "block" }}
-            />
-          </figure>
         </MotionSection>
       )}
 
@@ -491,14 +607,17 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
           <p className="case-body whitespace-pre-line opacity-90">
             {caseStudy.sections.reflection}
           </p>
+          {caseStudy.sections.reflectionClosing ? (
+            <p className="cs-reflection-closing">{caseStudy.sections.reflectionClosing}</p>
+          ) : null}
         </MotionSection>
       )}
 
-      {/* Images (legacy) */}
-      {caseStudy.images && caseStudy.images.length > 0 && !caseStudy.visualsSections && (
+      {/* Bottom visuals: legacy gallery or noteworthy grid (mutually exclusive) */}
+      {visualsPresentation.mode === "legacy" && (
         <MotionSection id="visuals" title="Visuals">
           <div className="space-y-6">
-            {caseStudy.images.map((image, index) => (
+            {visualsPresentation.images.map((image, index) => (
               <MotionImage
                 key={index}
                 src={image.src}
@@ -511,11 +630,10 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
         </MotionSection>
       )}
 
-      {/* Noteworthy iterations – cs visual style, click to open full view */}
-      {caseStudy.visualsSections && caseStudy.visualsSections.length > 0 && (
+      {visualsPresentation.mode === "noteworthy" && (
         <MotionSection id="visuals" title="Noteworthy iterations">
           <div className="cs-noteworthy-grid">
-            {caseStudy.visualsSections.map((section, index) => {
+            {visualsPresentation.slides.map(({ section, index }) => {
               const media = section.image || section.video;
               if (!media) return null;
               const caption = section.image?.caption ?? section.video?.caption;
@@ -554,7 +672,6 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
             })}
           </div>
 
-          {/* Full-view lightbox — portaled to body so it stacks above sticky nav */}
           {typeof document !== "undefined" &&
             noteworthyFullViewIndex !== null &&
             (() => {

@@ -14,6 +14,7 @@ export async function generateStaticParams() {
     { slug: "another-case" },
     { slug: "real-estate-connectivity" },
     { slug: "warehouse-operations" },
+    { slug: "disaster-recovery" },
   ];
 }
 

@@ -18,19 +18,25 @@ const CASE_STUDIES = [
     title: "Omantel Bulk Activation",
     subtitle: "Designing a self-serve bulk activation experience for enterprise customers",
     href: "/case/omantel-bulk-activation",
-    image: "/images/omantel-bulk-activation.jpg",
+    image: "/Bulk.png",
   },
   {
     title: "Real Estate Connectivity",
     subtitle: "Purchase flow and management for multi-unit building connectivity",
     href: "/case/real-estate-connectivity",
-    image: "/Section-3.png",
+    image: "/REC.png",
   },
   {
     title: "Bringing Clarity to Warehouse Operations at Scale",
     subtitle: "Centralized warehouse management portal for operations and quality",
     href: "/case/warehouse-operations",
-    image: "/Table.webp",
+    image: "/warehouse.png",
+  },
+  {
+    title: "Automating a previously manual system for Disaster Recovery teams",
+    subtitle: "Four-product ecosystem for debris operations, time reporting, case management, and disposal",
+    href: "/case/disaster-recovery",
+    image: "/DM.png",
   },
 ];
 

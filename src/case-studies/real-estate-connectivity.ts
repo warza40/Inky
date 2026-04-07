@@ -24,7 +24,6 @@ export const realEstateConnectivityCase: CaseStudy = {
       content:
         "Prior to this, real estate connectivity plans were presented as a static table on the Omantel website. The table outlined standard unit and bandwidth combinations, but did not support configuration or direct purchase.\n\nFor cases that did not match the listed options, real estate owners were required to contact Omantel through email. This resulted in manual coordination to clarify requirements, pricing, and feasibility before a request could be processed.\n\nAs a result, the digital experience functioned primarily as a reference point, with the actual transaction and validation occurring offline through internal teams.",
       images: [
-        {},
         {
           src: "/Section-3.png",
           alt: "Understanding the existing scenario – Section 3",
@@ -84,5 +83,4 @@ export const realEstateConnectivityCase: CaseStudy = {
       caption: "Placeholder—replace with your image",
     },
   ],
-  visualsSections: [{}, {}, {}, {}],
 };

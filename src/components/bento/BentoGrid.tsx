@@ -64,7 +64,7 @@ export function BentoGrid() {
           </p>
           <div className="flex items-center gap-2">
             <Link
-              href="https://linkedin.com/in/yourprofile"
+              href="https://www.linkedin.com/in/rachanamandal/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex h-9 w-9 items-center justify-center rounded-full border border-neutral-800 dark:border-neutral-400 bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 text-xs font-medium hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
@@ -123,7 +123,7 @@ export function BentoGrid() {
               <h3 className="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-4">Reach out to me</h3>
               <div className="flex items-center gap-4">
                 <Link
-                  href="https://linkedin.com/in/yourprofile"
+                  href="https://www.linkedin.com/in/rachanamandal/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center w-11 h-11 rounded-lg border border-neutral-200 dark:border-neutral-300 bg-neutral-50 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-600 hover:text-neutral-900 dark:hover:text-neutral-100 hover:border-neutral-300 transition-colors"

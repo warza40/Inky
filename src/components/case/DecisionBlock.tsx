@@ -1,10 +1,29 @@
 import type { CaseStudy } from "@/case-studies/omantel";
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 import { MotionImage } from "./MotionImage";
 
 interface DecisionBlockProps {
   decision: CaseStudy["sections"]["decisions"][0];
   index: number;
+}
+
+/** Split rationale / impact on blank lines into bullet rows with ↳ styling */
+function RiPoints({ text }: { text: string }) {
+  const parts = text
+    .split(/\n\n/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (parts.length === 0) return null;
+  return (
+    <ul className="cs-ri-list" role="list">
+      {parts.map((part, i) => (
+        <li key={i} className="cs-ri-item">
+          <span className="cs-ri-item-text">{part}</span>
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 export function DecisionBlock({ decision, index }: DecisionBlockProps) {
@@ -53,15 +72,11 @@ export function DecisionBlock({ decision, index }: DecisionBlockProps) {
         <div className="cs-ri-grid">
           <div className="cs-ri-col">
             <div className="cs-ri-label">Rationale</div>
-            <p className="cs-ri-text whitespace-pre-line">
-              {decision.rationale}
-            </p>
+            <RiPoints text={decision.rationale} />
           </div>
           <div className="cs-ri-col">
             <div className="cs-ri-label">Impact</div>
-            <p className="cs-ri-text whitespace-pre-line">
-              {decision.impact}
-            </p>
+            <RiPoints text={decision.impact} />
           </div>
         </div>
 
@@ -72,14 +87,12 @@ export function DecisionBlock({ decision, index }: DecisionBlockProps) {
           >
             <div className="cs-ri-col" style={{ gridColumn: "1 / -1" }}>
               <div className="cs-ri-label">Solutioning</div>
-              <p className="cs-ri-text whitespace-pre-line">
-                {decision.designResponse}
-              </p>
+              <RiPoints text={decision.designResponse} />
             </div>
           </div>
         )}
 
-        {displayImages.length > 0 && (
+        {displayImages.length > 0 ? (
           <div className="cs-visual-wrap">
             {displayImages.map((image, imageIndex) => {
               const isVideo = /\.(mov|mp4|webm)(\?|$)/i.test(image.src);
@@ -118,6 +131,44 @@ export function DecisionBlock({ decision, index }: DecisionBlockProps) {
               );
             })}
           </div>
+        ) : (
+          <>
+            {decision.imagePlaceholderSplit?.length === 2 ? (
+              <div className="cs-decision-placeholder cs-decision-placeholder--split">
+                <div className="cs-decision-placeholder-panel">
+                  <div className="cs-decision-placeholder-note">{decision.imagePlaceholderSplit[0]}</div>
+                </div>
+                <div className="cs-decision-placeholder-panel">
+                  <div className="cs-decision-placeholder-note">{decision.imagePlaceholderSplit[1]}</div>
+                </div>
+              </div>
+            ) : null}
+            {decision.imagePlaceholder && !decision.imagePlaceholderSplit ? (
+              <div className="cs-decision-placeholder">
+                <div className="cs-decision-placeholder-note">{decision.imagePlaceholder}</div>
+              </div>
+            ) : null}
+            {decision.navExploration && decision.navExploration.length > 0 ? (
+              <div className="cs-decision-nav-wrap">
+                <div className="cs-decision-nav-exploration">
+                  {decision.navExploration.map((n, i) => (
+                    <div key={i} className="cs-nav-exp-item">
+                      <div className="cs-nei-label">{n.label}</div>
+                      <div
+                        className={cn(
+                          "cs-nei-sketch",
+                          n.variant === "mega" && "cs-nei-sketch--mega",
+                          n.variant === "ribbon" && "cs-nei-sketch--ribbon",
+                          n.variant === "panel" && "cs-nei-sketch--panel"
+                        )}
+                        aria-hidden
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+          </>
         )}
       </div>
     </div>

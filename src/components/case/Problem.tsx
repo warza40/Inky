@@ -1,4 +1,5 @@
 import type { CaseStudy } from "@/case-studies/omantel";
+import { parseBoldSpans } from "@/lib/case-rich-text";
 import { Collapsible } from "./Collapsible";
 
 interface ProblemProps {
@@ -48,9 +49,29 @@ export function Problem({ problem }: ProblemProps) {
                   {item.title}
                 </h3>
               )}
-              <p className="case-body whitespace-pre-line opacity-90">
-                {item.content}
-              </p>
+              <div className="space-y-4">
+                {item.content
+                  .split(/\n\n/)
+                  .filter((p) => p.trim())
+                  .map((para, i) => (
+                    <p key={i} className="case-body opacity-90 mb-0">
+                      {parseBoldSpans(para.trim())}
+                    </p>
+                  ))}
+              </div>
+              {item.statBar && item.statBar.length > 0 ? (
+                <div className="cs-stat-bar">
+                  {item.statBar.map((s, si) => (
+                    <div key={si} className="cs-stat-item">
+                      <div className="cs-stat-num">
+                        {s.value}
+                        {s.valueSup ? <sup>{s.valueSup}</sup> : null}
+                      </div>
+                      <div className="cs-stat-label">{s.label}</div>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
             </div>
           );
         })}

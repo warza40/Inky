@@ -13,13 +13,37 @@ export interface CaseStudy {
     company: string;
     problem: string;
     focus: string;
+    /** When set, the third meta column is labelled “Tools” instead of “Company”. */
+    tools?: string;
   };
   sections: {
     context?: string;
+    /** Optional titled blocks; when present, rendered instead of flat `context` */
+    contextSections?: Array<{ title: string; body: string }>;
+    /** Narrative context with optional [madder]…[/madder] highlights; takes precedence over `contextSections` when present */
+    contextFlow?: {
+      paragraphs: string[];
+      /** Italic madder line (e.g. “Our aim…”) */
+      aim?: string;
+    };
+    /** Optional ecosystem module (e.g. four products in one bordered block); shown after `contextSections` when present */
+    contextEcosystem?: {
+      eyebrow: string;
+      intro: string;
+      boxTitle: string;
+      products: Array<{
+        name: string;
+        description: string;
+        platform: "desktop" | "mobile";
+        icon: "portal" | "clock" | "check" | "bars";
+      }>;
+    };
     problem: Array<{
       title?: string;
       content: string;
       collapsible?: boolean;
+      /** Optional stat strip (e.g. 9 / 4 / 3–4 mo) */
+      statBar?: Array<{ value: string; label: string; valueSup?: string }>;
     }>;
     understanding?: {
       title: string;
@@ -52,7 +76,18 @@ export interface CaseStudy {
         title: string;
         intro: string;
         bullets?: string[];
+        /** When `personas` is set, rendered as cards instead of this string */
         content: string;
+        /** Structured persona cards (replaces raw `content` when present) */
+        personas?: Array<{
+          name: string;
+          ageLine: string;
+          worksWith: string;
+          motivations: string[];
+          frustrations: string[];
+          painPoints: string[];
+        }>;
+        personaQuote?: string;
       };
       /** Optional subsection after Personas (divider + e.g. System-Level Exploration): title, intro, bullets, content, optional workflows */
       afterPersonasDivider?: {
@@ -60,6 +95,8 @@ export interface CaseStudy {
         intro: string;
         bullets?: string[];
         content: string;
+        /** Legacy: grey placeholder tile labels (omit when `images` is set) */
+        iaIterationLabels?: string[];
         /** Optional workflow list: intro, items (title + description), closing */
         workflowsIntro?: string;
         workflows?: Array<{ title: string; description: string }>;
@@ -73,6 +110,10 @@ export interface CaseStudy {
       content: string;
       collapsible?: boolean;
       expandedContent?: string;
+      /** Intro paragraph before a numbered list (use with `numberedItems`) */
+      intro?: string;
+      /** Numbered rows (01, 02, …) */
+      numberedItems?: string[];
     }>;
     decisions: Array<{
       title: string;
@@ -86,9 +127,34 @@ export interface CaseStudy {
         alt: string;
         caption?: string;
       }>;
+      /** NDA placeholder note in a dark band when there are no images */
+      imagePlaceholder?: string;
+      /** Two-column NDA placeholders (e.g. graph vs tabular) */
+      imagePlaceholderSplit?: [string, string];
+      /** Navigation exploration sketches (Mega Menu / Ribbon / Panel) */
+      navExploration?: Array<{
+        label: string;
+        variant: "mega" | "ribbon" | "panel";
+      }>;
     }>;
     outcome?: string;
+    /** Optional stacked visuals after outcome copy (e.g. Omantel); lightbox like decision images */
+    outcomeImages?: Array<{
+      src: string;
+      alt: string;
+      caption?: string;
+    }>;
+    /** Optional pill below outcome bullets */
+    outcomePill?: string;
     reflection?: string;
+    /** Final madder italic line (after main reflection body) */
+    reflectionClosing?: string;
+    /** Optional 2×2 grid (numbered cards + title + description) shown after Key Decisions */
+    reportCategories?: Array<{
+      num: string;
+      title: string;
+      description: string;
+    }>;
   };
   images?: Array<{
     src: string;
@@ -206,10 +272,28 @@ export const omantelCase: CaseStudy = {
         description: "In the previous process, a single invalid entry could cause the entire batch to fail. Validation was moved earlier in the flow, both at form level and during file uploads, so issues were surfaced before submission.",
         rationale: "Prevented full batch reprocessing. Reduced reliance on support teams. Gave users clearer feedback before committing.",
         impact: "Bulk actions became more predictable and less fragile, even at larger volumes.",
-        images: [],
+        images: [
+          {
+            src: "/Key-Decision-5.png",
+            alt: "Early validation of bulk records in the flow",
+            caption: "Validating records early",
+          },
+        ],
       },
     ],
     outcome: "While formal metrics were not tracked, the design focused on preventing known failure points in the legacy process.\n\nThe redesigned bulk activation experience:\n\n• Replaced manual, error-prone workflows with a structured self-service flow\n• Supported both quick actions and high-volume enterprise needs\n• Aligned with system constraints while improving usability.",
+    outcomeImages: [
+      {
+        src: "/Omantel%20assets/Outcome1.png",
+        alt: "Bulk Actions: upload step with drag-and-drop area before a file is selected",
+        caption: "Outcome 1 — empty upload state (drag-and-drop).",
+      },
+      {
+        src: "/Omantel%20assets/Outcome%202.gif",
+        alt: "Bulk Actions: file upload in progress with percentage",
+        caption: "Outcome 2 — active upload with progress.",
+      },
+    ],
     reflection: "This project reinforced that enterprise design is less about creating flexibility and more about managing responsibility at scale.\n\nIn a system where small mistakes can multiply quickly, the goal is often to reduce cognitive load, surface constraints clearly, and help users make confident decisions without dramatically changing the experience. Working within strict business rules, evolving requirements, and tight timelines made me appreciate the close collaboration with engineering. It strengthened my belief that, at scale, thoughtful limitations can be as valuable as new features.",
   },
   images: [

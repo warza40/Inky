@@ -13,7 +13,7 @@ const CENTER_LINKS = [
   { label: "About me", href: "#about" },
   {
     label: "Illustrations",
-    href: "https://instagram.com/rachanamandal",
+    href: "https://www.instagram.com/inky_lily/",
     external: true,
   },
 ];

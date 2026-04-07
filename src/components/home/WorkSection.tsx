@@ -12,8 +12,9 @@ interface WorkCard {
   tag: "enterprise" | "research" | "systems" | "all";
   title: string;
   description: string;
-  keyDecision?: string;
   imageBg: string;
+  /** Case study preview image from /public */
+  imageSrc?: string;
   graph: GraphSeg[];
   href: string;
 }
@@ -27,9 +28,8 @@ const WORK: WorkCard[] = [
     title: "Designing a Scalable Bulk Activation System",
     description:
       "Enterprise customers were managing thousands of SIM activations manually. One invalid record failed the entire batch.",
-    keyDecision:
-      "We aligned bulk uploads with CSV templates and spreadsheets teams already used — familiarity and early validation — instead of a brand-new workflow that would have steepened the learning curve.",
     imageBg: "#1e1a14",
+    imageSrc: "/Bulk.png",
     graph: [
       { flex: 1, color: "#8aa0b4" },
       { flex: 2, color: "#b84c3a" },
@@ -46,9 +46,8 @@ const WORK: WorkCard[] = [
     title: "Bringing Clarity to Warehouse Operations at Scale",
     description:
       "The data existed across every system. What was missing was a way to trust it, act on it, and share it across teams without losing hours to status coordination.",
-    keyDecision:
-      "We could build better dashboards, or fix the mental model that made bad dashboards feel acceptable. We chose the harder thing — and argued for it through three rounds of stakeholder review.",
     imageBg: "#1a2530",
+    imageSrc: "/warehouse.png",
     graph: [
       { flex: 2, color: "#8aa0b4" },
       { flex: 3, color: "#b84c3a" },
@@ -66,6 +65,7 @@ const WORK: WorkCard[] = [
     description:
       "Owners weren't afraid of the commitment. They were afraid of not understanding what they were committing to.",
     imageBg: "#1a2820",
+    imageSrc: "/REC.png",
     graph: [
       { flex: 4, color: "#8aa0b4" },
       { flex: 3, color: "#b84c3a" },
@@ -73,6 +73,24 @@ const WORK: WorkCard[] = [
       { flex: 1, color: "#8a9e78" },
     ],
     href: "/case/real-estate-connectivity",
+  },
+  {
+    slug: "disaster-recovery",
+    category: "Enterprise",
+    categoryDetail: "Operations",
+    tag: "enterprise",
+    title: "Automating a previously manual system for Disaster Recovery teams",
+    description:
+      "Hurricane season hits, and entire neighbourhoods are devastated. Our client on the front lines of disaster recovery faced their biggest roadblock: legacy tools — fragmented, error-prone, and slow when every hour counted.",
+    imageBg: "#1a2228",
+    imageSrc: "/DM.png",
+    graph: [
+      { flex: 3, color: "#8aa0b4" },
+      { flex: 2, color: "#b84c3a" },
+      { flex: 2, color: "#d4705e" },
+      { flex: 3, color: "#8a9e78" },
+    ],
+    href: "/case/disaster-recovery",
   },
 ];
 
@@ -87,14 +105,31 @@ function TilePanel({
   cols,
   bg,
   graph,
+  imageSrc,
+  imagePriority,
 }: {
   rows: number;
   cols: number;
   bg: string;
   graph: GraphSeg[];
+  imageSrc?: string;
+  imagePriority?: boolean;
 }) {
   return (
-    <div className="wc-tile-panel" style={{ background: bg }}>
+    <div
+      className={`wc-tile-panel${imageSrc ? " wc-tile-panel--has-image" : ""}`}
+      style={{ background: bg }}
+    >
+      {imageSrc && (
+        // eslint-disable-next-line @next/next/no-img-element -- static public assets, layout via CSS
+        <img
+          className="wc-panel-image"
+          src={imageSrc}
+          alt=""
+          loading={imagePriority ? "eager" : "lazy"}
+          decoding="async"
+        />
+      )}
       <div
         className="wc-tile-grid"
         style={{
@@ -125,8 +160,6 @@ export function WorkSection() {
   const filtered =
     activeTab === "all" ? WORK : WORK.filter((c) => c.tag === activeTab);
 
-  const [featured, ...rest] = filtered;
-
   return (
     <section className="work-section" id="work" aria-label="Work">
 
@@ -154,59 +187,31 @@ export function WorkSection() {
 
       <div className="work-divider" />
 
-      {/* Featured card — DS card-featured layout */}
-      {featured && (
-        <Link
-          href={featured.href}
-          className="wc-featured"
-          aria-label={featured.title}
-        >
-          <TilePanel rows={8} cols={10} bg={featured.imageBg} graph={featured.graph} />
-
-          <div className="wc-featured-body">
-            <div>
-              <p className="wc-breadcrumb">
-                {featured.category}
-                {featured.categoryDetail && (
-                  <span className="wc-breadcrumb-detail"> · {featured.categoryDetail}</span>
-                )}
-              </p>
-              <h3 className="wc-title">{featured.title}</h3>
-              <p className="wc-desc">{featured.description}</p>
-            </div>
-
-            {featured.keyDecision && (
-              <div className="wc-key-decision">
-                <span className="wc-kd-label">Key decision</span>
-                <p className="wc-kd-text">&ldquo;{featured.keyDecision}&rdquo;</p>
-              </div>
-            )}
-
-            <div className="wc-footer">
-              <span className="wc-cta">
-                Read the case study
-                <span className="wc-cta-arrow" aria-hidden />
-              </span>
-            </div>
-          </div>
-        </Link>
-      )}
-
-      {/* Grid cards — DS card-compact layout */}
-      {rest.length > 0 && (
+      {/* Case study cards — same grid as writing (three equal columns on desktop) */}
+      {filtered.length > 0 && (
         <div className="work-grid">
-          {rest.map((card) => (
+          {filtered.map((card, index) => (
             <Link
               key={card.slug}
               href={card.href}
               className="wc-card"
               aria-label={card.title}
             >
-              <TilePanel rows={5} cols={7} bg={card.imageBg} graph={card.graph} />
+              <TilePanel
+                rows={5}
+                cols={7}
+                bg={card.imageBg}
+                graph={card.graph}
+                imageSrc={card.imageSrc}
+                imagePriority={index === 0}
+              />
               <div className="wc-card-body">
                 <div>
                   <p className="wc-card-breadcrumb">
                     {card.category}
+                    {card.categoryDetail && (
+                      <span className="wc-breadcrumb-detail"> · {card.categoryDetail}</span>
+                    )}
                   </p>
                   <h3 className="wc-card-title">{card.title}</h3>
                   <p className="wc-card-desc">{card.description}</p>

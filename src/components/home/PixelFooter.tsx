@@ -5,7 +5,7 @@ import Link from "next/link";
 const CURRENTLY = [
   {
     label: "Reading",
-    text: "The Design of Everyday Things — rereading it. Finding new things each time.",
+    text: "The Book of Hope — Survival Guide for trying times, by Jane Goodall.",
   },
   {
     label: "Thinking about",
@@ -34,7 +34,7 @@ export function PixelFooter() {
 
           {/* Social links */}
           <nav className="sf-links" aria-label="Social links">
-            <Link href="https://linkedin.com/in/rachanamandal" target="_blank" rel="noopener noreferrer" className="sf-link">LinkedIn</Link>
+            <Link href="https://www.linkedin.com/in/rachanamandal/" target="_blank" rel="noopener noreferrer" className="sf-link">LinkedIn</Link>
             <span className="sf-link-sep">·</span>
             <Link href="https://substack.com/@thelilyput" target="_blank" rel="noopener noreferrer" className="sf-link">Substack</Link>
             <span className="sf-link-sep">·</span>

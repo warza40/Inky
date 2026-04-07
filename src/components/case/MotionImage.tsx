@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { lockScrollForOverlay, unlockScrollForOverlay } from "@/lib/overlay-scroll-lock";
 
 interface MotionImageProps {
   src: string;
@@ -19,6 +20,11 @@ interface MotionImageProps {
   lightbox?: boolean;
   /** Custom tooltip when hovering over the image (when lightbox is true). Default: "Click to view better" */
   hoverTooltip?: string;
+  /**
+   * Tall screenshots (IA, flows): use natural height instead of a fixed aspect-video frame
+   * so the full image is visible without clipping.
+   */
+  intrinsic?: boolean;
 }
 
 export function MotionImage({
@@ -32,6 +38,7 @@ export function MotionImage({
   objectFit = "cover",
   lightbox = false,
   hoverTooltip: hoverTooltipProp,
+  intrinsic = false,
 }: MotionImageProps) {
   const hoverTooltipText = hoverTooltipProp ?? "Click to view better";
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -51,45 +58,60 @@ export function MotionImage({
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") setLightboxOpen(false);
     };
-    document.body.style.overflow = "hidden";
+    lockScrollForOverlay();
     document.addEventListener("keydown", handleEscape);
     return () => {
-      document.body.style.overflow = "";
+      unlockScrollForOverlay();
       document.removeEventListener("keydown", handleEscape);
     };
   }, [lightboxOpen]);
 
-  const imageContent = (
-    <>
-      {fill ? (
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 896px"
-          className={objectFit === "contain" ? "object-contain" : "object-cover"}
-        />
-      ) : (
-        <Image
-          src={src}
-          alt={alt}
-          width={width || 800}
-          height={height || 600}
-          className="w-full h-full object-cover"
-        />
-      )}
-    </>
-  );
+  const imageContent =
+    intrinsic ? (
+      <Image
+        src={src}
+        alt={alt}
+        width={width || 2000}
+        height={height || 3000}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 780px"
+        className="block h-auto w-full max-w-full object-contain"
+        priority={false}
+      />
+    ) : fill ? (
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 896px"
+        className={objectFit === "contain" ? "object-contain" : "object-cover"}
+      />
+    ) : (
+      <Image
+        src={src}
+        alt={alt}
+        width={width || 800}
+        height={height || 600}
+        className="h-full w-full object-cover"
+      />
+    );
 
   return (
     <>
-      <figure className={cn("rounded-xl overflow-hidden border border-neutral-200/50 dark:border-white/20 w-full", className)}>
+      <figure
+        className={cn(
+          "w-full rounded-xl border border-neutral-200/50 dark:border-white/20",
+          intrinsic ? "overflow-visible" : "overflow-hidden",
+          className
+        )}
+      >
         <motion.div
           className={cn(
-            "relative w-full aspect-video bg-neutral-100 dark:bg-neutral-800",
+            "relative w-full bg-neutral-100 dark:bg-neutral-800",
+            !intrinsic && "aspect-video",
+            intrinsic && "min-h-0",
             lightbox && "cursor-zoom-in"
           )}
-          whileHover={{ scale: 1.02 }}
+          whileHover={intrinsic ? undefined : { scale: 1.02 }}
           transition={{ duration: 0.2 }}
           onClick={lightbox ? () => setLightboxOpen(true) : undefined}
           onMouseMove={handleMouseMove}
