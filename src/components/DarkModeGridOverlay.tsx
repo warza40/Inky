@@ -43,7 +43,7 @@ export function DarkModeGridOverlay() {
     return () => observer.disconnect();
   }, []);
 
-  const show = theme === "dark" || domDark;
+  const show = (theme as string) === "dark" || domDark;
   if (!show) return null;
 
   return (
