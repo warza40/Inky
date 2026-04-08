@@ -43,6 +43,7 @@
   /* ── COLOUR: Semantic ── */
   /* Homepage hero accent + primary CTA — same hue as headline “clarity…” */
   --color-accent: var(--color-madder-700);
+  --color-text-tertiary: var(--color-ink-300);
   --color-focus: var(--color-madder-700);
   --color-success: var(--color-moss-700);
   --color-warning: var(--color-ochre-700);
@@ -4657,10 +4658,10 @@ body:has(.cs-page) {
   gap: var(--space-2);
   padding: var(--space-3) 0 0;
   font-family: var(--font-label);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 300;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: normal;
+  text-transform: none;
 }
 .cs-bc-home {
   color: var(--color-ink-300);
@@ -5940,13 +5941,14 @@ body:has(.cs-page) {
     padding: 18px 24px 20px 32px;
   }
 }
+/* DM Mono eyebrow — pairs with serif body (Warmth DS label, not tight accent caps) */
 .cs-ri-label {
   font-family: var(--font-label);
-  font-size: var(--text-eyebrow);
+  font-size: 11px;
   font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.16em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--cs-accent);
+  color: var(--color-text-tertiary);
   margin-bottom: 22px;
   text-align: left;
 }
@@ -5963,9 +5965,9 @@ body:has(.cs-page) {
   margin-bottom: 1.5em;
   font-family: var(--font-serif);
   font-size: 14px;
-  color: var(--color-ink-500);
+  color: #4a4440;
   line-height: 1.65;
-  font-style: italic;
+  font-style: normal;
   text-align: left;
 }
 .cs-ri-item:last-child {
@@ -5990,7 +5992,7 @@ body:has(.cs-page) {
 .cs-ri-text {
   font-family: var(--font-serif);
   font-size: 14px;
-  color: var(--color-ink-500);
+  color: #4a4440;
   line-height: 1.72;
   text-align: left;
 }
@@ -6025,27 +6027,13 @@ body:has(.cs-page) {
   flex-direction: column;
   gap: var(--space-5);
 }
-.cs-visual-frame {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  background: var(--color-ground-primary);
-}
-/* Key decision cards — image block: warm paper-like surface (not dark letterbox) */
-.cs-decision .cs-visual-frame {
+/* Case study image block — decisions, outcome, CaseMap (warm paper, not dark letterbox) */
+.cs-visual-frame,
+.image-block {
   background-color: #ede8df;
   border: 1px solid #c8c0b0;
   border-radius: 12px;
   overflow: hidden;
-}
-.cs-decision .cs-visual-img {
-  background: #ede8df;
-  overflow: hidden;
-  border-radius: 8px;
-}
-.cs-decision .cs-visual-img img,
-.cs-decision .cs-visual-img video {
-  border-radius: 8px;
 }
 /* Bar removed from all case study visuals — do not show */
 .cs-visual-bar {
@@ -6080,12 +6068,15 @@ body:has(.cs-page) {
 .cs-visual-img {
   width: 100%;
   overflow: hidden;
-  background: var(--color-ink-900);
+  background: #ede8df;
+  border-radius: 8px;
 }
-.cs-visual-img img {
+.cs-visual-img img,
+.cs-visual-img video {
   width: 100%;
   display: block;
   object-fit: cover;
+  border-radius: 8px;
 }
 /* DR IA / user flows — global .cs-visual-img img uses cover; these need full frame visible */
 .cs-visual-img--contain img {
@@ -6268,6 +6259,22 @@ button.cs-visual-clickable:hover {
   }
   .cs-tabs::-webkit-scrollbar {
     display: none;
+  }
+  /* Scroll hint: fade matches sticky nav bar (ground-tertiary) */
+  .cs-tabs::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    pointer-events: none;
+    z-index: 1;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--color-ground-tertiary)
+    );
   }
   .cs-tab {
     white-space: nowrap;

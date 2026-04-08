@@ -22,7 +22,12 @@ function formatLabel(str: string): string {
   return str.replace(/\s+/g, " ").trim();
 }
 
-export function CaseLayout({ children, title, subtitle, caseStudy }: CaseLayoutProps) {
+export function CaseLayout({
+  children,
+  title,
+  subtitle,
+  caseStudy,
+}: CaseLayoutProps) {
   const sections: Array<{ id: string; label: string }> = [];
   if (
     caseStudy?.sections.context ||
@@ -77,7 +82,9 @@ export function CaseLayout({ children, title, subtitle, caseStudy }: CaseLayoutP
                 Home
               </Link>
               <span className="cs-bc-sep">/</span>
-              <span className="cs-bc-current">{formatLabel(title)}</span>
+              <span className="cs-bc-current" title={formatLabel(title)}>
+                {formatLabel(title)}
+              </span>
             </div>
             {sections.length > 0 && (
               <div className="cs-tabs" id="cs-tabs" aria-label="Case sections">
@@ -89,7 +96,10 @@ export function CaseLayout({ children, title, subtitle, caseStudy }: CaseLayoutP
           <main className="cs-main">
             <header className="cs-hero fade-in" id="context">
               {overview && (
-                <div className="cs-meta-row fade-in" style={{ ["--delay" as any]: "80ms" }}>
+                <div
+                  className="cs-meta-row fade-in"
+                  style={{ ["--delay" as any]: "80ms" }}
+                >
                   <div className="cs-meta-col">
                     <div className="cs-meta-label">Role</div>
                     <div className="cs-meta-val">
@@ -104,11 +114,15 @@ export function CaseLayout({ children, title, subtitle, caseStudy }: CaseLayoutP
                   </div>
                   <div className="cs-meta-col">
                     <div className="cs-meta-label">
-                      {overview.tools != null && overview.tools !== "" ? "Tools" : "Company"}
+                      {overview.tools != null && overview.tools !== ""
+                        ? "Tools"
+                        : "Company"}
                     </div>
                     <div className="cs-meta-val">
                       {formatLabel(
-                        overview.tools != null && overview.tools !== "" ? overview.tools : overview.company
+                        overview.tools != null && overview.tools !== ""
+                          ? overview.tools
+                          : overview.company,
                       )}
                     </div>
                   </div>
@@ -120,21 +134,27 @@ export function CaseLayout({ children, title, subtitle, caseStudy }: CaseLayoutP
                   aim={caseStudy.sections.contextFlow.aim}
                   delayStyle={{ ["--delay" as string]: "120ms" }}
                 />
-              ) : caseStudy?.sections?.contextSections && caseStudy.sections.contextSections.length > 0 ? (
+              ) : caseStudy?.sections?.contextSections &&
+                caseStudy.sections.contextSections.length > 0 ? (
                 <div
                   className="cs-context-text cs-context-text--sections fade-in"
                   style={{ ["--delay" as any]: "120ms" }}
                 >
                   {caseStudy.sections.contextSections.map((section, i) => (
                     <section key={i} className="cs-context-section">
-                      <h3 className="cs-context-section-title">{section.title}</h3>
+                      <h3 className="cs-context-section-title">
+                        {section.title}
+                      </h3>
                       <p className="cs-context-section-body">{section.body}</p>
                     </section>
                   ))}
                 </div>
               ) : (
                 caseStudy?.sections?.context && (
-                  <p className="cs-context-text fade-in" style={{ ["--delay" as any]: "120ms" }}>
+                  <p
+                    className="cs-context-text fade-in"
+                    style={{ ["--delay" as any]: "120ms" }}
+                  >
                     {caseStudy.sections.context}
                   </p>
                 )
