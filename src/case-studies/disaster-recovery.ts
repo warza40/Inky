@@ -6,7 +6,7 @@ export const disasterRecoveryCase: CaseStudy = {
   heroTitleAccent: "at Scale",
   warmthTheme: "slate",
   overview: {
-    role: "Experience Design & Secondary Research · High-Fidelity UI & Data Visualisation",
+    role: "UX, Data visualisation",
     context:
       "Disaster Recovery Operations · 3–4 months · In collaboration with a principal designer and development team",
     company: "",
@@ -78,8 +78,13 @@ export const disasterRecoveryCase: CaseStudy = {
           {
             name: "Eliza Petrowsky",
             ageLine: "27y · Senior Analyst",
-            worksWith: "Works with: DQS Team Leaders, Regional Data Managers, Invoice Reconciler",
-            motivations: ["Automation", "Improving Productivity", "Saving time · Cloud Technology"],
+            worksWith:
+              "Works with: DQS Team Leaders, Regional Data Managers, Invoice Reconciler",
+            motivations: [
+              "Automation",
+              "Improving Productivity",
+              "Saving time · Cloud Technology",
+            ],
             frustrations: ["Legacy tools · Losing data", "Poor communication"],
             painPoints: [
               "Time-consuming. Needs reports and updates sooner than current tools allow.",
@@ -89,8 +94,13 @@ export const disasterRecoveryCase: CaseStudy = {
           {
             name: "Paul Hernandez",
             ageLine: "55y · Field Supervisor",
-            worksWith: "Works with: Project Manager, Operation Manager, Debris Monitor",
-            motivations: ["Automation", "Improving Productivity", "Saving time · Cloud Technology"],
+            worksWith:
+              "Works with: Project Manager, Operation Manager, Debris Monitor",
+            motivations: [
+              "Automation",
+              "Improving Productivity",
+              "Saving time · Cloud Technology",
+            ],
             frustrations: ["Legacy tools · Losing data", "Poor communication"],
             painPoints: [
               "No system informing supervisors when monitor or employee is out of bounds.",
@@ -100,7 +110,8 @@ export const disasterRecoveryCase: CaseStudy = {
           {
             name: "Jolene A. Warner",
             ageLine: "28y · Invoice Supervisor / Reconciler",
-            worksWith: "Works with: Field Data Staff, Project Managers, Data Supervisors, Contractors",
+            worksWith:
+              "Works with: Field Data Staff, Project Managers, Data Supervisors, Contractors",
             motivations: ["Automation · Connected data · Saving time"],
             frustrations: ["Legacy tools · Load times · Difficulty in usage"],
             painPoints: [
@@ -112,7 +123,10 @@ export const disasterRecoveryCase: CaseStudy = {
             name: "Ratandeep Basu",
             ageLine: "38y · Regional Data Manager",
             worksWith: "Works with: Regional Data Managers",
-            motivations: ["Automation · Improving Productivity", "Saving time · Cloud Technology"],
+            motivations: [
+              "Automation · Improving Productivity",
+              "Saving time · Cloud Technology",
+            ],
             frustrations: ["Legacy tools · Losing data · Poor communication"],
             painPoints: [
               "Setting up projects is too time-consuming compared to existing system.",
@@ -159,7 +173,8 @@ export const disasterRecoveryCase: CaseStudy = {
     ],
     decisions: [
       {
-        title: "Designing a four-product ecosystem rather than one monolithic platform",
+        title:
+          "Designing a four-product ecosystem rather than one monolithic platform",
         rationale:
           "Field workers and executives have fundamentally different contexts, devices, and tasks. A single platform would compromise all of them.\n\nThe Disposal Monitor needed to work on mobile under harsh field conditions. Forcing this into a desktop portal would make it unusable.\n\nSplitting by function allowed each product to be optimised for its specific user's workflow.",
         impact:
@@ -180,7 +195,8 @@ export const disasterRecoveryCase: CaseStudy = {
         ],
       },
       {
-        title: "Dual-mode data visualisation — tabular and graph simultaneously",
+        title:
+          "Dual-mode data visualisation — tabular and graph simultaneously",
         rationale:
           "The biggest challenge was finding the appropriate data visualisation for each metric and fitting them within limited screen real estate.\n\nPersonas consumed data differently — some were graph-oriented, others needed tabular detail for audit trails and reconciliation.\n\nIt was challenging to think beyond regular visualisation types and even come up with nameless data visualisation combinations.",
         impact:
@@ -189,7 +205,8 @@ export const disasterRecoveryCase: CaseStudy = {
           {
             src: "/DM%20assets/DM-KD3.png",
             alt: "Dual-mode reporting: graph and tabular views of operational data",
-            caption: "Dual-mode data visualisation — tabular and graph simultaneously",
+            caption:
+              "Dual-mode data visualisation — tabular and graph simultaneously",
           },
         ],
       },
@@ -206,7 +223,8 @@ export const disasterRecoveryCase: CaseStudy = {
         ],
       },
       {
-        title: "Content-heavy layouts designed around information hierarchy, not aesthetics",
+        title:
+          "Content-heavy layouts designed around information hierarchy, not aesthetics",
         rationale:
           "Most real estate was content-heavy. The question was what grabs attention first, and what hierarchy of elements guides the user to a decision.\n\nThe visual design system was scalable and accessible by necessity — large number of users, mission-critical context.\n\nWe blocked out spaces to envision the best layout before committing to detailed design — exploring layouts as structure, not style.",
         impact:
@@ -215,7 +233,8 @@ export const disasterRecoveryCase: CaseStudy = {
           {
             src: "/DM%20assets/DM-KD5.png",
             alt: "Content-heavy layout and information hierarchy in reporting views",
-            caption: "Content-heavy layouts designed around information hierarchy, not aesthetics",
+            caption:
+              "Content-heavy layouts designed around information hierarchy, not aesthetics",
           },
         ],
       },
@@ -224,12 +243,14 @@ export const disasterRecoveryCase: CaseStudy = {
       {
         num: "01",
         title: "Haul Out Reports",
-        description: "Volume and weight of debris hauled by site, day, and debris type",
+        description:
+          "Volume and weight of debris hauled by site, day, and debris type",
       },
       {
         num: "02",
         title: "ROW Collection Reports",
-        description: "Right-of-way debris collection tracking by zone and contractor",
+        description:
+          "Right-of-way debris collection tracking by zone and contractor",
       },
       {
         num: "03",
@@ -239,7 +260,8 @@ export const disasterRecoveryCase: CaseStudy = {
       {
         num: "04",
         title: "Budget Summary Reports",
-        description: "Fund allocation, invoicing, and budget reconciliation overview",
+        description:
+          "Fund allocation, invoicing, and budget reconciliation overview",
       },
     ],
     outcome:

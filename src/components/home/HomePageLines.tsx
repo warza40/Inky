@@ -54,9 +54,12 @@ export function HomePageLines() {
         <div className="home-hero-left">
           <p className="home-hero-label">— Senior UX Designer · Strategist</p>
           <h1 className="home-hero-h1">
-            I work on complex<br />
+            I work on complex
+            <br />
             product systems where{" "}
-            <span className="home-hero-em not-italic">clarity often breaks down.</span>
+            <span className="home-hero-em not-italic">
+              clarity often breaks down.
+            </span>
           </h1>
           <p className="home-hero-caption">
             Every system that feels effortless started with a wall or a board
@@ -84,7 +87,9 @@ export function HomePageLines() {
               The real job-to-be-done is trust
             </div>
             <div className="sn sn-mint sn-5">
-              B= MAP
+              From benchmarking, we can understand our opportunities
+              <br />
+              Oppty 1, Oppty 2, Oppty 3
             </div>
           </div>
         </div>

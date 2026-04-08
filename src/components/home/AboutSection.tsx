@@ -15,14 +15,7 @@ export function AboutSection() {
   return (
     <section className="about-section" id="about" aria-label="About me">
       <div className="about-section-inner">
-        <header className="about-section-header">
-          <p className="about-section-label">— About me</p>
-          <h2 className="about-section-headline">
-            Systems, craft, and the space between intent and outcome.
-          </h2>
-        </header>
-
-        <div className="about-intro-row">
+        <div className="about-grid">
           <figure className="about-photo-frame">
             <Image
               src={ABOUT_PHOTO_SRC}
@@ -34,12 +27,20 @@ export function AboutSection() {
               priority
             />
           </figure>
-          <div className="about-intro-copy">
-            {ABOUT_PARAGRAPHS.map((text, i) => (
-              <p key={`about-p-${i}`} className="about-intro-para">
-                {text}
-              </p>
-            ))}
+          <div className="about-intro-text">
+            <header className="about-section-header">
+              <p className="about-section-label">— About me</p>
+              <h2 className="about-section-headline">
+                Systems, craft, and the space between intent and outcome.
+              </h2>
+            </header>
+            <div className="about-intro-copy">
+              {ABOUT_PARAGRAPHS.map((text, i) => (
+                <p key={`about-p-${i}`} className="about-intro-para">
+                  {text}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
       </div>
