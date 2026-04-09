@@ -34,7 +34,10 @@ export function BentoGrid() {
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (mailDropdownRef.current && !mailDropdownRef.current.contains(event.target as Node)) {
+      if (
+        mailDropdownRef.current &&
+        !mailDropdownRef.current.contains(event.target as Node)
+      ) {
         setMailDropdownOpen(false);
       }
     }
@@ -58,9 +61,12 @@ export function BentoGrid() {
           <span className="inline-block text-xs font-semibold uppercase tracking-wider text-emerald-800/90 dark:text-emerald-400/90 mb-2">
             System capacity
           </span>
-          <p className="text-3xl font-bold text-neutral-900 dark:text-neutral-100 mb-1">94%</p>
+          <p className="text-3xl font-bold text-neutral-900 dark:text-neutral-100 mb-1">
+            94%
+          </p>
           <p className="text-sm text-neutral-700 dark:text-neutral-300 mb-4">
-            Find the closest access point or initialize remote connection protocol.
+            Find the closest access point or initialize remote connection
+            protocol.
           </p>
           <div className="flex items-center gap-2">
             <Link
@@ -86,7 +92,7 @@ export function BentoGrid() {
         <div className="bento-card card-3">
           <TicketCard
             className="bg-rose-50 dark:bg-rose-950/50 border-rose-200/80 dark:border-white/30"
-            title="Reducing Operational Dependency Through Self-Serve Bulk Activations"
+            title="Fixing the Fragility in Enterprise SIM Activation flows"
             subtitle="A system-level redesign inside a Telecom giant's enterprise portal"
             tag="B2B, UI/UX"
             image="/om-bento.png"
@@ -97,8 +103,8 @@ export function BentoGrid() {
         {/* Row 2: Column 2 - Real estate connectivity case study */}
         <div className="bento-card card-4">
           <TicketCard
-            title="Real estate connectivity solution"
-            subtitle="Connectivity and experience for real estate"
+            title="Making Bulk Connectivity Purchases Transparent for Property Owners"
+            subtitle="Self-serve purchase flow for multi-unit building connectivity"
             tag="B2B · UX"
             image="/REC.png"
             href="/case/real-estate-connectivity"
@@ -108,7 +114,7 @@ export function BentoGrid() {
         {/* Row 2: Column 3 - Warehouse (progress bar style) */}
         <div className="bento-card card-5">
           <TicketCard
-            title="Bringing Clarity to Warehouse Operations at Scale"
+            title="Bringing Clarity to Warehouse Operations Across Distributed Teams"
             subtitle="Clarity and operations at scale"
             tag="B2B · OPERATIONS"
             image="/images/enterprise.jpg"
@@ -120,7 +126,9 @@ export function BentoGrid() {
         <div className="bento-card card-6a" id="reach-out">
           <div className="relative h-full flex flex-col p-6 rounded-2xl bg-white dark:bg-neutral-800 shadow-sm border border-neutral-200 dark:border-white/30">
             <div>
-              <h3 className="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-4">Reach out to me</h3>
+              <h3 className="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-4">
+                Reach out to me
+              </h3>
               <div className="flex items-center gap-4">
                 <Link
                   href="https://www.linkedin.com/in/rachanamandal/"
@@ -148,8 +156,14 @@ export function BentoGrid() {
                         <Link
                           key={opt.label}
                           href={opt.href}
-                          target={opt.href.startsWith("http") ? "_blank" : undefined}
-                          rel={opt.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                          target={
+                            opt.href.startsWith("http") ? "_blank" : undefined
+                          }
+                          rel={
+                            opt.href.startsWith("http")
+                              ? "noopener noreferrer"
+                              : undefined
+                          }
                           className="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:text-neutral-900 dark:hover:text-neutral-100"
                           onClick={() => setMailDropdownOpen(false)}
                         >
@@ -177,9 +191,12 @@ export function BentoGrid() {
             <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 mb-2">
               READ_ONLY
             </span>
-            <h3 className="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-2">Reads for now</h3>
+            <h3 className="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-2">
+              Reads for now
+            </h3>
             <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed mb-4">
-              Design is not decoration. It is the visual organization of information for maximum throughput.
+              Design is not decoration. It is the visual organization of
+              information for maximum throughput.
             </p>
             <div className="flex gap-3 mt-auto">
               <div className="w-10 h-10 rounded-lg border border-neutral-300 dark:border-neutral-500 bg-white dark:bg-neutral-700 flex items-center justify-center text-neutral-600 dark:text-neutral-300 text-xs">

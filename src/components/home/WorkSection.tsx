@@ -3,13 +3,16 @@
 import { useState } from "react";
 import Link from "next/link";
 
-interface GraphSeg { flex: number; color: string; }
+interface GraphSeg {
+  flex: number;
+  color: string;
+}
 
 interface WorkCard {
   slug: string;
   category: string;
   categoryDetail?: string;
-  tag: "enterprise" | "research" | "systems" | "all";
+  tag: "enterprise" | "research" | "strategy" | "systems" | "all";
   title: string;
   description: string;
   imageBg: string;
@@ -25,9 +28,9 @@ const WORK: WorkCard[] = [
     category: "Enterprise",
     categoryDetail: "Telecom",
     tag: "enterprise",
-    title: "Designing a Scalable Bulk Activation System",
+    title: "Fixing the Fragility in Enterprise SIM Activation",
     description:
-      "Enterprise customers were managing thousands of SIM activations manually. One invalid record failed the entire batch.",
+      "Thousands of SIM activations, processed manually. One invalid record was enough to restart the entire process.",
     imageBg: "#1e1a14",
     imageSrc: "/Bulk.png",
     graph: [
@@ -43,9 +46,9 @@ const WORK: WorkCard[] = [
     category: "Enterprise",
     categoryDetail: "Operations",
     tag: "enterprise",
-    title: "Bringing Clarity to Warehouse Operations at Scale",
+    title: "Bringing Clarity to Warehouse Operations Across Distributed Teams",
     description:
-      "The data existed across every system. What was missing was a way to trust it, act on it, and share it across teams without losing hours to status coordination.",
+      "Different versions of data existed across teams in the same system. They required a single source of truth and share it across teams — without losing hours to status coordination.",
     imageBg: "#1a2530",
     imageSrc: "/warehouse.png",
     graph: [
@@ -58,12 +61,12 @@ const WORK: WorkCard[] = [
   },
   {
     slug: "real-estate-connectivity",
-    category: "Research",
+    category: "Strategy",
     categoryDetail: "Telecom",
-    tag: "research",
-    title: "Bulk Connectivity Purchase Flow for Real Estate Owners",
+    tag: "strategy",
+    title: "Making Bulk Connectivity Purchases Transparent for Property Owners",
     description:
-      "Owners weren't afraid of the commitment. They were afraid of not understanding what they were committing to.",
+      "Introducing a new framework for data connectivity as a real estate amenity.",
     imageBg: "#1a2820",
     imageSrc: "/REC.png",
     graph: [
@@ -79,7 +82,7 @@ const WORK: WorkCard[] = [
     category: "Enterprise",
     categoryDetail: "Operations",
     tag: "enterprise",
-    title: "Automating a previously manual system for Disaster Recovery teams",
+    title: "Accelerating Disaster Recovery Response Through Automation",
     description:
       "Hurricane season hits, and entire neighbourhoods are devastated. Our client on the front lines of disaster recovery faced their biggest roadblock: legacy tools — fragmented, error-prone, and slow when every hour counted.",
     imageBg: "#1a2228",
@@ -162,14 +165,11 @@ export function WorkSection() {
 
   return (
     <section className="work-section" id="work" aria-label="Work">
-
       {/* Section header */}
       <div className="work-section-header">
         <div className="work-section-header-left">
           <p className="work-section-label">— Selected Work</p>
-          <h2 className="work-section-headline">
-            Work
-          </h2>
+          <h2 className="work-section-headline">Work</h2>
         </div>
         <nav className="work-tabs" aria-label="Filter work">
           {TABS.map((tab) => (
@@ -210,7 +210,10 @@ export function WorkSection() {
                   <p className="wc-card-breadcrumb">
                     {card.category}
                     {card.categoryDetail && (
-                      <span className="wc-breadcrumb-detail"> · {card.categoryDetail}</span>
+                      <span className="wc-breadcrumb-detail">
+                        {" "}
+                        · {card.categoryDetail}
+                      </span>
                     )}
                   </p>
                   <h3 className="wc-card-title">{card.title}</h3>

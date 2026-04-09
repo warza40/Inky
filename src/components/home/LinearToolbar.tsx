@@ -7,34 +7,47 @@ import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 
 const EMAIL = "mrachana674@gmail.com";
 const MAIL_OPTIONS = [
-  { label: "Gmail", href: `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}` },
-  { label: "Outlook", href: `https://outlook.live.com/mail/0/deeplink/compose?to=${encodeURIComponent(EMAIL)}` },
-  { label: "Yahoo Mail", href: `https://compose.mail.yahoo.com/?to=${encodeURIComponent(EMAIL)}` },
+  {
+    label: "Gmail",
+    href: `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}`,
+  },
+  {
+    label: "Outlook",
+    href: `https://outlook.live.com/mail/0/deeplink/compose?to=${encodeURIComponent(EMAIL)}`,
+  },
+  {
+    label: "Yahoo Mail",
+    href: `https://compose.mail.yahoo.com/?to=${encodeURIComponent(EMAIL)}`,
+  },
   { label: "Default mail app", href: `mailto:${EMAIL}` },
 ];
 
 const CASE_STUDIES = [
   {
-    title: "Omantel Bulk Activation",
-    subtitle: "Designing a self-serve bulk activation experience for enterprise customers",
+    title: "Fixing the Fragility in Enterprise SIM Activation flows",
+    subtitle:
+      "Designing a self-serve bulk activation experience for enterprise customers",
     href: "/case/omantel-bulk-activation",
     image: "/Bulk.png",
   },
   {
-    title: "Real Estate Connectivity",
-    subtitle: "Purchase flow and management for multi-unit building connectivity",
+    title: "Making Bulk Connectivity Purchases Transparent for Property Owners",
+    subtitle:
+      "Purchase flow and management for multi-unit building connectivity",
     href: "/case/real-estate-connectivity",
     image: "/REC.png",
   },
   {
-    title: "Bringing Clarity to Warehouse Operations at Scale",
-    subtitle: "Centralized warehouse management portal for operations and quality",
+    title: "Bringing Clarity to Warehouse Operations Across Distributed Teams",
+    subtitle:
+      "Centralized warehouse management portal for operations and quality",
     href: "/case/warehouse-operations",
     image: "/warehouse.png",
   },
   {
-    title: "Automating a previously manual system for Disaster Recovery teams",
-    subtitle: "Four-product ecosystem for debris operations, time reporting, case management, and disposal",
+    title: "Accelerating Disaster Recovery Response Through Automation",
+    subtitle:
+      "Four-product ecosystem for debris operations, time reporting, case management, and disposal",
     href: "/case/disaster-recovery",
     image: "/DM.png",
   },
@@ -45,15 +58,22 @@ const SUBSTACK_POST = {
   href: "https://open.substack.com/pub/thelilyput/p/entry-and-exit-in-digital-lending?r=g3nqv&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
 };
 
-type ToolbarId = "case_study" | "contact" | "reads" | "experiment" | "theme" | null;
+type ToolbarId =
+  | "case_study"
+  | "contact"
+  | "reads"
+  | "experiment"
+  | "theme"
+  | null;
 
-const TOOLBAR_ITEMS: { id: ToolbarId; icon: typeof FileText; label: string }[] = [
-  { id: "case_study", icon: FileText, label: "Case studies" },
-  { id: "contact", icon: Mail, label: "Contact" },
-  { id: "reads", icon: BookOpen, label: "Reads" },
-  { id: "experiment", icon: FlaskConical, label: "Experiment" },
-  { id: "theme", icon: Settings, label: "Theme" },
-];
+const TOOLBAR_ITEMS: { id: ToolbarId; icon: typeof FileText; label: string }[] =
+  [
+    { id: "case_study", icon: FileText, label: "Case studies" },
+    { id: "contact", icon: Mail, label: "Contact" },
+    { id: "reads", icon: BookOpen, label: "Reads" },
+    { id: "experiment", icon: FlaskConical, label: "Experiment" },
+    { id: "theme", icon: Settings, label: "Theme" },
+  ];
 
 export function LinearToolbar() {
   const [activeId, setActiveId] = useState<ToolbarId>(null);
@@ -164,7 +184,9 @@ export function LinearToolbar() {
             <span className="linear-menu-item-icon">
               <BookOpen size={18} strokeWidth={1.5} />
             </span>
-            <span className="linear-menu-item-label">{SUBSTACK_POST.title}</span>
+            <span className="linear-menu-item-label">
+              {SUBSTACK_POST.title}
+            </span>
           </a>
         </div>
       );
@@ -172,7 +194,10 @@ export function LinearToolbar() {
     if (activeId === "experiment") {
       return (
         <div className="linear-menu-grid">
-          <div className="linear-menu-item opacity-60" style={{ animationDelay: "0ms" }}>
+          <div
+            className="linear-menu-item opacity-60"
+            style={{ animationDelay: "0ms" }}
+          >
             <span className="linear-menu-item-icon">
               <FlaskConical size={18} strokeWidth={1.5} />
             </span>
@@ -204,7 +229,9 @@ export function LinearToolbar() {
             return (
               <button
                 key={item.id ?? "theme"}
-                ref={(el) => { buttonsRef.current[index] = el; }}
+                ref={(el) => {
+                  buttonsRef.current[index] = el;
+                }}
                 type="button"
                 className={`linear-toolbar-btn ${isActive ? "active" : ""}`}
                 onClick={() => selectItem(item.id, index)}
@@ -225,7 +252,10 @@ export function LinearToolbar() {
       <div
         id="menu-container"
         className={`linear-menu-container${activeId === "case_study" ? " linear-menu-container--case" : ""}`}
-        style={{ minHeight: activeId && activeId !== "theme" ? undefined : 0, opacity: activeId ? 1 : 0 }}
+        style={{
+          minHeight: activeId && activeId !== "theme" ? undefined : 0,
+          opacity: activeId ? 1 : 0,
+        }}
       >
         {activeId && renderMenu()}
       </div>

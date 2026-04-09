@@ -2,8 +2,8 @@ import type { CaseStudy } from "./omantel";
 
 export const warehouseOperationsCase: CaseStudy = {
   slug: "warehouse-operations",
-  title: "Bringing Clarity to Warehouse Operations at Scale",
-  heroTitleAccent: "at Scale",
+  title: "Bringing Clarity to Warehouse Operations Across Distributed Teams",
+  heroTitleAccent: "Across Distributed Teams",
   overview: {
     role: "UX and UI Design",
     context: "Logistics · Operations",
@@ -28,8 +28,7 @@ export const warehouseOperationsCase: CaseStudy = {
       images: [{ src: "/Table.webp", alt: "View-to-Role Mapping" }],
       afterDivider: {
         title: "Approach",
-        goal:
-          "To reduce cognitive load while maintaining accuracy, traceability, and operational reliability.",
+        goal: "To reduce cognitive load while maintaining accuracy, traceability, and operational reliability.",
         content:
           "I followed a structured, iterative design process grounded in domain understanding and cross-functional collaboration:",
         bullets: [
@@ -112,7 +111,9 @@ export const warehouseOperationsCase: CaseStudy = {
           "Although users accessed the same underlying data, their responsibilities and decision needs differed. A single view for all stakeholders risked increasing cognitive load and reducing clarity.",
         impact:
           "Faster access to relevant information\n\nReduced clutter for day-to-day tasks\n\nImproved adoption across roles",
-        images: [{ src: "/Warehouse%20assets/KD1.png", alt: "Role-based views" }],
+        images: [
+          { src: "/Warehouse%20assets/KD1.png", alt: "Role-based views" },
+        ],
       },
       {
         title: "Making Quality Check Access Explicit and Context-Aware",
@@ -124,12 +125,19 @@ export const warehouseOperationsCase: CaseStudy = {
         impact:
           "Clear scope for on-site quality checks\n\nReduced coordination overhead between teams\n\nBetter control over what information was visible during site visits",
         images: [
-          { src: "/Warehouse%20assets/KD2.gif", alt: "Quality check access – zone mapping" },
-          { src: "/Warehouse%20assets/KD2.5.gif", alt: "Quality check access – mobile view" },
+          {
+            src: "/Warehouse%20assets/KD2.gif",
+            alt: "Quality check access – zone mapping",
+          },
+          {
+            src: "/Warehouse%20assets/KD2.5.gif",
+            alt: "Quality check access – mobile view",
+          },
         ],
       },
       {
-        title: "Granular Permission Controls for Internal and Third-Party Users",
+        title:
+          "Granular Permission Controls for Internal and Third-Party Users",
         description: "",
         rationale:
           "The system needed to balance collaboration with data security. Broad access to third party stakeholders increased risk, while strict controls slowed operations.",
@@ -138,8 +146,14 @@ export const warehouseOperationsCase: CaseStudy = {
         designResponse:
           "User approval workflows were intentionally designed as gated actions.\n\nThird-party users remained in a pending state until explicitly reviewed and approved. To prevent errors, approval actions were disabled for records undergoing edits, ensuring that review and modification could not occur simultaneously.",
         images: [
-          { src: "/Warehouse%20assets/KD3.png", alt: "Permission controls – approval workflow" },
-          { src: "/Warehouse%20assets/KD3.5.png", alt: "Permission controls – gated actions" },
+          {
+            src: "/Warehouse%20assets/KD3.png",
+            alt: "Permission controls – approval workflow",
+          },
+          {
+            src: "/Warehouse%20assets/KD3.5.png",
+            alt: "Permission controls – gated actions",
+          },
         ],
       },
       {
@@ -151,7 +165,9 @@ export const warehouseOperationsCase: CaseStudy = {
           "Faster assessment of project status\n\nReduced need to navigate across sections\n\nMore confident, timely decision-making by Project Managers",
         designResponse:
           "Each project was given a dedicated dashboard that prioritized milestone progress, readiness scores, safety status, and order states. Related actions, such as accessing documents or drilling into modules, were kept within reach without breaking context.",
-        images: [{ src: "/Warehouse%20assets/KD4.png", alt: "Project dashboard" }],
+        images: [
+          { src: "/Warehouse%20assets/KD4.png", alt: "Project dashboard" },
+        ],
       },
       {
         title: "Mobile Experience for On-Site Quality Checks",
@@ -162,7 +178,13 @@ export const warehouseOperationsCase: CaseStudy = {
           "Enabled effective on-site inspections\n\nReduced reliance on memory or offline references\n\nMaintained consistency between planning and execution workflows",
         designResponse:
           "A mobile experience was designed to support on-site workflows such as viewing assigned zones, navigating to specific modules, and recording quality checks. The interface prioritized clarity, limited actions, and quick validation, while configuration and planning remained desktop-first.",
-        images: [{ src: "/Warehouse%20assets/KD5.gif", alt: "Mobile on-site quality check experience", caption: "Mobile experience for on-site quality checks" }],
+        images: [
+          {
+            src: "/Warehouse%20assets/KD5.gif",
+            alt: "Mobile on-site quality check experience",
+            caption: "Mobile experience for on-site quality checks",
+          },
+        ],
       },
     ],
     outcome:

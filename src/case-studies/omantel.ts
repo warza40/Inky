@@ -178,7 +178,8 @@ export interface CaseStudy {
 
 export const omantelCase: CaseStudy = {
   slug: "omantel-bulk-activation",
-  title: "Designing a scalable bulk activation system",
+  title: "Fixing the Fragility in Enterprise SIM Activation flows",
+  heroTitleAccent: "Enterprise SIM Activation flows",
   warmthTheme: "moss",
   overview: {
     role: "Senior UX Designer",

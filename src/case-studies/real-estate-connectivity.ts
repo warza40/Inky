@@ -2,7 +2,7 @@ import type { CaseStudy } from "./omantel";
 
 export const realEstateConnectivityCase: CaseStudy = {
   slug: "real-estate-connectivity",
-  title: "Real estate connectivity solution",
+  title: "Making Bulk Connectivity Purchases Transparent for Property Owners",
   overview: {
     role: "UX Designer",
     context: "Real Estate · Connectivity",
@@ -27,7 +27,8 @@ export const realEstateConnectivityCase: CaseStudy = {
         {
           src: "/Section-3.png",
           alt: "Understanding the existing scenario – Section 3",
-          hoverTooltip: "Low fidelity wireframes for different options for user to enter the flow.",
+          hoverTooltip:
+            "Low fidelity wireframes for different options for user to enter the flow.",
         },
       ],
     },
@@ -49,13 +50,18 @@ export const realEstateConnectivityCase: CaseStudy = {
       {
         title: "Keep standard plans and package configuration on the same page",
         description:
-          "Keep the package configuration experience on the same page as the standard plans, rather than moving users into a separate \"build package\" flow.",
+          'Keep the package configuration experience on the same page as the standard plans, rather than moving users into a separate "build package" flow.',
         rationale:
           "Earlier explorations treated configuration as a distinct step—users would first view standard plans, then move into a separate package-building flow to configure units, review pricing, and request a callback. While this separation was logically clean, it introduced unnecessary context switching for a decision that required frequent reference back to standard plans and pricing anchors.",
         impact:
           "This allowed users to:\n• reference standard packages while configuring a custom plan\n• understand how custom selections mapped to familiar benchmarks\n• maintain continuity without navigating away or restarting the flow and avoided loss of context",
         images: [
-          { src: "/REC%20assets/KD2%20REC.png", alt: "Standard plans and package configuration on the same page", caption: "Keep standard plans and package configuration on the same page" },
+          {
+            src: "/REC%20assets/KD2%20REC.png",
+            alt: "Standard plans and package configuration on the same page",
+            caption:
+              "Keep standard plans and package configuration on the same page",
+          },
         ],
       },
       {
@@ -67,7 +73,11 @@ export const realEstateConnectivityCase: CaseStudy = {
         impact:
           "1. This approach supported both business planning and user clarity, while acknowledging a calculated amount of upfront user effort as a trade-off.\n2. Helped the team understand demand and plan future services efficiently based on the same.",
         images: [
-          { src: "/REC%20assets/KD3%20REC.gif", alt: "Check service availability after package configuration", caption: "Check service availability after package configuration" },
+          {
+            src: "/REC%20assets/KD3%20REC.gif",
+            alt: "Check service availability after package configuration",
+            caption: "Check service availability after package configuration",
+          },
         ],
       },
     ],

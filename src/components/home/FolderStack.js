@@ -56,35 +56,71 @@
  */
 
 const DEFAULTS = {
-  accentColor: '#F5B800',
-  accentText:  '#1a1a1a',
-  idleReset:   6000,
+  accentColor: "#F5B800",
+  accentText: "#1a1a1a",
+  idleReset: 6000,
   tabLabels: {
-    work:        'Work',
-    experiments: 'Experiments',
-    reads:       'Reads',
+    work: "Work",
+    experiments: "Experiments",
+    reads: "Reads",
   },
   tabs: {
     work: [
-      { title:'Designing a scalable bulk activation system', sub:'Omantel · UX',     tag:'Case Study', tagColor:'blue', palette:['#E8392A','#FF8844','#F5B800'], href:'/case/omantel-bulk-activation' },
-      { title:'Real estate connectivity solution',         sub:'Real Estate',       tag:'Case Study', tagColor:'blue', palette:['#378ADD','#7F77DD','#5544CC'], href:'/case/real-estate-connectivity' },
-      { title:'Bringing clarity to warehouse operations',  sub:'Logistics · Amazon', tag:'Case Study', tagColor:'blue', palette:['#1D9E75','#44B86A','#88AA00'], href:'/case/warehouse-operations' },
+      {
+        title: "Fixing the Fragility in Enterprise SIM Activation flows",
+        sub: "Omantel · UX",
+        tag: "Case Study",
+        tagColor: "blue",
+        palette: ["#E8392A", "#FF8844", "#F5B800"],
+        href: "/case/omantel-bulk-activation",
+      },
+      {
+        title:
+          "Making Bulk Connectivity Purchases Transparent for Property Owners",
+        sub: "Real Estate",
+        tag: "Case Study",
+        tagColor: "blue",
+        palette: ["#378ADD", "#7F77DD", "#5544CC"],
+        href: "/case/real-estate-connectivity",
+      },
+      {
+        title:
+          "Bringing Clarity to Warehouse Operations Across Distributed Teams",
+        sub: "Logistics · Amazon",
+        tag: "Case Study",
+        tagColor: "blue",
+        palette: ["#1D9E75", "#44B86A", "#88AA00"],
+        href: "/case/warehouse-operations",
+      },
     ],
     experiments: [
-      { title:'Coming soon', sub:'Experiments in the pipeline', tag:'—', tagColor:'blue', palette:['#e0ddd8','#d0cdc8','#c0bdb8'] },
+      {
+        title: "Coming soon",
+        sub: "Experiments in the pipeline",
+        tag: "—",
+        tagColor: "blue",
+        palette: ["#e0ddd8", "#d0cdc8", "#c0bdb8"],
+      },
     ],
     reads: [
-      { title:'Entry & Exit in Digital Lending', sub:'Substack', tag:'Article', tagColor:'blue', palette:['#1D9E75','#88AA00','#F5B800'], href:'https://open.substack.com/pub/thelilyput/p/entry-and-exit-in-digital-lending?r=g3nqv&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true' },
+      {
+        title: "Entry & Exit in Digital Lending",
+        sub: "Substack",
+        tag: "Article",
+        tagColor: "blue",
+        palette: ["#1D9E75", "#88AA00", "#F5B800"],
+        href: "https://open.substack.com/pub/thelilyput/p/entry-and-exit-in-digital-lending?r=g3nqv&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+      },
     ],
   },
 };
 
 const TAG_COLORS = {
-  red:    { bg:'#fff0ee', text:'#E8392A' },
-  blue:   { bg:'#eef5ff', text:'#378ADD' },
-  green:  { bg:'#eefaf5', text:'#1D9E75' },
-  purple: { bg:'#f3f0ff', text:'#5544CC' },
-  amber:  { bg:'#fffbee', text:'#9a7000' },
+  red: { bg: "#fff0ee", text: "#E8392A" },
+  blue: { bg: "#eef5ff", text: "#378ADD" },
+  green: { bg: "#eefaf5", text: "#1D9E75" },
+  purple: { bg: "#f3f0ff", text: "#5544CC" },
+  amber: { bg: "#fffbee", text: "#9a7000" },
 };
 
 const CSS = `
@@ -123,11 +159,11 @@ class FolderStack {
    */
   constructor(root, config = {}) {
     this.root = root;
-    this.cfg  = this._merge(DEFAULTS, config);
-    this._top  = 0;
+    this.cfg = this._merge(DEFAULTS, config);
+    this._top = 0;
     this._busy = false;
     this._idle = null;
-    this._tab  = 'work';
+    this._tab = "work";
     this._injectStyles();
     this._build();
   }
@@ -136,16 +172,17 @@ class FolderStack {
 
   _merge(defaults, overrides) {
     const out = { ...defaults, ...overrides };
-    if (overrides.tabs)      out.tabs      = { ...defaults.tabs,      ...overrides.tabs };
-    if (overrides.tabLabels) out.tabLabels = { ...defaults.tabLabels, ...overrides.tabLabels };
+    if (overrides.tabs) out.tabs = { ...defaults.tabs, ...overrides.tabs };
+    if (overrides.tabLabels)
+      out.tabLabels = { ...defaults.tabLabels, ...overrides.tabLabels };
     return out;
   }
 
   _injectStyles() {
-    let s = document.getElementById('fs-styles');
+    let s = document.getElementById("fs-styles");
     if (!s) {
-      s = document.createElement('style');
-      s.id = 'fs-styles';
+      s = document.createElement("style");
+      s.id = "fs-styles";
       document.head.appendChild(s);
     }
     s.textContent = CSS;
@@ -159,11 +196,15 @@ class FolderStack {
     this.root.innerHTML = `
       <div class="fs-wrapper">
         <div class="fs-tabs" id="fs-tabbar">
-          ${Object.keys(tabLabels).map(k => `
-            <button class="fs-tab${k === this._tab ? ' fs-active' : ''}" data-tab="${k}"
-              style="${k === this._tab ? `background:${accentColor};color:${accentText};border-color:${accentColor};` : ''}">
+          ${Object.keys(tabLabels)
+            .map(
+              (k) => `
+            <button class="fs-tab${k === this._tab ? " fs-active" : ""}" data-tab="${k}"
+              style="${k === this._tab ? `background:${accentColor};color:${accentText};border-color:${accentColor};` : ""}">
               ${tabLabels[k]}
-            </button>`).join('')}
+            </button>`,
+            )
+            .join("")}
         </div>
         <div class="fs-arrows-row">
           <button type="button" class="fs-carousel-prev" id="fs-prev" aria-label="Previous card">←</button>
@@ -174,16 +215,22 @@ class FolderStack {
         </div>
       </div>`;
 
-    this._stackEl   = this.root.querySelector('#fs-stack');
-    this._tabBar    = this.root.querySelector('#fs-tabbar');
-    this._prevBtn   = this.root.querySelector('#fs-prev');
-    this._nextBtn   = this.root.querySelector('#fs-next');
+    this._stackEl = this.root.querySelector("#fs-stack");
+    this._tabBar = this.root.querySelector("#fs-tabbar");
+    this._prevBtn = this.root.querySelector("#fs-prev");
+    this._nextBtn = this.root.querySelector("#fs-next");
 
-    this._stackEl.addEventListener('click', (e) => this._onStackClick(e));
-    this._prevBtn.addEventListener('click', () => { this._flipPrev(); this._scheduleReset(); });
-    this._nextBtn.addEventListener('click', () => { this._flip(); this._scheduleReset(); });
-    this._tabBar.addEventListener('click', e => {
-      const btn = e.target.closest('.fs-tab');
+    this._stackEl.addEventListener("click", (e) => this._onStackClick(e));
+    this._prevBtn.addEventListener("click", () => {
+      this._flipPrev();
+      this._scheduleReset();
+    });
+    this._nextBtn.addEventListener("click", () => {
+      this._flip();
+      this._scheduleReset();
+    });
+    this._tabBar.addEventListener("click", (e) => {
+      const btn = e.target.closest(".fs-tab");
       if (!btn) return;
       this._switchTab(btn.dataset.tab);
     });
@@ -196,12 +243,12 @@ class FolderStack {
   _switchTab(tab) {
     const { accentColor, accentText } = this.cfg;
     this._tab = tab;
-    this._tabBar.querySelectorAll('.fs-tab').forEach(btn => {
+    this._tabBar.querySelectorAll(".fs-tab").forEach((btn) => {
       const active = btn.dataset.tab === tab;
-      btn.classList.toggle('fs-active', active);
+      btn.classList.toggle("fs-active", active);
       btn.style.cssText = active
         ? `background:${accentColor};color:${accentText};border-color:${accentColor};`
-        : '';
+        : "";
     });
     this._loadTab(tab);
     this._scheduleReset();
@@ -210,8 +257,8 @@ class FolderStack {
   // ── card loading ─────────────────────────────────────────────────────────
 
   _loadTab(tab) {
-    this._stackEl.innerHTML = '';
-    this._top  = 0;
+    this._stackEl.innerHTML = "";
+    this._top = 0;
     this._busy = false;
     const cards = this.cfg.tabs[tab] || [];
     cards.forEach((data, i) => this._createCard(data, i, cards.length));
@@ -219,9 +266,9 @@ class FolderStack {
   }
 
   _createCard(data, index, total) {
-    const tc   = TAG_COLORS[data.tagColor] || TAG_COLORS.red;
-    const card = document.createElement('div');
-    card.className = 'fs-card';
+    const tc = TAG_COLORS[data.tagColor] || TAG_COLORS.red;
+    const card = document.createElement("div");
+    card.className = "fs-card";
     if (data.href) card.dataset.href = data.href;
 
     // Image: URL → <img>, otherwise → <canvas> gradient
@@ -241,13 +288,13 @@ class FolderStack {
           <div class="fs-title">${data.title}</div>
           <div class="fs-footer">
             <span class="fs-tag" style="background:${tc.bg};color:${tc.text};">${data.tag}</span>
-            <span class="fs-meta">${String(index + 1).padStart(2,'0')} / ${String(total).padStart(2,'0')}</span>
+            <span class="fs-meta">${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}</span>
           </div>
         </div>
       </div>`;
 
     if (!data.image && data.palette) {
-      this._paintGradient(card.querySelector('canvas'), data.palette);
+      this._paintGradient(card.querySelector("canvas"), data.palette);
     }
 
     this._stackEl.appendChild(card);
@@ -256,46 +303,63 @@ class FolderStack {
   // ── gradient painter ─────────────────────────────────────────────────────
 
   _paintGradient(canvas, palette) {
-    const ctx = canvas.getContext('2d');
-    const w = canvas.width, h = canvas.height;
+    const ctx = canvas.getContext("2d");
+    const w = canvas.width,
+      h = canvas.height;
     const g = ctx.createLinearGradient(0, 0, w, h);
-    g.addColorStop(0,   palette[0]);
+    g.addColorStop(0, palette[0]);
     g.addColorStop(0.5, palette[1]);
-    g.addColorStop(1,   palette[2]);
+    g.addColorStop(1, palette[2]);
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, w, h);
     // pixel grain
     for (let i = 0; i < 600; i++) {
       ctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.1})`;
       const s = Math.random() * 3 + 1;
-      ctx.fillRect(Math.round(Math.random() * w), Math.round(Math.random() * h), s, s);
+      ctx.fillRect(
+        Math.round(Math.random() * w),
+        Math.round(Math.random() * h),
+        s,
+        s,
+      );
     }
     // grid overlay
-    ctx.strokeStyle = 'rgba(255,255,255,0.1)';
-    ctx.lineWidth   = 0.5;
-    for (let x = 0; x < w; x += 14) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
-    for (let y = 0; y < h; y += 14) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+    ctx.strokeStyle = "rgba(255,255,255,0.1)";
+    ctx.lineWidth = 0.5;
+    for (let x = 0; x < w; x += 14) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, h);
+      ctx.stroke();
+    }
+    for (let y = 0; y < h; y += 14) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(w, y);
+      ctx.stroke();
+    }
   }
 
   // ── stack layout ─────────────────────────────────────────────────────────
 
   _layout(animate) {
-    const cards = [...this._stackEl.querySelectorAll('.fs-card')];
+    const cards = [...this._stackEl.querySelectorAll(".fs-card")];
     const total = cards.length;
     cards.forEach((card, i) => {
-      const vp = ((i - this._top) + total) % total;
-      card.style.zIndex     = total - vp;
-      card.style.opacity    = vp >= 4 ? 0 : 1;
-      card.style.transform  = `translate(${vp*3}px,${vp*11}px) scale(${1-vp*0.038}) rotate(${vp*1.4}deg)`;
-      const shadow = card.querySelector('.fs-card-shadow');
+      const vp = (i - this._top + total) % total;
+      card.style.zIndex = total - vp;
+      card.style.opacity = vp >= 4 ? 0 : 1;
+      card.style.transform = `translate(${vp * 3}px,${vp * 11}px) scale(${1 - vp * 0.038}) rotate(${vp * 1.4}deg)`;
+      const shadow = card.querySelector(".fs-card-shadow");
       if (shadow) {
-        shadow.style.transform = vp === 0
-          ? 'translate(7px, 7px)'
-          : `translate(${4 + vp}px, ${4 + vp}px)`;
+        shadow.style.transform =
+          vp === 0
+            ? "translate(7px, 7px)"
+            : `translate(${4 + vp}px, ${4 + vp}px)`;
       }
       if (!animate) {
-        card.style.transition = 'none';
-        requestAnimationFrame(() => card.style.transition = '');
+        card.style.transition = "none";
+        requestAnimationFrame(() => (card.style.transition = ""));
       }
     });
   }
@@ -303,7 +367,7 @@ class FolderStack {
   // ── flip animation ────────────────────────────────────────────────────────
 
   _onStackClick(e) {
-    const cards = [...this._stackEl.querySelectorAll('.fs-card')];
+    const cards = [...this._stackEl.querySelectorAll(".fs-card")];
     if (cards.length === 0) return;
     const front = cards[this._top];
     const href = front.dataset.href;
@@ -318,18 +382,19 @@ class FolderStack {
   _flip() {
     if (this._busy) return;
     this._busy = true;
-    const cards = [...this._stackEl.querySelectorAll('.fs-card')];
+    const cards = [...this._stackEl.querySelectorAll(".fs-card")];
     const total = cards.length;
     const front = cards[this._top];
 
-    front.style.transition = 'transform .32s cubic-bezier(.4,0,.2,1),opacity .2s ease';
-    front.style.transform  = 'translate(-18px,-56px) scale(0.88) rotate(-5deg)';
-    front.style.opacity    = '0';
+    front.style.transition =
+      "transform .32s cubic-bezier(.4,0,.2,1),opacity .2s ease";
+    front.style.transform = "translate(-18px,-56px) scale(0.88) rotate(-5deg)";
+    front.style.opacity = "0";
 
     setTimeout(() => {
       this._top = (this._top + 1) % total;
-      front.style.transition = 'none';
-      front.style.opacity    = '1';
+      front.style.transition = "none";
+      front.style.opacity = "1";
       this._layout(true);
       this._busy = false;
     }, 300);
@@ -337,7 +402,7 @@ class FolderStack {
 
   _flipPrev() {
     if (this._busy) return;
-    const cards = [...this._stackEl.querySelectorAll('.fs-card')];
+    const cards = [...this._stackEl.querySelectorAll(".fs-card")];
     const total = cards.length;
     if (total === 0 || this._top === 0) return;
     this._busy = true;
@@ -351,7 +416,7 @@ class FolderStack {
   _scheduleReset() {
     clearTimeout(this._idle);
     this._idle = setTimeout(() => {
-      const total = [...this._stackEl.querySelectorAll('.fs-card')].length;
+      const total = [...this._stackEl.querySelectorAll(".fs-card")].length;
       if (this._top === 0) return;
       let steps = this._top;
       const back = () => {
@@ -374,12 +439,14 @@ class FolderStack {
   }
 
   /** Switch tab programmatically */
-  goTo(tab) { this._switchTab(tab); }
+  goTo(tab) {
+    this._switchTab(tab);
+  }
 
   /** Tear down */
   destroy() {
     clearTimeout(this._idle);
-    this.root.innerHTML = '';
+    this.root.innerHTML = "";
   }
 }
 

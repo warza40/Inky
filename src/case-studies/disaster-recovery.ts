@@ -2,8 +2,8 @@ import type { CaseStudy } from "./omantel";
 
 export const disasterRecoveryCase: CaseStudy = {
   slug: "disaster-recovery",
-  title: "Designing for Disaster Recovery at Scale",
-  heroTitleAccent: "at Scale",
+  title: "Accelerating Disaster Recovery Response Through Automation",
+  heroTitleAccent: "Through Automation",
   warmthTheme: "slate",
   overview: {
     role: "UX, Data visualisation",
