@@ -314,6 +314,11 @@ export const omantelCase: CaseStudy = {
         alt: "Bulk Actions: file upload in progress with percentage",
         caption: "Outcome 2 — active upload with progress.",
       },
+      {
+        src: "/Omantel%20assets/Screens%20from%20Production.png",
+        alt: "Bulk activation — screenshots from production",
+        caption: "Screenshots from Production",
+      },
     ],
     reflection:
       "This project reinforced that enterprise design is less about creating flexibility and more about managing responsibility at scale.\n\nIn a system where small mistakes can multiply quickly, the goal is often to reduce cognitive load, surface constraints clearly, and help users make confident decisions without dramatically changing the experience. Working within strict business rules, evolving requirements, and tight timelines made me appreciate the close collaboration with engineering. It strengthened my belief that, at scale, thoughtful limitations can be as valuable as new features.",
