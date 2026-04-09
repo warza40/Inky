@@ -6104,6 +6104,25 @@ body:has(.cs-page) {
   line-height: 1.55;
 }
 
+/* Case study pages: same caption treatment as MotionImage figcaption (outcome, key decisions) */
+.case-main .cs-visual-caption {
+  padding: 1rem;
+  background: rgb(245 245 245);
+  border-top: none;
+  font-family:
+    var(--font-inter),
+    "Inter",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: rgb(38 38 38);
+  letter-spacing: normal;
+  line-height: 1.5;
+}
+
 /* Noteworthy iterations — grid row height = tallest card; inner fill flex pins caption to card bottom */
 .cs-noteworthy-grid {
   display: grid;
@@ -7561,7 +7580,8 @@ button.cs-visual-clickable:hover {
 
 /* Captions under visuals: light background + dark text for readability */
 .dark .case-main figcaption,
-.dark .case-main .prose figcaption {
+.dark .case-main .prose figcaption,
+.dark .case-main .cs-visual-caption {
   color: var(--ink) !important;
   background-color: #e5e5e5 !important;
 }
