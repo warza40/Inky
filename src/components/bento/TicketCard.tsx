@@ -1,15 +1,15 @@
-import Image from "next/image"
-import Link from "next/link"
+import Image from "next/image";
+import Link from "next/link";
 
 type TicketCardProps = {
-  title: string
-  subtitle?: string
-  tag: string
-  image: string
-  href: string
+  title: string;
+  subtitle?: string;
+  tag: string;
+  image: string;
+  href: string;
   /** Optional accent background (e.g. bg-rose-50 border-rose-200/80) */
-  className?: string
-}
+  className?: string;
+};
 
 export function TicketCard({
   title,
@@ -53,7 +53,7 @@ export function TicketCard({
         />
       </div>
       <div className="flex flex-col gap-2 flex-1">
-        <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wide">
+        <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400 tracking-wide">
           {tag}
         </span>
         <h3 className="text-base font-bold text-neutral-900 dark:text-neutral-100 leading-tight">
@@ -66,5 +66,5 @@ export function TicketCard({
         )}
       </div>
     </Link>
-  )
+  );
 }

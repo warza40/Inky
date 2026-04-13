@@ -58,7 +58,7 @@ export function BentoGrid() {
 
         {/* Row 1: Column 2 - System capacity / focus card (reference style) */}
         <div className="bento-card card-2 relative rounded-2xl overflow-hidden border border-emerald-200/80 dark:border-white/30 bg-emerald-50 dark:bg-emerald-950/60 p-6 shadow-sm">
-          <span className="inline-block text-xs font-semibold uppercase tracking-wider text-emerald-800/90 dark:text-emerald-400/90 mb-2">
+          <span className="inline-block text-xs font-semibold tracking-wider text-emerald-800/90 dark:text-emerald-400/90 mb-2">
             System capacity
           </span>
           <p className="text-3xl font-bold text-neutral-900 dark:text-neutral-100 mb-1">
@@ -188,7 +188,7 @@ export function BentoGrid() {
         {/* Row 3: Reads for now */}
         <div className="bento-card card-6b">
           <div className="relative h-full flex flex-col p-6 rounded-2xl bg-amber-50 dark:bg-neutral-800 border border-amber-200/80 dark:border-white/30 shadow-sm">
-            <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 mb-2">
+            <span className="text-xs font-semibold tracking-wider text-neutral-500 dark:text-neutral-400 mb-2">
               READ_ONLY
             </span>
             <h3 className="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-2">

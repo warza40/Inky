@@ -11,8 +11,8 @@ type FolderItem = {
 };
 
 type Project = {
-  type: 'project' | 'folder';
-  size: 'tall' | 'wide' | 'large' | 'small' | 'square' | 'wide_bottom';
+  type: "project" | "folder";
+  size: "tall" | "wide" | "large" | "small" | "square" | "wide_bottom";
   title: string;
   subtitle?: string;
   category?: string;
@@ -29,15 +29,15 @@ type GridCardProps = {
 // Size mapping for CSS Grid matching the provided reference layout
 const sizeClasses = {
   tall_narrow: "col-span-1 row-span-2", // Top left
-  wide_short: "col-span-2 row-span-1",  // Top middle
+  wide_short: "col-span-2 row-span-1", // Top middle
   large_complex: "col-span-2 row-span-2", // Right side giant
   medium_regular: "col-span-1 row-span-1", // Bottom left (small)
-  square: "col-span-1 row-span-1",        // Bottom middle-left
-  wide_bottom: "col-span-2 row-span-1",   // Bottom right
+  square: "col-span-1 row-span-1", // Bottom middle-left
+  wide_bottom: "col-span-2 row-span-1", // Bottom right
 };
 
 export function GridCard({ project, onClick, index }: GridCardProps) {
-  const isFolder = project.type === 'folder';
+  const isFolder = project.type === "folder";
 
   return (
     <motion.div
@@ -46,19 +46,24 @@ export function GridCard({ project, onClick, index }: GridCardProps) {
       transition={{ duration: 0.4, delay: index * 0.1 }}
       className={cn(
         "group relative overflow-hidden rounded-3xl bg-card border border-border/40 shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 cursor-pointer",
-        project.size === 'tall' ? sizeClasses.tall_narrow :
-        project.size === 'wide' ? sizeClasses.wide_short :
-        project.size === 'large' ? sizeClasses.large_complex :
-        project.size === 'small' ? sizeClasses.medium_regular :
-        project.size === 'square' ? sizeClasses.square :
-        project.size === 'wide_bottom' ? sizeClasses.wide_bottom :
-        "col-span-1"
+        project.size === "tall"
+          ? sizeClasses.tall_narrow
+          : project.size === "wide"
+            ? sizeClasses.wide_short
+            : project.size === "large"
+              ? sizeClasses.large_complex
+              : project.size === "small"
+                ? sizeClasses.medium_regular
+                : project.size === "square"
+                  ? sizeClasses.square
+                  : project.size === "wide_bottom"
+                    ? sizeClasses.wide_bottom
+                    : "col-span-1",
       )}
       onClick={onClick}
     >
       {/* Content Container */}
       <div className="flex flex-col h-full">
-        
         {/* Header Section */}
         <div className="p-6 pb-2 z-10 relative">
           <div className="flex justify-between items-start mb-2">
@@ -99,7 +104,13 @@ export function GridCard({ project, onClick, index }: GridCardProps) {
   );
 }
 
-function StandardView({ imageUrl, title }: { imageUrl?: string | null; title: string }) {
+function StandardView({
+  imageUrl,
+  title,
+}: {
+  imageUrl?: string | null;
+  title: string;
+}) {
   return (
     <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative bg-muted">
       {imageUrl ? (
@@ -122,19 +133,19 @@ function FolderView({ items }: { items: FolderItem[] }) {
     <div className="relative h-full flex flex-col gap-3">
       {/* Folder Shape Mask/Outline */}
       <div className="absolute -top-8 left-0 w-24 h-8 bg-card border-t border-l border-r border-border/50 rounded-t-xl z-0" />
-      
+
       {/* Main Container - Outline only */}
       <div className="flex-1 border border-border/50 rounded-2xl rounded-tl-none p-4 flex flex-col gap-3 z-10">
         <div className="flex items-center gap-2 text-muted-foreground mb-1">
           <Folder className="w-4 h-4" />
-          <span className="text-xs font-medium uppercase tracking-wider">Contents</span>
+          <span className="text-xs font-medium tracking-wider">Contents</span>
         </div>
-        
+
         {/* List of files as individual small containers */}
         <div className="space-y-3">
           {items.slice(0, 3).map((item) => (
-            <div 
-              key={item.id} 
+            <div
+              key={item.id}
               className="flex items-center justify-between gap-3 bg-card p-3 rounded-xl border border-border/50 hover:border-primary/30 transition-colors"
             >
               <div className="flex items-center gap-3 min-w-0">
@@ -142,8 +153,12 @@ function FolderView({ items }: { items: FolderItem[] }) {
                   <File className="w-4 h-4 text-primary" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-medium text-foreground truncate">{item.title}</p>
-                  <p className="text-[10px] text-muted-foreground">{item.date}</p>
+                  <p className="text-sm font-medium text-foreground truncate">
+                    {item.title}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground">
+                    {item.date}
+                  </p>
                 </div>
               </div>
               <ArrowUpRight className="w-4 h-4 text-muted-foreground/50 group-hover:text-primary transition-colors flex-shrink-0" />

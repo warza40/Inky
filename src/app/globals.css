@@ -2,16 +2,17 @@
 @import "tailwindcss";
 
 /* ============================================================
-   WARMTH DS — Design Tokens v1.0
+   WARMTH DS — Design Tokens v2.0 (Technical register — portfolio)
    ============================================================ */
 
 :root {
-  /* ── COLOUR: Grounds ── */
+  /* ── COLOUR: Grounds (parchment system) ── */
   --color-ground-primary: #faf7f2;
   --color-ground-secondary: #f5efe4;
   --color-ground-tertiary: #ede6d8;
   --color-ground-raised: #e4dccf;
   --color-ground-sunken: #ede8e0;
+  --color-paper: var(--color-ground-tertiary);
 
   /* ── COLOUR: Ink system ── */
   --color-ink-900: #1c1812;
@@ -28,34 +29,54 @@
   --color-madder-100: #f8eeeb;
 
   /* ── COLOUR: Moss ── */
-  --color-moss-900: #3a4a2e;
   --color-moss-700: #5a6b4a;
   --color-moss-500: #8a9e78;
   --color-moss-200: #dde6d4;
   --color-moss-100: #eef3e8;
 
-  /* ── COLOUR: Ochre ── */
+  /* ── COLOUR: Ochre (700: non-text on light grounds) ── */
   --color-ochre-700: #c8903a;
   --color-ochre-500: #dba85a;
   --color-ochre-200: #f0e0c4;
   --color-ochre-100: #f8f0e0;
 
-  /* ── COLOUR: Semantic ── */
-  /* Homepage hero accent + primary CTA — same hue as headline “clarity…” */
-  --color-accent: var(--color-madder-700);
-  --color-text-tertiary: var(--color-ink-300);
-  --color-focus: var(--color-madder-700);
-  --color-success: var(--color-moss-700);
-  --color-warning: var(--color-ochre-700);
-  --color-error: #c0392b;
-  --color-info: #3a4a5c;
+  /* ── COLOUR: Slate ── */
+  --color-slate-700: #3a4a5c;
+  --color-slate-500: #7a9aaa;
+  --color-slate-200: #d0dce8;
 
-  /* ── COLOUR: Interactive ── */
-  --color-link: var(--color-madder-700);
-  --color-link-hover: var(--color-madder-500);
+  /* ── COLOUR: Dark grounds ── */
+  --color-dark-void: #141412;
+  --color-dark-charcoal: #1e1e1a;
+  --color-dark-carbon: #2a2a24;
+  --color-dark-bone: #f0ece0;
+
+  /* ── COLOUR: Feedback (AAA on parchment / AA+ on void) ── */
+  --color-feedback-error-dark: #8b1a1a;
+  --color-feedback-error-light: #e57373;
+  --color-feedback-success-dark: #155724;
+  --color-feedback-success-light: #81c784;
+  --color-feedback-warning-dark: #634a0c;
+  --color-feedback-warning-light: #dba85a;
+
+  /* ── COLOUR: Semantic (Technical register) ── */
+  --color-accent: var(--color-madder-900);
+  --color-text-tertiary: var(--color-ink-300);
+  --color-focus: var(--color-madder-900);
+  --color-success: var(--color-feedback-success-dark);
+  --color-warning: var(--color-feedback-warning-dark);
+  --color-error: var(--color-feedback-error-dark);
+  --color-info: var(--color-slate-700);
+
+  /* ── COLOUR: Interactive (Technical) ── */
+  --color-link: var(--color-madder-900);
+  --color-link-hover: var(--color-madder-700);
+  --color-interactive-default: var(--color-ink-900);
+  --color-interactive-hover: var(--color-ink-700);
+  --color-interactive-active: var(--color-ink-900);
   --color-border: var(--color-ground-raised);
   --color-border-strong: var(--color-ink-100);
-  --color-border-focus: var(--color-madder-700);
+  --color-border-focus: var(--color-madder-900);
 
   /* ── TYPOGRAPHY: Font families ── */
   --font-serif: "Lora", Georgia, serif;
@@ -91,17 +112,17 @@
   --leading-relaxed: 1.75;
   --leading-loose: 2;
 
-  /* ── TYPOGRAPHY: Letter spacing ── */
-  --tracking-tight: -0.04em;
+  /* ── TYPOGRAPHY: Letter spacing (V2 — sentence case mono) ── */
+  --tracking-tight: -0.025em;
   --tracking-snug: -0.02em;
-  --tracking-normal: -0.01em;
+  --tracking-normal: -0.015em;
   --tracking-wide: 0.06em;
-  --tracking-wider: 0.12em;
-  --tracking-widest: 0.22em;
+  --tracking-wider: 0.1em;
+  --tracking-widest: 0.1em;
 
-  /* Eyebrow / section kickers — mono uppercase (readable vs. legacy 8–10px) */
+  /* Section tags / labels — mono, sentence case */
   --text-eyebrow: var(--text-sm);
-  --weight-eyebrow: var(--weight-medium);
+  --weight-eyebrow: var(--weight-regular);
 
   /* ── SPACING: 8px grid ── */
   --space-1: 0.25rem;
@@ -126,26 +147,30 @@
   --layout-gutter-sm: var(--space-6);
   --layout-col-gap: var(--space-6);
 
-  /* ── BORDERS ── */
+  /* ── BORDERS & RADIUS (V2) ── */
   --radius-none: 0;
-  --radius-sm: 2px;
-  --radius-md: 4px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
   --radius-lg: 8px;
   --radius-xl: 16px;
   --radius-full: 9999px;
+  --radius-element: var(--radius-sm);
+  --radius-card: var(--radius-md);
+  --radius-panel: var(--radius-md);
   --border-width-thin: 1px;
   --border-width-medium: 2px;
   --border-width-thick: 3px;
 
-  /* ── SHADOWS ── */
+  /* ── SHADOWS (V2 — warm ink.900 base) ── */
   --shadow-xs: 0 1px 2px rgba(28, 24, 18, 0.04);
-  --shadow-sm: 0 2px 6px rgba(28, 24, 18, 0.06);
-  --shadow-md:
-    0 4px 12px rgba(28, 24, 18, 0.08), 0 1px 3px rgba(28, 24, 18, 0.04);
+  --shadow-sm: 0 1px 4px rgba(28, 24, 18, 0.06);
+  --shadow-md: 0 4px 16px rgba(28, 24, 18, 0.08);
   --shadow-lg:
-    0 8px 24px rgba(28, 24, 18, 0.1), 0 2px 6px rgba(28, 24, 18, 0.06);
+    0 8px 32px rgba(28, 24, 18, 0.1), 0 2px 8px rgba(28, 24, 18, 0.04);
   --shadow-xl:
     0 16px 48px rgba(28, 24, 18, 0.12), 0 4px 12px rgba(28, 24, 18, 0.06);
+  --shadow-card: var(--shadow-sm);
+  --shadow-card-hover: var(--shadow-md);
 
   /* ── MOTION ── */
   --duration-fast: 150ms;
@@ -169,14 +194,14 @@
   /* ── BACKWARD-COMPAT ALIASES (maps old shorthand → new tokens) ── */
   --ink: var(--color-ink-900);
   --parchment: var(--color-ground-secondary);
-  --madder: var(--color-madder-700);
+  --madder: var(--color-madder-900);
   --madder-dark: var(--color-madder-900);
   --moss: var(--color-moss-700);
   --whisper: var(--color-ink-300);
   --moss-wash: var(--color-moss-200);
   --background: var(--color-ground-primary);
   --foreground: var(--color-ink-900);
-  --primary: var(--color-madder-700);
+  --primary: var(--color-madder-900);
   --secondary: var(--color-ink-300);
   --border: var(--color-border);
   --surface: var(--color-ground-secondary);
@@ -229,9 +254,14 @@ body {
   color: var(--color-ink-900);
   font-family: var(--font-serif);
   font-size: var(--text-base);
-  line-height: var(--leading-normal);
+  line-height: var(--leading-relaxed);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
 }
 
 /* Lightbox / modal scroll lock — keep layout width stable when scrollbar disappears */
@@ -323,7 +353,7 @@ body.overlay-open {
   color: var(--color-ink-300);
 }
 .text-accent {
-  color: var(--color-madder-700);
+  color: var(--color-madder-900);
 }
 .text-success {
   color: var(--color-moss-700);
@@ -334,9 +364,9 @@ body.overlay-open {
   gap: var(--space-1);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  font-weight: var(--weight-regular);
-  letter-spacing: var(--tracking-wider);
-  text-transform: uppercase;
+  font-weight: var(--weight-light);
+  letter-spacing: var(--tracking-wide);
+  text-transform: none;
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-sm);
   white-space: nowrap;
@@ -347,7 +377,7 @@ body.overlay-open {
 }
 .tag-madder {
   background: var(--color-madder-200);
-  color: var(--color-madder-700);
+  color: var(--color-madder-900);
 }
 .tag-moss {
   background: var(--color-moss-200);
@@ -355,7 +385,7 @@ body.overlay-open {
 }
 .tag-ochre {
   background: var(--color-ochre-200);
-  color: var(--color-ochre-700);
+  color: var(--color-feedback-warning-dark);
 }
 .section-label {
   display: flex;
@@ -364,9 +394,9 @@ body.overlay-open {
   font-family: var(--font-mono);
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
-  letter-spacing: var(--tracking-widest);
-  text-transform: uppercase;
-  color: var(--color-madder-700);
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
+  color: var(--color-accent);
 }
 .section-label::before {
   content: "";
@@ -388,8 +418,8 @@ body.overlay-open {
   gap: var(--space-2);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  letter-spacing: var(--tracking-wider);
-  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  text-transform: none;
 }
 .status-dot {
   width: 6px;
@@ -430,12 +460,12 @@ body.overlay-open {
 }
 
 ::selection {
-  background: var(--madder);
-  color: #f5efe4;
+  background: var(--color-madder-900);
+  color: var(--color-ground-secondary);
 }
 ::-moz-selection {
-  background: var(--madder);
-  color: #f5efe4;
+  background: var(--color-madder-900);
+  color: var(--color-ground-secondary);
 }
 
 /* HEADLINES — Lora 400-500, narrative voice */
@@ -1038,10 +1068,10 @@ html.dark .home-page-main,
 }
 .scroll-cue-label {
   font-family: var(--font-label);
-  font-size: var(--text-eyebrow);
-  font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: var(--text-sm);
+  font-weight: 300;
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
   color: var(--whisper);
 }
 .scroll-cue-arrow {
@@ -1299,7 +1329,7 @@ html.dark .home-page-main,
   letter-spacing: 0.12em;
   max-width: 520px;
   color: var(--ink);
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .hero-label {
@@ -1315,7 +1345,7 @@ html.dark .home-page-main,
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: 0.14em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--ink);
   opacity: 0.85;
 }
@@ -1323,7 +1353,7 @@ html.dark .home-page-main,
 .label {
   font-size: 12px;
   letter-spacing: 0.14em;
-  text-transform: uppercase;
+  text-transform: none;
   opacity: 0.85;
   color: var(--ink);
 }
@@ -1334,7 +1364,7 @@ html.dark .home-page-main,
   line-height: 1.2;
   letter-spacing: 0.14em;
   color: var(--ink);
-  text-transform: uppercase;
+  text-transform: none;
   margin-bottom: 0;
 }
 
@@ -1362,15 +1392,15 @@ html.dark .home-page-main,
   color: rgba(255, 255, 255, 0.85);
 }
 
-/* Bio headline — Lora 400, narrative voice — warm muted ink, not full black */
+/* Bio — Lora regular, Technical register (upright, ink.900) */
 .hero-headline {
   font-family: var(--font-heading);
   font-size: clamp(15px, 1.6vw, 16px);
   font-weight: 400;
-  font-style: italic;
-  line-height: 1.8;
-  letter-spacing: -0.01em;
-  color: #4a3a2c;
+  font-style: normal;
+  line-height: 1.75;
+  letter-spacing: normal;
+  color: var(--color-ink-900);
   max-width: 580px;
   margin-left: 0;
   margin-right: auto;
@@ -1462,16 +1492,16 @@ html.dark .home-page-main,
 }
 .home-header-nav-link {
   font-family: var(--font-label);
-  font-size: var(--text-eyebrow);
-  font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-size: var(--text-sm);
+  font-weight: 300;
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
   color: var(--color-ink-300);
   text-decoration: none;
   transition: color var(--duration-fast) var(--ease-default);
 }
 .home-header-nav-link:hover {
-  color: var(--color-ink-900);
+  color: var(--color-ink-700);
 }
 
 .home-header-end {
@@ -1481,16 +1511,16 @@ html.dark .home-page-main,
 }
 .home-header-resume {
   font-family: var(--font-label);
-  font-size: var(--text-eyebrow);
-  font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-size: var(--text-sm);
+  font-weight: 300;
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
   color: var(--color-ink-300);
   text-decoration: none;
   transition: color var(--duration-fast) var(--ease-default);
 }
 .home-header-resume:hover {
-  color: var(--color-madder-700);
+  color: var(--color-madder-900);
 }
 
 /* 3-column grid: name | nav | end */
@@ -1506,7 +1536,7 @@ html.dark .home-page-main,
   padding-bottom: 0;
   padding-left: max(var(--layout-gutter), env(safe-area-inset-left, 0px));
   padding-right: max(var(--layout-gutter), env(safe-area-inset-right, 0px));
-  background: color-mix(in srgb, var(--color-ground-primary) 90%, transparent);
+  background: rgba(250, 247, 242, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
@@ -1529,13 +1559,13 @@ html.dark .home-page-main,
 .home-header-name-accent {
   font-style: italic;
   font-weight: 500;
-  color: var(--color-madder-700);
+  color: var(--color-accent);
 }
 .home-header-name:hover {
   color: var(--color-ink-700);
 }
 .home-header-name:hover .home-header-name-accent {
-  color: var(--color-madder-500);
+  color: var(--color-link-hover);
 }
 .dark .home-header-name {
   color: rgba(240, 236, 224, 0.88);
@@ -1577,7 +1607,7 @@ html.dark .home-page-main,
   }
   .home-header-nav-link,
   .home-header-resume {
-    letter-spacing: 0.14em;
+    letter-spacing: var(--tracking-wider);
   }
 }
 @media (max-width: 480px) {
@@ -1588,7 +1618,7 @@ html.dark .home-page-main,
     font-size: 15px;
   }
   .home-header-resume {
-    letter-spacing: 0.12em;
+    letter-spacing: var(--tracking-wider);
   }
 }
 @media (min-width: 641px) and (max-width: 1024px) {
@@ -1641,11 +1671,11 @@ html.dark .home-page-main,
 
 .home-hero-label {
   font-family: var(--font-label);
-  font-size: var(--text-eyebrow);
-  font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--whisper);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
+  color: var(--color-ink-500);
   margin: 0 0 28px 0;
 }
 
@@ -1681,7 +1711,7 @@ html.dark .home-page-main,
   max-width: 420px;
 }
 
-/* DS btn-primary — hero CTA */
+/* DS v2 btn-primary — Technical (ink fill) */
 .home-hero-cta {
   display: inline-flex;
   align-items: center;
@@ -1689,28 +1719,27 @@ html.dark .home-page-main,
   gap: 10px;
   margin-top: 48px;
   font-family: var(--font-label);
-  font-size: 9px;
+  font-size: var(--text-xs);
   font-weight: 400;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  text-transform: none;
   color: var(--color-ground-primary);
-  background-color: var(--color-accent);
-  padding: 12px 24px;
+  background-color: var(--color-interactive-default);
+  padding: 10px 22px;
+  border-radius: var(--radius-element);
   text-decoration: none;
   border: none;
   cursor: pointer;
   transition:
-    background 200ms cubic-bezier(0.4, 0, 0.2, 1),
-    transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    background var(--duration-normal) var(--ease-default),
+    box-shadow var(--duration-normal) var(--ease-default);
 }
 .home-hero-cta:hover {
-  background: var(--color-madder-500);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  background: var(--color-interactive-hover);
+  box-shadow: var(--shadow-sm);
 }
 .home-hero-cta:active {
-  transform: scale(0.98);
+  background: var(--color-interactive-active);
 }
 
 /* Extending-line arrow */
@@ -1739,13 +1768,12 @@ html.dark .home-page-main,
 }
 
 .home-hero-caption {
-  font-family: var(--font-label);
-  font-size: 16px;
-  font-weight: 300;
+  font-family: var(--font-serif);
+  font-size: var(--text-base);
+  font-weight: 400;
   line-height: 1.75;
-  letter-spacing: 0.01em;
-  /* Stronger than --whisper / ink-300 for readability on parchment */
-  color: #6b6358;
+  letter-spacing: normal;
+  color: var(--color-ink-900);
   margin: 16px 0 0;
   max-width: 560px;
 }
@@ -1838,7 +1866,7 @@ html.dark .home-page-main,
   width: 168px;
   height: 168px;
   padding: 18px 18px;
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
   font-family: "DM Sans", var(--font-dm-sans), system-ui, sans-serif;
   font-style: normal;
   font-size: 13.5px;
@@ -1978,9 +2006,9 @@ html.dark .home-page-main,
   font-family: var(--font-label);
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--color-madder-700);
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
+  color: var(--color-madder-900);
   margin: 0 0 10px 0;
 }
 .work-section-headline {
@@ -2003,10 +2031,10 @@ html.dark .home-page-main,
 }
 .work-tab {
   font-family: var(--font-label);
-  font-size: var(--text-eyebrow);
-  font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-size: var(--text-sm);
+  font-weight: 300;
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
   color: var(--color-ink-300);
   background: none;
   border: none;
@@ -2019,7 +2047,9 @@ html.dark .home-page-main,
   color: var(--color-ink-900);
 }
 .work-tab.active {
+  font-weight: 400;
   color: var(--color-ink-900);
+  letter-spacing: var(--tracking-wide);
 }
 .work-tab.active::after {
   content: "";
@@ -2027,8 +2057,8 @@ html.dark .home-page-main,
   bottom: -4px;
   left: 0;
   right: 0;
-  height: 1px;
-  background: var(--color-madder-700);
+  height: 2px;
+  background: var(--color-ink-900);
 }
 
 .work-divider {
@@ -2086,7 +2116,7 @@ html.dark .home-page-main,
   pointer-events: none;
 }
 .wc-tile {
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
   border: 1px solid rgba(90, 112, 136, 0.22);
   background: rgba(90, 112, 136, 0.03);
   transition:
@@ -2113,6 +2143,9 @@ html.dark .home-page-main,
   grid-template-columns: 1fr 1fr;
   align-items: start;
   border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-ground-secondary);
+  box-shadow: var(--shadow-card);
   overflow: hidden;
   text-decoration: none;
   cursor: pointer;
@@ -2123,17 +2156,15 @@ html.dark .home-page-main,
   margin-bottom: 32px;
 }
 .wc-featured:hover {
-  border-color: var(--color-madder-700);
-  box-shadow:
-    0 8px 32px rgba(28, 24, 18, 0.1),
-    0 2px 8px rgba(28, 24, 18, 0.06);
+  border-color: var(--color-madder-900);
+  box-shadow: var(--shadow-card-hover);
   transform: translateY(-4px);
 }
 .wc-featured:active {
   transform: translateY(-1px);
 }
 .wc-featured:focus-visible {
-  outline: 2px solid var(--color-madder-700);
+  outline: 2px solid var(--color-madder-900);
   outline-offset: 3px;
 }
 
@@ -2163,9 +2194,9 @@ html.dark .home-page-main,
   font-family: var(--font-label);
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--color-madder-700);
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
+  color: var(--color-madder-900);
   margin: 0 0 18px;
   display: flex;
   align-items: center;
@@ -2183,7 +2214,7 @@ html.dark .home-page-main,
 .wc-title {
   font-family: var(--font-serif);
   font-size: clamp(20px, 2.2vw, 30px);
-  font-weight: 700;
+  font-weight: 500;
   color: var(--color-ink-900);
   line-height: 1.15;
   letter-spacing: -0.02em;
@@ -2204,7 +2235,7 @@ html.dark .home-page-main,
 /* Key decision block */
 .wc-key-decision {
   border: 1px solid var(--color-border);
-  border-left: 2px solid var(--color-madder-700);
+  border-left: 2px solid var(--color-madder-900);
   padding: 14px 20px;
   background: var(--color-ground-primary);
   margin: 0;
@@ -2218,9 +2249,9 @@ html.dark .home-page-main,
   font-family: var(--font-label);
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-madder-700);
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
+  color: var(--color-madder-900);
   opacity: 0.8;
   margin-bottom: 8px;
 }
@@ -2249,8 +2280,8 @@ html.dark .home-page-main,
   font-family: var(--font-label);
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
   color: var(--color-ink-500);
   display: flex;
   align-items: center;
@@ -2259,7 +2290,7 @@ html.dark .home-page-main,
   transition: color 200ms;
 }
 .wc-featured:hover .wc-cta {
-  color: var(--color-madder-700);
+  color: var(--color-madder-900);
 }
 
 .wc-cta-arrow {
@@ -2306,7 +2337,7 @@ html.dark .home-page-main,
     transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .wc-card:hover {
-  border-color: var(--color-madder-700);
+  border-color: var(--color-madder-900);
   box-shadow: 0 6px 20px rgba(28, 24, 18, 0.08);
   transform: translateY(-3px);
 }
@@ -2334,8 +2365,8 @@ html.dark .home-page-main,
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-madder-700);
+  text-transform: none;
+  color: var(--color-madder-900);
   margin: 0 0 14px;
   display: flex;
   align-items: center;
@@ -2374,8 +2405,8 @@ html.dark .home-page-main,
   font-family: var(--font-label);
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
   color: var(--color-ink-500);
   display: flex;
   align-items: center;
@@ -2383,7 +2414,7 @@ html.dark .home-page-main,
   transition: color 150ms;
 }
 .wc-card:hover .wc-card-cta {
-  color: var(--color-madder-700);
+  color: var(--color-madder-900);
 }
 .wc-card-cta-arrow {
   display: inline-block;
@@ -2472,9 +2503,9 @@ html.dark .home-page-main,
   font-family: var(--font-label);
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--color-madder-700);
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
+  color: var(--color-madder-900);
   margin: 0 0 10px;
 }
 .writing-section-headline {
@@ -2488,10 +2519,10 @@ html.dark .home-page-main,
 }
 .writing-section-link {
   font-family: var(--font-label);
-  font-size: var(--text-eyebrow);
-  font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-size: var(--text-sm);
+  font-weight: 300;
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
   color: var(--color-ink-300);
   text-decoration: none;
   transition: color 150ms;
@@ -2499,7 +2530,7 @@ html.dark .home-page-main,
   padding-bottom: 4px;
 }
 .writing-section-link:hover {
-  color: var(--color-madder-700);
+  color: var(--color-madder-900);
 }
 
 .writing-divider {
@@ -2525,6 +2556,7 @@ html.dark .home-page-main,
   text-decoration: none;
   background: var(--color-ground-primary);
   border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
   cursor: pointer;
   transition:
     border-color 200ms,
@@ -2537,7 +2569,7 @@ html.dark .home-page-main,
   z-index: 1;
   box-shadow: var(--shadow-md);
   transform: translateY(-3px);
-  border-color: var(--color-madder-700);
+  border-color: var(--color-madder-900);
 }
 
 /* Illustration area — 2:1 width:height (half the height of the previous square) */
@@ -2593,9 +2625,9 @@ html.dark .home-page-main,
   font-family: var(--font-label);
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--color-madder-700);
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
+  color: var(--color-madder-900);
   margin: 0 0 14px;
   display: flex;
   align-items: center;
@@ -2603,7 +2635,7 @@ html.dark .home-page-main,
   flex-wrap: wrap;
 }
 .wr-type-sep {
-  color: var(--color-madder-700);
+  color: var(--color-madder-900);
   opacity: 0.5;
 }
 .wr-type-muted {
@@ -2641,8 +2673,8 @@ html.dark .home-page-main,
   font-family: var(--font-label);
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  text-transform: none;
   color: var(--color-ink-300);
   white-space: nowrap;
 }
@@ -2759,9 +2791,9 @@ html.dark .home-page-main,
   font-family: var(--font-label);
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--color-madder-700);
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
+  color: var(--color-madder-900);
   margin: 0 0 10px;
 }
 .about-section-headline {
@@ -2894,7 +2926,7 @@ html.dark .home-page-main,
   font-size: 10px;
   font-weight: 300;
   letter-spacing: 0.14em;
-  text-transform: uppercase;
+  text-transform: none;
   color: rgba(245, 239, 228, 0.5);
   text-decoration: none;
   transition: color 120ms;
@@ -2926,7 +2958,7 @@ html.dark .home-page-main,
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: 0.2em;
-  text-transform: uppercase;
+  text-transform: none;
   color: rgba(245, 239, 228, 0.3);
   margin: 0;
 }
@@ -2944,8 +2976,8 @@ html.dark .home-page-main,
   font-family: var(--font-label);
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
   color: rgba(245, 239, 228, 0.35);
   margin: 0;
 }
@@ -3094,7 +3126,7 @@ h2 {
 }
 .home-work-label {
   font-size: 10px;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 2px;
   font-weight: 600;
   color: var(--foreground);
@@ -3452,7 +3484,7 @@ h2 {
   grid-template-columns: 1fr 1fr 1fr;
   border-bottom: 1px solid var(--home-border);
   font-size: 10px;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 0.1em;
   min-height: 60px;
   align-items: center;
@@ -3494,7 +3526,7 @@ h2 {
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-widest);
-  text-transform: uppercase;
+  text-transform: none;
   margin-bottom: 10px;
   display: block;
   color: var(--foreground);
@@ -3506,7 +3538,7 @@ h2 {
   letter-spacing: -0.04em;
   font-weight: 400;
   margin-bottom: 20px;
-  text-transform: uppercase;
+  text-transform: none;
 }
 .home-hero-description {
   max-width: 400px;
@@ -3531,7 +3563,7 @@ h2 {
 }
 .home-spec-label {
   font-size: 10px;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 0.1em;
   margin-bottom: 8px;
   display: block;
@@ -3726,7 +3758,7 @@ button.home-cta-link {
   transition: opacity 0.3s;
   font-size: 11px;
   letter-spacing: 2px;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--foreground);
   text-decoration: none;
 }
@@ -3777,7 +3809,7 @@ button.home-cta-link {
   background: transparent;
   font-size: 11px;
   letter-spacing: 2px;
-  text-transform: uppercase;
+  text-transform: none;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -3905,7 +3937,7 @@ button.home-cta-link {
   font-size: 12px;
   letter-spacing: 1.5px;
   font-weight: 700;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--foreground);
 }
 .portfolio-icon-btn {
@@ -4010,7 +4042,7 @@ button.portfolio-nav-item-button {
 }
 .portfolio-label {
   font-size: 10px;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 2px;
   font-weight: 600;
   color: var(--foreground);
@@ -4028,7 +4060,7 @@ button.portfolio-nav-item-button {
 }
 .portfolio-tag {
   font-size: 10px;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 2px;
   font-weight: 600;
   color: var(--foreground);
@@ -4378,7 +4410,7 @@ body:has(.cs-page) {
   position: relative;
   isolation: isolate;
   /* Case accent tokens — default madder; `.cs-theme-moss` overrides */
-  --cs-accent: var(--color-madder-700);
+  --cs-accent: var(--color-madder-900);
   --cs-accent-mid: var(--color-madder-500);
   --cs-accent-soft: var(--color-madder-200);
   --cs-accent-soft-bg: color-mix(
@@ -4439,7 +4471,8 @@ body:has(.cs-page) {
   --cs-footer-link-hover: #6d8a5c;
 }
 .cs-theme-ochre {
-  --cs-accent: var(--color-ochre-700);
+  /* Ochre.700 fails AAA on parchment — accent text uses warning-dark */
+  --cs-accent: var(--color-feedback-warning-dark);
   --cs-accent-mid: var(--color-ochre-500);
   --cs-accent-soft: var(--color-ochre-200);
   --cs-accent-soft-bg: color-mix(
@@ -4452,9 +4485,9 @@ body:has(.cs-page) {
     var(--color-ochre-500) 30%,
     transparent
   );
-  --cs-accent-bar: var(--color-ochre-700);
-  --cs-footer-link: var(--color-ochre-700);
-  --cs-footer-link-hover: #c09030;
+  --cs-accent-bar: var(--color-ochre-500);
+  --cs-footer-link: var(--color-feedback-warning-dark);
+  --cs-footer-link-hover: var(--color-ochre-500);
 }
 .cs-theme-slate {
   --cs-accent: var(--color-ink-700);
@@ -4694,9 +4727,9 @@ body:has(.cs-page) {
 .cs-tab {
   font-family: var(--font-label);
   font-size: var(--text-sm);
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-weight: 300;
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
   padding: var(--space-3) var(--space-5);
   background: transparent;
   border: none;
@@ -4715,9 +4748,9 @@ body:has(.cs-page) {
   color: var(--color-ink-700); /* clear step up, not yet active */
 }
 .cs-tab.active {
-  font-weight: 500;
+  font-weight: 400;
   color: var(--color-ink-900);
-  letter-spacing: 0.12em;
+  letter-spacing: var(--tracking-wide);
 }
 /* Scale-reveal indicator — ink, not madder */
 .cs-tab::after {
@@ -4749,7 +4782,7 @@ body:has(.cs-page) {
   scroll-margin-top: 108px;
 }
 .cs-content {
-  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  font-family: var(--font-serif);
 }
 
 /* Case study footer — same ink + parchment as homepage .site-footer */
@@ -4784,8 +4817,8 @@ body:has(.cs-page) {
   font-family: var(--font-label);
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
   color: rgba(245, 239, 228, 0.88);
   text-decoration: none;
   padding: 10px 18px;
@@ -4805,8 +4838,8 @@ body:has(.cs-page) {
   font-family: var(--font-label);
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
   color: var(--cs-footer-link);
   text-decoration: none;
   transition: color 150ms ease;
@@ -4878,10 +4911,10 @@ body:has(.cs-page) {
 }
 .cs-meta-label {
   font-family: var(--font-label);
-  font-size: 9px;
+  font-size: var(--text-xs);
   font-weight: 300;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  text-transform: none;
   color: var(--color-ink-300);
   margin-bottom: var(--space-2);
 }
@@ -4895,7 +4928,7 @@ body:has(.cs-page) {
 .cs-context-text {
   font-family: var(--font-serif);
   font-size: 15px;
-  color: var(--color-ink-500);
+  color: var(--color-ink-900);
   line-height: 1.75;
   padding: var(--space-5) 0 0;
   margin-bottom: var(--space-10);
@@ -4912,15 +4945,15 @@ body:has(.cs-page) {
   font-family: var(--font-label);
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--cs-accent, var(--color-madder-700));
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
+  color: var(--cs-accent, var(--color-madder-900));
   margin: 0 0 var(--space-3);
 }
 .cs-context-section-body {
   font-family: var(--font-serif);
   font-size: 15px;
-  color: var(--color-ink-500);
+  color: var(--color-ink-900);
   line-height: 1.75;
   margin: 0;
 }
@@ -4938,7 +4971,7 @@ body:has(.cs-page) {
 }
 .cs-ecosystem-eyebrow::before {
   content: "—";
-  color: var(--color-madder-600);
+  color: var(--color-madder-900);
   font-family: var(--font-label);
   font-size: 11px;
   font-weight: 300;
@@ -4948,30 +4981,30 @@ body:has(.cs-page) {
   font-family: var(--font-label);
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-ink-400);
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
+  color: var(--color-ink-500);
   line-height: 1.3;
 }
 .cs-ecosystem-intro {
   font-family: var(--font-serif);
   font-size: 15px;
-  color: var(--color-ink-500);
+  color: var(--color-ink-900);
   line-height: 1.75;
   margin: 0 0 var(--space-6);
   max-width: 42rem;
 }
 .cs-ecosystem-box {
   border: 1px solid var(--color-border);
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
   background: var(--color-ground-primary);
 }
 .cs-ecosystem-box-head {
   font-family: var(--font-label);
-  font-size: 9px;
+  font-size: var(--text-xs);
   font-weight: var(--weight-eyebrow);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
   text-align: center;
   color: var(--color-ink-300);
   padding: var(--space-4) var(--space-6);
@@ -5053,7 +5086,7 @@ body:has(.cs-page) {
   font-size: 8px;
   font-weight: 600;
   letter-spacing: 0.14em;
-  text-transform: uppercase;
+  text-transform: none;
   line-height: 1;
   white-space: nowrap;
   border: 1px solid var(--color-border);
@@ -5076,19 +5109,19 @@ body:has(.cs-page) {
 .cs-context-flow-p {
   font-family: var(--font-serif);
   font-size: 15px;
-  line-height: 1.85;
-  color: var(--color-ink-500);
+  line-height: 1.75;
+  color: var(--color-ink-900);
   margin: 0 0 var(--space-5);
-  letter-spacing: -0.005em;
+  letter-spacing: normal;
 }
 .cs-context-hl {
-  color: var(--color-madder-600);
+  color: var(--color-madder-900);
 }
 .cs-context-aim {
   font-family: var(--font-serif);
   font-size: 15px;
   line-height: 1.85;
-  color: var(--color-madder-600);
+  color: var(--color-madder-900);
   font-style: italic;
   margin: 0 0 var(--space-6);
 }
@@ -5109,23 +5142,23 @@ body:has(.cs-page) {
   border-right: none;
 }
 .cs-stat-num {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 32px;
-  font-weight: 700;
-  letter-spacing: -0.05em;
+  font-weight: 900;
+  letter-spacing: var(--tracking-tight);
   color: var(--color-ink-900);
   line-height: 1;
 }
 .cs-stat-num sup {
   font-size: 0.45em;
-  color: var(--color-madder-600);
+  color: var(--color-madder-900);
   vertical-align: super;
 }
 .cs-stat-label {
   font-family: var(--font-label);
-  font-size: 8px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: none;
   color: var(--color-ink-300);
   margin-top: var(--space-2);
   line-height: 1.35;
@@ -5159,22 +5192,25 @@ body:has(.cs-page) {
   margin-bottom: 2px;
 }
 .cs-persona-age {
-  font-size: 9px;
-  letter-spacing: 0.12em;
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
   color: var(--color-ink-300);
   margin-bottom: 12px;
 }
 .cs-persona-works {
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  color: var(--color-ink-400);
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-ink-500);
   margin-bottom: 4px;
 }
 .cs-persona-section-label {
-  font-size: 8px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-madder-600);
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
+  color: var(--color-madder-900);
   margin-bottom: 6px;
   margin-top: 12px;
 }
@@ -5193,7 +5229,7 @@ body:has(.cs-page) {
 }
 .cs-persona-list li::before {
   content: "· ";
-  color: var(--color-madder-600);
+  color: var(--color-madder-900);
 }
 .cs-persona-quote {
   grid-column: 1 / -1;
@@ -5208,7 +5244,7 @@ body:has(.cs-page) {
   margin: 0;
   border: 1px solid var(--color-border);
   background: var(--color-paper);
-  border-left: 3px solid var(--color-madder-600);
+  border-left: 3px solid var(--color-madder-900);
 }
 
 /* DR understanding subsection */
@@ -5226,13 +5262,14 @@ body:has(.cs-page) {
   margin-top: var(--space-2);
 }
 .cs-dr-section-label-text {
-  font-size: 8px;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: none;
   color: var(--color-ink-300);
 }
 .cs-dr-section-label-text--accent {
-  color: var(--color-madder-600);
+  color: var(--color-madder-900);
 }
 .cs-dr-section-head {
   font-family: var(--font-serif);
@@ -5302,7 +5339,7 @@ body:has(.cs-page) {
 .cs-dr-ia-placeholder-label {
   font-size: 8px;
   letter-spacing: 0.14em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--color-ink-300);
   text-align: center;
 }
@@ -5375,7 +5412,7 @@ body:has(.cs-page) {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--color-madder-600);
+  background: var(--color-madder-900);
   flex-shrink: 0;
   margin-top: 0.55em;
 }
@@ -5388,7 +5425,7 @@ body:has(.cs-page) {
   padding: var(--space-2) var(--space-4);
   font-size: 9px;
   letter-spacing: 0.14em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--color-ink-500);
   margin: var(--space-6) 0 0;
   font-family: var(--font-label);
@@ -5403,7 +5440,7 @@ body:has(.cs-page) {
   font-family: var(--font-serif);
   font-size: 15px;
   line-height: 1.85;
-  color: var(--color-madder-600);
+  color: var(--color-madder-900);
   font-style: italic;
   margin: var(--space-8) 0 0;
 }
@@ -5436,9 +5473,9 @@ body:has(.cs-page) {
   padding: 24px;
 }
 .cs-decision-placeholder-note {
-  font-size: 8px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
   color: rgba(240, 236, 224, 0.4);
   text-align: center;
   margin: 0;
@@ -5460,9 +5497,9 @@ body:has(.cs-page) {
   padding: 16px;
 }
 .cs-nei-label {
-  font-size: 8px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
   color: var(--color-ink-300);
   margin-bottom: 10px;
   font-family: var(--font-label);
@@ -5537,7 +5574,7 @@ body:has(.cs-page) {
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-widest);
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--cs-accent);
   margin: 0;
 }
@@ -5602,7 +5639,7 @@ body:has(.cs-page) {
   font-weight: 900;
   font-size: 22px;
   letter-spacing: -0.05em;
-  color: var(--color-madder-400);
+  color: var(--color-ink-900);
   opacity: 0.75;
   flex-shrink: 0;
   line-height: 1;
@@ -5684,7 +5721,7 @@ body:has(.cs-page) {
   font-size: 9px;
   font-weight: 400;
   letter-spacing: 0.12em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--cs-accent);
   background: var(--cs-accent-soft-bg);
   border: 1px solid var(--cs-accent-soft-border);
@@ -5947,7 +5984,7 @@ body:has(.cs-page) {
   font-size: 11px;
   font-weight: var(--weight-eyebrow);
   letter-spacing: 0.08em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--color-text-tertiary);
   margin-bottom: 22px;
   text-align: left;
@@ -6061,7 +6098,7 @@ body:has(.cs-page) {
   font-size: 9px;
   font-weight: 600;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
+  text-transform: none;
   color: rgba(255, 255, 255, 0.9);
   margin-left: 4px;
 }
@@ -6408,7 +6445,7 @@ button.cs-visual-clickable:hover {
 
 .case-voice-garden .vg-label {
   font-size: 12px;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 2px;
   font-weight: 600;
   color: var(--vg-text);
@@ -6428,7 +6465,7 @@ button.cs-visual-clickable:hover {
 
 .case-voice-garden .vg-breadcrumb {
   font-size: 11px;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 1.5px;
   color: var(--vg-text-secondary);
   margin-bottom: var(--vg-space-s);
@@ -6506,7 +6543,7 @@ button.cs-visual-clickable:hover {
   font-size: 12px;
   letter-spacing: 1.5px;
   font-weight: 700;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .case-voice-garden .vg-icon-btn {
@@ -6645,7 +6682,7 @@ button.cs-visual-clickable:hover {
 .case-voice-garden .top-meta {
   font-size: 11px;
   letter-spacing: 2px;
-  text-transform: uppercase;
+  text-transform: none;
   color: #757575;
 }
 .dark .case-voice-garden .top-meta {
@@ -6682,7 +6719,7 @@ button.cs-visual-clickable:hover {
 .case-voice-garden .top-overview-label {
   font-size: 10px;
   letter-spacing: 2px;
-  text-transform: uppercase;
+  text-transform: none;
   color: #757575;
 }
 .dark .case-voice-garden .top-overview-label {
@@ -6704,7 +6741,7 @@ button.cs-visual-clickable:hover {
   background: transparent;
   font-size: 11px;
   letter-spacing: 2px;
-  text-transform: uppercase;
+  text-transform: none;
   display: inline-flex;
   flex-direction: row;
   align-items: center;
@@ -6795,7 +6832,7 @@ button.cs-visual-clickable:hover {
 
 .case-voice-garden .vg-metric-label {
   font-size: 10px;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 0.1em;
   color: var(--vg-text-secondary);
   display: block;
@@ -6813,7 +6850,7 @@ button.cs-visual-clickable:hover {
   padding: 2px 8px;
   font-size: 9px;
   font-weight: 600;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 0.05em;
   background: var(--vg-text);
   color: var(--vg-bg);
@@ -6912,7 +6949,7 @@ button.cs-visual-clickable:hover {
   padding: 0 24px;
   border-bottom: 1px solid var(--case-border);
   font-size: 10px;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 0.1em;
   color: var(--foreground);
 }
@@ -6999,7 +7036,7 @@ button.cs-visual-clickable:hover {
 .case-section-title {
   font-size: 32px;
   letter-spacing: -0.04em;
-  text-transform: uppercase;
+  text-transform: none;
   line-height: 1.1;
   color: var(--foreground);
 }
@@ -7008,7 +7045,7 @@ button.cs-visual-clickable:hover {
   font-family: var(--font-label);
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: var(--tracking-wider);
   color: var(--foreground);
   opacity: 0.7;
@@ -7020,7 +7057,7 @@ button.cs-visual-clickable:hover {
   padding: 2px 8px;
   font-size: 9px;
   font-weight: 600;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 0.05em;
   background: var(--foreground);
   color: var(--background);
@@ -7044,7 +7081,7 @@ button.cs-visual-clickable:hover {
 
 .case-metric-label {
   font-size: 10px;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 0.1em;
   display: block;
   margin-bottom: 8px;
@@ -7096,7 +7133,7 @@ button.cs-visual-clickable:hover {
   gap: 10px;
   font-weight: 500;
   font-size: 0.8125rem;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 0.02em;
   padding: 8px 16px;
   border-radius: 100px;
@@ -7150,7 +7187,7 @@ button.cs-visual-clickable:hover {
   padding: 16px 40px;
   border-bottom: 1px solid var(--case-border);
   font-size: 10px;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 0.1em;
   color: var(--foreground);
   opacity: 0.85;
@@ -7161,7 +7198,7 @@ button.cs-visual-clickable:hover {
   padding: 0;
   border-bottom: none;
   font-size: 16px;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 2px;
   font-weight: 600;
   color: var(--vg-text);
@@ -7491,7 +7528,7 @@ button.cs-visual-clickable:hover {
   height: 60px;
   border-bottom: 1px solid var(--case-border);
   font-size: 10px;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 0.1em;
   color: var(--foreground);
   opacity: 0.7;
@@ -7525,7 +7562,7 @@ button.cs-visual-clickable:hover {
 
 .case-block-label {
   font-size: 10px;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 0.08em;
   color: var(--foreground);
   opacity: 0.7;
@@ -7536,7 +7573,7 @@ button.cs-visual-clickable:hover {
 /* Case study: Rationale, Impact, Solutioning, Visuals labels match section header style */
 .case-voice-garden .case-block-label {
   font-size: 10px;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 2px;
   font-weight: 600;
   color: var(--vg-text);
