@@ -147,6 +147,28 @@
   --layout-gutter-sm: var(--space-6);
   --layout-col-gap: var(--space-6);
 
+  /* Warmth DS V2 §6 — layout map (canonical names) */
+  --layout-max-ds: 1200px;
+  --layout-max-narrow-ds: 720px;
+  --layout-gutter-ds: 64px;
+  --layout-gutter-sm-ds: 24px;
+
+  /*
+   * Fluid gutters + column guardrails:
+   * - vw is capped by DS gutter (no runaway horizontal padding on ultra-wide).
+   * - min floor keeps narrow viewports from crowding type below touch targets.
+   * - Case pages set --cs-column-cap on .cs-page (stepped caps, not vw-only).
+   */
+  --fluid-gutter-min: 20px;
+  --fluid-gutter: clamp(
+    var(--fluid-gutter-min),
+    min(4.25vw, var(--layout-gutter-ds)),
+    var(--layout-gutter-ds)
+  );
+  --fluid-section-pad-y: clamp(var(--space-10), 5vw, var(--space-16));
+  --fluid-section-pad-y-lg: clamp(var(--space-12), 6vw, var(--space-20));
+  --fluid-type-hero-band: clamp(28px, 2.75vw + 0.75rem, 52px);
+
   /* ── BORDERS & RADIUS (V2) ── */
   --radius-none: 0;
   --radius-sm: 4px;
@@ -1534,8 +1556,8 @@ html.dark .home-page-main,
   height: 60px;
   padding-top: 0;
   padding-bottom: 0;
-  padding-left: max(var(--layout-gutter), env(safe-area-inset-left, 0px));
-  padding-right: max(var(--layout-gutter), env(safe-area-inset-right, 0px));
+  padding-left: max(var(--fluid-gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
   background: rgba(250, 247, 242, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -1595,11 +1617,8 @@ html.dark .home-page-main,
   .home-header {
     padding-top: 0;
     padding-bottom: 0;
-    padding-left: max(var(--layout-gutter-sm), env(safe-area-inset-left, 0px));
-    padding-right: max(
-      var(--layout-gutter-sm),
-      env(safe-area-inset-right, 0px)
-    );
+    padding-left: max(var(--fluid-gutter), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
     height: 52px;
   }
   .home-header-nav {
@@ -1625,8 +1644,8 @@ html.dark .home-page-main,
   .home-header {
     padding-top: 0;
     padding-bottom: 0;
-    padding-left: max(var(--space-8), env(safe-area-inset-left, 0px));
-    padding-right: max(var(--space-8), env(safe-area-inset-right, 0px));
+    padding-left: max(var(--fluid-gutter), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
   }
 }
 
@@ -1637,11 +1656,11 @@ html.dark .home-page-main,
   grid-template-columns: 55fr 45fr;
   /* Match sticky header (60px); dvh tracks real viewport on mobile */
   min-height: calc(100dvh - 60px);
-  padding-top: 72px;
-  padding-bottom: 48px;
-  padding-left: max(48px, env(safe-area-inset-left, 0px));
-  padding-right: max(48px, env(safe-area-inset-right, 0px));
-  gap: 64px;
+  padding-top: var(--fluid-section-pad-y-lg);
+  padding-bottom: var(--fluid-section-pad-y);
+  padding-left: max(var(--fluid-gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
+  gap: clamp(var(--space-8), 5vw, var(--space-16));
   align-items: center;
   background: var(--parchment);
   background-image:
@@ -1794,11 +1813,11 @@ html.dark .home-page-main,
 /* Hero responsive */
 @media (max-width: 1024px) {
   .home-hero {
-    padding-top: 56px;
-    padding-bottom: 40px;
-    padding-left: max(32px, env(safe-area-inset-left, 0px));
-    padding-right: max(32px, env(safe-area-inset-right, 0px));
-    gap: 40px;
+    padding-top: clamp(40px, 5vw, 56px);
+    padding-bottom: var(--fluid-section-pad-y);
+    padding-left: max(var(--fluid-gutter), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
+    gap: clamp(var(--space-8), 5vw, 40px);
   }
   .home-hero-h1 {
     font-size: clamp(30px, 5vw, 44px);
@@ -1808,11 +1827,11 @@ html.dark .home-page-main,
   .home-hero {
     grid-template-columns: 1fr;
     min-height: auto;
-    padding-top: 48px;
-    padding-bottom: 40px;
-    padding-left: max(24px, env(safe-area-inset-left, 0px));
-    padding-right: max(24px, env(safe-area-inset-right, 0px));
-    gap: 48px;
+    padding-top: var(--fluid-section-pad-y);
+    padding-bottom: var(--fluid-section-pad-y);
+    padding-left: max(var(--fluid-gutter), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
+    gap: clamp(var(--space-8), 6vw, 48px);
   }
   .home-hero-left {
     max-width: 100%;
@@ -1827,10 +1846,10 @@ html.dark .home-page-main,
 }
 @media (max-width: 480px) {
   .home-hero {
-    padding-top: 36px;
-    padding-bottom: 32px;
-    padding-left: max(20px, env(safe-area-inset-left, 0px));
-    padding-right: max(20px, env(safe-area-inset-right, 0px));
+    padding-top: clamp(var(--space-8), 8vw, 36px);
+    padding-bottom: clamp(var(--space-8), 6vw, 32px);
+    padding-left: max(var(--fluid-gutter), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
   }
   .home-hero-h1 {
     font-size: 28px;
@@ -1987,7 +2006,10 @@ html.dark .home-page-main,
    WORK SECTION — DS card-featured / compact
 ════════════════════════════════════════ */
 .work-section {
-  padding: 72px 48px 80px;
+  padding: var(--fluid-section-pad-y-lg)
+    max(var(--fluid-gutter), env(safe-area-inset-left, 0px))
+    var(--fluid-section-pad-y)
+    max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
   background: var(--color-ground-primary);
   border-top: 1px solid var(--color-border);
 }
@@ -2447,18 +2469,12 @@ html.dark .home-page-main,
 
 /* Work section responsive */
 @media (max-width: 1024px) {
-  .work-section {
-    padding: 56px 32px 64px;
-  }
   .work-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px;
   }
 }
 @media (max-width: 768px) {
-  .work-section {
-    padding: 48px 24px 56px;
-  }
   .work-section-header {
     flex-direction: column;
     align-items: flex-start;
@@ -2472,9 +2488,6 @@ html.dark .home-page-main,
   }
 }
 @media (max-width: 480px) {
-  .work-section {
-    padding: 36px 20px 48px;
-  }
   .work-tabs {
     gap: 16px;
   }
@@ -2484,7 +2497,10 @@ html.dark .home-page-main,
    WRITING SECTION
 ════════════════════════════════════════ */
 .writing-section {
-  padding: 72px 48px 80px;
+  padding: var(--fluid-section-pad-y-lg)
+    max(var(--fluid-gutter), env(safe-area-inset-left, 0px))
+    var(--fluid-section-pad-y)
+    max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
   background: var(--color-ground-secondary);
   border-top: 1px solid var(--color-border);
 }
@@ -2684,12 +2700,6 @@ html.dark .home-page-main,
 
 /* Responsive */
 @media (max-width: 1024px) {
-  .writing-section {
-    padding: 56px 32px 64px;
-  }
-  .about-section {
-    padding: 56px 32px 64px;
-  }
   .about-grid {
     gap: 40px;
   }
@@ -2699,12 +2709,6 @@ html.dark .home-page-main,
   }
 }
 @media (max-width: 768px) {
-  .writing-section {
-    padding: 48px 24px 56px;
-  }
-  .about-section {
-    padding: 48px 24px 56px;
-  }
   .about-grid {
     flex-direction: column;
     gap: 20px;
@@ -2738,12 +2742,6 @@ html.dark .home-page-main,
   }
 }
 @media (max-width: 480px) {
-  .writing-section {
-    padding: 36px 20px 48px;
-  }
-  .about-section {
-    padding: 36px 20px 48px;
-  }
   .wr-info {
     flex-direction: column;
   }
@@ -2759,7 +2757,10 @@ html.dark .home-page-main,
 .about-section {
   position: relative;
   isolation: isolate;
-  padding: 72px 48px 80px;
+  padding: var(--fluid-section-pad-y-lg)
+    max(var(--fluid-gutter), env(safe-area-inset-left, 0px))
+    var(--fluid-section-pad-y)
+    max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
   background: var(--color-ground-primary);
   border-top: 1px solid var(--color-border);
 }
@@ -4409,6 +4410,8 @@ body:has(.cs-page) {
 .cs-page {
   position: relative;
   isolation: isolate;
+  /* Reading column cap — stepped max widths only (fluidity from min() + gutter) */
+  --cs-column-cap: 680px;
   /* Case accent tokens — default madder; `.cs-theme-moss` overrides */
   --cs-accent: var(--color-madder-900);
   --cs-accent-mid: var(--color-madder-500);
@@ -4428,6 +4431,19 @@ body:has(.cs-page) {
   --cs-footer-link-hover: #c9604c;
   background-color: var(--parchment);
 }
+
+@media (min-width: 1024px) {
+  .cs-page {
+    --cs-column-cap: 780px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .cs-page {
+    --cs-column-cap: 860px;
+  }
+}
+
 /* Journal dot grid — same layer as About section; sits under .home-bg-grid + content */
 .cs-page::before {
   content: "";
@@ -4632,27 +4648,40 @@ body:has(.cs-page) {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 28px 20px;
   z-index: 3;
+  box-sizing: border-box;
+  padding-top: 28px;
+  padding-bottom: 36px;
+  padding-left: max(var(--fluid-gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
 }
 @media (min-width: 768px) {
   .cs-hero-overlay-content {
-    padding-left: calc(50% - 390px);
-    padding-right: calc(50% - 390px);
     padding-top: 36px;
     padding-bottom: 36px;
   }
 }
+.cs-hero-overlay-content > .tag,
+.cs-hero-overlay-content > h1 {
+  max-width: min(var(--cs-column-cap), 100%);
+  box-sizing: border-box;
+}
+.cs-hero-overlay-content > h1 {
+  width: 100%;
+}
 /* Hero band title — ink on gradient (Warmth DS) */
 .cs-hero-title {
   font-family: var(--font-heading);
-  font-size: clamp(28px, 4vw, 52px);
+  font-size: var(--fluid-type-hero-band);
   font-weight: 500;
   font-style: normal;
   color: var(--color-ink-900);
   line-height: var(--leading-tight);
   letter-spacing: -0.02em;
-  max-width: 600px;
+  /* Fill the same horizontal column as .cs-main / dividers (parent sets inset) */
+  max-width: 100%;
+  width: 100%;
+  min-width: 0;
   margin: 0;
 }
 .cs-hero-title-accent {
@@ -4667,7 +4696,9 @@ body:has(.cs-page) {
   background: var(--color-ground-tertiary);
   border-bottom: none; /* nav wrap owns the single divider */
   height: 52px;
-  padding: 0 48px;
+  padding-block: 0;
+  padding-inline: max(var(--fluid-gutter), env(safe-area-inset-left, 0px))
+    max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -4680,10 +4711,9 @@ body:has(.cs-page) {
   z-index: 90;
   background: var(--color-ground-tertiary);
   border-bottom: 1px solid var(--color-border);
-  padding-top: 3px;
-  padding-bottom: 0;
-  padding-left: calc(50% - 390px);
-  padding-right: calc(50% - 390px);
+  box-sizing: border-box;
+  padding: 3px max(var(--fluid-gutter), env(safe-area-inset-right, 0px)) 0
+    max(var(--fluid-gutter), env(safe-area-inset-left, 0px));
 }
 .cs-breadcrumb {
   display: flex;
@@ -4695,6 +4725,10 @@ body:has(.cs-page) {
   font-weight: 300;
   letter-spacing: normal;
   text-transform: none;
+  width: min(var(--cs-column-cap), 100%);
+  max-width: 100%;
+  margin-inline: auto;
+  box-sizing: border-box;
 }
 .cs-bc-home {
   color: var(--color-ink-300);
@@ -4722,6 +4756,10 @@ body:has(.cs-page) {
   gap: 0;
   margin-top: var(--space-3);
   position: relative;
+  width: min(var(--cs-column-cap), 100%);
+  max-width: 100%;
+  margin-inline: auto;
+  box-sizing: border-box;
 }
 /* DS underline tab — weight contrast is the mechanism */
 .cs-tab {
@@ -4768,13 +4806,14 @@ body:has(.cs-page) {
 .cs-tab.active::after {
   transform: scaleX(1);
 }
-/* Case study — column aligned with header and nav (same left edge) */
+/* Case study — fluid column: min(cap, viewport − gutters); caps step at DS breakpoints */
 .cs-main {
-  width: 100%;
-  max-width: 780px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: var(--space-12) var(--space-8) var(--space-20);
+  width: min(var(--cs-column-cap), calc(100% - 2 * var(--fluid-gutter)));
+  max-width: 100%;
+  margin-inline: auto;
+  box-sizing: border-box;
+  padding: clamp(var(--space-10), 4vw, var(--space-12)) 0
+    clamp(var(--space-16), 6vw, var(--space-20));
   scroll-padding-top: 108px; /* clear of sticky nav (progress + nav wrap) */
 }
 .cs-section,
@@ -4791,17 +4830,18 @@ body:has(.cs-page) {
   z-index: 2;
   width: 100%;
   margin-top: 0;
-  padding: 20px 48px 24px;
+  padding: 20px max(var(--fluid-gutter), env(safe-area-inset-left, 0px)) 24px
+    max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
   box-sizing: border-box;
   background: var(--ink);
   color: var(--parchment);
 }
 .cs-case-footer-inner {
   position: relative;
-  width: 100%;
-  max-width: 780px;
-  margin-left: auto;
-  margin-right: auto;
+  width: min(var(--cs-column-cap), 100%);
+  max-width: 100%;
+  margin-inline: auto;
+  box-sizing: border-box;
 }
 .cs-case-footer-actions {
   display: flex;
@@ -4891,14 +4931,16 @@ body:has(.cs-page) {
 }
 .cs-hero h1 {
   font-family: var(--font-heading);
-  font-size: clamp(28px, 4vw, 52px);
+  font-size: var(--fluid-type-hero-band);
   font-weight: 500;
   font-style: normal;
   color: var(--color-ink-900);
   line-height: var(--leading-tight);
   letter-spacing: -0.02em;
   margin-bottom: 28px;
-  max-width: 640px;
+  max-width: 100%;
+  width: 100%;
+  min-width: 0;
 }
 .cs-meta-row {
   display: grid;
@@ -6215,90 +6257,11 @@ button.cs-visual-clickable:hover {
   transform: translateY(-3px);
 }
 
-/* Case study width fix — responsive (narrow viewports: avoid negative calc) */
-@media (max-width: 900px) {
-  .cs-nav-wrap {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-}
-
-@media (max-width: 900px) {
-  .cs-hero-overlay-content {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .cs-main {
-    padding: 28px 20px 60px;
-    max-width: 100%;
-  }
-}
-
-@media (min-width: 480px) and (max-width: 768px) {
-  .cs-main {
-    padding: 36px 24px 64px;
-    max-width: 100%;
-  }
-  .cs-nav-wrap {
-    padding-left: 24px;
-    padding-right: 24px;
-  }
-  .cs-hero-overlay-content {
-    padding-left: 24px;
-    padding-right: 24px;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1024px) {
-  .cs-main {
-    margin-left: calc(50% - 340px);
-    max-width: 680px;
-    padding: 40px 28px 72px 0;
-  }
-  .cs-nav-wrap {
-    padding-left: calc(50% - 340px);
-    padding-right: calc(50% - 340px);
-  }
-  .cs-hero-overlay-content {
-    padding-left: calc(50% - 340px);
-    padding-right: calc(50% - 340px);
-  }
-}
-
-@media (min-width: 1024px) {
-  .cs-main {
-    margin-left: calc(50% - 390px);
-    max-width: 780px;
-    padding: 48px 32px 80px 0;
-  }
-  .cs-nav-wrap {
-    padding-left: calc(50% - 390px);
-    padding-right: calc(50% - 390px);
-  }
-}
-
-@media (min-width: 1440px) {
-  .cs-main {
-    margin-left: calc(50% - 430px);
-    max-width: 860px;
-    padding: 48px 32px 80px 0;
-  }
-  .cs-nav-wrap {
-    padding-left: calc(50% - 430px);
-    padding-right: calc(50% - 430px);
-  }
-  .cs-hero-overlay-content {
-    padding-left: calc(50% - 430px);
-    padding-right: calc(50% - 430px);
-  }
-}
-
 @media (max-width: 900px) {
   .site-nav {
-    padding: 0 20px;
+    padding-block: 0;
+    padding-inline: max(var(--fluid-gutter), env(safe-area-inset-left, 0px))
+      max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
   }
   .cs-meta-row {
     grid-template-columns: 1fr 1fr;
@@ -6360,7 +6323,9 @@ button.cs-visual-clickable:hover {
 
 @media (min-width: 768px) and (max-width: 1024px) {
   .site-nav {
-    padding: 0 32px;
+    padding-block: 0;
+    padding-inline: max(var(--fluid-gutter), env(safe-area-inset-left, 0px))
+      max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
   }
   .cs-bc-current {
     max-width: 340px;
