@@ -57,6 +57,15 @@ export interface CaseStudy {
       /** Optional stat strip (e.g. 9 / 4 / 3–4 mo) */
       statBar?: Array<{ value: string; label: string; valueSup?: string }>;
     }>;
+    /**
+     * “Before state” diagram in Problem — after narrative, before constraints.
+     * Optional per case study.
+     */
+    problemProcessVisual?: {
+      src: string;
+      alt: string;
+      caption?: string;
+    };
     understanding?: {
       title: string;
       content: string;

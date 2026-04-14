@@ -247,7 +247,7 @@
 
   /* Case study — vertical rhythm (major sections share one stack measure) */
   --case-section-stack: var(--space-24);
-  --case-section-label-to-body: var(--space-8);
+  --case-section-label-to-body: var(--space-6);
 }
 
 @theme inline {
@@ -4662,13 +4662,15 @@ body:has(.cs-page) {
     padding-bottom: 36px;
   }
 }
-.cs-hero-overlay-content > .tag,
-.cs-hero-overlay-content > h1 {
+.cs-hero-overlay-content > .tag {
   max-width: min(var(--cs-column-cap), 100%);
   box-sizing: border-box;
 }
-.cs-hero-overlay-content > h1 {
+/* Title uses full hero inner width (not the narrower reading cap) */
+.cs-hero-overlay-content > h1.cs-hero-title {
+  max-width: 100%;
   width: 100%;
+  box-sizing: border-box;
 }
 /* Hero band title — ink on gradient (Warmth DS) */
 .cs-hero-title {
@@ -4691,12 +4693,13 @@ body:has(.cs-page) {
 .cs-hero-meta-line {
   font-family: var(--font-label);
   font-size: var(--text-sm);
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: none;
-  color: var(--color-ink-300);
+  /* Prompt: ink.300 — slightly lifted to ink.500 on warm wash for legibility */
+  color: var(--color-ink-500);
   margin: 0 0 var(--space-3);
-  max-width: min(var(--cs-column-cap), 100%);
+  max-width: 100%;
 }
 .cs-hero-problem-lede {
   font-family: var(--font-serif);
@@ -4705,14 +4708,14 @@ body:has(.cs-page) {
   line-height: 1.55;
   color: var(--color-ink-500);
   margin: var(--space-4) 0 var(--space-5);
-  max-width: min(var(--cs-column-cap), 100%);
+  max-width: 100%;
 }
 .cs-hero-pills {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
   margin-top: var(--space-1);
-  max-width: min(var(--cs-column-cap), 100%);
+  max-width: 100%;
 }
 .cs-hero-pill {
   font-family: var(--font-label);
@@ -4740,21 +4743,17 @@ body:has(.cs-page) {
 }
 .cs-case-hero-media--enter .cs-case-hero-media-img {
   opacity: 0;
-  transform: translateY(14px);
-  animation: cs-case-hero-img-enter 0.88s cubic-bezier(0.25, 0.1, 0.25, 1) 0.06s
-    forwards;
+  animation: cs-case-hero-img-enter 0.6s cubic-bezier(0, 0, 0.2, 1) forwards;
 }
 @keyframes cs-case-hero-img-enter {
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 @media (prefers-reduced-motion: reduce) {
   .cs-case-hero-media--enter .cs-case-hero-media-img {
     animation: none;
     opacity: 1;
-    transform: none;
   }
 }
 .cs-next-project {
@@ -4901,7 +4900,7 @@ body:has(.cs-page) {
   font-family: var(--font-label);
   font-size: var(--text-sm);
   font-weight: 300;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
   text-transform: none;
   padding: var(--space-3) var(--space-5);
   background: transparent;
@@ -4923,7 +4922,7 @@ body:has(.cs-page) {
 .cs-tab.active {
   font-weight: 400;
   color: var(--color-ink-900);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
 }
 /* Scale-reveal indicator — ink, not madder */
 .cs-tab::after {
@@ -6273,7 +6272,7 @@ body:has(.cs-page) {
   padding-bottom: var(--space-8);
   border-bottom: 1px solid var(--color-border);
   box-shadow: none;
-  transition: box-shadow 200ms ease;
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .cs-decision--editorial:last-child {
   border-bottom: none;
@@ -6325,6 +6324,7 @@ body:has(.cs-page) {
   grid-column: unset;
   grid-row: unset;
   font-weight: 500;
+  font-size: clamp(1.15rem, 1.5vw + 0.65rem, 1.55rem);
   margin: 0 0 var(--space-2);
 }
 .cs-decision-lede {
@@ -6343,6 +6343,98 @@ body:has(.cs-page) {
     padding-left: var(--space-6);
     padding-right: var(--space-6);
   }
+}
+
+/* Editorial decision — images first, then rationale/impact panel (prompt 15–19b) */
+.cs-decision--editorial .cs-visual-wrap--editorial {
+  border-top: none;
+  padding: 0;
+  margin-top: var(--space-8);
+}
+.cs-decision--editorial .cs-decision-placeholder.cs-visual-wrap--editorial,
+.cs-decision--editorial .cs-decision-nav-wrap.cs-visual-wrap--editorial {
+  margin-top: var(--space-8);
+}
+.cs-decision-ri-panel {
+  margin-top: var(--space-6);
+  padding: var(--space-8);
+  background: var(--color-ground-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-sizing: border-box;
+}
+.cs-decision-ri-panel .cs-ri-grid--editorial-pair {
+  border-top: none;
+}
+.cs-decision-ri-panel .cs-ri-grid--solutioning {
+  border-top: 1px solid var(--color-border);
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+}
+.cs-decision-ri-panel .cs-ri-grid {
+  border-top: none;
+}
+@media (max-width: 767px) {
+  .cs-decision-ri-panel .cs-ri-grid--editorial-pair {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+  .cs-decision-ri-panel .cs-ri-grid--editorial-pair .cs-ri-col:first-child {
+    border-bottom: 1px solid var(--color-border);
+    border-right: none;
+    padding-bottom: var(--space-6);
+  }
+}
+@media (min-width: 768px) {
+  .cs-decision-ri-panel .cs-ri-grid--editorial-pair {
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--space-12);
+    row-gap: 0;
+  }
+  .cs-decision-ri-panel .cs-ri-grid--editorial-pair .cs-ri-col:first-child {
+    border-bottom: none;
+    border-right: none;
+  }
+}
+.cs-decision-ri-panel .cs-ri-col {
+  padding: 0 !important;
+}
+.cs-decision-ri-panel .cs-ri-label {
+  font-size: var(--text-sm);
+  letter-spacing: 0.1em;
+  color: var(--color-ink-300);
+  margin-bottom: var(--space-3);
+}
+.cs-decision-ri-panel .cs-ri-item {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--color-ink-500);
+}
+
+/* Problem — “before process” visualization slot (prompt 14b) */
+.cs-problem-process-visual {
+  margin: var(--space-8) 0;
+}
+.cs-problem-process-visual-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+.cs-problem-process-visual-caption {
+  font-family: var(--font-label);
+  font-size: var(--text-sm);
+  font-weight: 300;
+  color: var(--color-ink-500);
+  margin: 8px 0 0;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+
+/* Hero band → sticky tab: space-6 (prompt 3) */
+.cs-page-inner > .cs-nav-wrap {
+  margin-top: var(--space-6);
 }
 
 /* Rationale / Impact */

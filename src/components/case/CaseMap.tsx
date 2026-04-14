@@ -18,6 +18,7 @@ import {
 import { CaseContextSection } from "./CaseContextSection";
 import { CaseUnderstandingBlock } from "./CaseUnderstandingBlock";
 import { CaseConstraintsBlock } from "./CaseConstraintsBlock";
+import { CaseProblemProcessVisual } from "./CaseProblemProcessVisual";
 
 interface CaseMapProps {
   caseStudy: CaseStudy;
@@ -33,7 +34,8 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
   const hasProblemSection =
     s.problem.length > 0 ||
     Boolean(s.understanding) ||
-    s.constraints.length > 0;
+    s.constraints.length > 0 ||
+    Boolean(s.problemProcessVisual);
   const hasDecisionsSection =
     s.decisions.length > 0 || Boolean(s.reportCategories?.length);
   const showOutcomeSection =
@@ -67,6 +69,13 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
             <CaseUnderstandingBlock
               slug={caseStudy.slug}
               understanding={s.understanding}
+            />
+          ) : null}
+          {s.problemProcessVisual ? (
+            <CaseProblemProcessVisual
+              src={s.problemProcessVisual.src}
+              alt={s.problemProcessVisual.alt}
+              caption={s.problemProcessVisual.caption}
             />
           ) : null}
           <CaseConstraintsBlock constraints={s.constraints} />

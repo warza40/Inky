@@ -28,17 +28,118 @@ function RiPoints({ text }: { text: string }) {
   );
 }
 
+function DecisionMedia({
+  decision,
+  displayImages,
+}: {
+  decision: CaseStudy["sections"]["decisions"][0];
+  displayImages: NonNullable<CaseStudy["sections"]["decisions"][0]["images"]>;
+}) {
+  if (displayImages.length > 0) {
+    return (
+      <div className="cs-visual-wrap cs-visual-wrap--editorial">
+        {displayImages.map((image, imageIndex) => {
+          const isVideo = /\.(mov|mp4|webm)(\?|$)/i.test(image.src);
+          return (
+            <div
+              key={imageIndex}
+              className="cs-visual-frame"
+              style={{
+                marginBottom:
+                  imageIndex < displayImages.length - 1 ? "16px" : 0,
+              }}
+            >
+              <div className="cs-visual-img">
+                {isVideo ? (
+                  <video
+                    src={image.src}
+                    controls
+                    playsInline
+                    className="w-full aspect-video object-contain"
+                    aria-label={image.alt}
+                  />
+                ) : (
+                  <div className="relative w-full aspect-video">
+                    <MotionImage
+                      src={image.src}
+                      alt={image.alt}
+                      caption={image.caption}
+                      fill
+                      objectFit="contain"
+                      lightbox
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {decision.imagePlaceholderSplit?.length === 2 ? (
+        <div className="cs-decision-placeholder cs-decision-placeholder--split cs-visual-wrap--editorial">
+          <div className="cs-decision-placeholder-panel">
+            <div className="cs-decision-placeholder-note">
+              {decision.imagePlaceholderSplit[0]}
+            </div>
+          </div>
+          <div className="cs-decision-placeholder-panel">
+            <div className="cs-decision-placeholder-note">
+              {decision.imagePlaceholderSplit[1]}
+            </div>
+          </div>
+        </div>
+      ) : null}
+      {decision.imagePlaceholder && !decision.imagePlaceholderSplit ? (
+        <div className="cs-decision-placeholder cs-visual-wrap--editorial">
+          <div className="cs-decision-placeholder-note">
+            {decision.imagePlaceholder}
+          </div>
+        </div>
+      ) : null}
+      {decision.navExploration && decision.navExploration.length > 0 ? (
+        <div className="cs-decision-nav-wrap cs-visual-wrap--editorial">
+          <div className="cs-decision-nav-exploration">
+            {decision.navExploration.map((n, i) => (
+              <div key={i} className="cs-nav-exp-item">
+                <div className="cs-nei-label">{n.label}</div>
+                <div
+                  className={cn(
+                    "cs-nei-sketch",
+                    n.variant === "mega" && "cs-nei-sketch--mega",
+                    n.variant === "ribbon" && "cs-nei-sketch--ribbon",
+                    n.variant === "panel" && "cs-nei-sketch--panel",
+                  )}
+                  aria-hidden
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </>
+  );
+}
+
 export function DecisionBlock({ decision, index }: DecisionBlockProps) {
   const displayImages = decision.images ?? [];
   const reduceMotion = useReducedMotion();
+  const hasRiPanel =
+    Boolean(decision.rationale?.trim()) ||
+    Boolean(decision.impact?.trim()) ||
+    Boolean(decision.designResponse?.trim());
 
   return (
     <motion.article
       className="cs-decision cs-decision--editorial"
-      initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
+      initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
       whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.14, margin: "0px 0px -32px 0px" }}
-      transition={{ duration: 0.48, ease: [0.25, 0.1, 0.25, 1] }}
+      viewport={{ once: true, amount: 0.1, margin: "0px 0px -32px 0px" }}
+      transition={{ duration: 0.4, ease: [0, 0, 0.2, 1] }}
     >
       <header className="cs-decision-editorial-head">
         <span className="cs-decision-num">
@@ -55,113 +156,32 @@ export function DecisionBlock({ decision, index }: DecisionBlockProps) {
       </header>
 
       <div className="cs-decision-body-wrap cs-decision-body-wrap--static">
-        <div className="cs-ri-grid">
-          <div className="cs-ri-col">
-            <div className="cs-ri-label">Rationale</div>
-            <RiPoints text={decision.rationale} />
-          </div>
-          <div className="cs-ri-col">
-            <div className="cs-ri-label">Impact</div>
-            <RiPoints text={decision.impact} />
-          </div>
-        </div>
+        <DecisionMedia decision={decision} displayImages={displayImages} />
 
-        {decision.designResponse && (
-          <div
-            className="cs-ri-grid"
-            style={{ borderTop: "1px solid var(--color-border)" }}
-          >
-            <div className="cs-ri-col" style={{ gridColumn: "1 / -1" }}>
-              <div className="cs-ri-label">Solutioning</div>
-              <RiPoints text={decision.designResponse} />
-            </div>
+        {hasRiPanel ? (
+          <div className="cs-decision-ri-panel">
+            {(decision.rationale?.trim() || decision.impact?.trim()) && (
+              <div className="cs-ri-grid cs-ri-grid--editorial-pair">
+                <div className="cs-ri-col">
+                  <div className="cs-ri-label">Rationale</div>
+                  <RiPoints text={decision.rationale} />
+                </div>
+                <div className="cs-ri-col">
+                  <div className="cs-ri-label">Impact</div>
+                  <RiPoints text={decision.impact} />
+                </div>
+              </div>
+            )}
+            {decision.designResponse?.trim() ? (
+              <div className="cs-ri-grid cs-ri-grid--solutioning">
+                <div className="cs-ri-col" style={{ gridColumn: "1 / -1" }}>
+                  <div className="cs-ri-label">Solutioning</div>
+                  <RiPoints text={decision.designResponse} />
+                </div>
+              </div>
+            ) : null}
           </div>
-        )}
-
-        {displayImages.length > 0 ? (
-          <div className="cs-visual-wrap">
-            {displayImages.map((image, imageIndex) => {
-              const isVideo = /\.(mov|mp4|webm)(\?|$)/i.test(image.src);
-              return (
-                <div
-                  key={imageIndex}
-                  className="cs-visual-frame"
-                  style={{
-                    marginBottom:
-                      imageIndex < displayImages.length - 1 ? "16px" : 0,
-                  }}
-                >
-                  <div className="cs-visual-img">
-                    {isVideo ? (
-                      <video
-                        src={image.src}
-                        controls
-                        playsInline
-                        className="w-full aspect-video object-contain"
-                        aria-label={image.alt}
-                      />
-                    ) : (
-                      <div className="relative w-full aspect-video">
-                        <MotionImage
-                          src={image.src}
-                          alt={image.alt}
-                          caption={image.caption}
-                          fill
-                          objectFit="contain"
-                          lightbox
-                        />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <>
-            {decision.imagePlaceholderSplit?.length === 2 ? (
-              <div className="cs-decision-placeholder cs-decision-placeholder--split">
-                <div className="cs-decision-placeholder-panel">
-                  <div className="cs-decision-placeholder-note">
-                    {decision.imagePlaceholderSplit[0]}
-                  </div>
-                </div>
-                <div className="cs-decision-placeholder-panel">
-                  <div className="cs-decision-placeholder-note">
-                    {decision.imagePlaceholderSplit[1]}
-                  </div>
-                </div>
-              </div>
-            ) : null}
-            {decision.imagePlaceholder && !decision.imagePlaceholderSplit ? (
-              <div className="cs-decision-placeholder">
-                <div className="cs-decision-placeholder-note">
-                  {decision.imagePlaceholder}
-                </div>
-              </div>
-            ) : null}
-            {decision.navExploration && decision.navExploration.length > 0 ? (
-              <div className="cs-decision-nav-wrap">
-                <div className="cs-decision-nav-exploration">
-                  {decision.navExploration.map((n, i) => (
-                    <div key={i} className="cs-nav-exp-item">
-                      <div className="cs-nei-label">{n.label}</div>
-                      <div
-                        className={cn(
-                          "cs-nei-sketch",
-                          n.variant === "mega" && "cs-nei-sketch--mega",
-                          n.variant === "ribbon" && "cs-nei-sketch--ribbon",
-                          n.variant === "panel" && "cs-nei-sketch--panel",
-                        )}
-                        aria-hidden
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-          </>
-        )}
+        ) : null}
       </div>
     </motion.article>
   );

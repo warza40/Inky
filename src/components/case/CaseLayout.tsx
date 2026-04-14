@@ -31,7 +31,8 @@ function buildCaseNavSections(
   const hasProblem =
     s.problem.length > 0 ||
     Boolean(s.understanding) ||
-    s.constraints.length > 0;
+    s.constraints.length > 0 ||
+    Boolean(s.problemProcessVisual);
   const hasDecisions =
     s.decisions.length > 0 || Boolean(s.reportCategories?.length);
   const hasOutcome =
