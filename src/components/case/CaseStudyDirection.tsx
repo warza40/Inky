@@ -50,38 +50,22 @@ const WASH_BY_THEME: Record<CaseStudyWarmthTheme, readonly WarmthWashStop[]> = {
 
 type CaseStudyDirectionOptions = {
   title?: string;
-  /** Substring of `title` rendered in the case accent colour (must match exactly) */
-  titleAccent?: string;
+  metaLine?: string;
+  problemStatement?: string;
+  role?: string;
+  year?: string;
   /** Drives hero wash + `cs-hero-band--*` fallback unless `heroWashStops` is set */
   warmthTheme?: CaseStudyWarmthTheme;
   /** Override wash stops (advanced) */
   heroWashStops?: ReadonlyArray<WarmthWashStop>;
 };
 
-function HeroTitle({
-  title,
-  accent,
-}: {
-  title: string;
-  accent?: string;
-}) {
-  if (!accent) return <>{title}</>;
-  const i = title.lastIndexOf(accent);
-  if (i === -1) return <>{title}</>;
-  const before = title.slice(0, i);
-  const after = title.slice(i + accent.length);
-  return (
-    <>
-      {before}
-      <span className="cs-hero-title-accent">{accent}</span>
-      {after}
-    </>
-  );
-}
-
 export function CaseStudyDirection({
   title,
-  titleAccent,
+  metaLine,
+  problemStatement,
+  role,
+  year,
   warmthTheme = "madder",
   heroWashStops,
 }: CaseStudyDirectionOptions) {
@@ -99,7 +83,8 @@ export function CaseStudyDirection({
       const doc = document.documentElement;
       const scrolled = doc.scrollTop;
       const total = doc.scrollHeight - doc.clientHeight;
-      progressEl.style.width = total > 0 ? `${(scrolled / total) * 100}%` : "0%";
+      progressEl.style.width =
+        total > 0 ? `${(scrolled / total) * 100}%` : "0%";
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
@@ -131,7 +116,7 @@ export function CaseStudyDirection({
               Math.round(Math.random() * w),
               Math.round(Math.random() * h),
               s,
-              s
+              s,
             );
           }
 
@@ -154,12 +139,16 @@ export function CaseStudyDirection({
         paintHero();
         const heroResize = () => paintHero?.();
         window.addEventListener("resize", heroResize);
-        onResizeHandlers.push(() => window.removeEventListener("resize", heroResize));
+        onResizeHandlers.push(() =>
+          window.removeEventListener("resize", heroResize),
+        );
       }
     }
 
     // 3) Fade-in observer
-    const fadeEls = Array.from(document.querySelectorAll<HTMLElement>(".fade-in"));
+    const fadeEls = Array.from(
+      document.querySelectorAll<HTMLElement>(".fade-in"),
+    );
     const fadeObserver =
       fadeEls.length > 0
         ? new IntersectionObserver(
@@ -171,7 +160,7 @@ export function CaseStudyDirection({
                 }
               });
             },
-            { threshold: 0.08, rootMargin: "0px 0px -32px 0px" }
+            { threshold: 0.08, rootMargin: "0px 0px -32px 0px" },
           )
         : null;
     fadeEls.forEach((el) => fadeObserver?.observe(el));
@@ -191,14 +180,25 @@ export function CaseStudyDirection({
       <div
         className={`cs-hero-band${warmthTheme !== "madder" ? ` cs-hero-band--${warmthTheme}` : ""}`}
       >
-        <canvas ref={heroCanvasRef} className="cs-hero-canvas" id="heroCanvas" />
+        <canvas
+          ref={heroCanvasRef}
+          className="cs-hero-canvas"
+          id="heroCanvas"
+        />
         <div className="cs-hero-overlay" />
         {title ? (
           <div className="cs-hero-overlay-content fade-in">
-            <div className="tag tag-default cs-hero-tag">Case Study</div>
-            <h1 className="cs-hero-title">
-              <HeroTitle title={title} accent={titleAccent} />
-            </h1>
+            {metaLine ? <p className="cs-hero-meta-line">{metaLine}</p> : null}
+            <h1 className="cs-hero-title">{title}</h1>
+            {problemStatement ? (
+              <p className="cs-hero-problem-lede">{problemStatement}</p>
+            ) : null}
+            {role || year ? (
+              <div className="cs-hero-pills">
+                {role ? <span className="cs-hero-pill">{role}</span> : null}
+                {year ? <span className="cs-hero-pill">{year}</span> : null}
+              </div>
+            ) : null}
           </div>
         ) : null}
       </div>

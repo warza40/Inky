@@ -5,6 +5,16 @@ export interface CaseStudy {
   title: string;
   /** Optional substring of `title` rendered in the case accent on the hero band */
   heroTitleAccent?: string;
+  /** One line above the title: "domain · sector · company" (sentence case) */
+  heroMetaLine?: string;
+  /** Short problem lede under the hero title */
+  heroProblemStatement?: string;
+  /** Shown as a minimal pill next to role */
+  year?: string;
+  /** Full-width image below the tab bar */
+  heroImage?: { src: string; alt: string };
+  /** Override "Next project" link (defaults to next item in the case study list) */
+  nextProjectSlug?: string;
   /** Warmth DS wash + UI accents (default madder) */
   warmthTheme?: CaseStudyWarmthTheme;
   overview: {
@@ -25,6 +35,8 @@ export interface CaseStudy {
       paragraphs: string[];
       /** Italic madder line (e.g. “Our aim…”) */
       aim?: string;
+      /** Optional visuals after the narrative (e.g. process diagram) */
+      images?: Array<{ src: string; alt: string; caption?: string }>;
     };
     /** Optional ecosystem module (e.g. four products in one bordered block); shown after `contextSections` when present */
     contextEcosystem?: {
@@ -138,6 +150,10 @@ export interface CaseStudy {
       }>;
     }>;
     outcome?: string;
+    /** Before / after contrast block in Outcome */
+    outcomeBeforeAfter?: { before: string; after: string };
+    /** Short prominent statements (e.g. summary lines with accent styling) */
+    outcomeHighlights?: string[];
     /** Optional stacked visuals after outcome copy (e.g. Omantel); lightbox like decision images */
     outcomeImages?: Array<{
       src: string;
@@ -178,9 +194,17 @@ export interface CaseStudy {
 
 export const omantelCase: CaseStudy = {
   slug: "omantel-bulk-activation",
-  title: "Fixing the Fragility in Enterprise SIM Activation flows",
-  heroTitleAccent: "Enterprise SIM Activation flows",
-  warmthTheme: "moss",
+  title: "Fixing the Fragility in Enterprise SIM Activation",
+  heroMetaLine: "enterprise · telecom · omantel",
+  heroProblemStatement:
+    "Thousands of SIM activations, processed through email chains and manual data entry across three disconnected systems. One invalid record was enough to restart the entire batch.",
+  year: "2024",
+  nextProjectSlug: "warehouse-operations",
+  heroImage: {
+    src: "/Omantel%20assets/KD1.png",
+    alt: "Bulk Actions landing: Change existing lines and Add new postpaid lines",
+  },
+  warmthTheme: "madder",
   overview: {
     role: "Senior UX Designer",
     context: "B2B · Enterprise Telecom",
@@ -189,170 +213,135 @@ export const omantelCase: CaseStudy = {
     focus: "Reliability · Scale",
   },
   sections: {
-    context:
-      "Omantel is Oman's national telecommunications provider, serving large enterprise customers across mobile and digital services.\nEnterprise workflows operate at high scale and are governed by strict eligibility, credit, and compliance rules that make manual processes harder to work with.",
-    problem: [
-      {
-        content:
-          "Bulk service changes for enterprise customers were handled through manual, Excel-based processes. A tedious process for both enterprises and internal teams who needed to activate services for hundreds of records simultaneously.",
-      },
-      {
-        title: "User Pain Points",
-        content:
-          "1. High error rates when handling large volumes\n\n2. The entire batch needed reprocessing if a single record failed\n\n3. Long turnaround times for enterprises.\n\n4. Significant operational strain on internal teams\n\nAs enterprise customers scaled, this process became unreliable.",
-        collapsible: true,
-      },
-    ],
-    constraints: [
-      {
-        content:
-          "This project was shaped by certain constraints from the start:\n\n• The business vision was already defined\n• There was no generative user research phase\n• Strict eligibility and credit rules governed what was possible\n• Delivery timelines were aggressive\n• The system relied on multiple backend services\n\nThe system needed to integrate with legacy backend systems that had strict rate limits and validation requirements.",
-      },
-      {
-        title: "Technical Constraints",
-        content:
-          "API rate limits of 100 requests per minute. Batch processing required to avoid system overload. Data validation needed to happen before submission.",
-        collapsible: true,
-      },
-    ],
+    contextFlow: {
+      paragraphs: [
+        "Omantel is Oman's national telecom provider. Enterprise customers need to activate, modify, or deactivate SIM services in bulk — hundreds of records at a time, governed by strict eligibility and credit rules.",
+        "The existing process ran entirely on email. A company rep would send a request to the Omantel team, who would manually verify details against a separate backend system, re-enter the data into the portal, generate the batch — and discover errors only after submission. Every request meant tab-switching between email, the backend, and the portal. Every error meant starting over.",
+      ],
+      aim: "No research phase. Business vision pre-defined. Strict eligibility rules. Aggressive timelines. Multiple legacy backends with rate limits.",
+    },
+    problem: [],
+    constraints: [],
     decisions: [
       {
-        title: "Helping enterprise users submit bulk orders confidently",
+        title:
+          "Replacing the email-to-portal pipeline with self-service bulk upload",
         description:
-          "Created CSV template system with validation that allows users to prepare data offline and upload in bulk; along with a search and modify system for users that needed to make quick requests.",
+          "Two input paths in one interface: CSV templates for bulk preparation offline, and a search-and-modify flow for quick single-record changes.",
         rationale:
-          "Re-inventing the wheel could have added to the learning curve for the user. CSV templates provide familiarity and allow for offline preparation and the search by MSISDN(Number) and modify method was to cater to the seasoned users.",
+          "Enterprise users already work in spreadsheets. Meeting them there — rather than inventing a new input method — reduced learning curve and adoption friction. The search-and-modify path exists because not every request is bulk; seasoned users making quick changes shouldn't be forced through a CSV workflow.",
         impact:
-          "By aligning the input format with how enterprise users already work, bulk submissions became easier to prepare, review, and submit - this reduced the number of errors, reduced dependency on the internal team and early validation of data.",
+          "The entire email → manual verification → manual entry pipeline was eliminated for valid submissions. Company reps self-serve directly. Zero Omantel staff involvement required for clean batches.",
         images: [
           {
             src: "/Omantel%20assets/KD1.png",
-            alt: "Bulk orders: CSV template and search by MSISDN",
-            caption: "Helping enterprise users submit bulk orders confidently",
+            alt: "Bulk Actions page with both paths: Change existing lines and Add new postpaid lines",
+            caption: "The Bulk Actions page showing both paths.",
+          },
+          {
+            src: "/Omantel%20assets/Outcome1.png",
+            alt: "Bulk upload drag-and-drop empty state",
+            caption: "CSV upload flow — empty state before a file is selected.",
           },
         ],
       },
       {
         title: "Preserving context to prevent bulk errors",
         description:
-          "When updating values at scale, losing sight of the current state increases the chance of mistakes. For each record, the existing credit limit and the proposed new limit were shown side by side in the same table.",
+          "When editing values at scale, losing sight of the current state increases the chance of mistakes. For each record, the existing credit limit and the proposed new limit are shown side by side in the same table.",
         rationale:
-          "Reduced reliance on memory. Made changes easier to review and reason about. Supported deliberate decision-making under pressure.",
+          "Reduced reliance on memory. When you can see what was and what will be in the same view, you catch errors before they propagate. The per-row undo gives confidence to make changes without fear of irreversible bulk mistakes.",
         impact:
-          "Users could review bulk changes with greater confidence before submission.",
+          "Users could review bulk changes with full context before submission. Decision-making under pressure became deliberate rather than reactive.",
         images: [
           {
             src: "/Omantel%20assets/KD2.png",
-            alt: "Context preservation in bulk activation",
-            caption: "Preserving context to prevent bulk errors",
+            alt: "Side-by-side credit limit comparison with current vs proposed values",
+            caption: "Side-by-side credit limit comparison with undo controls.",
           },
           {
             src: "/Omantel%20assets/KD2.5.png",
-            alt: "Context preservation – detail",
-            caption: "Apply to all scenario",
+            alt: "Apply to all scenario — bulk-edit pattern with per-row undo",
+            caption:
+              "Apply to all scenario — bulk-edit with individual undo per row.",
           },
         ],
       },
       {
         title: "Designing for recovery, not just submission",
         description:
-          "Enterprise users often need to return later to verify outcomes or explain changes internally. A unified history view was designed to show: Overall batch status, Individual order status within a batch, Mixed outcomes when a batch contained multiple actions/service requests. For example, users could clearly see when some requests completed while others were still in progress.",
+          "Enterprise users need to return later to verify outcomes or explain changes internally. A unified history view was designed to surface: overall batch status, individual order status within a batch, mixed outcomes when a batch contained both completed and in-progress requests.",
         rationale:
-          "Reduced uncertainty after submission. Lowered dependency on support for status updates. Made the system more trustworthy over time.",
+          "Reduced uncertainty after submission. Without a history view, users had to contact Omantel support for status updates — adding another manual handoff to a process already overloaded with them. Making the system transparent made it trustworthy over time.",
         impact:
-          "Bulk actions became traceable, verifiable, and easier to explain after the fact.",
+          "Bulk actions became traceable and verifiable. Users could self-serve status checks instead of raising support tickets. The system earned trust by showing its work.",
         images: [
           {
             src: "/Omantel%20assets/KD3.png",
-            alt: "Unified history view",
-            caption: "History and tracking",
+            alt: "History and tracking: batch-level and record-level status",
+            caption:
+              "History and tracking — batch and individual record status.",
           },
         ],
       },
       {
         title: "Limiting bulk actions on mobile",
         description:
-          "The experience needed to work across devices, but presenting hundreds of records on mobile risked turning simplification into confusion. Mobile support was intentionally limited to: Creating or requesting new lines, Updating a small number of known lines via manual search. High-volume bulk updates remained desktop-only and were supported through structured templates.",
+          "The experience needed to work across devices, but presenting hundreds of records on mobile risked turning simplification into confusion. Mobile was intentionally scoped to: creating or requesting new lines, updating a small number of known lines via manual search. High-volume bulk updates remained desktop-only, supported through structured CSV templates.",
         rationale:
-          "Mobile version was meant to support quick, tactical changes. Desktop remained the environment for high-risk, high-volume actions. Users were guided toward the right tool for the task.",
+          "Mobile was meant to support quick, tactical changes. Desktop remained the environment for high-risk, high-volume actions. Users were guided toward the right tool for the task rather than given a degraded version of everything.",
         impact:
-          "The experience avoided cognitive overload on mobile while still supporting meaningful on-the-go actions.",
+          "The experience avoided cognitive overload on mobile while still supporting meaningful on-the-go actions. No features were broken by being forced into a screen size they weren't designed for.",
         images: [
           {
             src: "/Omantel%20assets/KD4.png",
-            alt: "Mobile interface for bulk actions",
-            caption: "Limiting bulk actions on mobile",
+            alt: "Mobile screens showing scoped bulk experience",
+            caption: "Mobile screens showing the scoped mobile experience.",
           },
         ],
       },
       {
         title: "Validating records early",
         description:
-          "In the previous process, a single invalid entry could cause the entire batch to fail. Validation was moved earlier in the flow, both at form level and during file uploads, so issues were surfaced before submission.",
+          "In the previous process, a single invalid entry could cause the entire batch to fail. Validation was moved earlier in the flow — at form level during input and during file upload — so issues surfaced before submission, not after.",
         rationale:
-          "Prevented full batch reprocessing. Reduced reliance on support teams. Gave users clearer feedback before committing.",
+          "Prevented full batch reprocessing. Reduced reliance on support teams for error resolution. Users got clearer feedback before committing — shifting error handling from post-failure recovery to pre-submission prevention.",
         impact:
-          "Bulk actions became more predictable and less fragile, even at larger volumes.",
+          'Bulk actions became more predictable and less fragile, even at larger volumes. The cost of a single bad record went from "restart the entire batch" to "fix this field before you submit."',
         images: [
           {
             src: "/Omantel%20assets/KD5.png",
-            alt: "Early validation of bulk records in the flow",
-            caption: "Validating records early",
+            alt: "Inline validation during input and file upload",
+            caption:
+              "Error and recovery — form-level and upload-level validation.",
           },
         ],
       },
     ],
-    outcome:
-      "While formal metrics were not tracked, the design focused on preventing known failure points in the legacy process.\n\nThe redesigned bulk activation experience:\n\n• Replaced manual, error-prone workflows with a structured self-service flow\n• Supported both quick actions and high-volume enterprise needs\n• Aligned with system constraints while improving usability.",
+    outcomeBeforeAfter: {
+      before:
+        "A company rep emails Omantel. An internal team member opens the mail, switches to a backend system to verify eligibility, switches to the portal to manually enter data, generates the batch — and discovers errors only after submission. Invalid records restart the process. Every bulk request requires staff time.",
+      after:
+        "The company rep submits directly. Eligibility and credit limits validate inline, before the batch is created. Errors surface at the point of entry, not after failure.",
+    },
+    outcomeHighlights: [
+      "Six manual handoffs became self-service.",
+      "Three disconnected systems became one interface.",
+      "Post-failure error handling became pre-submission validation.",
+    ],
     outcomeImages: [
       {
         src: "/Omantel%20assets/Outcome1.png",
-        alt: "Bulk Actions: upload step with drag-and-drop area before a file is selected",
-        caption: "Outcome 1 — empty upload state (drag-and-drop).",
+        alt: "Bulk Actions upload step with drag-and-drop area before a file is selected",
+        caption: "Empty upload state (drag-and-drop).",
       },
       {
         src: "/Omantel%20assets/Outcome%202.gif",
-        alt: "Bulk Actions: file upload in progress with percentage",
-        caption: "Outcome 2 — active upload with progress.",
-      },
-      {
-        src: "/Omantel%20assets/Screens%20from%20Production.png",
-        alt: "Bulk activation — screenshots from production",
-        caption: "Screenshots from Production",
+        alt: "Bulk Actions file upload in progress with percentage",
+        caption: "Active upload with progress.",
       },
     ],
     reflection:
-      "This project reinforced that enterprise design is less about creating flexibility and more about managing responsibility at scale.\n\nIn a system where small mistakes can multiply quickly, the goal is often to reduce cognitive load, surface constraints clearly, and help users make confident decisions without dramatically changing the experience. Working within strict business rules, evolving requirements, and tight timelines made me appreciate the close collaboration with engineering. It strengthened my belief that, at scale, thoughtful limitations can be as valuable as new features.",
+      "With more time, I would have pushed for a lightweight usability study with 2–3 enterprise reps before final handoff — even without a formal research phase, watching someone navigate the CSV upload flow once would have surfaced friction I couldn't predict from constraint analysis alone. I'd also explore batch-level progress indicators for large uploads where processing time becomes noticeable.",
   },
-  images: [
-    {
-      src: "/images/omantel-bulk-activation.jpg",
-      alt: "Bulk Activation Interface",
-      caption: "Main bulk activation interface with progress tracking",
-    },
-  ],
-  visualsSections: [
-    {
-      image: {
-        src: "/Omantel%20assets/Noteworthy%201.png",
-        alt: "Noteworthy visual",
-        caption:
-          "Positioning the entry point of the bulk action flow for the user.",
-      },
-    },
-    {
-      image: {
-        src: "/Omantel%20assets/Noteworthy%202.png",
-        alt: "Noteworthy visual 2",
-        caption: "Evolution of the bulk actions request submission flow",
-      },
-    },
-    {
-      image: {
-        src: "/Omantel%20assets/Noteworthy%203.gif",
-        alt: "Noteworthy 3",
-        caption: "The column configurator",
-      },
-    },
-  ],
 };

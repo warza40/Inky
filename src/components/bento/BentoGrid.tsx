@@ -95,7 +95,7 @@ export function BentoGrid() {
             title="Fixing the Fragility in Enterprise SIM Activation flows"
             subtitle="A system-level redesign inside a Telecom giant's enterprise portal"
             tag="B2B, UI/UX"
-            image="/om-bento.png"
+            image="/Bulk.png"
             href="/case/omantel-bulk-activation"
           />
         </div>
@@ -117,7 +117,7 @@ export function BentoGrid() {
             title="Bringing Clarity to Warehouse Operations Across Distributed Teams"
             subtitle="Clarity and operations at scale"
             tag="B2B · OPERATIONS"
-            image="/images/enterprise.jpg"
+            image="/warehouse.png"
             href="/case/warehouse-operations"
           />
         </div>

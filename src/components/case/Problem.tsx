@@ -1,6 +1,5 @@
 import type { CaseStudy } from "@/case-studies/omantel";
 import { parseBoldSpans } from "@/lib/case-rich-text";
-import { Collapsible } from "./Collapsible";
 
 interface ProblemProps {
   problem: CaseStudy["sections"]["problem"];
@@ -14,10 +13,12 @@ export function Problem({ problem }: ProblemProps) {
       <div className="space-y-4">
         {problem.map((item, index) => {
           if (item.collapsible && item.title) {
-            const lines = item.content.split('\n').filter(line => line.trim());
+            const lines = item.content
+              .split("\n")
+              .filter((line) => line.trim());
             const bulletPoints: string[] = [];
-            let conclusion = '';
-            
+            let conclusion = "";
+
             lines.forEach((line) => {
               const trimmed = line.trim();
               if (/^\d+\./.test(trimmed)) {
@@ -28,26 +29,23 @@ export function Problem({ problem }: ProblemProps) {
             });
 
             return (
-              <Collapsible key={index} title={item.title}>
+              <div key={index} className="cs-problem-collapsible-inline">
+                <h3 className="case-subsection-title">{item.title}</h3>
                 <div className="case-body opacity-90">
                   <ol className="list-decimal list-inside space-y-2 mb-4 ml-2">
                     {bulletPoints.map((point, pointIndex) => (
-                      <li key={pointIndex}>{point.replace(/^\d+\.\s*/, '')}</li>
+                      <li key={pointIndex}>{point.replace(/^\d+\.\s*/, "")}</li>
                     ))}
                   </ol>
-                  {conclusion && (
-                    <p className="mt-4">{conclusion}</p>
-                  )}
+                  {conclusion && <p className="mt-4">{conclusion}</p>}
                 </div>
-              </Collapsible>
+              </div>
             );
           }
           return (
             <div key={index} className="mb-6">
               {item.title && (
-                <h3 className="case-subsection-title">
-                  {item.title}
-                </h3>
+                <h3 className="case-subsection-title">{item.title}</h3>
               )}
               <div className="space-y-4">
                 {item.content

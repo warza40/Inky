@@ -19,6 +19,12 @@ export function getCaseStudy(slug: string): CaseStudy | undefined {
   return caseStudies.find((caseStudy) => caseStudy.slug === slug);
 }
 
+export function getNextCaseStudy(slug: string): CaseStudy | undefined {
+  const i = caseStudies.findIndex((c) => c.slug === slug);
+  if (i === -1 || i >= caseStudies.length - 1) return undefined;
+  return caseStudies[i + 1];
+}
+
 export function getAllCaseStudies(): CaseStudy[] {
   return caseStudies;
 }

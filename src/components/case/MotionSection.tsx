@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const sectionVariants = {
@@ -19,13 +19,20 @@ interface MotionSectionProps {
   className?: string;
 }
 
-export function MotionSection({ children, id, title, className }: MotionSectionProps) {
+export function MotionSection({
+  children,
+  id,
+  title,
+  className,
+}: MotionSectionProps) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <motion.section
       id={id}
       variants={sectionVariants}
-      initial="hidden"
-      whileInView="visible"
+      initial={reduceMotion ? "visible" : "hidden"}
+      whileInView={reduceMotion ? undefined : "visible"}
       viewport={{ once: true, margin: "-80px" }}
       className={cn("cs-section", className)}
     >

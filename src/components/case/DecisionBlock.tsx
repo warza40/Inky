@@ -1,5 +1,7 @@
+"use client";
+
 import type { CaseStudy } from "@/case-studies/omantel";
-import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { MotionImage } from "./MotionImage";
 
@@ -8,7 +10,7 @@ interface DecisionBlockProps {
   index: number;
 }
 
-/** Split rationale / impact on blank lines into bullet rows with ↳ styling */
+/** Split rationale / impact on blank lines into bullet rows */
 function RiPoints({ text }: { text: string }) {
   const parts = text
     .split(/\n\n/)
@@ -28,47 +30,31 @@ function RiPoints({ text }: { text: string }) {
 
 export function DecisionBlock({ decision, index }: DecisionBlockProps) {
   const displayImages = decision.images ?? [];
-  const [open, setOpen] = useState(index === 0);
+  const reduceMotion = useReducedMotion();
 
   return (
-    <div className={`cs-decision${open ? " open" : ""}`}>
-      <button
-        type="button"
-        className="cs-decision-head"
-        onClick={() => setOpen((prev) => !prev)}
-        aria-expanded={open}
-      >
+    <motion.article
+      className="cs-decision cs-decision--editorial"
+      initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
+      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.14, margin: "0px 0px -32px 0px" }}
+      transition={{ duration: 0.48, ease: [0.25, 0.1, 0.25, 1] }}
+    >
+      <header className="cs-decision-editorial-head">
         <span className="cs-decision-num">
           {String(index + 1).padStart(2, "0")}
         </span>
-        <h3 className="cs-decision-title">{decision.title}</h3>
-        <div className="cs-decision-toggle" aria-hidden="true">
-          <span className="cs-decision-toggle-icon" aria-hidden>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 14 14"
-              fill="none"
-              className="cs-decision-chevron"
-              aria-hidden
-            >
-              <path
-                d="M2 4.5L7 9.5L12 4.5"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </span>
+        <div className="cs-decision-editorial-titles">
+          <h3 className="cs-decision-title">{decision.title}</h3>
+          {decision.description ? (
+            <p className="cs-decision-body cs-decision-lede">
+              {decision.description}
+            </p>
+          ) : null}
         </div>
-        {decision.description ? (
-          <p className="cs-decision-body cs-decision-body--below-title">
-            {decision.description}
-          </p>
-        ) : null}
-      </button>
+      </header>
 
-      <div className="cs-decision-body-wrap">
+      <div className="cs-decision-body-wrap cs-decision-body-wrap--static">
         <div className="cs-ri-grid">
           <div className="cs-ri-col">
             <div className="cs-ri-label">Rationale</div>
@@ -136,16 +122,22 @@ export function DecisionBlock({ decision, index }: DecisionBlockProps) {
             {decision.imagePlaceholderSplit?.length === 2 ? (
               <div className="cs-decision-placeholder cs-decision-placeholder--split">
                 <div className="cs-decision-placeholder-panel">
-                  <div className="cs-decision-placeholder-note">{decision.imagePlaceholderSplit[0]}</div>
+                  <div className="cs-decision-placeholder-note">
+                    {decision.imagePlaceholderSplit[0]}
+                  </div>
                 </div>
                 <div className="cs-decision-placeholder-panel">
-                  <div className="cs-decision-placeholder-note">{decision.imagePlaceholderSplit[1]}</div>
+                  <div className="cs-decision-placeholder-note">
+                    {decision.imagePlaceholderSplit[1]}
+                  </div>
                 </div>
               </div>
             ) : null}
             {decision.imagePlaceholder && !decision.imagePlaceholderSplit ? (
               <div className="cs-decision-placeholder">
-                <div className="cs-decision-placeholder-note">{decision.imagePlaceholder}</div>
+                <div className="cs-decision-placeholder-note">
+                  {decision.imagePlaceholder}
+                </div>
               </div>
             ) : null}
             {decision.navExploration && decision.navExploration.length > 0 ? (
@@ -159,7 +151,7 @@ export function DecisionBlock({ decision, index }: DecisionBlockProps) {
                           "cs-nei-sketch",
                           n.variant === "mega" && "cs-nei-sketch--mega",
                           n.variant === "ribbon" && "cs-nei-sketch--ribbon",
-                          n.variant === "panel" && "cs-nei-sketch--panel"
+                          n.variant === "panel" && "cs-nei-sketch--panel",
                         )}
                         aria-hidden
                       />
@@ -171,6 +163,6 @@ export function DecisionBlock({ decision, index }: DecisionBlockProps) {
           </>
         )}
       </div>
-    </div>
+    </motion.article>
   );
 }

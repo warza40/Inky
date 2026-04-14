@@ -1,15 +1,11 @@
-import Link from "next/link";
 import { CaseMain } from "./CaseMain";
 import { CaseNavigation } from "./CaseNavigation";
 import { CaseStudyFooter } from "./CaseStudyFooter";
 import type { CaseStudy } from "@/case-studies/omantel";
-import {
-  caseStudyHasVisualsSection,
-  caseStudyVisualsNavLabel,
-} from "@/case-studies/case-visuals";
+import { caseStudyHasVisualsSection } from "@/case-studies/case-visuals";
 import { CaseStudyDirection } from "./CaseStudyDirection";
-import { ContextEcosystem } from "./ContextEcosystem";
-import { CaseContextFlow } from "./CaseContextFlow";
+import { CaseHeroMedia } from "./CaseHeroMedia";
+import { CaseNextProject } from "./CaseNextProject";
 
 interface CaseLayoutProps {
   children: React.ReactNode;
@@ -22,47 +18,68 @@ function formatLabel(str: string): string {
   return str.replace(/\s+/g, " ").trim();
 }
 
-export function CaseLayout({
-  children,
-  title,
-  subtitle,
-  caseStudy,
-}: CaseLayoutProps) {
-  const sections: Array<{ id: string; label: string }> = [];
-  if (
-    caseStudy?.sections.context ||
-    caseStudy?.sections.contextSections?.length ||
-    caseStudy?.sections.contextFlow?.paragraphs?.length ||
-    caseStudy?.sections.contextEcosystem
-  ) {
-    sections.push({ id: "context", label: "Context" });
-  }
-  if (caseStudy?.sections.problem.length) {
-    sections.push({ id: "problem", label: "Problem" });
-  }
-  if (caseStudy?.sections.understanding) {
-    sections.push({ id: "understanding", label: "Understanding" });
-  }
-  if (caseStudy?.sections.constraints.length) {
-    sections.push({ id: "constraints", label: "Constraints" });
-  }
-  if (caseStudy?.sections.decisions.length) {
-    sections.push({ id: "decisions", label: "Decisions" });
-  }
-  if (caseStudy?.sections.outcome) {
-    sections.push({ id: "outcome", label: "Outcome and Impact" });
-  }
-  if (caseStudy?.sections.reflection) {
-    sections.push({ id: "reflection", label: "Reflection" });
-  }
-  if (caseStudy && caseStudyHasVisualsSection(caseStudy)) {
-    sections.push({
-      id: "visuals",
-      label: caseStudyVisualsNavLabel(caseStudy),
-    });
-  }
+function buildCaseNavSections(
+  caseStudy: CaseStudy,
+): Array<{ id: string; label: string }> {
+  const s = caseStudy.sections;
+  const hasContext =
+    Boolean(s.context) ||
+    Boolean(s.contextSections?.length) ||
+    Boolean(s.contextFlow?.paragraphs?.length) ||
+    Boolean(s.contextFlow?.images?.length) ||
+    Boolean(s.contextEcosystem);
+  const hasProblem =
+    s.problem.length > 0 ||
+    Boolean(s.understanding) ||
+    s.constraints.length > 0;
+  const hasDecisions =
+    s.decisions.length > 0 || Boolean(s.reportCategories?.length);
+  const hasOutcome =
+    Boolean(s.outcome) ||
+    Boolean(s.outcomeBeforeAfter) ||
+    Boolean(s.outcomeHighlights?.length) ||
+    Boolean(s.reflection) ||
+    caseStudyHasVisualsSection(caseStudy);
 
-  const overview = caseStudy?.overview;
+  const sections: Array<{ id: string; label: string }> = [];
+  if (hasContext) sections.push({ id: "context", label: "Context" });
+  if (hasProblem) sections.push({ id: "problem", label: "Problem" });
+  if (hasDecisions) sections.push({ id: "decisions", label: "Decisions" });
+  if (hasOutcome) sections.push({ id: "outcome", label: "Outcome" });
+  return sections;
+}
+
+function heroCopyFromCaseStudy(caseStudy: CaseStudy): {
+  metaLine?: string;
+  problemStatement?: string;
+  role?: string;
+  year?: string;
+} {
+  const overview = caseStudy.overview;
+  const metaLine =
+    caseStudy.heroMetaLine ??
+    (overview ? `${overview.context} · ${overview.company}` : undefined);
+  const fromOverviewProblem = overview?.problem?.trim();
+  const fromFirstProblemPara = caseStudy.sections.problem[0]?.content
+    ?.split("\n\n")
+    .map((p) => p.trim())
+    .find(Boolean);
+  const problemStatement =
+    caseStudy.heroProblemStatement ??
+    fromFirstProblemPara ??
+    fromOverviewProblem;
+
+  return {
+    metaLine,
+    problemStatement,
+    role: overview?.role,
+    year: caseStudy.year,
+  };
+}
+
+export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
+  const sections = caseStudy ? buildCaseNavSections(caseStudy) : [];
+  const hero = caseStudy ? heroCopyFromCaseStudy(caseStudy) : {};
 
   return (
     <CaseMain>
@@ -73,98 +90,37 @@ export function CaseLayout({
         <div className="cs-page-inner">
           <CaseStudyDirection
             title={formatLabel(title)}
-            titleAccent={caseStudy?.heroTitleAccent}
+            metaLine={hero.metaLine}
+            problemStatement={hero.problemStatement}
+            role={hero.role}
+            year={hero.year}
             warmthTheme={caseStudy?.warmthTheme ?? "madder"}
           />
-          <div className="cs-nav-wrap">
-            <div className="cs-breadcrumb" aria-label="Breadcrumb">
-              <Link href="/" className="cs-bc-home">
-                Home
-              </Link>
-              <span className="cs-bc-sep">/</span>
-              <span className="cs-bc-current" title={formatLabel(title)}>
-                {formatLabel(title)}
-              </span>
-            </div>
-            {sections.length > 0 && (
+          {sections.length > 0 && (
+            <div className="cs-nav-wrap cs-nav-wrap--blur">
               <div className="cs-tabs" id="cs-tabs" aria-label="Case sections">
                 <CaseNavigation sections={sections} variant="cs" />
               </div>
-            )}
-          </div>
+            </div>
+          )}
+
+          {caseStudy?.heroImage ? (
+            <CaseHeroMedia
+              src={caseStudy.heroImage.src}
+              alt={caseStudy.heroImage.alt}
+            />
+          ) : null}
 
           <main className="cs-main">
-            <header className="cs-hero fade-in" id="context">
-              {overview && (
-                <div
-                  className="cs-meta-row fade-in"
-                  style={{ ["--delay" as any]: "80ms" }}
-                >
-                  <div className="cs-meta-col">
-                    <div className="cs-meta-label">Role</div>
-                    <div className="cs-meta-val">
-                      {formatLabel(overview.role)}
-                    </div>
-                  </div>
-                  <div className="cs-meta-col">
-                    <div className="cs-meta-label">Context</div>
-                    <div className="cs-meta-val">
-                      {formatLabel(overview.context)}
-                    </div>
-                  </div>
-                  <div className="cs-meta-col">
-                    <div className="cs-meta-label">
-                      {overview.tools != null && overview.tools !== ""
-                        ? "Tools"
-                        : "Company"}
-                    </div>
-                    <div className="cs-meta-val">
-                      {formatLabel(
-                        overview.tools != null && overview.tools !== ""
-                          ? overview.tools
-                          : overview.company,
-                      )}
-                    </div>
-                  </div>
-                </div>
-              )}
-              {caseStudy?.sections?.contextFlow?.paragraphs?.length ? (
-                <CaseContextFlow
-                  paragraphs={caseStudy.sections.contextFlow.paragraphs}
-                  aim={caseStudy.sections.contextFlow.aim}
-                  delayStyle={{ ["--delay" as string]: "120ms" }}
+            <div className="cs-content">
+              {children}
+              {caseStudy ? (
+                <CaseNextProject
+                  currentSlug={caseStudy.slug}
+                  nextSlugOverride={caseStudy.nextProjectSlug}
                 />
-              ) : caseStudy?.sections?.contextSections &&
-                caseStudy.sections.contextSections.length > 0 ? (
-                <div
-                  className="cs-context-text cs-context-text--sections fade-in"
-                  style={{ ["--delay" as any]: "120ms" }}
-                >
-                  {caseStudy.sections.contextSections.map((section, i) => (
-                    <section key={i} className="cs-context-section">
-                      <h3 className="cs-context-section-title">
-                        {section.title}
-                      </h3>
-                      <p className="cs-context-section-body">{section.body}</p>
-                    </section>
-                  ))}
-                </div>
-              ) : (
-                caseStudy?.sections?.context && (
-                  <p
-                    className="cs-context-text fade-in"
-                    style={{ ["--delay" as any]: "120ms" }}
-                  >
-                    {caseStudy.sections.context}
-                  </p>
-                )
-              )}
-              {caseStudy?.sections?.contextEcosystem && (
-                <ContextEcosystem data={caseStudy.sections.contextEcosystem} />
-              )}
-            </header>
-
-            <div className="cs-content">{children}</div>
+              ) : null}
+            </div>
           </main>
           <CaseStudyFooter />
         </div>
