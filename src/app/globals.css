@@ -4397,15 +4397,16 @@ button.portfolio-nav-item-button {
 .case-main:has(.cs-page) {
   padding: 0;
   min-height: 100vh;
-  background-color: var(--parchment);
+  /* Warm white (Warmth DS V2 ground-primary), not secondary/parchment */
+  background-color: var(--color-ground-primary);
 }
 
 /*
  * Case Study Page — Visual format (from CaseStudy.css)
- * Same parchment + grid layer as homepage (.home-page-main + .home-bg-grid)
+ * Warm white (ground-primary) + grid layer as homepage (.home-page-main + .home-bg-grid)
  */
 body:has(.cs-page) {
-  background: var(--parchment);
+  background: var(--color-ground-primary);
 }
 
 .cs-page {
@@ -4430,7 +4431,7 @@ body:has(.cs-page) {
   --cs-accent-bar: var(--madder);
   --cs-footer-link: var(--madder);
   --cs-footer-link-hover: #c9604c;
-  background-color: var(--parchment);
+  background-color: var(--color-ground-primary);
 }
 
 @media (min-width: 1024px) {
