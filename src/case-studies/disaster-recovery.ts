@@ -5,6 +5,10 @@ export const disasterRecoveryCase: CaseStudy = {
   title: "Accelerating Disaster Recovery Response Through Automation",
   heroTitleAccent: "Through Automation",
   warmthTheme: "slate",
+  heroImage: {
+    src: "/DM.png",
+    alt: "Disaster recovery operations — reporting dashboards and field coordination",
+  },
   overview: {
     role: "UX, Data visualisation",
     context:

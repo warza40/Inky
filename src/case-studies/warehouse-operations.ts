@@ -4,6 +4,10 @@ export const warehouseOperationsCase: CaseStudy = {
   slug: "warehouse-operations",
   title: "Bringing Clarity to Warehouse Operations Across Distributed Teams",
   heroTitleAccent: "Across Distributed Teams",
+  heroImage: {
+    src: "/Warehouse%20assets/KD1.png",
+    alt: "Warehouse management portal — role-based views for distributed teams",
+  },
   overview: {
     role: "UX and UI Design",
     context: "Logistics · Operations",

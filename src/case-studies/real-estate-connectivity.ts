@@ -3,6 +3,10 @@ import type { CaseStudy } from "./omantel";
 export const realEstateConnectivityCase: CaseStudy = {
   slug: "real-estate-connectivity",
   title: "Making Bulk Connectivity Purchases Transparent for Property Owners",
+  heroImage: {
+    src: "/REC.png",
+    alt: "Bulk connectivity purchase flow — unit bundles and bandwidth on the Omantel website",
+  },
   overview: {
     role: "UX Designer",
     context: "Real Estate · Connectivity",
