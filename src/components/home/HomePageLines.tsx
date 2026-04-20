@@ -56,7 +56,8 @@ export function HomePageLines() {
             Senior Product Designer · 5+ years · B2B & enterprise · Bengaluru
           </p>
           <h1 className="home-hero-h1">
-            I work on complex
+            Hi I&apos;m Rachana, Designing, writing and Illustrating. I work on
+            complex
             <br />
             product systems where{" "}
             <span className="home-hero-em not-italic">
@@ -64,36 +65,13 @@ export function HomePageLines() {
             </span>
           </h1>
           <p className="home-hero-caption">
-            Every system that feels effortless started with a wall or a board
-            that looked like this. The work in between — from research to
-            insight, complexity to story, problem to&nbsp;solution.
+            Every system that feels effortless started with untangling
+            complexity. The work in between — from research to insight,
+            complexity to story, problem to&nbsp;solution.
           </p>
           <a href="#work" className="home-hero-cta">
             See the work <span className="home-hero-cta-arrow" aria-hidden />
           </a>
-        </div>
-
-        {/* Right — sticky notes */}
-        <div className="home-hero-right" aria-hidden="true">
-          <div className="hero-notes">
-            <div className="sn sn-yellow sn-1">
-              &ldquo;Why is the user even here at this step?&rdquo;
-            </div>
-            <div className="sn sn-pink sn-2">
-              Reframe — it&rsquo;s not a form problem
-            </div>
-            <div className="sn sn-blue sn-3">
-              What if we removed the whole flow?
-            </div>
-            <div className="sn sn-cream sn-4">
-              The real job-to-be-done is trust
-            </div>
-            <div className="sn sn-mint sn-5">
-              From benchmarking, we can understand our opportunities
-              <br />
-              Oppty 1, Oppty 2, Oppty 3
-            </div>
-          </div>
         </div>
       </section>
 

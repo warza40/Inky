@@ -1700,11 +1700,10 @@ html.dark .home-page-main,
   }
 }
 
-/* ── Homepage hero — two-column layout ──────────── */
+/* ── Homepage hero — single column ──────────────── */
 .home-hero {
   display: grid;
-  /* Text column gets more width than sticky-notes column (was 1fr 1fr) */
-  grid-template-columns: 55fr 45fr;
+  grid-template-columns: 1fr;
   /* Match sticky header (60px); dvh tracks real viewport on mobile */
   min-height: calc(100dvh - 60px);
   padding-top: var(--fluid-section-pad-y-lg);
@@ -1730,13 +1729,13 @@ html.dark .home-page-main,
   overflow-y: visible;
 }
 
-/* Left column — text */
+/* Hero text column */
 .home-hero-left {
   display: flex;
   flex-direction: column;
   gap: 0;
-  max-width: 560px;
-  padding-right: 2rem;
+  max-width: min(720px, 100%);
+  padding-right: 0;
 }
 
 .home-hero-label {
@@ -1853,20 +1852,7 @@ html.dark .home-page-main,
   letter-spacing: normal;
   color: var(--color-ink-900);
   margin: 16px 0 0;
-  max-width: 560px;
-}
-
-/* Right column — sticky notes (clip so rotated notes don’t bleed past viewport) */
-.home-hero-stack {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  overflow: visible;
-}
-
-.home-hero-stack-inner {
-  flex: 0 0 auto;
-  overflow: visible;
+  max-width: min(720px, 100%);
 }
 
 /* Hero responsive */
@@ -1896,9 +1882,6 @@ html.dark .home-page-main,
     max-width: 100%;
     padding-right: 0;
   }
-  .home-hero-right {
-    justify-content: flex-start;
-  }
   .home-hero-h1 {
     font-size: clamp(28px, 7vw, 40px);
   }
@@ -1913,151 +1896,6 @@ html.dark .home-page-main,
   .home-hero-h1 {
     font-size: 28px;
   }
-}
-
-/* ── Hero right — sticky notes ───────────────────── */
-.home-hero-right {
-  position: relative;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  min-height: 520px;
-  min-width: 0;
-  max-width: 100%;
-  overflow: hidden;
-}
-
-.hero-notes {
-  position: relative;
-  width: 100%;
-  max-width: 100%;
-  height: 100%;
-  min-height: 520px;
-  box-sizing: border-box;
-  padding-right: 12px;
-  overflow: hidden;
-}
-
-/* Base sticky note — square */
-.sn {
-  position: absolute;
-  width: 168px;
-  height: 168px;
-  padding: 18px 18px;
-  border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  font-style: normal;
-  font-size: 13.5px;
-  font-weight: 400;
-  line-height: 1.55;
-  color: var(--ink);
-  box-shadow:
-    2px 4px 12px rgba(28, 24, 18, 0.09),
-    0 1px 3px rgba(28, 24, 18, 0.05);
-  display: flex;
-  align-items: flex-start;
-}
-
-/* Colours */
-.sn-yellow {
-  background: #f9e87a;
-}
-.sn-pink {
-  background: #f5c6c6;
-}
-.sn-blue {
-  background: #bdd5ee;
-}
-.sn-cream {
-  background: #eee8d5;
-}
-.sn-mint {
-  background: #bee0cf;
-}
-
-/* Scattered positions — spread to avoid clustering */
-.sn-1 {
-  top: 2%;
-  left: 18%;
-}
-.sn-2 {
-  top: 5%;
-  left: 60%;
-}
-.sn-3 {
-  top: 42%;
-  left: 6%;
-}
-.sn-4 {
-  top: 40%;
-  left: 52%;
-}
-.sn-5 {
-  top: 70%;
-  left: 30%;
-}
-
-/* Floating — very subtle, 3–5px only */
-@keyframes sn-float-a {
-  0%,
-  100% {
-    transform: rotate(-2.5deg) translateY(0);
-  }
-  50% {
-    transform: rotate(-2.5deg) translateY(-4px);
-  }
-}
-@keyframes sn-float-b {
-  0%,
-  100% {
-    transform: rotate(1.8deg) translateY(0);
-  }
-  50% {
-    transform: rotate(1.8deg) translateY(-3px);
-  }
-}
-@keyframes sn-float-c {
-  0%,
-  100% {
-    transform: rotate(-1.4deg) translateY(0);
-  }
-  50% {
-    transform: rotate(-1.4deg) translateY(-5px);
-  }
-}
-@keyframes sn-float-d {
-  0%,
-  100% {
-    transform: rotate(2.2deg) translateY(0);
-  }
-  50% {
-    transform: rotate(2.2deg) translateY(-3px);
-  }
-}
-@keyframes sn-float-e {
-  0%,
-  100% {
-    transform: rotate(-0.8deg) translateY(0);
-  }
-  50% {
-    transform: rotate(-0.8deg) translateY(-4px);
-  }
-}
-
-.sn-1 {
-  animation: sn-float-a 5s ease-in-out infinite;
-}
-.sn-2 {
-  animation: sn-float-b 6.2s ease-in-out infinite 0.9s;
-}
-.sn-3 {
-  animation: sn-float-c 5.6s ease-in-out infinite 1.7s;
-}
-.sn-4 {
-  animation: sn-float-d 6.8s ease-in-out infinite 0.4s;
-}
-.sn-5 {
-  animation: sn-float-e 5.2s ease-in-out infinite 1.3s;
 }
 
 /* ── Work section ────────────────────────────────── */
