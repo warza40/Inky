@@ -62,10 +62,10 @@ export function HomePageLines() {
           </ul>
           <h1 className="home-hero-h1">
             Hi, I&apos;m Rachana
-            <br />
-            Designing, writing and{" "}
-            <span className="home-hero-word-illustrate">Illustrating</span>. I
-            work on complex product systems where&nbsp;
+            <br />I am Designing,{" "}
+            <span className="home-hero-word-writing">writing</span> and{" "}
+            <span className="home-hero-word-illustrate">Illustrating</span>.
+            <br />I work on complex product systems where&nbsp;
             <span className="home-hero-em not-italic">
               clarity often breaks down.
             </span>

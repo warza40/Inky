@@ -168,7 +168,6 @@ export function WorkSection() {
       {/* Section header */}
       <div className="work-section-header">
         <div className="work-section-header-left">
-          <span className="work-section-label">Selected Work</span>
           <h2 className="work-section-headline">Work</h2>
         </div>
         <nav className="work-tabs" aria-label="Filter work">

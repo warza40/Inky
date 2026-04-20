@@ -1789,6 +1789,11 @@ html.dark .home-page-main,
   color: #296591;
 }
 
+/* “writing” — moss green */
+.home-hero-h1 .home-hero-word-writing {
+  color: #5b814c;
+}
+
 /* Accent phrase — inline so it wraps with the sentence on wide viewports */
 .home-layout .home-hero-h1 .home-hero-em {
   font-family: var(--font-heading);
@@ -1871,7 +1876,7 @@ html.dark .home-page-main,
    WORK SECTION — DS card-featured / compact
 ════════════════════════════════════════ */
 .work-section {
-  padding: clamp(var(--space-8), 4vw, var(--space-12))
+  padding: clamp(var(--space-6), 3vw, var(--space-10))
     max(var(--fluid-gutter), env(safe-area-inset-left, 0px))
     var(--fluid-section-pad-y)
     max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
@@ -1884,7 +1889,7 @@ html.dark .home-page-main,
   align-items: flex-end;
   justify-content: space-between;
   gap: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 .work-section-header-left {
   flex: 1;
@@ -1892,25 +1897,6 @@ html.dark .home-page-main,
   flex-direction: column;
   align-items: flex-start;
   gap: 0;
-}
-.work-section-label {
-  display: inline-flex;
-  align-items: center;
-  width: fit-content;
-  font-family: var(--font-label);
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
-  font-size: var(--text-xs);
-  font-weight: 500;
-  letter-spacing: var(--tracking-wide);
-  text-transform: none;
-  color: var(--color-madder-900);
-  margin: 0 0 12px 0;
-  padding: var(--space-1) var(--space-3);
-  border-radius: var(--radius-full);
-  background: var(--color-madder-100);
-  border: 1px solid color-mix(in srgb, var(--color-madder-500) 22%, transparent);
-  box-shadow: var(--shadow-xs);
 }
 .work-section-headline {
   font-family: var(--font-serif);
@@ -1967,7 +1953,7 @@ html.dark .home-page-main,
 .work-divider {
   height: 1px;
   background: var(--color-border);
-  margin-bottom: 40px;
+  margin-bottom: 28px;
 }
 
 /* ── Tile panel (left side of all cards) ── */
