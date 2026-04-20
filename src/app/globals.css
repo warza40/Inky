@@ -1437,7 +1437,11 @@ html.dark .home-page-main,
 }
 
 .label {
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: 12px;
+  font-weight: var(--weight-eyebrow);
   letter-spacing: 0.14em;
   text-transform: none;
   opacity: 0.85;
@@ -2289,7 +2293,7 @@ html.dark .home-page-main,
 .wc-card-title {
   font-family: var(--font-heading);
   font-size: clamp(14px, 1.6vw, 18px);
-  font-weight: 700;
+  font-weight: 500;
   color: var(--color-ink-900);
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -3460,6 +3464,9 @@ h2 {
 }
 
 .home-hero-section .home-hero-badge {
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-widest);
@@ -5790,6 +5797,22 @@ body:has(.cs-page) {
   height: 1px;
   background: var(--color-border);
 }
+/* Rail labels (Context / Problem / …) — Bricolage; beats global h2 { font-heading } */
+h2.cs-section-label {
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+}
+/* Context subsection titles — Bricolage; beats global h3 { font-heading } */
+h3.cs-context-section-title {
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
+  font-weight: var(--weight-eyebrow);
+  letter-spacing: var(--tracking-wider);
+}
 .cs-section-body {
   padding-top: 0;
 }
@@ -6047,11 +6070,12 @@ body:has(.cs-page) {
   border-color: var(--cs-accent);
 }
 .cs-reveal-label {
-  font-family: var(--font-heading);
+  font-family: var(--font-label);
   font-optical-sizing: auto;
   font-variation-settings: "wdth" 100;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: var(--tracking-wide);
   color: var(--color-ink-900);
 }
 .cs-reveal-btn {
@@ -6186,7 +6210,7 @@ body:has(.cs-page) {
   font-optical-sizing: auto;
   font-variation-settings: "wdth" 100;
   font-size: clamp(14px, 1.2vw, 17px);
-  font-weight: 700;
+  font-weight: 500;
   color: var(--color-ink-900);
   line-height: 1.25;
   margin: 0;
@@ -6435,7 +6459,11 @@ body:has(.cs-page) {
   padding: 0 !important;
 }
 .cs-decision-ri-panel .cs-ri-label {
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-sm);
+  font-weight: var(--weight-eyebrow);
   letter-spacing: 0.1em;
   color: var(--color-ink-300);
   margin-bottom: var(--space-3);
@@ -7507,6 +7535,9 @@ button.cs-visual-clickable:hover {
 }
 
 .case-ui-badge {
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   padding: 2px 8px;
   font-size: 9px;
   font-weight: 600;
@@ -7990,7 +8021,11 @@ button.cs-visual-clickable:hover {
   padding: 0 40px;
   height: 60px;
   border-bottom: 1px solid var(--case-border);
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: 10px;
+  font-weight: var(--weight-eyebrow);
   text-transform: none;
   letter-spacing: 0.1em;
   color: var(--foreground);
