@@ -89,6 +89,12 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
       >
         <div className="home-bg-grid" aria-hidden />
         <div className="cs-page-inner">
+          {caseStudy?.heroImage ? (
+            <CaseHeroMedia
+              src={caseStudy.heroImage.src}
+              alt={caseStudy.heroImage.alt}
+            />
+          ) : null}
           <CaseStudyDirection
             title={formatLabel(title)}
             metaLine={hero.metaLine}
@@ -104,13 +110,6 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
               </div>
             </div>
           )}
-
-          {caseStudy?.heroImage ? (
-            <CaseHeroMedia
-              src={caseStudy.heroImage.src}
-              alt={caseStudy.heroImage.alt}
-            />
-          ) : null}
 
           <main className="cs-main">
             <div className="cs-content">

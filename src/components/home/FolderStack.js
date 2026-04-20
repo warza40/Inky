@@ -124,9 +124,9 @@ const TAG_COLORS = {
 };
 
 const CSS = `
-.fs-wrapper{display:flex;flex-direction:column;align-items:flex-start;width:460px;font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;}
+.fs-wrapper{display:flex;flex-direction:column;align-items:flex-start;width:460px;font-family:var(--font-body),system-ui,sans-serif;}
 .fs-tabs{display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;justify-content:center;gap:10px;margin-bottom:16px;width:100%;}
-.fs-tab{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;padding:8px 14px;font-family:var(--font-inter,'Inter'),system-ui,sans-serif;font-size:13px;font-weight:500;color:#171717;cursor:pointer;border:none;outline:none;background:transparent;border:1px solid rgba(0,0,0,0.2);border-radius:6px;transition:border-color .2s,color .2s,background .2s;}
+.fs-tab{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;padding:8px 14px;font-family:var(--font-body),system-ui,sans-serif;font-size:13px;font-weight:500;color:#171717;cursor:pointer;border:none;outline:none;background:transparent;border:1px solid rgba(0,0,0,0.2);border-radius:6px;transition:border-color .2s,color .2s,background .2s;}
 .fs-tab:focus-visible{outline:2px solid #c41e3a;outline-offset:2px;}
 .fs-tab:not(.fs-active):hover{border-color:#171717;background:rgba(0,0,0,0.04);}
 .fs-outer{width:460px;padding-top:0;margin-bottom:0;}
@@ -138,8 +138,8 @@ const CSS = `
 .fs-img img,.fs-img canvas{width:100%;height:100%;display:block;object-fit:cover;}
 .fs-fold{position:absolute;bottom:0;left:0;width:100%;pointer-events:none;}
 .fs-body{padding:14px 18px 18px;background:#fff;}
-.fs-title{font-size:16px;font-weight:800;color:#1a1a1a;line-height:1.25;letter-spacing:-0.02em;margin-bottom:14px;}
-.fs-sub{font-size:11px;font-weight:500;color:#bbbbbb;margin-bottom:7px;letter-spacing:.01em;}
+.fs-title{font-family:var(--font-heading);font-optical-sizing:auto;font-variation-settings:"wdth" 100;font-size:16px;font-weight:800;color:#1a1a1a;line-height:1.25;letter-spacing:-0.02em;margin-bottom:14px;}
+.fs-sub{font-family:var(--font-label);font-optical-sizing:auto;font-variation-settings:"wdth" 100;font-size:11px;font-weight:500;color:#bbbbbb;margin-bottom:7px;letter-spacing:.01em;}
 .fs-footer{display:flex;justify-content:space-between;align-items:center;padding-top:0;border-top:none;}
 .fs-tag{font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:4px 12px;border-radius:20px;background:#F5B800;color:#7a5a00;}
 .fs-meta{font-size:11px;color:#ccc;font-weight:700;letter-spacing:.04em;}

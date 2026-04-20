@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,300;1,400;1,500&family=Cabinet+Grotesk:wght@700;800;900&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&family=Noto+Serif+JP:wght@200;300&display=swap");
 @import "tailwindcss";
 
 /* ============================================================
@@ -79,10 +78,15 @@
   --color-border-focus: var(--color-madder-900);
 
   /* ── TYPOGRAPHY: Font families ── */
-  --font-serif: "Lora", Georgia, serif;
-  --font-display: "Cabinet Grotesk", "Arial Black", sans-serif;
+  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-bricolage: "Bricolage Grotesque", sans-serif;
+  --font-anybody: "Anybody", sans-serif;
+  --font-serif-stack: "Lora", Georgia, serif;
+  --font-serif: var(--font-serif-stack);
+  --font-display: var(--font-anybody);
   --font-accent: "Instrument Serif", Georgia, serif;
-  --font-mono: "DM Mono", "Courier New", monospace;
+  --font-mono-stack: "DM Mono", "Courier New", monospace;
+  --font-mono: var(--font-mono-stack);
   --font-jp: "Noto Serif JP", serif;
 
   /* ── TYPOGRAPHY: Scale (Major Third · 1.25) ── */
@@ -120,7 +124,7 @@
   --tracking-wider: 0.1em;
   --tracking-widest: 0.1em;
 
-  /* Section tags / labels — mono, sentence case */
+  /* Section tags / labels — Bricolage Grotesque, sentence case */
   --text-eyebrow: var(--text-sm);
   --weight-eyebrow: var(--weight-regular);
 
@@ -229,17 +233,17 @@
   --surface: var(--color-ground-secondary);
 
   /* ── FONT ALIASES ── */
-  --font-heading: var(--font-serif);
-  --font-label: var(--font-mono);
+  --font-heading: var(--font-anybody);
+  --font-label: var(--font-bricolage);
   --font-lora: var(--font-serif);
   --font-cabinet: var(--font-display);
   --font-instrument: var(--font-accent);
   --font-dm-mono: var(--font-mono);
   --font-noto-jp: var(--font-jp);
   --font-poppins: var(--font-display);
-  --font-inter: var(--font-serif);
-  --font-dm-sans: "DM Sans", system-ui, sans-serif;
-  --font-questrial: var(--font-accent);
+  --font-inter: var(--font-body);
+  --font-dm-sans: var(--font-body);
+  --font-questrial: var(--font-heading);
 
   --home-border: var(--color-border);
   --home-panel-bg: var(--color-ground-secondary);
@@ -255,8 +259,11 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-serif-stack);
+  --font-mono: var(--font-mono-stack);
+  --font-display: var(--font-anybody);
+  --font-heading: var(--font-anybody);
 }
 
 html {
@@ -274,7 +281,8 @@ body {
   min-height: 100%;
   background-color: var(--color-ground-primary);
   color: var(--color-ink-900);
-  font-family: var(--font-serif);
+  font-family: var(--font-body);
+  font-optical-sizing: auto;
   font-size: var(--text-base);
   line-height: var(--leading-relaxed);
   -webkit-font-smoothing: antialiased;
@@ -322,12 +330,59 @@ body.overlay-open {
 }
 .font-display {
   font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+.font-heading {
+  font-family: var(--font-heading);
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+/* Anybody (variable) — mirrors Google Fonts snippet; set weight with .font-* utilities */
+.font-anybody {
+  font-family: var(--font-anybody);
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+/* Shared axis defaults wherever --font-heading / --font-display (Anybody) is set in rules below */
+.hero-headline,
+.home-hero-h1,
+.home-layout .home-hero-h1 .home-hero-em,
+.home-hero-body,
+.sf-name,
+.sf-bio,
+.sf-ci-text,
+.sf-bar-copy,
+.sf-bar-claim,
+.cs-hero-title,
+.cs-case-footer-copy,
+.cs-hero h1,
+.cs-report-num,
+.cs-stat-num {
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
 }
 .font-accent {
   font-family: var(--font-accent);
 }
 .font-mono {
   font-family: var(--font-mono);
+}
+/* Plus Jakarta Sans (variable) — mirrors Google Fonts snippet; set weight with .font-* utilities */
+.font-plus-jakarta {
+  font-family: var(--font-body);
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+/* Bricolage Grotesque (variable opsz + wght) — eyebrows, captions, .font-label stack */
+.font-bricolage {
+  font-family: var(--font-bricolage);
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
 }
 .font-light {
   font-weight: var(--weight-light);
@@ -384,7 +439,9 @@ body.overlay-open {
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-xs);
   font-weight: var(--weight-light);
   letter-spacing: var(--tracking-wide);
@@ -413,7 +470,9 @@ body.overlay-open {
   display: flex;
   align-items: center;
   gap: var(--space-4);
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-wider);
@@ -490,7 +549,7 @@ body.overlay-open {
   color: var(--color-ground-secondary);
 }
 
-/* HEADLINES — Lora 400-500, narrative voice */
+/* HEADLINES — Anybody (variable, wdth 100) */
 h1,
 h2,
 h3,
@@ -504,6 +563,8 @@ h6,
 .prose h5,
 .prose h6 {
   font-family: var(--font-heading);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-weight: 500;
 }
 
@@ -1091,6 +1152,8 @@ html.dark .home-page-main,
 }
 .scroll-cue-label {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-sm);
   font-weight: 300;
   letter-spacing: var(--tracking-wider);
@@ -1238,7 +1301,9 @@ html.dark .home-page-main,
 
 .footer-text {
   color: #ffffff;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: 14px;
   letter-spacing: 0.12em;
   white-space: nowrap;
@@ -1339,13 +1404,9 @@ html.dark .home-page-main,
 }
 
 .hero-title {
-  font-family:
-    var(--font-inter),
-    "Inter",
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.2;
@@ -1358,13 +1419,9 @@ html.dark .home-page-main,
 .hero-label {
   margin-top: 0;
   margin-bottom: 12px;
-  font-family:
-    var(--font-inter),
-    "Inter",
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: 0.14em;
@@ -1415,7 +1472,7 @@ html.dark .home-page-main,
   color: rgba(255, 255, 255, 0.85);
 }
 
-/* Bio — Lora regular, Technical register (upright, ink.900) */
+/* Bio — Anybody regular, Technical register (upright, ink.900) */
 .hero-headline {
   font-family: var(--font-heading);
   font-size: clamp(15px, 1.6vw, 16px);
@@ -1450,13 +1507,8 @@ html.dark .home-page-main,
 .hero-cta {
   display: inline-block;
   padding: 10px 18px;
-  font-family:
-    var(--font-inter),
-    "Inter",
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
+  font-family: var(--font-body);
+  font-optical-sizing: auto;
   font-size: 14px;
   font-weight: 500;
   color: var(--ink);
@@ -1483,13 +1535,7 @@ html.dark .home-page-main,
 
 /* Bio (home-hero-bio) — 960px, locked (do not override) */
 .home-hero-bio {
-  font-family:
-    var(--font-inter),
-    "Inter",
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
   font-style: normal;
   font-optical-sizing: auto;
@@ -1515,6 +1561,8 @@ html.dark .home-page-main,
 }
 .home-header-nav-link {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-sm);
   font-weight: 300;
   letter-spacing: var(--tracking-wider);
@@ -1534,6 +1582,8 @@ html.dark .home-page-main,
 }
 .home-header-resume {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-sm);
   font-weight: 300;
   letter-spacing: var(--tracking-wider);
@@ -1691,12 +1741,16 @@ html.dark .home-page-main,
 
 .home-hero-label {
   font-family: var(--font-label);
-  font-size: var(--text-sm);
-  font-weight: 400;
-  letter-spacing: var(--tracking-wider);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
+  font-size: clamp(15px, 1.35vw + 0.65rem, 18px);
+  font-weight: 500;
+  letter-spacing: var(--tracking-wide);
+  line-height: 1.45;
   text-transform: none;
   color: var(--color-ink-500);
   margin: 0 0 28px 0;
+  max-width: 100%;
 }
 
 .home-hero-h1 {
@@ -1739,6 +1793,8 @@ html.dark .home-page-main,
   gap: 10px;
   margin-top: 48px;
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-xs);
   font-weight: 400;
   letter-spacing: var(--tracking-wide);
@@ -1788,7 +1844,9 @@ html.dark .home-page-main,
 }
 
 .home-hero-caption {
-  font-family: var(--font-serif);
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-base);
   font-weight: 400;
   line-height: 1.75;
@@ -1887,7 +1945,7 @@ html.dark .home-page-main,
   height: 168px;
   padding: 18px 18px;
   border-radius: var(--radius-sm);
-  font-family: "DM Sans", var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-style: normal;
   font-size: 13.5px;
   font-weight: 400;
@@ -2027,6 +2085,8 @@ html.dark .home-page-main,
 }
 .work-section-label {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-wider);
@@ -2054,6 +2114,8 @@ html.dark .home-page-main,
 }
 .work-tab {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-sm);
   font-weight: 300;
   letter-spacing: var(--tracking-wider);
@@ -2215,6 +2277,8 @@ html.dark .home-page-main,
 /* Breadcrumb row */
 .wc-breadcrumb {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-wider);
@@ -2270,6 +2334,8 @@ html.dark .home-page-main,
 .wc-kd-label {
   display: block;
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-wider);
@@ -2301,6 +2367,8 @@ html.dark .home-page-main,
 /* DS-style CTA with extending arrow line */
 .wc-cta {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-wider);
@@ -2385,6 +2453,8 @@ html.dark .home-page-main,
 }
 .wc-card-breadcrumb {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: 0.2em;
@@ -2426,6 +2496,8 @@ html.dark .home-page-main,
 }
 .wc-card-cta {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-wider);
@@ -2461,6 +2533,8 @@ html.dark .home-page-main,
 
 .work-empty {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: 11px;
   color: var(--color-ink-300);
   letter-spacing: 0.1em;
@@ -2518,6 +2592,8 @@ html.dark .home-page-main,
 }
 .writing-section-label {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-wider);
@@ -2536,6 +2612,8 @@ html.dark .home-page-main,
 }
 .writing-section-link {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-sm);
   font-weight: 300;
   letter-spacing: var(--tracking-wider);
@@ -2640,6 +2718,8 @@ html.dark .home-page-main,
 /* TYPE — Category · Spot */
 .wr-type {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-wider);
@@ -2688,6 +2768,8 @@ html.dark .home-page-main,
 }
 .wr-tag {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-wide);
@@ -2791,6 +2873,8 @@ html.dark .home-page-main,
 }
 .about-section-label {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-wider);
@@ -2925,6 +3009,8 @@ html.dark .home-page-main,
 }
 .sf-link {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: 10px;
   font-weight: 300;
   letter-spacing: 0.14em;
@@ -2938,6 +3024,8 @@ html.dark .home-page-main,
 }
 .sf-link-sep {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: 10px;
   color: rgba(245, 239, 228, 0.2);
 }
@@ -2957,6 +3045,8 @@ html.dark .home-page-main,
 }
 .sf-currently-label {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: 0.2em;
@@ -2976,6 +3066,8 @@ html.dark .home-page-main,
 }
 .sf-ci-label {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-wider);
@@ -3245,8 +3337,9 @@ h2 {
   line-height: 1.3;
   font-weight: 400;
   color: var(--foreground);
-  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  font-family: var(--font-label);
   font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   flex-shrink: 0;
 }
 .dark .linear-menu-item-caption {
@@ -3412,7 +3505,7 @@ h2 {
   border-radius: 9999px;
 }
 .linear-toolbar-btn-label {
-  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  font-family: var(--font-body);
   font-optical-sizing: auto;
   font-size: 12px;
   font-weight: 500;
@@ -3525,6 +3618,8 @@ h2 {
 }
 .home-hero-section .home-hero-label {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-widest);
@@ -3986,7 +4081,9 @@ button.home-cta-link {
 /* Force typewriter text white in dark mode (sidebar + anywhere) */
 /* Questrial utility (use for typewriter or anywhere) */
 .questrial-regular {
-  font-family: var(--font-questrial), "Questrial", sans-serif;
+  font-family: var(--font-heading);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-weight: 400;
   font-style: normal;
 }
@@ -4693,6 +4790,8 @@ body:has(.cs-page) {
 }
 .cs-hero-meta-line {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-sm);
   font-weight: 400;
   letter-spacing: 0.1em;
@@ -4720,6 +4819,8 @@ body:has(.cs-page) {
 }
 .cs-hero-pill {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-xs);
   font-weight: 300;
   letter-spacing: 0.06em;
@@ -4735,6 +4836,10 @@ body:has(.cs-page) {
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-md);
+}
+/* Hero banner leads the page — no top margin above title band */
+.cs-page-inner > .cs-case-hero-media:first-child {
+  margin-top: 0;
 }
 .cs-case-hero-media-img {
   width: 100%;
@@ -4764,6 +4869,8 @@ body:has(.cs-page) {
 }
 .cs-next-project-label {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-sm);
   font-weight: 300;
   letter-spacing: 0.1em;
@@ -4825,6 +4932,8 @@ body:has(.cs-page) {
   gap: var(--space-2);
   padding: var(--space-3) 0 0;
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: 13px;
   font-weight: 300;
   letter-spacing: normal;
@@ -4899,6 +5008,8 @@ body:has(.cs-page) {
 /* DS underline tab — weight contrast is the mechanism */
 .cs-tab {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-sm);
   font-weight: 300;
   letter-spacing: 0.1em;
@@ -4990,6 +5101,8 @@ body:has(.cs-page) {
   align-items: center;
   justify-content: center;
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-wider);
@@ -5011,6 +5124,8 @@ body:has(.cs-page) {
 }
 .cs-case-footer-reach {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-wider);
@@ -5088,6 +5203,8 @@ body:has(.cs-page) {
 }
 .cs-meta-label {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-xs);
   font-weight: 300;
   letter-spacing: var(--tracking-wide);
@@ -5120,6 +5237,8 @@ body:has(.cs-page) {
 }
 .cs-context-section-title {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-wider);
@@ -5150,12 +5269,16 @@ body:has(.cs-page) {
   content: "—";
   color: var(--color-madder-900);
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: 11px;
   font-weight: 300;
   flex-shrink: 0;
 }
 .cs-ecosystem-eyebrow-text {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-wider);
@@ -5178,6 +5301,8 @@ body:has(.cs-page) {
 }
 .cs-ecosystem-box-head {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-xs);
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-wider);
@@ -5260,6 +5385,8 @@ body:has(.cs-page) {
 .cs-ecosystem-badge {
   display: inline-block;
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: 8px;
   font-weight: 600;
   letter-spacing: 0.14em;
@@ -5333,6 +5460,8 @@ body:has(.cs-page) {
 }
 .cs-stat-label {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-wide);
   text-transform: none;
@@ -5370,6 +5499,8 @@ body:has(.cs-page) {
 }
 .cs-persona-age {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-wide);
   color: var(--color-ink-300);
@@ -5377,6 +5508,8 @@ body:has(.cs-page) {
 }
 .cs-persona-works {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-wide);
   color: var(--color-ink-500);
@@ -5384,6 +5517,8 @@ body:has(.cs-page) {
 }
 .cs-persona-section-label {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-wider);
   text-transform: none;
@@ -5440,6 +5575,8 @@ body:has(.cs-page) {
 }
 .cs-dr-section-label-text {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-wide);
   text-transform: none;
@@ -5558,6 +5695,8 @@ body:has(.cs-page) {
   font-size: 10px;
   color: var(--color-ink-300);
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
 }
 
 /* Outcome — eyebrow → list uses only .cs-section-head margin (no double stack) */
@@ -5625,6 +5764,8 @@ body:has(.cs-page) {
   color: var(--color-ink-500);
   margin: var(--space-6) 0 0;
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
 }
 .cs-outcome-pill::before {
   content: "↗";
@@ -5676,6 +5817,8 @@ body:has(.cs-page) {
   text-align: center;
   margin: 0;
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
 }
 .cs-decision-nav-wrap {
   background: var(--color-paper);
@@ -5699,6 +5842,8 @@ body:has(.cs-page) {
   color: var(--color-ink-300);
   margin-bottom: 10px;
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
 }
 .cs-nei-sketch {
   height: 80px;
@@ -5767,6 +5912,8 @@ body:has(.cs-page) {
   width: 100%;
   gap: var(--space-3);
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-sm);
   font-weight: 300;
   letter-spacing: 0.1em;
@@ -5812,6 +5959,8 @@ body:has(.cs-page) {
 }
 .cs-reflection-label {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-sm);
   font-weight: 300;
   letter-spacing: 0.1em;
@@ -5851,6 +6000,8 @@ body:has(.cs-page) {
 }
 .cs-outcome-ba-label {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-sm);
   font-weight: 300;
   letter-spacing: 0.06em;
@@ -5902,6 +6053,8 @@ body:has(.cs-page) {
 }
 .cs-context-visual-caption {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-sm);
   font-weight: 300;
   color: var(--color-ink-500);
@@ -6035,6 +6188,8 @@ body:has(.cs-page) {
   align-items: center;
   gap: 6px;
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: 9px;
   font-weight: 400;
   letter-spacing: 0.12em;
@@ -6136,6 +6291,8 @@ body:has(.cs-page) {
   margin: 0;
   padding: 0;
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: 13px;
   font-weight: 400;
   color: var(--color-ink-900);
@@ -6309,6 +6466,8 @@ body:has(.cs-page) {
   margin: 0;
   min-width: 2.25em;
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-sm);
   font-weight: 300;
   color: var(--color-ink-300);
@@ -6425,6 +6584,8 @@ body:has(.cs-page) {
 }
 .cs-problem-process-visual-caption {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-sm);
   font-weight: 300;
   color: var(--color-ink-500);
@@ -6433,9 +6594,11 @@ body:has(.cs-page) {
   letter-spacing: 0.04em;
 }
 
-/* Hero band → sticky tab: space-6 (prompt 3) */
+/* Hero band → sticky tab: keep rhythm inside the nav (padding), not margin —
+   margin showed page ground through the gap and read as a bright stripe. */
 .cs-page-inner > .cs-nav-wrap {
-  margin-top: var(--space-6);
+  margin-top: 0;
+  padding-top: calc(var(--space-6) + 3px);
 }
 
 /* Rationale / Impact */
@@ -6471,9 +6634,11 @@ body:has(.cs-page) {
     padding: 18px 24px 20px 32px;
   }
 }
-/* DM Mono eyebrow — pairs with serif body (Warmth DS label, not tight accent caps) */
+/* Bricolage eyebrow — pairs with serif body (Warmth DS label, not tight accent caps) */
 .cs-ri-label {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: 11px;
   font-weight: var(--weight-eyebrow);
   letter-spacing: 0.08em;
@@ -6626,6 +6791,8 @@ body:has(.cs-page) {
   background: var(--color-ground-tertiary);
   border-top: 1px solid var(--color-border);
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: 11px;
   font-weight: 300;
   color: var(--color-ink-300);
@@ -6634,13 +6801,15 @@ body:has(.cs-page) {
   line-height: 1.55;
 }
 
-/* Case study pages — captions: DM Mono, text-sm, ink.500, 8px above baseline from image */
+/* Case study pages — captions: Bricolage, text-sm, ink.500, 8px above baseline from image */
 .case-main .cs-visual-caption {
   padding: 8px 0 0;
   margin: 0;
   background: transparent;
   border: none;
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-sm);
   font-weight: 300;
   color: var(--color-ink-500);
@@ -6792,13 +6961,7 @@ button.cs-visual-clickable:hover {
   --vg-space-xl: 64px;
   background-color: var(--vg-bg-page);
   color: var(--vg-text);
-  font-family:
-    var(--font-inter),
-    "Inter",
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
+  font-family: var(--font-body);
   font-optical-sizing: auto;
   font-style: normal;
   font-weight: 400;
@@ -6810,7 +6973,7 @@ button.cs-visual-clickable:hover {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Case study: body copy and navigation use Inter */
+/* Case study: body copy and navigation — Plus Jakarta Sans */
 .case-voice-garden .vg-label,
 .case-voice-garden .vg-breadcrumb,
 .case-voice-garden .vg-breadcrumb-link,
@@ -6833,16 +6996,16 @@ button.cs-visual-clickable:hover {
 .case-voice-garden .case-pane-header,
 .case-voice-garden .case-voice-garden-prose p,
 .case-voice-garden .case-voice-garden-prose li,
-.case-voice-garden .case-voice-garden-prose a,
-.case-voice-garden .case-voice-garden-prose figcaption {
-  font-family:
-    var(--font-inter),
-    "Inter",
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
+.case-voice-garden .case-voice-garden-prose a {
+  font-family: var(--font-body);
   font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.case-voice-garden .case-voice-garden-prose figcaption {
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-style: normal;
 }
 
@@ -7454,6 +7617,8 @@ button.cs-visual-clickable:hover {
 
 .case-section-label {
   font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: var(--text-eyebrow);
   font-weight: var(--weight-eyebrow);
   text-transform: none;
@@ -7724,6 +7889,9 @@ button.cs-visual-clickable:hover {
 }
 .noteworthy-tile-caption {
   padding: var(--vg-space-s);
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: 13px;
   color: var(--vg-text-secondary);
   line-height: 1.4;
@@ -7787,6 +7955,9 @@ button.cs-visual-clickable:hover {
 .noteworthy-lightbox-caption {
   margin-top: 16px;
   padding: 0 24px;
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.9);
   text-align: center;

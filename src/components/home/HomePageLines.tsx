@@ -52,7 +52,9 @@ export function HomePageLines() {
       {/* ── Hero ───────────────────────────────────── */}
       <section className="home-hero" aria-label="Introduction">
         <div className="home-hero-left">
-          <p className="home-hero-label">— Senior UX Designer · Strategist</p>
+          <p className="home-hero-label">
+            Senior Product Designer · 5+ years · B2B & enterprise · Bengaluru
+          </p>
           <h1 className="home-hero-h1">
             I work on complex
             <br />

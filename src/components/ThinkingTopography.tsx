@@ -46,26 +46,24 @@ export default function ThinkingTopography({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
 
     // Initialize mouse position
     mouseRef.current = { x: width / 2, y: height / 2 };
 
     const CLUSTERS = [
-      { word: "patterns",  start: 0.0,    size: "large" },
-      { word: "biases",    start: 3.625,  size: "medium" },
-      { word: "evolution", start: 7.25,   size: "large" },
+      { word: "patterns", start: 0.0, size: "large" },
+      { word: "biases", start: 3.625, size: "medium" },
+      { word: "evolution", start: 7.25, size: "large" },
       { word: "synthesis", start: 10.875, size: "medium" },
-      { word: "data",      start: 14.5,   size: "small" },
+      { word: "data", start: 14.5, size: "small" },
     ] as const;
 
     const SECONDARY_WORDS = ["trade-offs", "systems", "second-order"];
 
     function pickRandom<T>(arr: T[], count: number) {
-      return [...arr]
-        .sort(() => Math.random() - 0.5)
-        .slice(0, count);
+      return [...arr].sort(() => Math.random() - 0.5).slice(0, count);
     }
 
     const secondaryCount = Math.random() < 0.5 ? 1 : 2;
@@ -105,7 +103,7 @@ export default function ThinkingTopography({
         start: 4 + Math.random() * 10,
         size: Math.random() < 0.6 ? "small" : "medium",
         isSecondary: true,
-      })
+      }),
     );
 
     const primaryClusters = CLUSTERS.map((c) => ({
@@ -116,12 +114,15 @@ export default function ThinkingTopography({
     const allClusters = [...primaryClusters, ...secondaryClusters];
 
     const cores: RippleCore[] = [];
-    
+
     allClusters.forEach((c) => {
       const profile =
         CLUSTER_PROFILES[
-          c.size === "large" ? "large" :
-          c.size === "medium" ? "medium" : "small"
+          c.size === "large"
+            ? "large"
+            : c.size === "medium"
+              ? "medium"
+              : "small"
         ];
 
       const [minR, maxR] = profile.maxRadius;
@@ -132,20 +133,20 @@ export default function ThinkingTopography({
       while (!newCore && attempts < 100) {
         const x = 150 + Math.random() * (width - 300);
         const y = 150 + Math.random() * (height - 300);
-        
+
         // Check distance from existing cores
         let tooClose = false;
         for (const other of cores) {
           const dx = x - other.x;
           const dy = y - other.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          
+
           const minDist =
-            (c.isSecondary || other.isSecondary)
+            c.isSecondary || other.isSecondary
               ? 200
               : MIN_SEPARATION[c.size as ClusterSize] +
                 MIN_SEPARATION[other.size] * 0.5;
-          
+
           if (dist < minDist) {
             tooClose = true;
             break;
@@ -204,16 +205,14 @@ export default function ThinkingTopography({
 
         for (let i = 1; i <= visibleRings; i++) {
           const baseRadius =
-            (i / core.numRings) *
-            core.maxRadius *
-            core.spacingFactor;
+            (i / core.numRings) * core.maxRadius * core.spacingFactor;
 
           ctx.beginPath();
           ctx.lineWidth = 0.5;
           ctx.strokeStyle = COLORS[i % COLORS.length];
 
           // Calculate opacity based on build progress and distance from center
-          const fadeOut = 1 - (i / core.numRings);
+          const fadeOut = 1 - i / core.numRings;
           ctx.globalAlpha = 0.25 * revealProgress * fadeOut * opacityScale;
 
           // Draw ring with "organic" distortion
@@ -238,8 +237,14 @@ export default function ThinkingTopography({
             const distortion = Math.sin(angle * 4 + i) * 8 * core.strength;
             const r = baseRadius + distortion;
 
-            const finalX = core.x + Math.cos(angle) * r + (mouseDx / mouseDist || 0) * mouseShift;
-            const finalY = core.y + Math.sin(angle) * r + (mouseDy / mouseDist || 0) * mouseShift;
+            const finalX =
+              core.x +
+              Math.cos(angle) * r +
+              (mouseDx / mouseDist || 0) * mouseShift;
+            const finalY =
+              core.y +
+              Math.sin(angle) * r +
+              (mouseDy / mouseDist || 0) * mouseShift;
 
             if (s === 0) ctx.moveTo(finalX, finalY);
             else ctx.lineTo(finalX, finalY);
@@ -249,8 +254,11 @@ export default function ThinkingTopography({
         }
 
         // Draw word at core
-        if ((!core.isSecondary && revealProgress > 0.4) || (core.isSecondary && revealProgress > 0.85)) {
-          ctx.font = "11px 'Geist Mono', monospace";
+        if (
+          (!core.isSecondary && revealProgress > 0.4) ||
+          (core.isSecondary && revealProgress > 0.85)
+        ) {
+          ctx.font = "11px 'DM Mono', monospace";
           ctx.textAlign = "center";
           ctx.fillStyle = COLORS[2];
           ctx.globalAlpha = (revealProgress - 0.4) * 2 * 0.7;
