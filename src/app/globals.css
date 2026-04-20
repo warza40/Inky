@@ -1784,6 +1784,11 @@ html.dark .home-page-main,
   text-wrap: pretty;
 }
 
+/* “Designing” — madder */
+.home-hero-h1 .home-hero-word-designing {
+  color: var(--color-madder-900);
+}
+
 /* “Illustrating” — slate blue highlight in display line */
 .home-hero-h1 .home-hero-word-illustrate {
   color: #296591;
