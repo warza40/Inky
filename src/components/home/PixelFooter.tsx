@@ -20,24 +20,41 @@ const CURRENTLY = [
 export function PixelFooter() {
   return (
     <footer className="site-footer" aria-label="Site footer">
-
       {/* ── Main ─────────────────────────────────── */}
       <div className="sf-main">
-
         {/* Left column */}
         <div className="sf-left">
           <p className="sf-name">Rachana Mandal.</p>
           <p className="sf-bio">
-            Senior UX Designer · Available for remote work
+            Senior Product Designer · Available for remote work
           </p>
 
           {/* Social links */}
           <nav className="sf-links" aria-label="Social links">
-            <Link href="https://www.linkedin.com/in/rachanamandal/" target="_blank" rel="noopener noreferrer" className="sf-link">LinkedIn</Link>
+            <Link
+              href="https://www.linkedin.com/in/rachanamandal/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="sf-link"
+            >
+              LinkedIn
+            </Link>
             <span className="sf-link-sep">·</span>
-            <Link href="https://substack.com/@thelilyput" target="_blank" rel="noopener noreferrer" className="sf-link">Substack</Link>
+            <Link
+              href="https://substack.com/@thelilyput"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="sf-link"
+            >
+              Substack
+            </Link>
             <span className="sf-link-sep">·</span>
-            <Link href="mailto:rachanamandal@gmail.com" className="sf-link sf-link-cta">→ Email me</Link>
+            <Link
+              href="mailto:rachanamandal@gmail.com"
+              className="sf-link sf-link-cta"
+            >
+              → Email me
+            </Link>
           </nav>
 
           {/* Currently */}
@@ -53,19 +70,18 @@ export function PixelFooter() {
             </div>
           </div>
         </div>
-
       </div>
 
       {/* ── Bottom bar ───────────────────────────── */}
       <div className="sf-bar">
         <p className="sf-bar-copy">
-          © 2025 · Built with Warmth DS · An outcome of brainstorming sessions with Claude and coding with Cursor.
+          © 2025 · Built with Warmth DS · An outcome of brainstorming sessions
+          with Claude and coding with Cursor.
         </p>
         <p className="sf-bar-claim">
           Rigorous enough to be trusted. Human enough to be felt.
         </p>
       </div>
-
     </footer>
   );
 }

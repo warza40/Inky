@@ -52,14 +52,20 @@ export function HomePageLines() {
       {/* ── Hero ───────────────────────────────────── */}
       <section className="home-hero" aria-label="Introduction">
         <div className="home-hero-left">
-          <p className="home-hero-label">
-            Senior Product Designer · 5+ years · B2B & enterprise · Bengaluru
-          </p>
+          <ul
+            className="home-hero-badges"
+            aria-label="Role, experience, and location"
+          >
+            <li className="home-hero-badge">Senior Product Designer</li>
+            <li className="home-hero-badge">5+ years</li>
+            <li className="home-hero-badge">B2B & enterprise · Bengaluru</li>
+          </ul>
           <h1 className="home-hero-h1">
-            Hi I&apos;m Rachana, Designing, writing and Illustrating. I work on
-            complex
+            Hi, I&apos;m Rachana
             <br />
-            product systems where{" "}
+            Designing, writing and{" "}
+            <span className="home-hero-word-illustrate">Illustrating</span>. I
+            work on complex product systems where&nbsp;
             <span className="home-hero-em not-italic">
               clarity often breaks down.
             </span>
@@ -69,9 +75,6 @@ export function HomePageLines() {
             complexity. The work in between — from research to insight,
             complexity to story, problem to&nbsp;solution.
           </p>
-          <a href="#work" className="home-hero-cta">
-            See the work <span className="home-hero-cta-arrow" aria-hidden />
-          </a>
         </div>
       </section>
 
