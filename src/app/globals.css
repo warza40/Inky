@@ -270,15 +270,19 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   overflow-y: scroll;
+  overflow-x: clip;
   -webkit-text-size-adjust: 100%;
   scrollbar-gutter: stable;
   margin: 0;
   min-height: 100%;
+  max-width: 100%;
 }
 
 body {
   margin: 0;
   min-height: 100%;
+  max-width: 100%;
+  overflow-x: clip;
   background-color: var(--color-ground-primary);
   color: var(--color-ink-900);
   font-family: var(--font-body);
@@ -287,6 +291,13 @@ body {
   line-height: var(--leading-relaxed);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prevent flex/grid children from forcing horizontal page scroll (mobile / tablet) */
+.app-root,
+.main-content {
+  min-width: 0;
+  max-width: 100%;
 }
 
 :focus-visible {
@@ -2371,12 +2382,14 @@ html.dark .home-page-main,
     gap: 20px;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .work-section-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
   }
+}
+@media (max-width: 768px) {
   .wc-featured {
     grid-template-columns: 1fr;
   }
@@ -2614,7 +2627,7 @@ html.dark .home-page-main,
     gap: 20px;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .about-grid {
     flex-direction: column;
     gap: 20px;
@@ -2629,6 +2642,8 @@ html.dark .home-page-main,
     align-items: flex-start;
     gap: 16px;
   }
+}
+@media (max-width: 768px) {
   .wr-info {
     padding: 8px 12px 10px;
     gap: 10px;
@@ -2957,7 +2972,15 @@ html.dark .home-page-main,
   white-space: nowrap;
 }
 
-/* Footer responsive */
+/* Footer responsive — step horizontal padding on tablet (between desktop 48px and phone 24px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .sf-main {
+    padding: 64px 40px 48px;
+  }
+  .sf-bar {
+    padding: 20px 40px;
+  }
+}
 @media (max-width: 768px) {
   .sf-main {
     grid-template-columns: 1fr;
@@ -6825,6 +6848,34 @@ button.cs-visual-clickable:hover {
   .cs-ri-col:first-child {
     border-right: none;
     border-bottom: 1px solid var(--border);
+  }
+}
+
+/* Case study: meta + stat bar — full width on narrow phones */
+@media (max-width: 520px) {
+  .cs-meta-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+  .cs-meta-col {
+    padding-right: 0;
+  }
+}
+@media (max-width: 600px) {
+  .cs-stat-bar {
+    grid-template-columns: 1fr;
+  }
+  .cs-stat-item {
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .cs-stat-item:last-child {
+    border-bottom: none;
+  }
+}
+@media (max-width: 480px) {
+  .cs-persona-grid {
+    grid-template-columns: 1fr;
   }
 }
 

@@ -21,6 +21,19 @@ interface WritingCard {
 
 const WRITING: WritingCard[] = [
   {
+    id: "quiet-devaluation-of-effort",
+    type: "Essay",
+    spot: "Long read",
+    tags: [],
+    title: "The quiet devaluation of effort",
+    description:
+      "How effort is made to look wasteful. On sitting with problems when tools are fast enough to make that feel inefficient — and what gets lost when we skip the work.",
+    imageSrc: "/images/writing/quiet-devaluation.png",
+    imageObjectPosition: "center 52%",
+    href: "https://open.substack.com/pub/thelilyput/p/the-quiet-devaluation-of-effort?utm_campaign=post-expanded-share&utm_medium=web",
+    external: true,
+  },
+  {
     id: "entry-exit-digital-lending",
     type: "Finance",
     spot: "Observational note",
@@ -50,7 +63,6 @@ const WRITING: WritingCard[] = [
 export function WritingSection() {
   return (
     <section className="writing-section" id="writing" aria-label="Writing">
-
       <div className="writing-section-header">
         <div className="writing-section-header-left">
           <p className="writing-section-label">— Writing</p>
@@ -115,7 +127,9 @@ export function WritingSection() {
               {card.tags.length > 0 && (
                 <div className="wr-tags" aria-label="Tags">
                   {card.tags.map((tag) => (
-                    <span key={tag} className="wr-tag">{tag}</span>
+                    <span key={tag} className="wr-tag">
+                      {tag}
+                    </span>
                   ))}
                 </div>
               )}

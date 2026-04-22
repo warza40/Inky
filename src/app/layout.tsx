@@ -1,4 +1,5 @@
 import "./globals.css";
+import type { Viewport } from "next";
 import ThinkingTopography from "@/components/ThinkingTopography";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import {
@@ -37,6 +38,14 @@ const notoSerifJP = Noto_Serif_JP({
   variable: "--font-noto-jp",
   display: "swap",
 });
+
+/** Mobile + tablet: correct initial scale, notches, safe areas */
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#faf7f2",
+};
 
 export default function RootLayout({
   children,
