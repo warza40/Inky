@@ -102,7 +102,7 @@ export function WritingSection() {
                   alt=""
                   fill
                   className="wr-visual-img"
-                  sizes="(max-width: 640px) 100vw, 50vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   priority={false}
                   style={
                     card.imageObjectPosition

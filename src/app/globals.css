@@ -2469,10 +2469,10 @@ html.dark .home-page-main,
   margin-bottom: 28px;
 }
 
-/* Card grid — Craft / values-style gutters (matches work-grid rhythm) */
+/* Card grid — same column count & gaps as .work-grid (3 → 2 → 1) */
 .wr-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
   align-items: stretch;
 }
@@ -2486,7 +2486,6 @@ html.dark .home-page-main,
   text-decoration: none;
   background: var(--color-ground-primary);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-card);
   cursor: pointer;
   transition:
     border-color 200ms,
@@ -2502,7 +2501,7 @@ html.dark .home-page-main,
   border-color: var(--color-madder-900);
 }
 
-/* Illustration area — 2:1 width:height (half the height of the previous square) */
+/* Visual band — same 2:1 as .wc-tile-panel (work cards) */
 .wr-visual {
   width: 100%;
   aspect-ratio: 2 / 1;
@@ -2533,15 +2532,16 @@ html.dark .home-page-main,
   object-position: center 30%;
 }
 
-/* Info row — tighter to match shorter cards */
+/* Body — padding rhythm closer to .wc-card-body (work cards) */
 .wr-info {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 10px;
-  padding: 8px 12px 10px;
+  padding: 16px 18px 18px;
   flex: 1;
   min-height: 0;
+  background: var(--color-ground-secondary);
 }
 .wr-info-main {
   flex: 1;
@@ -2560,7 +2560,7 @@ html.dark .home-page-main,
   letter-spacing: var(--tracking-wider);
   text-transform: none;
   color: var(--color-madder-900);
-  margin: 0 0 14px;
+  margin: 0 0 10px;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -2577,20 +2577,24 @@ html.dark .home-page-main,
 .wr-title {
   font-family: var(--font-heading);
   font-weight: 500;
-  font-size: clamp(12px, 1.25vw, 15px);
+  font-size: clamp(13px, 1.4vw, 16px);
   letter-spacing: -0.01em;
   line-height: 1.2;
   color: var(--color-ink-900);
-  margin: 0 0 8px;
+  margin: 0 0 6px;
 }
 .wr-desc {
   font-family: var(--font-body);
   font-optical-sizing: auto;
   font-style: italic;
-  font-size: 11px;
-  line-height: 1.5;
+  font-size: 12px;
+  line-height: 1.55;
   color: var(--color-ink-500);
   margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
 }
 
 /* Right-side stacked tags */
@@ -2645,7 +2649,7 @@ html.dark .home-page-main,
 }
 @media (max-width: 768px) {
   .wr-info {
-    padding: 8px 12px 10px;
+    padding: 14px 16px 16px;
     gap: 10px;
   }
   .wr-title {
@@ -2665,6 +2669,7 @@ html.dark .home-page-main,
 @media (max-width: 480px) {
   .wr-info {
     flex-direction: column;
+    padding: 12px 14px 14px;
   }
   .wr-tags {
     flex-direction: row;
