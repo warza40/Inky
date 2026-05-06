@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { CaseMain } from "./CaseMain";
 import { CaseNavigation } from "./CaseNavigation";
 import { CaseStudyFooter } from "./CaseStudyFooter";
@@ -93,6 +94,25 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
       >
         <div className="home-bg-grid" aria-hidden />
         <div className="cs-page-inner">
+          <div className="case-top-bar">
+            <header className="case-site-header" aria-label="Site header">
+              <Link href="/" className="home-header-name">
+                Rachana Mandal
+                <em className="home-header-name-accent">.</em>
+              </Link>
+            </header>
+            {sections.length > 0 && (
+              <div className="cs-nav-wrap cs-nav-wrap--blur">
+                <div
+                  className="cs-tabs"
+                  id="cs-tabs"
+                  aria-label="Case sections"
+                >
+                  <CaseNavigation sections={sections} variant="cs" />
+                </div>
+              </div>
+            )}
+          </div>
           {caseStudy?.heroImage ? (
             isJournalOmantel ? (
               <OmantelJournalHero
@@ -122,14 +142,6 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
             warmthTheme={caseStudy?.warmthTheme ?? "madder"}
             showHeroBand={!isJournalOmantel}
           />
-          {sections.length > 0 && (
-            <div className="cs-nav-wrap cs-nav-wrap--blur">
-              <div className="cs-tabs" id="cs-tabs" aria-label="Case sections">
-                <CaseNavigation sections={sections} variant="cs" />
-              </div>
-            </div>
-          )}
-
           <main className="cs-main">
             <div className="cs-content">
               {children}

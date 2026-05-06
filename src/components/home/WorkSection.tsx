@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { JournalSectionHeader } from "@/components/home/JournalSectionHeader";
+import { omantelCaseCardImageSrc } from "@/case-studies/omantel-card-preview";
 
 interface GraphSeg {
   flex: number;
@@ -68,7 +69,7 @@ const WORK: WorkCard[] = [
     description:
       "Thousands of SIM activations, processed manually. One invalid record was enough to restart the entire process.",
     imageBg: "#1c3354",
-    imageSrc: "/Bulk.png",
+    imageSrc: omantelCaseCardImageSrc,
     graph: [
       { flex: 1, color: "#8aa0b4" },
       { flex: 2, color: "#b84c3a" },
@@ -86,7 +87,6 @@ const WORK: WorkCard[] = [
       skillTags: ["B2C ecommerce", "Enterprise UX", "End-to-end"],
       tape: "red",
       displayTitle: "Omantel — eShop & Enterprise Activation",
-      hideHeroImage: true,
     },
   },
   {

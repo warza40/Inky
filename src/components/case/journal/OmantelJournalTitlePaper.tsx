@@ -17,12 +17,18 @@ const META_ROWS: ReadonlyArray<{
   label: string;
   field: keyof OmantelJournalTitlePaperProps["overview"];
 }> = [
-  { label: "Role", field: "role" },
-  { label: "Context", field: "context" },
   { label: "Company", field: "company" },
   { label: "Problem", field: "problem" },
   { label: "Focus", field: "focus" },
 ];
+
+/** Domain chips under lede — B2B / Telecom from context (role lives in meta elsewhere if needed). */
+function domainChipsFromContext(context: string): string[] {
+  const chips: string[] = [];
+  if (/\bb2b\b/i.test(context)) chips.push("B2B");
+  if (/\btelecom\b/i.test(context)) chips.push("Telecom");
+  return chips.length > 0 ? chips : ["B2B", "Telecom"];
+}
 
 /** Paper title insert — typography uses existing DS classes (font stacks unchanged) */
 export function OmantelJournalTitlePaper({
@@ -31,7 +37,7 @@ export function OmantelJournalTitlePaper({
   problemStatement,
   overview,
 }: OmantelJournalTitlePaperProps) {
-  const { role } = overview;
+  const chips = domainChipsFromContext(overview.context);
 
   return (
     <section className="ojo-title-section">
@@ -39,7 +45,7 @@ export function OmantelJournalTitlePaper({
       <div className="ojo-tape ojo-tape-seigaiha ojo-tape-b" aria-hidden />
 
       <div className="ojo-paper ojo-paper-shadow ojo-title-insert">
-        <div className="ojo-punch-holes ojo-punch-holes--dual" aria-hidden>
+        <div className="ojo-punch-holes ojo-punch-holes--title" aria-hidden>
           <span className="ojo-punch-hole" />
           <span className="ojo-punch-hole" />
         </div>
@@ -50,17 +56,17 @@ export function OmantelJournalTitlePaper({
         <div className="ojo-title-main">
           {metaLine ? <p className="ojo-title-eyebrow">{metaLine}</p> : null}
           <div className="ojo-title-copy-wrap">
-            <div className="ojo-title-bullets" aria-hidden>
-              <span />
-              <span />
-            </div>
             <div className="ojo-title-copy-inner">
               <h1 className="ojo-main-title cs-hero-title">{title}</h1>
               {problemStatement ? (
                 <p className="ojo-sub-title">{problemStatement}</p>
               ) : null}
               <div className="ojo-title-pills">
-                <span className="ojo-title-pill">{role}</span>
+                {chips.map((c) => (
+                  <span key={c} className="ojo-title-pill">
+                    {c}
+                  </span>
+                ))}
               </div>
             </div>
           </div>

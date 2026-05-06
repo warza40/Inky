@@ -4779,6 +4779,33 @@ body:has(.cs-page) {
   justify-content: space-between;
 }
 
+/* Case pages: site name + sticky section tabs (bundled so one sticky stack) */
+.case-top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.case-site-header {
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  padding-left: max(var(--fluid-gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
+  background: var(--color-ground-primary);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dark .case-site-header {
+  background: var(--color-ink-900);
+  border-bottom-color: rgba(240, 236, 224, 0.08);
+}
+
+.case-top-bar .cs-nav-wrap {
+  position: static;
+  top: auto;
+}
+
 /* Case study: sticky breadcrumb + tab bar; sticks at top, 3px padding so content sits below progress bar */
 .cs-nav-wrap {
   position: sticky;
@@ -6524,7 +6551,7 @@ h3.cs-context-section-title {
 
 /* Hero band → sticky tab: keep rhythm inside the nav (padding), not margin —
    margin showed page ground through the gap and read as a bright stripe. */
-.cs-page-inner > .cs-nav-wrap {
+.cs-page-inner .case-top-bar .cs-nav-wrap {
   margin-top: 0;
   padding-top: calc(var(--space-6) + 3px);
 }

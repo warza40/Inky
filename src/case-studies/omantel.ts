@@ -1,3 +1,5 @@
+import { omantelCaseCardImageSrc } from "./omantel-card-preview";
+
 export type CaseStudyWarmthTheme = "madder" | "moss" | "ochre" | "slate";
 
 export interface CaseStudy {
@@ -47,6 +49,8 @@ export interface CaseStudy {
         labelItalic: string;
         metaCaps?: string;
         metaDetail?: string;
+        /** Normal (non-italic) supporting line — uses heading font for readable body */
+        metaDetailPlain?: boolean;
       }>;
     };
     /** Optional ecosystem module (e.g. four products in one bordered block); shown after `contextSections` when present */
@@ -221,7 +225,7 @@ export const omantelCase: CaseStudy = {
   year: "2024",
   nextProjectSlug: "warehouse-operations",
   heroImage: {
-    src: "/Omantel%20assets/KD1.png",
+    src: omantelCaseCardImageSrc,
     alt: "Bulk Actions landing: Change existing lines and Add new postpaid lines",
   },
   warmthTheme: "madder",
@@ -243,16 +247,20 @@ export const omantelCase: CaseStudy = {
     journalImpact: {
       blocks: [
         {
-          value: "2",
-          labelItalic: "products",
-          metaCaps: "End-to-end designed simultaneously",
-          metaDetail: "B2C storefront + B2B activation",
+          value: "",
+          labelItalic: "",
+          metaDetail:
+            "Reduced batch creation and submission time by half using a template-based system.",
+          metaDetailPlain: true,
         },
         {
           value: "0",
           labelItalic: "operators",
-          metaCaps: "Required for enterprise bulk activation",
-          metaDetail: "Previously fully manual!",
+          metaCaps:
+            "Required for Batch creation, request submission and error validation.",
+          metaDetail:
+            "Redesigned the fully manual experience with a single self-service flow.",
+          metaDetailPlain: true,
         },
         {
           value: "4.5",
@@ -275,7 +283,7 @@ export const omantelCase: CaseStudy = {
           "The entire email → manual verification → manual entry pipeline was eliminated for valid submissions. Company reps self-serve directly. Zero Omantel staff involvement required for clean batches.",
         images: [
           {
-            src: "/Omantel%20assets/KD1.png",
+            src: omantelCaseCardImageSrc,
             alt: "Bulk Actions page with both paths: Change existing lines and Add new postpaid lines",
             caption: "The Bulk Actions page showing both paths.",
           },
@@ -381,4 +389,33 @@ export const omantelCase: CaseStudy = {
     reflection:
       "With more time, I would have pushed for a lightweight usability study with 2–3 enterprise reps before final handoff — even without a formal research phase, watching someone navigate the CSV upload flow once would have surfaced friction I couldn't predict from constraint analysis alone. I'd also explore batch-level progress indicators for large uploads where processing time becomes noticeable.",
   },
+  visualsSections: [
+    {
+      title: "Bulk-edit comparisons",
+      image: {
+        src: "/Omantel%20assets/KD2.png",
+        alt: "Side-by-side credit limit comparison with current vs proposed values",
+        caption:
+          "Iteration on exposing current vs proposed credit limits before locking the bulk pattern.",
+      },
+    },
+    {
+      title: "Apply-to-all and undo",
+      image: {
+        src: "/Omantel%20assets/KD2.5.png",
+        alt: "Apply to all scenario — bulk-edit pattern with per-row undo",
+        caption:
+          "Mid-stage refinement: how granular undo felt when edits spanned many rows.",
+      },
+    },
+    {
+      title: "Production breadth",
+      image: {
+        src: "/Omantel%20assets/Screens%20from%20Production.png",
+        alt: "Shipped Bulk Actions views across breakpoints",
+        caption:
+          "Late iteration aligning layouts once production constraints were clearer.",
+      },
+    },
+  ],
 };

@@ -1399,6 +1399,43 @@
   background: rgba(130, 145, 155, 0.22);
 }
 
+.home-layout--journal .jl-about-carousel-chev {
+  position: absolute;
+  top: 50%;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  color: rgba(120, 95, 55, 0.32);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: color 0.2s ease;
+}
+
+.home-layout--journal .jl-about-carousel-chev:hover {
+  color: rgba(38, 30, 20, 0.52);
+}
+
+.home-layout--journal .jl-about-carousel-chev:focus-visible {
+  outline: 1px solid rgba(120, 95, 55, 0.45);
+  outline-offset: 2px;
+}
+
+.home-layout--journal .jl-about-carousel-chev--prev {
+  left: 6px;
+}
+
+.home-layout--journal .jl-about-carousel-chev--next {
+  right: 6px;
+}
+
 .home-layout--journal .jl-about-carousel-img {
   width: 100%;
   height: auto;

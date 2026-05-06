@@ -1,7 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { createPortal } from "react-dom";
 import type { CaseStudy } from "@/case-studies/omantel";
 import { getCaseVisualsPresentation } from "@/case-studies/case-visuals";
 import { DecisionBlock } from "./DecisionBlock";
@@ -9,16 +7,12 @@ import { MotionSection } from "./MotionSection";
 import { MotionImage } from "./MotionImage";
 import { Problem } from "./Problem";
 import { parseBoldSpans } from "@/lib/case-rich-text";
-import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import {
-  lockScrollForOverlay,
-  unlockScrollForOverlay,
-} from "@/lib/overlay-scroll-lock";
 import { CaseContextSection } from "./CaseContextSection";
 import { CaseUnderstandingBlock } from "./CaseUnderstandingBlock";
 import { CaseConstraintsBlock } from "./CaseConstraintsBlock";
 import { CaseProblemProcessVisual } from "./CaseProblemProcessVisual";
+import { CaseNoteworthyIterations } from "./CaseNoteworthyIterations";
 import { OmantelCaseJournalMap } from "@/components/case/journal/OmantelCaseJournalMap";
 
 const OMANTEL_JOURNAL_SLUG = "omantel-bulk-activation";
@@ -28,9 +22,6 @@ interface CaseMapProps {
 }
 
 export function CaseMap({ caseStudy }: CaseMapProps) {
-  const [noteworthyFullViewIndex, setNoteworthyFullViewIndex] = useState<
-    number | null
-  >(null);
   const visualsPresentation = getCaseVisualsPresentation(caseStudy);
   const s = caseStudy.sections;
 
@@ -47,19 +38,6 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
     Boolean(s.outcomeHighlights?.length) ||
     Boolean(s.reflection) ||
     visualsPresentation.mode !== "none";
-
-  useEffect(() => {
-    if (noteworthyFullViewIndex === null) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setNoteworthyFullViewIndex(null);
-    };
-    lockScrollForOverlay();
-    document.addEventListener("keydown", onKey);
-    return () => {
-      unlockScrollForOverlay();
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [noteworthyFullViewIndex]);
 
   if (caseStudy.slug === OMANTEL_JOURNAL_SLUG) {
     return <OmantelCaseJournalMap caseStudy={caseStudy} />;
@@ -297,108 +275,7 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
             </div>
           )}
 
-          {visualsPresentation.mode === "noteworthy" && (
-            <div className="cs-noteworthy-grid cs-outcome-noteworthy">
-              {visualsPresentation.slides.map(({ section, index }) => {
-                const media = section.image || section.video;
-                if (!media) return null;
-                const caption =
-                  section.image?.caption ?? section.video?.caption;
-                return (
-                  <button
-                    key={index}
-                    type="button"
-                    className="cs-visual-frame cs-visual-clickable"
-                    onClick={() => setNoteworthyFullViewIndex(index)}
-                    aria-label={
-                      section.image ? section.image.alt : "View video"
-                    }
-                  >
-                    <div className="cs-noteworthy-card-fill">
-                      <div className="cs-visual-img">
-                        {section.image ? (
-                          <img
-                            src={section.image.src}
-                            alt={section.image.alt}
-                            className="w-full h-auto block object-contain"
-                          />
-                        ) : section.video ? (
-                          <video
-                            src={section.video.src}
-                            className="w-full block"
-                            muted
-                            playsInline
-                            preload="metadata"
-                          />
-                        ) : null}
-                      </div>
-                      {caption && (
-                        <div className="cs-visual-caption">{caption}</div>
-                      )}
-                    </div>
-                  </button>
-                );
-              })}
-
-              {typeof document !== "undefined" &&
-                noteworthyFullViewIndex !== null &&
-                (() => {
-                  const section =
-                    caseStudy.visualsSections![noteworthyFullViewIndex];
-                  if (!section) return null;
-                  const caption =
-                    section.image?.caption ?? section.video?.caption;
-                  return createPortal(
-                    <div
-                      className="noteworthy-lightbox"
-                      role="dialog"
-                      aria-modal="true"
-                      aria-label="Full view"
-                      onClick={() => setNoteworthyFullViewIndex(null)}
-                    >
-                      <button
-                        type="button"
-                        className="noteworthy-lightbox-close"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setNoteworthyFullViewIndex(null);
-                        }}
-                        aria-label="Close"
-                      >
-                        <X size={24} strokeWidth={1.5} />
-                      </button>
-                      <div
-                        className="noteworthy-lightbox-inner"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        {section.image ? (
-                          <img
-                            src={section.image.src}
-                            alt={section.image.alt}
-                            className="noteworthy-lightbox-media"
-                          />
-                        ) : section.video ? (
-                          <video
-                            src={section.video.src}
-                            controls
-                            autoPlay
-                            className="noteworthy-lightbox-media"
-                          >
-                            Your browser does not support the video tag.
-                          </video>
-                        ) : null}
-                        {caption && (
-                          <p className="noteworthy-lightbox-caption">
-                            {caption}
-                          </p>
-                        )}
-                      </div>
-                    </div>,
-                    document.body,
-                  );
-                })()}
-            </div>
-          )}
+          <CaseNoteworthyIterations caseStudy={caseStudy} />
         </MotionSection>
       )}
     </div>

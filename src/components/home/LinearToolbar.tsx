@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { FileText, Mail, BookOpen, FlaskConical, Settings } from "lucide-react";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
+import { omantelCaseCardImageSrc } from "@/case-studies/omantel-card-preview";
 
 const EMAIL = "mrachana674@gmail.com";
 const MAIL_OPTIONS = [
@@ -28,7 +29,7 @@ const CASE_STUDIES = [
     subtitle:
       "Designing a self-serve bulk activation experience for enterprise customers",
     href: "/case/omantel-bulk-activation",
-    image: "/Bulk.png",
+    image: omantelCaseCardImageSrc,
   },
   {
     title: "Making Bulk Connectivity Purchases Transparent for Property Owners",

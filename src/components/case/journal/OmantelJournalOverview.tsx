@@ -3,6 +3,7 @@
 import Image from "next/image";
 import type { CaseStudy } from "@/case-studies/omantel";
 import { parseMadderSpans } from "@/lib/case-rich-text";
+import { cn } from "@/lib/utils";
 
 interface OmantelJournalOverviewProps {
   caseStudy: CaseStudy;
@@ -56,28 +57,37 @@ export function OmantelJournalOverview({
                       key={i}
                       className="ojo-impact-row ojo-impact-metric-box"
                     >
-                      <p className="ojo-impact-stat">
-                        <span className="ojo-impact-value">{b.value}</span>
-                        {b.labelItalic ? (
-                          <>
-                            {" "}
-                            <span
-                              className={
-                                b.labelItalic.startsWith("/")
-                                  ? "ojo-impact-suffix ojo-impact-suffix--scale"
-                                  : "ojo-impact-suffix"
-                              }
-                            >
-                              {b.labelItalic}
-                            </span>
-                          </>
-                        ) : null}
-                      </p>
+                      {b.value?.trim() || b.labelItalic?.trim() ? (
+                        <p className="ojo-impact-stat">
+                          <span className="ojo-impact-value">{b.value}</span>
+                          {b.labelItalic ? (
+                            <>
+                              {" "}
+                              <span
+                                className={
+                                  b.labelItalic.startsWith("/")
+                                    ? "ojo-impact-suffix ojo-impact-suffix--scale"
+                                    : "ojo-impact-suffix"
+                                }
+                              >
+                                {b.labelItalic}
+                              </span>
+                            </>
+                          ) : null}
+                        </p>
+                      ) : null}
                       {b.metaCaps ? (
                         <p className="ojo-impact-caps">{b.metaCaps}</p>
                       ) : null}
                       {b.metaDetail ? (
-                        <p className="ojo-impact-detail">{b.metaDetail}</p>
+                        <p
+                          className={cn(
+                            "ojo-impact-detail",
+                            b.metaDetailPlain && "ojo-impact-detail--plain",
+                          )}
+                        >
+                          {b.metaDetail}
+                        </p>
                       ) : null}
                     </li>
                   ))}

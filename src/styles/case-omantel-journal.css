@@ -182,6 +182,14 @@
   display: none;
 }
 
+/* Title sheet: two holes toward lower edge (drops duplicate “upper” binder marks). */
+.ojo-punch-holes--title {
+  justify-content: flex-end;
+  padding-top: clamp(72px, 14vw, 132px);
+  padding-bottom: 52px;
+  gap: clamp(26px, 6vw, 42px);
+}
+
 .ojo-punch-hole {
   width: 11px;
   height: 11px;
@@ -251,29 +259,9 @@
 }
 
 .ojo-title-copy-wrap {
-  display: grid;
-  grid-template-columns: 14px minmax(0, 1fr);
-  gap: 0 14px;
-  align-items: start;
   width: 100%;
   max-width: min(72%, 44rem);
   box-sizing: border-box;
-}
-
-.ojo-title-bullets {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(2.5rem, 6vw, 3.25rem);
-  padding-top: 0.5em;
-}
-
-.ojo-title-bullets span {
-  display: block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--ojo-ink);
-  flex-shrink: 0;
 }
 
 .ojo-title-copy-inner {
@@ -519,6 +507,13 @@
   color: var(--ojo-ink-mid);
 }
 
+.ojo-impact-detail--plain {
+  font-family: var(--font-heading);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
 .ojo-context-visuals {
   margin-top: 36px;
   display: flex;
@@ -716,12 +711,55 @@
   gap: 0;
 }
 
-.ojo-decision-carousel-slides {
+.ojo-decision-carousel-stage {
   position: relative;
   width: 100%;
   max-width: 740px;
+  flex-shrink: 0;
+}
+
+.ojo-decision-carousel-slides {
+  position: relative;
+  width: 100%;
   aspect-ratio: 16 / 9;
   flex-shrink: 0;
+}
+
+.ojo-decision-carousel-chev {
+  position: absolute;
+  top: 50%;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.22);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: color 0.2s ease;
+}
+
+.ojo-decision-carousel-chev:hover {
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.ojo-decision-carousel-chev:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.35);
+  outline-offset: 2px;
+}
+
+.ojo-decision-carousel-chev--prev {
+  left: clamp(0px, 1vw, 8px);
+}
+
+.ojo-decision-carousel-chev--next {
+  right: clamp(0px, 1vw, 8px);
 }
 
 .ojo-decision-slide {
@@ -962,6 +1000,14 @@
   color: var(--ojo-ink);
   margin-top: 28px;
   white-space: pre-line;
+}
+
+.cs-page--journal-omantel .ojo-noteworthy-wrap {
+  margin-top: clamp(var(--space-12), 4vw, var(--space-16));
+}
+
+.cs-page--journal-omantel .ojo-noteworthy-wrap .ojo-p-label {
+  margin-bottom: clamp(var(--space-6), 2vw, var(--space-8));
 }
 
 /* ─── Journal footer ─── */

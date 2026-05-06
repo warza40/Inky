@@ -7,6 +7,8 @@ import { OmantelJournalProblem } from "./OmantelJournalProblem";
 import { OmantelDecisionJournal } from "./OmantelDecisionJournal";
 import { OmantelJournalOutcome } from "./OmantelJournalOutcome";
 import { OmantelJournalFooter } from "./OmantelJournalFooter";
+import { CaseNoteworthyIterations } from "@/components/case/CaseNoteworthyIterations";
+import { getCaseVisualsPresentation } from "@/case-studies/case-visuals";
 
 const OMANTEL_SLUG = "omantel-bulk-activation";
 
@@ -22,6 +24,7 @@ export function OmantelCaseJournalMap({
 
   const s = caseStudy.sections;
   const nDecisions = s.decisions.length;
+  const visualsPresentation = getCaseVisualsPresentation(caseStudy);
 
   return (
     <div className="ojo-case-map">
@@ -60,6 +63,12 @@ export function OmantelCaseJournalMap({
           images={s.outcomeImages}
           reflection={s.reflection}
         />
+        {visualsPresentation.mode === "noteworthy" ? (
+          <div className="ojo-noteworthy-wrap">
+            <p className="ojo-p-label">Noteworthy iterations</p>
+            <CaseNoteworthyIterations caseStudy={caseStudy} />
+          </div>
+        ) : null}
       </MotionSection>
 
       <OmantelJournalFooter

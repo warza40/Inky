@@ -6,6 +6,7 @@ import { Linkedin, Mail, Download } from "lucide-react";
 import { TicketCard } from "./TicketCard";
 import { HeaderCard } from "./HeaderCard";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
+import { omantelCaseCardImageSrc } from "@/case-studies/omantel-card-preview";
 
 const EMAIL = "mrachana674@gmail.com";
 
@@ -95,7 +96,7 @@ export function BentoGrid() {
             title="Fixing the Fragility in Enterprise SIM Activation flows"
             subtitle="A system-level redesign inside a Telecom giant's enterprise portal"
             tag="B2B, UI/UX"
-            image="/Bulk.png"
+            image={omantelCaseCardImageSrc}
             href="/case/omantel-bulk-activation"
           />
         </div>

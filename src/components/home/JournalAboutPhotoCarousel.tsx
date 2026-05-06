@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export interface AboutCarouselSlide {
   src: string;
@@ -25,9 +26,34 @@ export function JournalAboutPhotoCarousel({
   const safe = ((index % n) + n) % n;
   const slide = slides[safe]!;
 
+  const go = (delta: number) => {
+    if (n < 2) return;
+    setIndex((i) => (((i + delta) % n) + n) % n);
+  };
+
   return (
     <div className="jl-about-carousel">
       <div className="jl-about-carousel-viewport">
+        {n > 1 ? (
+          <>
+            <button
+              type="button"
+              className="jl-about-carousel-chev jl-about-carousel-chev--prev"
+              aria-label="Previous photo"
+              onClick={() => go(-1)}
+            >
+              <ChevronLeft size={18} strokeWidth={1.15} aria-hidden />
+            </button>
+            <button
+              type="button"
+              className="jl-about-carousel-chev jl-about-carousel-chev--next"
+              aria-label="Next photo"
+              onClick={() => go(1)}
+            >
+              <ChevronRight size={18} strokeWidth={1.15} aria-hidden />
+            </button>
+          </>
+        ) : null}
         <Image
           key={slide.src + safe}
           src={slide.src}
