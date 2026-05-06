@@ -1,0 +1,1650 @@
+/* Journal homepage shell — layout, placement. Typography uses site (--font-*). */
+
+.home-layout--journal {
+  --jl-leather: #16100a;
+  --jl-cream: #ede5d0;
+  --jl-cream-dark: #e0d4b8;
+  --jl-aged: #d4c8a8;
+  --jl-ink: #1a140d;
+  --jl-ink-mid: #4a3d2e;
+  --jl-ink-faded: #7a6a54;
+  --jl-kraft: #c4a882;
+  /** Graph grid (hero / about sheets) vs ruled notebook (work + writing cards) */
+  --jl-grid-line: rgba(120, 95, 55, 0.09);
+  --jl-rule: rgba(120, 95, 55, 0.15);
+  --jl-margin-line: rgba(190, 65, 50, 0.16);
+  /** Ruled “legal pad” — horizontal lines only + red margin */
+  --jl-note-hline: rgba(98, 115, 135, 0.12);
+  --jl-note-line-step: 28px;
+  --jl-note-margin-red: rgba(206, 78, 52, 0.52);
+  --jl-note-margin-x: clamp(26px, 10%, 52px);
+  --jl-shadow-heavy: rgba(0, 0, 0, 0.55);
+  --jl-shadow-mid: rgba(0, 0, 0, 0.3);
+  /** Shared horizontal gutters + vertical space between stacked sections */
+  --jl-section-padding-x: clamp(24px, 5vw, 56px);
+  --jl-section-space: clamp(72px, 8vw, 96px);
+  /* Hero cream sheet: centered inset from leather — widened/taller sheet per comp */
+  --jl-hero-sheet-max: 1160px;
+  --jl-hero-sheet-min-h: clamp(500px, 54vw, 640px);
+  /** Must match inset on `.jl-hero-insert` paper so rails align with hero type */
+  --jl-sheet-pad-inline-start: clamp(44px, 6vw, 56px);
+  --jl-sheet-pad-inline-end: clamp(40px, 5vw, 52px);
+  position: relative;
+  isolation: isolate;
+  background: var(--jl-leather);
+  color: rgba(237, 230, 214, 0.88);
+}
+
+.home-layout--journal .jl-atmo {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.home-layout--journal .jl-atmo-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    rgba(196, 168, 130, 0.065) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+}
+
+.home-layout--journal .jl-atmo-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(0, 0, 0, 0.6) 0%, transparent 42%),
+    radial-gradient(ellipse at 100% 0%, rgba(0, 0, 0, 0.6) 0%, transparent 42%),
+    radial-gradient(
+      ellipse at 50% 50%,
+      rgba(140, 90, 30, 0.06) 0%,
+      transparent 70%
+    );
+}
+
+.home-layout--journal > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Nav — same sticky + frosted bar as global .home-header (ref layout) */
+.home-layout--journal .home-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-overlay);
+  height: 60px;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: max(var(--fluid-gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
+  background: var(--color-ground-primary);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dark .home-layout--journal .home-header {
+  background: var(--color-ink-900);
+  border-bottom-color: rgba(240, 236, 224, 0.08);
+}
+
+.home-layout--journal .jl-s-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 2;
+}
+
+.home-layout--journal .jl-s-num {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: rgba(240, 232, 216, 0.55);
+  flex-shrink: 0;
+}
+
+.home-layout--journal .jl-s-title {
+  font-family: var(--font-heading);
+  font-size: clamp(18px, 2.2vw, 26px);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(240, 232, 216, 0.9);
+  line-height: 1;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.home-layout--journal .jl-s-rule {
+  flex: 1;
+  height: 1px;
+  background: rgba(196, 168, 130, 0.2);
+}
+
+/* Paper base */
+.home-layout--journal .jl-paper {
+  background: var(--jl-cream);
+  background-image:
+    linear-gradient(var(--jl-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--jl-grid-line) 1px, transparent 1px);
+  background-size: 22px 22px;
+  border-radius: 2px;
+  position: relative;
+  color: var(--jl-ink);
+}
+
+.home-layout--journal .jl-paper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 52px;
+  width: 1px;
+  background: var(--jl-margin-line);
+  pointer-events: none;
+}
+
+.home-layout--journal .jl-paper-shadow {
+  box-shadow:
+    0 14px 52px var(--jl-shadow-heavy),
+    0 3px 10px var(--jl-shadow-mid),
+    inset 0 0 0 1px rgba(160, 130, 80, 0.1);
+}
+
+/**
+ * Card / writing bodies: ruled notebook — horizontal lines + red margin (~10%).
+ * Hero / inserts still use `.jl-paper` graph grid elsewhere.
+ */
+.home-layout--journal .jl-graph-paper-surface {
+  background-color: var(--jl-cream);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(var(--jl-note-line-step) - 1px),
+    var(--jl-note-hline) calc(var(--jl-note-line-step) - 1px),
+    var(--jl-note-hline) var(--jl-note-line-step)
+  );
+  position: relative;
+}
+
+.home-layout--journal .jl-graph-paper-surface--ruled::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--jl-note-margin-x);
+  width: 1px;
+  background: var(--jl-note-margin-red);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.home-layout--journal .jl-graph-paper-surface--ruled > * {
+  position: relative;
+  z-index: 1;
+}
+
+.home-layout--journal .jl-washi-seigaiha {
+  background-color: rgba(45, 105, 103, 0.85);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='16'%3E%3Cellipse cx='12' cy='16' rx='12' ry='9' stroke='rgba(255,255,255,0.25)' stroke-width='1' fill='none'/%3E%3Cellipse cx='0' cy='16' rx='12' ry='9' stroke='rgba(255,255,255,0.25)' stroke-width='1' fill='none'/%3E%3Cellipse cx='24' cy='16' rx='12' ry='9' stroke='rgba(255,255,255,0.25)' stroke-width='1' fill='none'/%3E%3Cellipse cx='6' cy='7' rx='12' ry='9' stroke='rgba(255,255,255,0.15)' stroke-width='1' fill='none'/%3E%3Cellipse cx='18' cy='7' rx='12' ry='9' stroke='rgba(255,255,255,0.15)' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+  background-size: 24px 16px;
+}
+
+/* ── Hero journal ─────────────────────────────── */
+.home-layout--journal .jl-hero {
+  position: relative;
+  min-height: min(97vh, 1000px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px var(--jl-section-padding-x) calc(var(--jl-section-space) + 12px);
+}
+
+.home-layout--journal .jl-hero-journal {
+  position: relative;
+  width: 100%;
+  max-width: var(--jl-hero-sheet-max);
+  margin-inline: auto;
+  min-height: var(--jl-hero-sheet-min-h);
+}
+
+.home-layout--journal .jl-hero-back {
+  position: absolute;
+  inset: 8px 0 0;
+  background: var(--jl-cream-dark);
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 22px,
+    rgba(140, 110, 65, 0.1) 22px,
+    rgba(140, 110, 65, 0.1) 23px
+  );
+  border-radius: 2px;
+  transform: rotate(1.2deg);
+  box-shadow: 4px 8px 28px rgba(0, 0, 0, 0.45);
+}
+
+.home-layout--journal .jl-hero-tape-l {
+  position: absolute;
+  left: -10px;
+  top: 72px;
+  width: 29px;
+  height: 88px;
+  border-radius: 1px;
+  z-index: 20;
+}
+
+/* Resume Post-it + brass clip — lives on hero insert so it actually stacks on the paper */
+.home-layout--journal .jl-sticky-on-insert {
+  position: absolute;
+  /* Pull up past the inset; +10px so clip tab clears rounded paper edge */
+  top: clamp(-18px, calc(-0.65vw - 10px), -14px);
+  right: var(--jl-sheet-pad-inline-end);
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+.home-layout--journal .jl-sticky-on-insert:hover .jl-sticky-body {
+  transform: rotate(-2.25deg) translateY(-5px);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.home-layout--journal .jl-sticky-clip-over {
+  order: -1;
+  position: relative;
+  z-index: 2;
+  margin-bottom: clamp(-16px, -2vw, -12px);
+  pointer-events: none;
+  line-height: 0;
+}
+
+.home-layout--journal .jl-clip-svg--sticky-hero {
+  display: block;
+}
+
+.home-layout--journal .jl-sticky-clip-over .pc-index-clip-svg {
+  display: block;
+  width: clamp(52px, 6.5vw, 64px);
+  height: auto;
+}
+
+.home-layout--journal .jl-sticky-body {
+  order: 1;
+  pointer-events: auto;
+  width: clamp(152px, 18vw, 174px);
+  min-height: clamp(118px, 13vw, 138px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #f7eba8;
+  padding: 22px 14px 18px;
+  transform: rotate(-2.25deg);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  border-radius: 2px;
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s;
+  position: relative;
+  z-index: 1;
+  margin-top: 0;
+  text-decoration: none;
+  text-align: center;
+}
+
+.home-layout--journal .jl-sticky-body::before {
+  content: "";
+  position: absolute;
+  inset: 38px 10px 16px;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 15px,
+    rgba(120, 100, 20, 0.11) 15px,
+    rgba(120, 100, 20, 0.11) 16px
+  );
+  pointer-events: none;
+}
+
+.home-layout--journal .jl-sticky-body::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-style: solid;
+  border-width: 0 0 15px 15px;
+  border-color: transparent transparent rgba(200, 180, 50, 0.4) transparent;
+}
+
+.home-layout--journal .jl-sticky-lbl {
+  font-family: var(--font-body);
+  font-size: 7px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(80, 62, 12, 0.42);
+  line-height: 1.35;
+}
+
+.home-layout--journal .jl-sticky-txt {
+  font-family: var(--font-body);
+  font-size: 11px;
+  line-height: 1.42;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: none;
+  color: rgba(38, 28, 8, 0.9);
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.home-layout--journal .jl-hero-insert {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto;
+  /* Rounded paper must not clip the bookmark filter / tab */
+  overflow: visible;
+}
+
+@media (max-width: 900px) {
+  .home-layout--journal {
+    --jl-sheet-pad-inline-start: clamp(44px, 8vw, 56px);
+    --jl-sheet-pad-inline-end: clamp(24px, 5vw, 40px);
+  }
+
+  .home-layout--journal .jl-hero-insert {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    position: relative;
+  }
+
+  .home-layout--journal .jl-hero-journal {
+    min-height: unset;
+    padding-bottom: 24px;
+  }
+
+  .home-layout--journal .jl-sticky-on-insert {
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+    grid-column: 1 / -1;
+    justify-self: end;
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-4);
+    pointer-events: auto;
+    transform: translateY(-10px);
+  }
+
+  .home-layout--journal .jl-hero-top {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    row-gap: 0;
+    padding: 36px var(--jl-sheet-pad-inline-end) 16px
+      var(--jl-sheet-pad-inline-start);
+  }
+
+  .home-layout--journal .jl-hero-g-eyebrow,
+  .home-layout--journal .jl-hero-g-head,
+  .home-layout--journal .jl-hero-g-cap {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .home-layout--journal .jl-hero-g-cap {
+    margin-top: 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--jl-rule);
+  }
+
+  .home-layout--journal .jl-hero-bottom {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+  }
+
+  .home-layout--journal .jl-hero-actions {
+    padding: 0 var(--jl-sheet-pad-inline-end) 12px
+      var(--jl-sheet-pad-inline-start);
+  }
+
+  .home-layout--journal .jl-hero-bottom .jl-hero-tags {
+    padding: 0 var(--jl-sheet-pad-inline-end) 32px
+      var(--jl-sheet-pad-inline-start);
+    align-content: flex-start;
+  }
+}
+
+.home-layout--journal .jl-punch-holes {
+  position: absolute;
+  left: 12px;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 56px 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.home-layout--journal .jl-punch-hole {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--jl-leather);
+  border: 0.5px solid rgba(120, 95, 55, 0.22);
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.55),
+    0 0 0 2px rgba(180, 155, 110, 0.06);
+}
+
+.home-layout--journal .jl-hero-top {
+  grid-column: 1 / -1;
+  display: grid;
+  /* Single column — full paper width for bio (no empty “right column” rail) */
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto auto;
+  align-items: start;
+  column-gap: 0;
+  row-gap: 10px;
+  padding: 48px var(--jl-sheet-pad-inline-end) 20px
+    var(--jl-sheet-pad-inline-start);
+}
+
+.home-layout--journal .jl-hero-g-eyebrow {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.home-layout--journal .jl-hero-g-head {
+  grid-column: 1;
+  grid-row: 2;
+  margin: 0;
+  max-width: none;
+}
+
+.home-layout--journal .jl-hero-g-cap {
+  grid-column: 1;
+  grid-row: 3;
+  margin: 0;
+  padding: 14px 0 0;
+  border-top: 1px solid var(--jl-rule);
+  align-self: start;
+  max-width: none;
+}
+
+.home-layout--journal .jl-hero-bottom {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+}
+
+.home-layout--journal .jl-hero-actions {
+  padding: 0 clamp(38px, 4.5vw, 44px) 40px var(--jl-sheet-pad-inline-start);
+}
+
+.home-layout--journal .jl-hero-bottom .jl-hero-tags {
+  padding: 0 var(--jl-sheet-pad-inline-end) 40px clamp(36px, 4vw, 40px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-content: flex-end;
+  justify-content: flex-start;
+}
+
+.home-layout--journal .jl-h-eyebrow {
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--jl-ink-faded);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.home-layout--journal .jl-h-eyebrow::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--jl-rule);
+}
+
+/* Journal hero bio — +30px on prior clamp (−50px term); fluid + min scale, roomy max */
+.home-layout--journal .jl-hero-bio-heading {
+  font-family: var(--font-heading);
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-size: clamp(48px, calc(4.2vw + 1.25rem - 20px), 96px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--jl-ink);
+  margin: 0 0 var(--space-5);
+  max-width: none;
+  text-wrap: pretty;
+}
+
+.home-layout--journal .jl-hero-bio-heading .home-hero-em {
+  font-family: var(--font-heading);
+  font-style: normal;
+  font-synthesis: none;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.home-layout--journal .jl-btn-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px clamp(16px, 2vw, 24px);
+}
+
+/* Ghost sits flush beside primary (ref: VIEW WORK + ABOUT ME one row) */
+.home-layout--journal .jl-hero-actions .jl-btn-ghost {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.home-layout--journal .jl-hero-actions .jl-btn-ghost:hover {
+  border-bottom: 1px solid rgba(120, 95, 55, 0.45);
+  padding-bottom: 2px;
+}
+
+.home-layout--journal .jl-btn-primary {
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #f0e8d8;
+  background: var(--jl-ink);
+  padding: 11px 22px;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background 0.2s;
+  border: none;
+}
+
+.home-layout--journal .jl-btn-primary:hover {
+  background: #2e2010;
+  color: #f0e8d8;
+}
+
+.home-layout--journal .jl-btn-ghost {
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--jl-ink-faded);
+  text-decoration: none;
+  border-bottom: 1px solid var(--jl-rule);
+  padding-bottom: 2px;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.home-layout--journal .jl-btn-ghost:hover {
+  color: var(--jl-ink);
+  border-color: rgba(120, 95, 55, 0.45);
+}
+
+.home-layout--journal .jl-caption-on-right.home-hero-caption {
+  margin: 0;
+  padding: 12px 0 0;
+  border-top: 1px solid var(--jl-rule);
+  font-family: var(--font-body);
+  font-size: clamp(16px, 0.85vw + 14px, 18px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: normal;
+  color: var(--jl-ink);
+  max-width: none;
+}
+
+/* Hero: subtext under headline — spans same width as headline */
+.home-layout--journal .jl-hero-top .jl-hero-g-cap.home-hero-caption {
+  padding: 14px 0 0;
+  max-width: none;
+}
+
+.home-layout--journal .jl-hero-bio-heading.jl-hero-g-head {
+  margin: 0;
+}
+
+.home-layout--journal .jl-mini-tag {
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border: 1px solid rgba(120, 95, 55, 0.22);
+  color: var(--jl-ink-faded);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.home-layout--journal .jl-scroll-hint {
+  position: absolute;
+  bottom: -56px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 20;
+}
+
+.home-layout--journal .jl-scroll-hint span {
+  font-family: var(--font-body);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: rgba(196, 168, 130, 0.32);
+}
+
+.home-layout--journal .jl-scroll-line {
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(rgba(196, 168, 130, 0.32), transparent);
+  animation: jl-pulse-line 2.4s ease-in-out infinite;
+}
+
+@keyframes jl-pulse-line {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+.home-layout--journal .jl-scroll-hint.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+/* ── Work (journal composition) ─────────────── */
+.home-layout--journal .jl-work-section {
+  padding: 0 var(--jl-section-padding-x);
+  background: transparent;
+  border-top: none;
+}
+
+.home-layout--journal .jl-work-section .work-divider {
+  background: rgba(196, 168, 130, 0.12);
+}
+
+.home-layout--journal .jl-work-section .work-tab {
+  color: rgba(196, 168, 130, 0.4);
+}
+
+.home-layout--journal .jl-work-section .work-tab.active {
+  color: rgba(237, 220, 180, 0.95);
+}
+
+.home-layout--journal .jl-work-section .work-tab.active::after {
+  background: var(--jl-kraft);
+}
+
+.home-layout--journal .jl-work-subgrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(18px, 2.8vw, 24px);
+  align-items: stretch;
+  justify-items: stretch;
+}
+
+/* Equal-width columns: links are flex containers; min-width:auto can skew track sizing */
+.home-layout--journal .jl-work-subgrid > .wc-card {
+  justify-self: stretch;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.home-layout--journal .jl-work-subgrid .wc-card-body {
+  min-width: 0;
+}
+
+.home-layout--journal .jl-work-subgrid .wc-card-title {
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .home-layout--journal .jl-work-subgrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.home-layout--journal .jl-work-section-inner {
+  box-sizing: border-box;
+  max-width: var(--jl-hero-sheet-max);
+  margin-inline: auto;
+  padding: var(--jl-section-space) var(--jl-sheet-pad-inline-end)
+    var(--jl-section-space) var(--jl-sheet-pad-inline-start);
+}
+
+.home-layout--journal .jl-work-section .jl-work-tabs {
+  margin-bottom: 12px;
+}
+
+/* ── Work cards (journal) — hero band + ruled notebook body ── */
+.home-layout--journal .jl-work-subgrid > .jl-wc-card--featured {
+  grid-column: 1 / -1;
+  container-type: inline-size;
+}
+
+.home-layout--journal .jl-wc-card--featured .jl-wc-hero--featured {
+  aspect-ratio: auto;
+  width: 100%;
+  height: max(148px, calc(50cqw - 20px));
+  flex-shrink: 0;
+}
+
+.home-layout--journal .jl-work-subgrid .jl-wc-card {
+  border: 1px solid rgba(120, 95, 55, 0.22);
+  border-radius: 2px;
+  background: transparent;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.home-layout--journal .jl-work-subgrid .jl-wc-card:hover {
+  border-color: rgba(190, 155, 110, 0.45);
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.42);
+  transform: translateY(-2px);
+}
+
+.home-layout--journal .jl-wc-hero-wrap {
+  position: relative;
+}
+
+.home-layout--journal .jl-wc-tape {
+  position: absolute;
+  top: -8px;
+  left: 14px;
+  width: 64px;
+  height: 28px;
+  z-index: 5;
+  border-radius: 4px;
+  transform: rotate(-3deg);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.38);
+  pointer-events: none;
+}
+
+.home-layout--journal .jl-wc-tape--red {
+  background: linear-gradient(165deg, #c25545 0%, #9a3a2f 100%);
+  background-image:
+    repeating-linear-gradient(
+      -12deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.12) 2px,
+      rgba(255, 255, 255, 0.12) 3px
+    ),
+    linear-gradient(165deg, #c25545 0%, #9a3a2f 100%);
+}
+
+.home-layout--journal .jl-wc-tape--teal {
+  background-color: rgba(45, 105, 103, 0.92);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='16'%3E%3Cellipse cx='12' cy='16' rx='12' ry='9' stroke='rgba(255,255,255,0.25)' stroke-width='1' fill='none'/%3E%3Cellipse cx='0' cy='16' rx='12' ry='9' stroke='rgba(255,255,255,0.25)' stroke-width='1' fill='none'/%3E%3Cellipse cx='24' cy='16' rx='12' ry='9' stroke='rgba(255,255,255,0.25)' stroke-width='1' fill='none'/%3E%3Cellipse cx='6' cy='7' rx='12' ry='9' stroke='rgba(255,255,255,0.15)' stroke-width='1' fill='none'/%3E%3Cellipse cx='18' cy='7' rx='12' ry='9' stroke='rgba(255,255,255,0.15)' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+  background-size: 28px 20px;
+}
+
+.home-layout--journal .jl-wc-tape--gold {
+  background: linear-gradient(125deg, #c4933a 0%, #8a6618 100%);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Ctext x='5' y='8' font-size='6' fill='rgba(255,255,255,0.25)' text-anchor='middle'%3E✦%3C/text%3E%3C/svg%3E"),
+    linear-gradient(125deg, #c4933a 0%, #8a6618 100%);
+  background-size:
+    12px 12px,
+    100% 100%;
+}
+
+.home-layout--journal .jl-wc-hero--featured {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 23px,
+    rgba(240, 236, 224, 0.05) 23px,
+    rgba(240, 236, 224, 0.05) 24px
+  );
+}
+
+.home-layout--journal .jl-wc-hero-faded-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+.home-layout--journal .jl-wc-hero-wireframe {
+  position: relative;
+  z-index: 2;
+  opacity: 0.95;
+}
+
+.home-layout--journal .jl-wc-hero-meta {
+  position: absolute;
+  bottom: 14px;
+  right: 16px;
+  z-index: 3;
+  margin: 0;
+  max-width: 55%;
+  text-align: right;
+  font-family: var(--font-body);
+  font-size: clamp(8px, 1.2vw, 9px);
+  letter-spacing: 0.14em;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: rgba(237, 230, 214, 0.72);
+  line-height: 1.35;
+}
+
+.home-layout--journal .jl-wc-paper {
+  background-color: var(--jl-cream);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(var(--jl-note-line-step) - 1px),
+    var(--jl-note-hline) calc(var(--jl-note-line-step) - 1px),
+    var(--jl-note-hline) var(--jl-note-line-step)
+  );
+  color: var(--jl-ink);
+  box-sizing: border-box;
+  position: relative;
+}
+
+.home-layout--journal .jl-wc-paper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--jl-note-margin-x);
+  width: 1px;
+  background: var(--jl-note-margin-red);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.home-layout--journal .jl-wc-paper > * {
+  position: relative;
+  z-index: 1;
+}
+
+.home-layout--journal .jl-wc-paper--split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: 0;
+  align-items: stretch;
+  padding: clamp(22px, 3.2vw, 32px) clamp(20px, 3vw, 32px)
+    clamp(26px, 3.8vw, 36px) calc(var(--jl-note-margin-x) + 12px);
+  border-top: 1px solid rgba(120, 95, 55, 0.12);
+}
+
+.home-layout--journal .jl-wc-paper--minimal {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: clamp(26px, 4vw, 36px) clamp(22px, 4vw, 40px)
+    clamp(30px, 4.5vw, 42px) calc(var(--jl-note-margin-x) + 12px);
+  border-top: 1px solid rgba(120, 95, 55, 0.12);
+}
+
+.home-layout--journal .jl-wc-paper--minimal .jl-wc-paper-title {
+  margin-bottom: clamp(14px, 2.8vw, 22px);
+  max-width: 34ch;
+}
+
+.home-layout--journal .jl-wc-paper-title--highlight .jl-wc-paper-title-strong {
+  font-weight: 600;
+}
+
+.home-layout--journal .jl-wc-paper-title--highlight .jl-wc-paper-title-em {
+  font-style: italic;
+  font-weight: 450;
+  color: rgba(40, 32, 22, 0.88);
+}
+
+.home-layout--journal .jl-wc-paper-title-sep {
+  font-style: normal;
+  font-weight: 400;
+  color: rgba(74, 61, 46, 0.45);
+}
+
+.home-layout--journal .jl-wc-wip-stamp {
+  align-self: center;
+  margin: 0;
+  padding: 0.4rem 0.95rem;
+  border: 2px solid #b91c1c;
+  border-radius: 2px;
+  color: #991b1b;
+  background: rgba(185, 28, 28, 0.06);
+  font-family: var(--font-body);
+  font-size: clamp(9px, 1.25vw, 10px);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  transform: rotate(-3deg);
+  box-shadow:
+    inset 0 0 0 1px rgba(153, 27, 27, 0.12),
+    0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.home-layout--journal .jl-wc-hero-glyph-grid {
+  transform: scale(1.05);
+}
+
+.home-layout--journal .jl-wc-split-col--main {
+  padding-right: clamp(18px, 2.8vw, 28px);
+  min-width: 0;
+}
+
+.home-layout--journal .jl-wc-split-col--rail {
+  position: relative;
+  padding-left: clamp(18px, 2.8vw, 28px);
+  border-left: 1px solid var(--jl-rule);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2vw, 22px);
+  min-width: 0;
+}
+
+.home-layout--journal .jl-wc-num-line {
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--jl-ink-faded);
+  margin: 0 0 14px;
+}
+
+.home-layout--journal .jl-wc-paper-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+  color: var(--jl-ink);
+}
+
+.home-layout--journal .jl-wc-paper-title--compact {
+  font-size: clamp(1rem, 1.85vw, 1.22rem);
+  margin-bottom: 10px;
+}
+
+.home-layout--journal .jl-wc-paper-desc {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 1.65vw, 14px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--jl-ink-mid);
+  margin: 0 0 clamp(18px, 2.5vw, 24px);
+}
+
+.home-layout--journal .jl-wc-skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: auto 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-layout--journal .jl-wc-skill-tags--mini {
+  margin-top: clamp(14px, 2vw, 18px);
+}
+
+.home-layout--journal .jl-wc-skill-tag {
+  font-family: var(--font-body);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 5px 9px;
+  border: 1px solid rgba(120, 95, 55, 0.28);
+  border-radius: 2px;
+  color: rgba(74, 61, 46, 0.88);
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.home-layout--journal .jl-wc-client-line {
+  margin: 0;
+  align-self: flex-end;
+  text-align: right;
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--jl-ink-faded);
+  line-height: 1.4;
+}
+
+.home-layout--journal .jl-wc-quote {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: var(--font-serif);
+  font-size: clamp(13px, 1.85vw, 15px);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgba(40, 32, 22, 0.88);
+  flex: 1;
+}
+
+.home-layout--journal .jl-wc-deco-sim {
+  align-self: flex-end;
+  margin-top: auto;
+  opacity: 0.92;
+}
+
+.home-layout--journal .jl-wc-status-line {
+  margin: 0;
+  align-self: flex-start;
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--jl-ink-faded);
+}
+
+.home-layout--journal .jl-wc-paper--compact {
+  flex: 1;
+  padding: clamp(18px, 2.8vw, 24px) clamp(18px, 2.6vw, 24px)
+    clamp(22px, 3.2vw, 28px) calc(var(--jl-note-margin-x) + 11px);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.home-layout--journal .jl-work-subgrid .jl-wc-card--compact {
+  min-height: 100%;
+}
+
+@media (max-width: 720px) {
+  .home-layout--journal .jl-wc-paper--split {
+    grid-template-columns: 1fr;
+  }
+
+  .home-layout--journal .jl-wc-split-col--rail {
+    border-left: none;
+    border-top: 1px solid var(--jl-rule);
+    padding-left: 0;
+    padding-top: clamp(22px, 4vw, 28px);
+  }
+
+  .home-layout--journal .jl-wc-split-col--main {
+    padding-right: 0;
+  }
+
+  .home-layout--journal .jl-wc-client-line {
+    align-self: flex-start;
+    text-align: left;
+  }
+
+  .home-layout--journal .jl-wc-deco-sim {
+    align-self: center;
+  }
+}
+
+/* Journal compact tiles: quieter grid, no bottom phase bar */
+.home-layout--journal .wc-tile-panel.jl-wc-tile-panel--journal .wc-tile-grid {
+  opacity: 0.35;
+}
+
+/* Journal compact work hero: faint horizontal ruling on dark band (match card ref) */
+.home-layout--journal .jl-wc-hero-wrap .wc-tile-panel::before {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 23px,
+    rgba(240, 236, 224, 0.068) 23px,
+    rgba(240, 236, 224, 0.068) 24px
+  );
+  background-size: auto;
+  opacity: 0.95;
+}
+
+.home-layout--journal
+  .wc-tile-panel.jl-wc-tile-panel--journal.wc-tile-panel--has-image::before {
+  opacity: 0.38;
+}
+
+.home-layout--journal .jl-hide-work-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Writing (journal stripe) ───────────────── */
+.home-layout--journal .writing-section.jl-writing-patch {
+  padding: 0 var(--jl-section-padding-x);
+  background: transparent;
+  border-top: 1px solid rgba(196, 168, 130, 0.1);
+}
+
+.home-layout--journal .jl-writing-inner {
+  box-sizing: border-box;
+  max-width: var(--jl-hero-sheet-max);
+  margin-inline: auto;
+  padding: var(--jl-section-space) var(--jl-sheet-pad-inline-end)
+    var(--jl-section-space) var(--jl-sheet-pad-inline-start);
+}
+
+.home-layout--journal .jl-writing-patch .writing-section-label,
+.home-layout--journal .jl-writing-patch .writing-section-headline {
+  color: rgba(246, 236, 220, 0.92);
+}
+
+.home-layout--journal .jl-writing-patch .writing-section-link {
+  color: rgba(196, 168, 130, 0.55);
+}
+
+.home-layout--journal .jl-writing-patch .writing-divider {
+  background: rgba(196, 168, 130, 0.12);
+}
+
+/* Writing cards: notebook paper body + faint ruled overlay on thumbnails */
+.home-layout--journal .jl-writing-patch .wr-card {
+  border-color: rgba(120, 95, 55, 0.24);
+  background: rgba(0, 0, 0, 0.18);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.35);
+}
+
+.home-layout--journal .jl-writing-patch .wr-info {
+  padding: clamp(16px, 2.2vw, 20px) clamp(16px, 2.2vw, 20px)
+    clamp(18px, 2.5vw, 22px) calc(var(--jl-note-margin-x) + 11px);
+  border-top: 1px solid rgba(120, 95, 55, 0.12);
+}
+
+.home-layout--journal .jl-writing-patch .wr-type {
+  color: rgba(120, 70, 55, 0.65);
+}
+
+.home-layout--journal .jl-writing-patch .wr-type-muted {
+  color: var(--jl-ink-faded);
+}
+
+.home-layout--journal .jl-writing-patch .wr-title {
+  color: var(--jl-ink);
+}
+
+.home-layout--journal .jl-writing-patch .wr-desc {
+  color: var(--jl-ink-mid);
+  font-style: normal;
+}
+
+.home-layout--journal .jl-writing-patch .wr-visual {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(var(--jl-note-line-step) - 1px),
+    rgba(240, 236, 224, 0.07) calc(var(--jl-note-line-step) - 1px),
+    rgba(240, 236, 224, 0.07) var(--jl-note-line-step)
+  );
+}
+
+.home-layout--journal .jl-writing-patch .wr-visual--photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(var(--jl-note-line-step) - 1px),
+    rgba(230, 236, 244, 0.11) calc(var(--jl-note-line-step) - 1px),
+    rgba(230, 236, 244, 0.11) var(--jl-note-line-step)
+  );
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.home-layout--journal .jl-writing-patch .wr-visual--photo .wr-visual-img {
+  z-index: 0;
+}
+
+/* ── About journal insert ───────────────────── */
+.home-layout--journal .jl-about-outer {
+  padding: var(--jl-section-space) var(--jl-section-padding-x)
+    var(--jl-section-space);
+}
+
+.home-layout--journal .jl-about-outer > .jl-s-header {
+  box-sizing: border-box;
+  max-width: var(--jl-hero-sheet-max);
+  margin-inline: auto;
+  padding-inline: var(--jl-sheet-pad-inline-start)
+    var(--jl-sheet-pad-inline-end);
+}
+
+.home-layout--journal section.about-section.jl-about-wrap {
+  background: transparent;
+  border-top: 1px solid rgba(196, 168, 130, 0.1);
+  padding: 0;
+}
+
+.home-layout--journal .jl-about-insert {
+  box-sizing: border-box;
+  max-width: var(--jl-hero-sheet-max);
+  margin-inline: auto;
+  overflow: visible;
+}
+
+.home-layout--journal .jl-about-insert.jl-paper::before {
+  left: 52px;
+}
+
+.home-layout--journal .jl-about-clip-left .pc-index-clip-on-paper {
+  display: block;
+  transform-origin: 42% 50%;
+  filter: drop-shadow(2px 3px 7px rgba(0, 0, 0, 0.55))
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+}
+
+.home-layout--journal .jl-about-clip-left .pc-index-clip-svg {
+  width: clamp(54px, 6.8vw, 64px);
+  height: auto;
+}
+
+.home-layout--journal .jl-about-clip-left {
+  position: absolute;
+  left: clamp(-34px, -4vw, -26px);
+  top: 62px;
+  z-index: 25;
+}
+
+.home-layout--journal .jl-about-tape {
+  position: absolute;
+  top: -9px;
+  left: clamp(72px, 12vw, 120px);
+  width: 100px;
+  height: 20px;
+  border-radius: 1px;
+  transform: rotate(-0.6deg);
+  z-index: 20;
+}
+
+.home-layout--journal .jl-washi-asanoha {
+  background-color: rgba(172, 135, 42, 0.85);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpolygon points='11,2 13,8 19,8 14,12 16,19 11,15 6,19 8,12 3,8 9,8' stroke='rgba(255,255,255,0.3)' stroke-width='0.8' fill='none'/%3E%3Ccircle cx='11' cy='11' r='2.5' stroke='rgba(255,255,255,0.2)' stroke-width='0.8' fill='none'/%3E%3C/svg%3E");
+  background-size: 22px 22px;
+}
+
+.home-layout--journal .jl-punch-holes-r {
+  left: auto;
+  right: 12px;
+}
+
+.home-layout--journal .jl-about-body-inner {
+  padding: 56px 48px 48px clamp(52px, 7vw, 68px);
+  position: relative;
+  z-index: 2;
+}
+
+.home-layout--journal .jl-about-main-grid {
+  display: grid;
+  grid-template-columns: minmax(160px, min(268px, 30%)) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 44px);
+  align-items: start;
+}
+
+@media (max-width: 840px) {
+  .home-layout--journal .jl-about-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.home-layout--journal .jl-about-visual-col {
+  position: relative;
+  justify-self: start;
+  width: 100%;
+  max-width: min(268px, 100%);
+}
+
+.home-layout--journal .jl-photo-clip {
+  position: absolute;
+  left: clamp(-26px, -3vw, -18px);
+  top: 10px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.home-layout--journal .jl-photo-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 24px;
+}
+
+.home-layout--journal .jl-photo-bars span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  border-radius: 1px;
+  background: linear-gradient(90deg, #a67c18, #e8cc80, #7a6210);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+}
+
+.home-layout--journal .jl-about-carousel {
+  position: relative;
+  width: 100%;
+}
+
+.home-layout--journal .jl-about-carousel-viewport {
+  position: relative;
+  border-radius: 2px;
+  overflow: hidden;
+  background: rgba(130, 145, 155, 0.22);
+}
+
+.home-layout--journal .jl-about-carousel-img {
+  width: 100%;
+  height: auto;
+  max-height: min(340px, 38vw);
+  object-fit: cover;
+  object-position: center 22%;
+  display: block;
+}
+
+@media (max-width: 840px) {
+  .home-layout--journal .jl-about-visual-col {
+    max-width: 100%;
+    justify-self: center;
+  }
+
+  .home-layout--journal .jl-about-carousel-img {
+    max-height: min(380px, 72vw);
+  }
+}
+
+.home-layout--journal .jl-about-carousel-caption {
+  position: absolute;
+  bottom: 12px;
+  right: 14px;
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+}
+
+.home-layout--journal .jl-about-carousel-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.home-layout--journal .jl-about-carousel-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  padding: 0;
+  border: none;
+  background: rgba(120, 95, 55, 0.35);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.home-layout--journal .jl-about-carousel-dot.is-active {
+  background: rgba(38, 30, 20, 0.78);
+  transform: scale(1.2);
+}
+
+.home-layout--journal .jl-about-text-col {
+  min-width: 0;
+  padding-top: 4px;
+}
+
+.home-layout--journal .jl-about-copy-block {
+  margin-bottom: clamp(26px, 3.5vw, 36px);
+}
+
+.home-layout--journal .jl-about-copy-block:last-of-type {
+  margin-bottom: 0;
+}
+
+.home-layout--journal .jl-about-copy-eyebrow {
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(120, 95, 55, 0.5);
+  margin: 0 0 12px;
+}
+
+.home-layout--journal .jl-about-copy-block .about-intro-para {
+  margin-top: 0;
+}
+
+.home-layout--journal .jl-about-currently-inline {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.home-layout--journal .jl-about-currently-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--jl-ink);
+  flex-shrink: 0;
+  margin-top: 0.45em;
+}
+
+/* Approach post-it — pulled in 50px from full-bleed text width */
+.home-layout--journal .jl-about-approach {
+  margin-top: clamp(36px, 5vw, 52px);
+  padding-top: clamp(28px, 4vw, 40px);
+  border-top: 1px solid var(--jl-rule);
+  max-width: calc(100% - 50px);
+  box-sizing: border-box;
+}
+
+.home-layout--journal .jl-about-approach-eyebrow {
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(120, 95, 55, 0.5);
+  margin: 0 0 14px;
+}
+
+.home-layout--journal .jl-about-approach-card {
+  background: #f7eba8;
+  /* Baseline ink so list/step text never inherits light `text-foreground` in dark theme */
+  color: rgba(32, 24, 6, 0.95);
+  padding: clamp(14px, 2vw, 20px) clamp(14px, 2.2vw, 22px);
+  border-radius: 2px;
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  position: relative;
+  isolation: isolate;
+}
+
+.home-layout--journal .jl-about-approach-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-style: solid;
+  border-width: 0 0 14px 14px;
+  border-color: transparent transparent rgba(200, 180, 50, 0.45) transparent;
+  pointer-events: none;
+}
+
+.home-layout--journal .jl-about-approach-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 18px);
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 720px) {
+  .home-layout--journal .jl-about-approach-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .home-layout--journal .jl-about-approach-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+.home-layout--journal .jl-about-approach-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.home-layout--journal .jl-about-approach-step-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.home-layout--journal .jl-about-approach-step-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-layout--journal .jl-about-approach-step-label {
+  font-family: var(--font-body);
+  font-size: clamp(9px, 2.1vw, 10px);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(60, 48, 12, 0.88);
+  max-width: 100%;
+  line-height: 1.35;
+}
+
+.home-layout--journal .jl-about-approach-step-sub {
+  font-family: var(--font-body);
+  font-size: clamp(11px, 2.65vw, 12px);
+  font-style: italic;
+  font-weight: 400;
+  font-synthesis: none;
+  line-height: 1.45;
+  color: rgba(28, 22, 6, 0.92);
+  max-width: 100%;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+
+.home-layout--journal .jl-about-insert .about-section-headline {
+  color: var(--jl-ink);
+}
+
+.home-layout--journal .jl-about-insert .writing-section-label,
+.home-layout--journal .jl-about-insert .about-section-label {
+  color: rgba(120, 70, 55, 0.55);
+}
+
+.home-layout--journal .jl-about-insert .about-intro-para {
+  font-family: var(--font-body);
+  color: var(--jl-ink);
+  font-style: normal;
+}
+
+@media (max-width: 640px) {
+  .home-layout--journal .home-header-nav {
+    display: none;
+  }
+}
+
+/* Homepage shell: leather canvas replaces parchment grid when journal hero is active */
+.home-page-main:has(.home-layout--journal) {
+  background-color: #16100a !important;
+}
+
+.home-page-main:has(.home-layout--journal) .home-bg-grid {
+  opacity: 0;
+}

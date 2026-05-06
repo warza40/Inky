@@ -53,11 +53,15 @@ type CaseStudyDirectionOptions = {
   metaLine?: string;
   problemStatement?: string;
   role?: string;
-  year?: string;
   /** Drives hero wash + `cs-hero-band--*` fallback unless `heroWashStops` is set */
   warmthTheme?: CaseStudyWarmthTheme;
   /** Override wash stops (advanced) */
   heroWashStops?: ReadonlyArray<WarmthWashStop>;
+  /**
+   * When false, renders only the reading-progress bar — no gradient hero band —
+   * for layouts that replace the hero with a bespoke stack (e.g. journal Omantel).
+   */
+  showHeroBand?: boolean;
 };
 
 export function CaseStudyDirection({
@@ -65,9 +69,9 @@ export function CaseStudyDirection({
   metaLine,
   problemStatement,
   role,
-  year,
   warmthTheme = "madder",
   heroWashStops,
+  showHeroBand = true,
 }: CaseStudyDirectionOptions) {
   const washStops = heroWashStops ?? WASH_BY_THEME[warmthTheme];
   const progressRef = useRef<HTMLDivElement | null>(null);
@@ -93,7 +97,7 @@ export function CaseStudyDirection({
     let paintHero: (() => void) | null = null;
     const onResizeHandlers: Array<() => void> = [];
 
-    if (heroCanvas) {
+    if (showHeroBand && heroCanvas) {
       const hctx = heroCanvas.getContext("2d");
       if (hctx) {
         paintHero = () => {
@@ -170,38 +174,41 @@ export function CaseStudyDirection({
       onResizeHandlers.forEach((fn) => fn());
       fadeObserver?.disconnect();
     };
-  }, [washStops]);
+  }, [washStops, showHeroBand]);
 
   return (
     <>
       <div className="cs-progress-track" aria-hidden="true">
         <div ref={progressRef} className="cs-progress-bar" id="cs-progress" />
       </div>
-      <div
-        className={`cs-hero-band${warmthTheme !== "madder" ? ` cs-hero-band--${warmthTheme}` : ""}`}
-      >
-        <canvas
-          ref={heroCanvasRef}
-          className="cs-hero-canvas"
-          id="heroCanvas"
-        />
-        <div className="cs-hero-overlay" />
-        {title ? (
-          <div className="cs-hero-overlay-content fade-in">
-            {metaLine ? <p className="cs-hero-meta-line">{metaLine}</p> : null}
-            <h1 className="cs-hero-title">{title}</h1>
-            {problemStatement ? (
-              <p className="cs-hero-problem-lede">{problemStatement}</p>
-            ) : null}
-            {role || year ? (
-              <div className="cs-hero-pills">
-                {role ? <span className="cs-hero-pill">{role}</span> : null}
-                {year ? <span className="cs-hero-pill">{year}</span> : null}
-              </div>
-            ) : null}
-          </div>
-        ) : null}
-      </div>
+      {showHeroBand ? (
+        <div
+          className={`cs-hero-band${warmthTheme !== "madder" ? ` cs-hero-band--${warmthTheme}` : ""}`}
+        >
+          <canvas
+            ref={heroCanvasRef}
+            className="cs-hero-canvas"
+            id="heroCanvas"
+          />
+          <div className="cs-hero-overlay" />
+          {title ? (
+            <div className="cs-hero-overlay-content fade-in">
+              {metaLine ? (
+                <p className="cs-hero-meta-line">{metaLine}</p>
+              ) : null}
+              <h1 className="cs-hero-title">{title}</h1>
+              {problemStatement ? (
+                <p className="cs-hero-problem-lede">{problemStatement}</p>
+              ) : null}
+              {role ? (
+                <div className="cs-hero-pills">
+                  <span className="cs-hero-pill">{role}</span>
+                </div>
+              ) : null}
+            </div>
+          ) : null}
+        </div>
+      ) : null}
     </>
   );
 }

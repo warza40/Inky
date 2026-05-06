@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import "@/styles/journal-home.css";
 import { PixelFooter } from "@/components/home/PixelFooter";
 import { HomepageFixes } from "@/components/home/HomepageFixes";
 import { AboutSection } from "@/components/home/AboutSection";
 import { WorkSection } from "@/components/home/WorkSection";
 import { WritingSection } from "@/components/home/WritingSection";
+import { JournalHero } from "@/components/home/JournalHero";
 
 const CENTER_LINKS = [
   { label: "Work", href: "#work" },
@@ -20,10 +22,14 @@ const CENTER_LINKS = [
 
 export function HomePageLines() {
   return (
-    <div className="home-layout text-foreground flex flex-col">
+    <div className="home-layout home-layout--journal text-foreground flex flex-col">
+      <div className="jl-atmo" aria-hidden>
+        <div className="jl-atmo-dots" />
+        <div className="jl-atmo-vignette" />
+      </div>
+
       <HomepageFixes />
 
-      {/* ── Header ─────────────────────────────────── */}
       <header className="home-header" aria-label="Site header">
         <Link href="/" className="home-header-name">
           Rachana Mandal
@@ -49,44 +55,11 @@ export function HomePageLines() {
         </div>
       </header>
 
-      {/* ── Hero ───────────────────────────────────── */}
-      <section className="home-hero" aria-label="Introduction">
-        <div className="home-hero-left">
-          <ul
-            className="home-hero-badges"
-            aria-label="Role, experience, and location"
-          >
-            <li className="home-hero-badge">Senior Product Designer</li>
-            <li className="home-hero-badge">5+ years</li>
-            <li className="home-hero-badge">B2B & enterprise · Bengaluru</li>
-          </ul>
-          <h1 className="home-hero-h1">
-            Hi, I&apos;m Rachana
-            <br />I am{" "}
-            <span className="home-hero-word-designing">Designing</span>,{" "}
-            <span className="home-hero-word-writing">writing</span> and{" "}
-            <span className="home-hero-word-illustrate">Illustrating</span>.
-            <br />I work on complex product systems where&nbsp;
-            <span className="home-hero-em not-italic">
-              clarity often breaks down.
-            </span>
-          </h1>
-          <p className="home-hero-caption">
-            Every system that feels effortless started with untangling
-            complexity. The work in between — from research to insight,
-            complexity to story, problem to&nbsp;solution.
-          </p>
-        </div>
-      </section>
+      <JournalHero />
 
-      {/* ── Work ───────────────────────────────────── */}
-      <WorkSection />
-
-      {/* ── Writing ─────────────────────────────────── */}
-      <WritingSection />
-
-      {/* ── About ───────────────────────────────────── */}
-      <AboutSection />
+      <WorkSection journalLayout />
+      <WritingSection journalLayout />
+      <AboutSection journalLayout />
 
       <PixelFooter />
     </div>

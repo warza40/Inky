@@ -6,7 +6,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { lockScrollForOverlay, unlockScrollForOverlay } from "@/lib/overlay-scroll-lock";
+import {
+  lockScrollForOverlay,
+  unlockScrollForOverlay,
+} from "@/lib/overlay-scroll-lock";
 
 interface MotionImageProps {
   src: string;
@@ -25,6 +28,8 @@ interface MotionImageProps {
    * so the full image is visible without clipping.
    */
   intrinsic?: boolean;
+  /** Omit inline figcaption; caption still appears in lightbox when `lightbox` is true */
+  hideFigcaption?: boolean;
 }
 
 export function MotionImage({
@@ -39,10 +44,14 @@ export function MotionImage({
   lightbox = false,
   hoverTooltip: hoverTooltipProp,
   intrinsic = false,
+  hideFigcaption = false,
 }: MotionImageProps) {
   const hoverTooltipText = hoverTooltipProp ?? "Click to view better";
   const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [hoverTooltip, setHoverTooltip] = useState<{ x: number; y: number } | null>(null);
+  const [hoverTooltip, setHoverTooltip] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!lightbox) return;
@@ -66,34 +75,33 @@ export function MotionImage({
     };
   }, [lightboxOpen]);
 
-  const imageContent =
-    intrinsic ? (
-      <Image
-        src={src}
-        alt={alt}
-        width={width || 2000}
-        height={height || 3000}
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 780px"
-        className="block h-auto w-full max-w-full object-contain"
-        priority={false}
-      />
-    ) : fill ? (
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 896px"
-        className={objectFit === "contain" ? "object-contain" : "object-cover"}
-      />
-    ) : (
-      <Image
-        src={src}
-        alt={alt}
-        width={width || 800}
-        height={height || 600}
-        className="h-full w-full object-cover"
-      />
-    );
+  const imageContent = intrinsic ? (
+    <Image
+      src={src}
+      alt={alt}
+      width={width || 2000}
+      height={height || 3000}
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 780px"
+      className="block h-auto w-full max-w-full object-contain"
+      priority={false}
+    />
+  ) : fill ? (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 896px"
+      className={objectFit === "contain" ? "object-contain" : "object-cover"}
+    />
+  ) : (
+    <Image
+      src={src}
+      alt={alt}
+      width={width || 800}
+      height={height || 600}
+      className="h-full w-full object-cover"
+    />
+  );
 
   return (
     <>
@@ -101,7 +109,7 @@ export function MotionImage({
         className={cn(
           "w-full rounded-xl border border-neutral-200/50 dark:border-white/20",
           intrinsic ? "overflow-visible" : "overflow-hidden",
-          className
+          className,
         )}
       >
         <motion.div
@@ -109,7 +117,7 @@ export function MotionImage({
             "relative w-full bg-neutral-100 dark:bg-neutral-800",
             !intrinsic && "aspect-video",
             intrinsic && "min-h-0",
-            lightbox && "cursor-zoom-in"
+            lightbox && "cursor-zoom-in",
           )}
           whileHover={intrinsic ? undefined : { scale: 1.02 }}
           transition={{ duration: 0.2 }}
@@ -134,9 +142,9 @@ export function MotionImage({
             >
               {hoverTooltipText}
             </span>,
-            document.body
+            document.body,
           )}
-        {caption && (
+        {caption && !hideFigcaption && (
           <figcaption className="p-4 bg-neutral-100 dark:bg-neutral-200 text-sm text-neutral-800 dark:text-neutral-900">
             {caption}
           </figcaption>
@@ -188,7 +196,7 @@ export function MotionImage({
               </motion.div>
             )}
           </AnimatePresence>,
-          document.body
+          document.body,
         )}
     </>
   );

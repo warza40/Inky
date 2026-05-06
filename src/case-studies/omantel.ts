@@ -38,6 +38,17 @@ export interface CaseStudy {
       /** Optional visuals after the narrative (e.g. process diagram) */
       images?: Array<{ src: string; alt: string; caption?: string }>;
     };
+    /**
+     * Omantel journal: right column beside overview (impact stats, single insert).
+     */
+    journalImpact?: {
+      blocks: Array<{
+        value: string;
+        labelItalic: string;
+        metaCaps?: string;
+        metaDetail?: string;
+      }>;
+    };
     /** Optional ecosystem module (e.g. four products in one bordered block); shown after `contextSections` when present */
     contextEcosystem?: {
       eyebrow: string;
@@ -224,10 +235,31 @@ export const omantelCase: CaseStudy = {
   sections: {
     contextFlow: {
       paragraphs: [
-        "Omantel is Oman's national telecom provider. Enterprise customers need to activate, modify, or deactivate SIM services in bulk — hundreds of records at a time, governed by strict eligibility and credit rules.",
+        "Omantel is Oman's national telecom provider. Work spanned a B2C eShop and a B2B bulk activation platform: enterprise customers need to activate, modify, or deactivate SIM services in bulk — hundreds of records at a time, governed by strict eligibility and credit rules.",
         "The existing process ran entirely on email. A company rep would send a request to the Omantel team, who would manually verify details against a separate backend system, re-enter the data into the portal, generate the batch — and discover errors only after submission. Every request meant tab-switching between email, the backend, and the portal. Every error meant starting over.",
       ],
       aim: "No research phase. Business vision pre-defined. Strict eligibility rules. Aggressive timelines. Multiple legacy backends with rate limits.",
+    },
+    journalImpact: {
+      blocks: [
+        {
+          value: "2",
+          labelItalic: "products",
+          metaCaps: "End-to-end designed simultaneously",
+          metaDetail: "B2C storefront + B2B activation",
+        },
+        {
+          value: "0",
+          labelItalic: "operators",
+          metaCaps: "Required for enterprise bulk activation",
+          metaDetail: "Previously fully manual!",
+        },
+        {
+          value: "4.5",
+          labelItalic: "/5",
+          metaCaps: "Stakeholder satisfaction across delivery phases",
+        },
+      ],
     },
     problem: [],
     constraints: [],
@@ -333,11 +365,7 @@ export const omantelCase: CaseStudy = {
       after:
         "The company rep submits directly. Eligibility and credit limits validate inline, before the batch is created. Errors surface at the point of entry, not after failure.",
     },
-    outcomeHighlights: [
-      "Six manual handoffs became self-service.",
-      "Three disconnected systems became one interface.",
-      "Post-failure error handling became pre-submission validation.",
-    ],
+    outcomeHighlights: [],
     outcomeImages: [
       {
         src: "/Omantel%20assets/Outcome1.png",

@@ -25,6 +25,12 @@ export function getNextCaseStudy(slug: string): CaseStudy | undefined {
   return caseStudies[i + 1];
 }
 
+export function getPreviousCaseStudy(slug: string): CaseStudy | undefined {
+  const i = caseStudies.findIndex((c) => c.slug === slug);
+  if (i <= 0) return undefined;
+  return caseStudies[i - 1];
+}
+
 export function getAllCaseStudies(): CaseStudy[] {
   return caseStudies;
 }

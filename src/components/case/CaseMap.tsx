@@ -19,6 +19,9 @@ import { CaseContextSection } from "./CaseContextSection";
 import { CaseUnderstandingBlock } from "./CaseUnderstandingBlock";
 import { CaseConstraintsBlock } from "./CaseConstraintsBlock";
 import { CaseProblemProcessVisual } from "./CaseProblemProcessVisual";
+import { OmantelCaseJournalMap } from "@/components/case/journal/OmantelCaseJournalMap";
+
+const OMANTEL_JOURNAL_SLUG = "omantel-bulk-activation";
 
 interface CaseMapProps {
   caseStudy: CaseStudy;
@@ -57,6 +60,10 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
       document.removeEventListener("keydown", onKey);
     };
   }, [noteworthyFullViewIndex]);
+
+  if (caseStudy.slug === OMANTEL_JOURNAL_SLUG) {
+    return <OmantelCaseJournalMap caseStudy={caseStudy} />;
+  }
 
   return (
     <div>

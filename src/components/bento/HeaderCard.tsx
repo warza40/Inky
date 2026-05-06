@@ -33,11 +33,17 @@ export function HeaderCard() {
       <div className="mb-6">
         <TypewriterName />
       </div>
-      <p className="text-sm leading-relaxed text-neutral-700 dark:text-neutral-300 mb-6">
-        I work on complex product systems where clarity often breaks down.
-        <br /><br />
-        While my past roles haven't always allowed space to address long-term impacts directly, I care deeply about how products shape behavior and everyday work — and I design with an intent to reduce mental effort and unnecessary friction wherever possible.
-      </p>
+      <div className="mb-6 text-neutral-700 dark:text-neutral-300">
+        <p className="text-[clamp(43px,calc(0.875rem+20px-50px+30px),calc(1.25rem+30px))] leading-snug mb-4">
+          I work on complex product systems where clarity often breaks down.
+        </p>
+        <p className="text-sm leading-relaxed">
+          While my past roles haven't always allowed space to address long-term
+          impacts directly, I care deeply about how products shape behavior and
+          everyday work — and I design with an intent to reduce mental effort
+          and unnecessary friction wherever possible.
+        </p>
+      </div>
       <div className="mb-6">
         <span className="inline-flex items-center rounded-full border border-neutral-400 dark:border-neutral-400 px-3 py-1 text-xs font-medium text-neutral-600 dark:text-neutral-300">
           6 + years, B2B, SaaS, Supply chain, Telecom

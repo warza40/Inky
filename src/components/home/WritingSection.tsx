@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { JournalSectionHeader } from "@/components/home/JournalSectionHeader";
 
 interface WritingCard {
   id: string;
@@ -60,9 +61,13 @@ const WRITING: WritingCard[] = [
   },
 ];
 
-export function WritingSection() {
-  return (
-    <section className="writing-section" id="writing" aria-label="Writing">
+export function WritingSection({
+  journalLayout = false,
+}: {
+  journalLayout?: boolean;
+}) {
+  const inner = (
+    <>
       <div className="writing-section-header">
         <div className="writing-section-header-left">
           <p className="writing-section-label">— Writing</p>
@@ -112,7 +117,9 @@ export function WritingSection() {
                 />
               ) : null}
             </div>
-            <div className="wr-info">
+            <div
+              className={`wr-info${journalLayout ? " jl-graph-paper-surface jl-graph-paper-surface--ruled" : ""}`}
+            >
               <div className="wr-info-main">
                 <p className="wr-type">
                   <span className="wr-type-prefix">Type</span>
@@ -137,6 +144,23 @@ export function WritingSection() {
           </Link>
         ))}
       </div>
+    </>
+  );
+
+  return (
+    <section
+      className={`writing-section${journalLayout ? " jl-writing-patch" : ""}`}
+      id="writing"
+      aria-label="Writing"
+    >
+      {journalLayout ? (
+        <div className="jl-writing-inner">
+          <JournalSectionHeader num="[03]" title="Writing" />
+          {inner}
+        </div>
+      ) : (
+        inner
+      )}
     </section>
   );
 }
