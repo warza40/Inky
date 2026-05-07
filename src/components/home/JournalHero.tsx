@@ -13,8 +13,6 @@ const RESUME_URL =
   "https://drive.google.com/file/d/11pRdPZdKTFnX9Q06PUfgj922_X8luZ9K/view?usp=drivesdk";
 
 export function JournalHero() {
-  const eyebrow = JL_HERO_BADGES.join(" · ");
-
   return (
     <section className="jl-hero" aria-label="Introduction">
       <div className="jl-hero-journal">
@@ -47,9 +45,9 @@ export function JournalHero() {
           </div>
 
           <div className="jl-hero-top">
-            <p className="jl-h-eyebrow jl-hero-g-eyebrow">{eyebrow}</p>
             <h1 className="jl-hero-bio-heading jl-hero-g-head">
-              I design products that have to handle real-world complexity.
+              I design products that have to handle{" "}
+              <span className="jl-hero-head-em">real-world complexity</span>.
             </h1>
             <p className="home-hero-caption jl-caption-on-right jl-hero-g-cap">
               The real problem usually isn&apos;t the interface — it&apos;s

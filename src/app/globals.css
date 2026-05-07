@@ -2815,11 +2815,13 @@ html.dark .home-page-main,
   padding: 0 0 0 20px;
   border: none;
   border-left: 2px solid var(--color-ink-900);
-  font-family: var(--font-accent);
+  font-family: var(--font-serif);
   font-style: italic;
+  font-optical-sizing: auto;
   font-size: 24px;
   line-height: 1.45;
   font-weight: 400;
+  font-synthesis: none;
   color: var(--color-ink-900);
 }
 .about-brief-quote p {
@@ -2842,12 +2844,14 @@ html.dark .home-page-main,
 .about-brief-label {
   margin: 0;
   padding-top: 5px;
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
   font-style: normal;
-  font-weight: 400;
+  font-weight: var(--weight-eyebrow);
   font-size: 9px;
   line-height: 1.35;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   text-align: right;
   color: var(--color-text-tertiary);
@@ -2859,6 +2863,7 @@ html.dark .home-page-main,
 .about-brief-content > p {
   margin: 0;
   font-family: var(--font-body);
+  font-optical-sizing: auto;
   font-size: 18px;
   line-height: 1.65;
   color: var(--color-ink-900);
@@ -2870,11 +2875,14 @@ html.dark .home-page-main,
   font-size: 16px !important;
   line-height: 1.6 !important;
   font-style: italic;
-  font-family: var(--font-accent) !important;
+  font-family: var(--font-serif) !important;
+  font-optical-sizing: auto;
+  font-synthesis: none;
   color: var(--color-ink-700) !important;
 }
 .about-brief-credentials {
   font-family: var(--font-mono) !important;
+  font-optical-sizing: none;
   font-size: 15px !important;
   line-height: 1.5 !important;
   letter-spacing: 0.03em !important;
@@ -2896,10 +2904,11 @@ html.dark .home-page-main,
   border-radius: 2px;
   border: 0.5px solid var(--color-feedback-success-light);
   background: transparent;
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
+  font-optical-sizing: auto;
   font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.1em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-success);
 }
@@ -2913,6 +2922,8 @@ html.dark .home-page-main,
 }
 .about-brief-availability-meta {
   margin-top: 0.6rem !important;
+  font-family: var(--font-body);
+  font-optical-sizing: auto;
   font-size: 16px !important;
   line-height: 1.6 !important;
   color: var(--color-ink-700) !important;
