@@ -23,6 +23,8 @@
   /** Shared horizontal gutters + vertical space between stacked sections */
   --jl-section-padding-x: clamp(24px, 5vw, 56px);
   --jl-section-space: clamp(72px, 8vw, 96px);
+  /** Alias: same rhythm as :root --fluid-section-gap-y (homepage seams) */
+  --jl-stack-gap-y: var(--fluid-section-gap-y);
   /* Hero cream sheet: centered inset from leather — widened/taller sheet per comp */
   --jl-hero-sheet-max: 1160px;
   --jl-hero-sheet-min-h: clamp(500px, 54vw, 640px);
@@ -198,11 +200,12 @@
 /* ── Hero journal ─────────────────────────────── */
 .home-layout--journal .jl-hero {
   position: relative;
-  min-height: min(97vh, 1000px);
+  /* Content-height hero: avoid a near-full-viewport leather band under the insert */
+  min-height: auto;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 64px var(--jl-section-padding-x) calc(var(--jl-section-space) + 12px);
+  padding: 64px var(--jl-section-padding-x) var(--fluid-hero-tail-y);
 }
 
 .home-layout--journal .jl-hero-journal {
@@ -751,8 +754,8 @@
   box-sizing: border-box;
   max-width: var(--jl-hero-sheet-max);
   margin-inline: auto;
-  padding: var(--jl-section-space) var(--jl-sheet-pad-inline-end)
-    var(--jl-section-space) var(--jl-sheet-pad-inline-start);
+  padding: var(--jl-stack-gap-y) var(--jl-sheet-pad-inline-end)
+    var(--jl-stack-gap-y) var(--jl-sheet-pad-inline-start);
 }
 
 .home-layout--journal .jl-work-section .jl-work-tabs {
@@ -1184,8 +1187,8 @@
   box-sizing: border-box;
   max-width: var(--jl-hero-sheet-max);
   margin-inline: auto;
-  padding: var(--jl-section-space) var(--jl-sheet-pad-inline-end)
-    var(--jl-section-space) var(--jl-sheet-pad-inline-start);
+  padding: var(--jl-stack-gap-y) var(--jl-sheet-pad-inline-end)
+    var(--jl-stack-gap-y) var(--jl-sheet-pad-inline-start);
 }
 
 .home-layout--journal .jl-writing-patch .writing-section-label,
@@ -1264,7 +1267,7 @@
 
 /* ── About journal insert ───────────────────── */
 .home-layout--journal .jl-about-outer {
-  padding: var(--jl-section-space) var(--jl-section-padding-x)
+  padding: var(--jl-stack-gap-y) var(--jl-section-padding-x)
     var(--jl-section-space);
 }
 
@@ -1698,7 +1701,7 @@
 
   .home-layout--journal .jl-hero {
     padding-top: 80px;
-    padding-bottom: 60px;
+    padding-bottom: var(--fluid-hero-tail-y);
   }
 
   .home-layout--journal .jl-work-section-inner,
@@ -1758,8 +1761,8 @@
 
   .home-layout--journal .jl-hero {
     min-height: unset;
-    padding: 72px max(16px, env(safe-area-inset-left, 0px)) 48px
-      max(16px, env(safe-area-inset-right, 0px));
+    padding: 72px max(16px, env(safe-area-inset-left, 0px))
+      var(--fluid-hero-tail-y) max(16px, env(safe-area-inset-right, 0px));
     align-items: flex-start;
   }
 
@@ -1839,8 +1842,7 @@
   }
 
   .home-layout--journal .jl-work-section-inner {
-    padding-top: 56px;
-    padding-bottom: 56px;
+    padding-block: var(--jl-stack-gap-y);
     padding-inline: max(16px, var(--fluid-gutter));
   }
 
@@ -1969,7 +1971,8 @@
   }
 
   .home-layout--journal .jl-writing-inner {
-    padding: 56px max(16px, var(--fluid-gutter)) clamp(48px, 8vw, 72px);
+    padding-block: var(--jl-stack-gap-y);
+    padding-inline: max(16px, var(--fluid-gutter));
   }
 
   .home-layout--journal .jl-writing-patch .writing-section-headline {
@@ -2007,4 +2010,32 @@
   .home-layout--journal .jl-work-section-inner {
     padding-inline: max(14px, var(--fluid-gutter));
   }
+}
+
+/* About Me brief — journal paper tokens */
+.home-layout--journal .jl-about-body-inner.jl-about-body-inner--brief {
+  padding-top: 32px;
+  padding-bottom: 48px;
+}
+.home-layout--journal .jl-about-insert .about-brief-quote {
+  border-left-color: var(--jl-ink);
+  color: var(--jl-ink);
+}
+.home-layout--journal .jl-about-insert .about-brief-rule {
+  border-top-color: var(--jl-rule);
+}
+.home-layout--journal .jl-about-insert .about-brief-content > p {
+  color: var(--jl-ink);
+}
+.home-layout--journal .jl-about-insert .about-brief-aside {
+  color: var(--jl-ink-mid) !important;
+}
+.home-layout--journal .jl-about-insert .about-brief-credentials {
+  color: var(--jl-ink-faded) !important;
+}
+.home-layout--journal .jl-about-insert .about-brief-label {
+  color: var(--jl-ink-faded);
+}
+.home-layout--journal .jl-about-insert .about-brief-availability-meta {
+  color: var(--jl-ink-mid) !important;
 }

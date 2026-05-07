@@ -173,6 +173,13 @@
   );
   --fluid-section-pad-y: clamp(var(--space-10), 5vw, var(--space-16));
   --fluid-section-pad-y-lg: clamp(var(--space-12), 6vw, var(--space-20));
+  /**
+   * Vertical gap between stacked homepage bands (journal Work / Writing / About).
+   * Prefer this on both sides of a seam instead of summing two full section pads.
+   */
+  --fluid-section-gap-y: clamp(48px, 6vw, 72px);
+  /** Journal hero: breathing room below the sheet; must clear the scroll cue (~56px). */
+  --fluid-hero-tail-y: clamp(56px, 7vw, 80px);
   --fluid-type-hero-band: clamp(26px, 2.5vw + 0.875rem, 48px);
 
   /* ── BORDERS & RADIUS (V2) ── */
@@ -254,6 +261,20 @@
   /* Case study — vertical rhythm (major sections share one stack measure) */
   --case-section-stack: var(--space-24);
   --case-section-label-to-body: var(--space-6);
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --fluid-section-gap-y: clamp(44px, 5.5vw, 64px);
+    --fluid-hero-tail-y: clamp(52px, 6.5vw, 72px);
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --fluid-section-gap-y: clamp(40px, 5vw, 56px);
+    --fluid-hero-tail-y: clamp(48px, 6vw, 64px);
+  }
 }
 
 @theme inline {
@@ -2773,6 +2794,145 @@ html.dark .home-page-main,
 }
 .about-intro-para:last-child {
   margin-bottom: 0;
+}
+
+/* About Me — editorial brief layout (classic + journal shared structure) */
+.about-section-inner--brief {
+  box-sizing: border-box;
+  max-width: min(640px, 100%);
+  margin-inline: auto;
+}
+.about-brief-classic-header {
+  margin-bottom: 8px;
+}
+.about-brief {
+  box-sizing: border-box;
+  max-width: 640px;
+  margin-inline: auto;
+}
+.about-brief-quote {
+  margin: 0 0 40px;
+  padding: 0 0 0 20px;
+  border: none;
+  border-left: 2px solid var(--color-ink-900);
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 24px;
+  line-height: 1.45;
+  font-weight: 400;
+  color: var(--color-ink-900);
+}
+.about-brief-quote p {
+  margin: 0;
+}
+.about-brief-rule {
+  box-sizing: border-box;
+  height: 0;
+  margin: 0 0 32px 148px;
+  padding: 0;
+  border: none;
+  border-top: 0.5px solid var(--color-border);
+}
+.about-brief-block {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 480px);
+  gap: 28px;
+  align-items: start;
+}
+.about-brief-label {
+  margin: 0;
+  padding-top: 5px;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 9px;
+  line-height: 1.35;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: right;
+  color: var(--color-text-tertiary);
+}
+.about-brief-content {
+  min-width: 0;
+  max-width: 480px;
+}
+.about-brief-content > p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--color-ink-900);
+}
+.about-brief-content > p + p {
+  margin-top: 0.9rem;
+}
+.about-brief-aside {
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  font-style: italic;
+  font-family: var(--font-accent) !important;
+  color: var(--color-ink-700) !important;
+}
+.about-brief-credentials {
+  font-family: var(--font-mono) !important;
+  font-size: 15px !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.03em !important;
+  color: var(--color-text-tertiary) !important;
+  font-style: normal !important;
+}
+.about-brief-cred-sep {
+  color: var(--color-border-strong);
+}
+.about-brief-availability-pill-wrap {
+  margin-bottom: 0 !important;
+}
+.about-brief-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  box-sizing: border-box;
+  padding: 3px 8px;
+  border-radius: 2px;
+  border: 0.5px solid var(--color-feedback-success-light);
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-success);
+}
+.about-brief-status-dot {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-success);
+}
+.about-brief-availability-meta {
+  margin-top: 0.6rem !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  color: var(--color-ink-700) !important;
+}
+@media (max-width: 640px) {
+  .about-brief-quote {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+  .about-brief-rule {
+    margin-left: 0;
+    margin-bottom: 24px;
+  }
+  .about-brief-block {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .about-brief-label {
+    text-align: left;
+  }
 }
 
 /* Homepage About — explicit DS stack (wins over Tailwind / generic h2 inheritance) */
