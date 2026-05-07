@@ -11,8 +11,6 @@ interface OmantelJournalFooterProps {
   nextSlugOverride?: string;
 }
 
-const CONTACT_MAIL = "rachanamandal@gmail.com";
-
 export function OmantelJournalFooter({
   currentSlug,
   nextSlugOverride,
@@ -35,13 +33,6 @@ export function OmantelJournalFooter({
           ) : (
             <div className="ojo-footer-spacer" aria-hidden />
           )}
-        </div>
-        <div className="ojo-footer-center">
-          <span className="ojo-footer-name">Rachana Mandal</span>
-          <span className="ojo-footer-vdiv" aria-hidden />
-          <a href={`mailto:${CONTACT_MAIL}`} className="ojo-footer-contact">
-            {CONTACT_MAIL}
-          </a>
         </div>
         <div>
           {nextStudy ? (

@@ -11,12 +11,6 @@ export function CaseStudyFooter() {
           <Link href="/" className="cs-case-footer-back">
             Back to home
           </Link>
-          <a
-            href="mailto:rachanamandal@gmail.com"
-            className="cs-case-footer-reach"
-          >
-            Reach out →
-          </a>
         </div>
         <div className="cs-case-footer-divider" aria-hidden />
         <p className="cs-case-footer-copy">{CASE_FOOTER_COPY}</p>

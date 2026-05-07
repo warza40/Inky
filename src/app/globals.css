@@ -5161,7 +5161,7 @@ body:has(.cs-page) {
 .cs-case-footer-actions {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 16px;
   flex-wrap: wrap;
 }
@@ -5191,22 +5191,6 @@ body:has(.cs-page) {
   border-color: var(--cs-footer-link);
   color: var(--parchment);
 }
-.cs-case-footer-reach {
-  font-family: var(--font-label);
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
-  font-size: var(--text-eyebrow);
-  font-weight: var(--weight-eyebrow);
-  letter-spacing: var(--tracking-wider);
-  text-transform: none;
-  color: var(--cs-footer-link);
-  text-decoration: none;
-  transition: color 150ms ease;
-  margin-left: auto;
-}
-.cs-case-footer-reach:hover {
-  color: var(--cs-footer-link-hover);
-}
 .cs-case-footer-divider {
   height: 1px;
   background: rgba(245, 239, 228, 0.1);
@@ -5232,11 +5216,6 @@ body:has(.cs-page) {
   .cs-case-footer-actions {
     flex-direction: column;
     align-items: stretch;
-  }
-  .cs-case-footer-reach {
-    margin-left: 0;
-    text-align: center;
-    padding: 8px 0;
   }
 }
 
