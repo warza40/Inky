@@ -30,7 +30,6 @@ export function JournalHero() {
               className="jl-sticky-body"
               aria-label="Open resume (PDF) in Google Drive — opens in new tab"
             >
-              <span className="jl-sticky-lbl">Tap to grab</span>
               <span className="jl-sticky-txt">download Resume</span>
             </a>
             <div className="jl-sticky-clip-over" aria-hidden>
@@ -50,15 +49,12 @@ export function JournalHero() {
           <div className="jl-hero-top">
             <p className="jl-h-eyebrow jl-hero-g-eyebrow">{eyebrow}</p>
             <h1 className="jl-hero-bio-heading jl-hero-g-head">
-              I work on complex product systems where{" "}
-              <span className="home-hero-em not-italic">
-                clarity often breaks down.
-              </span>
+              I design products that have to handle real-world complexity.
             </h1>
             <p className="home-hero-caption jl-caption-on-right jl-hero-g-cap">
-              Every system that feels effortless started with untangling
-              complexity. The work in between — from research to insight,
-              complexity to story, problem to&nbsp;solution.
+              The real problem usually isn&apos;t the interface — it&apos;s
+              getting a room full of smart people to agree on what the problem
+              actually is. I help with that.
             </p>
           </div>
 
