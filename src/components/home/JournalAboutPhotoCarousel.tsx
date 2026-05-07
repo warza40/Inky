@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export interface AboutCarouselSlide {
@@ -11,20 +10,36 @@ export interface AboutCarouselSlide {
 
 interface JournalAboutPhotoCarouselProps {
   slides: AboutCarouselSlide[];
+  /** Ignored — layout is CSS-driven */
   sizes?: string;
   caption?: string;
+  /** Auto-advance to the next slide (ms). Pass `0` to disable. */
+  autoAdvanceIntervalMs?: number;
 }
 
 /** Dots bottom-centre; image left column in parent grid */
 export function JournalAboutPhotoCarousel({
   slides,
-  sizes = "(max-width: 840px) 100vw, 268px",
   caption,
+  autoAdvanceIntervalMs = 5200,
 }: JournalAboutPhotoCarouselProps) {
   const n = Math.max(1, slides.length);
   const [index, setIndex] = useState(0);
   const safe = ((index % n) + n) % n;
   const slide = slides[safe]!;
+
+  useEffect(() => {
+    if (n < 2 || autoAdvanceIntervalMs <= 0) return;
+    const mq =
+      typeof window !== "undefined"
+        ? window.matchMedia("(prefers-reduced-motion: reduce)")
+        : null;
+    if (mq?.matches) return;
+    const id = window.setInterval(() => {
+      setIndex((i) => (i + 1) % n);
+    }, autoAdvanceIntervalMs);
+    return () => window.clearInterval(id);
+  }, [n, autoAdvanceIntervalMs]);
 
   const go = (delta: number) => {
     if (n < 2) return;
@@ -54,15 +69,15 @@ export function JournalAboutPhotoCarousel({
             </button>
           </>
         ) : null}
-        <Image
+        <img
           key={slide.src + safe}
           src={slide.src}
           alt={slide.alt}
+          className="jl-about-carousel-img"
+          loading={safe === 0 ? "eager" : "lazy"}
+          decoding="async"
           width={1440}
           height={2120}
-          className="jl-about-carousel-img"
-          sizes={sizes}
-          priority={safe === 0}
         />
         {caption ? (
           <p className="jl-about-carousel-caption">{caption}</p>

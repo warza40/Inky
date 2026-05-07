@@ -865,6 +865,33 @@
   pointer-events: none;
 }
 
+/* Real product screenshot — replace faint “blue plate + wireframe” treatment */
+.home-layout--journal
+  .jl-wc-hero--featured.jl-wc-hero--cover-photo
+  .jl-wc-hero-faded-img {
+  opacity: 1;
+  z-index: 0;
+}
+.home-layout--journal .jl-wc-hero--featured.jl-wc-hero--cover-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(26, 20, 13, 0.78) 0%,
+    rgba(26, 20, 13, 0.12) 38%,
+    transparent 55%
+  );
+}
+.home-layout--journal
+  .jl-wc-hero--featured.jl-wc-hero--cover-photo
+  .jl-wc-hero-meta {
+  z-index: 3;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
 .home-layout--journal .jl-wc-hero-wireframe {
   position: relative;
   z-index: 2;
@@ -1501,6 +1528,8 @@
 .home-layout--journal .jl-about-text-col {
   min-width: 0;
   padding-top: 4px;
+  padding-right: clamp(22px, 4.8vw, 42px);
+  box-sizing: border-box;
 }
 
 .home-layout--journal .jl-about-copy-block {
@@ -1540,7 +1569,14 @@
   margin-top: 0.45em;
 }
 
-/* Approach post-it — pulled in 50px from full-bleed text width */
+.home-layout--journal .jl-about-visual-col .jl-about-approach {
+  margin-top: clamp(22px, 3.5vw, 32px);
+  padding-top: 0;
+  border-top: none;
+  max-width: 100%;
+}
+
+/* Approach post-it — default margins when not using photo column overrides above */
 .home-layout--journal .jl-about-approach {
   margin-top: clamp(36px, 5vw, 52px);
   padding-top: clamp(28px, 4vw, 40px);
@@ -1907,6 +1943,10 @@
     padding: 36px 20px 32px 28px;
   }
 
+  .home-layout--journal .jl-about-body-inner.jl-about-body-inner--grid {
+    padding-top: 44px;
+  }
+
   .home-layout--journal .jl-about-carousel-img {
     max-height: 190px;
   }
@@ -1917,6 +1957,7 @@
     border-top: 1px solid var(--jl-rule);
     padding-top: 24px;
     margin-top: 8px;
+    padding-right: max(14px, var(--fluid-gutter));
   }
 
   .home-layout--journal .jl-about-main-grid > .jl-about-visual-col {
@@ -2012,10 +2053,17 @@
   }
 }
 
-/* About Me brief — journal paper tokens */
-.home-layout--journal .jl-about-body-inner.jl-about-body-inner--brief {
-  padding-top: 32px;
-  padding-bottom: 48px;
+/* About Me brief — journal paper tokens (two-column: photo rail + prose) */
+.home-layout--journal .jl-about-body-inner.jl-about-body-inner--grid {
+  padding-top: clamp(56px, 7vw, 82px);
+  padding-bottom: clamp(44px, 6vw, 56px);
+}
+.home-layout--journal .jl-about-text-col .about-brief {
+  max-width: none;
+  margin-inline: 0;
+}
+.home-layout--journal .jl-about-text-col .about-brief-content {
+  max-width: min(40rem, 100%);
 }
 .home-layout--journal .jl-about-insert .about-brief-quote {
   border-left-color: var(--jl-ink);

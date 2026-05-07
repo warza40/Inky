@@ -26,6 +26,11 @@ interface WorkCardJournal {
   /** Journal-only title line (reference layout) */
   displayTitle?: string;
   hideHeroImage?: boolean;
+  /**
+   * Featured strip: show `imageSrc` as a real screenshot (no wireframe glyph,
+   * full-opacity image + light bottom scrim for meta text).
+   */
+  heroCoverPhoto?: boolean;
   /** Serif title line with optional bold + italic segments (featured / minimal paper) */
   titleHighlight?: { strong: string; em?: string; rest: string };
   /** Use large featured strip + full-width row (without requiring a quote rail) */
@@ -68,7 +73,7 @@ const WORK: WorkCard[] = [
     title: "Fixing the Fragility in Enterprise SIM Activation",
     description:
       "Thousands of SIM activations, processed manually. One invalid record was enough to restart the entire process.",
-    imageBg: "#1c3354",
+    imageBg: "#1c1812",
     imageSrc: omantelCaseCardImageSrc,
     graph: [
       { flex: 1, color: "#8aa0b4" },
@@ -87,6 +92,7 @@ const WORK: WorkCard[] = [
       skillTags: ["B2C ecommerce", "Enterprise UX", "End-to-end"],
       tape: "red",
       displayTitle: "Omantel — eShop & Enterprise Activation",
+      heroCoverPhoto: true,
     },
   },
   {
@@ -411,7 +417,7 @@ function JournalFeaturedCard({
 
   const hero = (
     <div
-      className="jl-wc-hero jl-wc-hero--featured"
+      className={`jl-wc-hero jl-wc-hero--featured${j.heroCoverPhoto ? " jl-wc-hero--cover-photo" : ""}`}
       style={{ backgroundColor: card.imageBg }}
     >
       <JournalTape variant={j.tape ?? "red"} />
@@ -427,9 +433,9 @@ function JournalFeaturedCard({
       ) : null}
       {j.heroGlyph === "grid" ? (
         <DesignSystemGridGlyph className="jl-wc-hero-wireframe jl-wc-hero-glyph-grid" />
-      ) : (
+      ) : !j.heroCoverPhoto ? (
         <WireframeLayoutIcon className="jl-wc-hero-wireframe" />
-      )}
+      ) : null}
       {j.heroMeta ? <p className="jl-wc-hero-meta">{j.heroMeta}</p> : null}
     </div>
   );

@@ -1,4 +1,16 @@
 import { JournalSectionHeader } from "@/components/home/JournalSectionHeader";
+import { JournalAboutPhotoCarousel } from "@/components/home/JournalAboutPhotoCarousel";
+import { AboutApproachPostIt } from "@/components/home/AboutApproachPostIt";
+
+/** Portrait / photo rail — swap paths when final assets land in `public/` */
+const ABOUT_PHOTO_SRC = "/about-rachana.svg";
+
+/** Three slides; auto-advance cycles for rhythm (replace with distinct files anytime). */
+const ABOUT_PHOTO_SLIDES = [
+  { src: ABOUT_PHOTO_SRC, alt: "Rachana Mandal" },
+  { src: ABOUT_PHOTO_SRC, alt: "Rachana Mandal — slide 2" },
+  { src: ABOUT_PHOTO_SRC, alt: "Rachana Mandal — slide 3" },
+];
 
 function AboutBriefContent() {
   return (
@@ -56,8 +68,9 @@ function AboutBriefContent() {
             gets stronger once I understand what the room is actually thinking.
           </p>
           <p className="about-brief-aside">
-            Outside of work I illustrate. It&apos;s where I think without a
-            brief — and probably the most fun part of my week.
+            Outside of work I illustrate, make paintings and write essays. I
+            take utmost delight in learning new things that add more perspective
+            to the way I look at the world.
           </p>
         </div>
       </section>
@@ -131,8 +144,19 @@ export function AboutSection({
           <JournalSectionHeader num="[04]" title="About me" />
 
           <div className="jl-about-insert jl-paper jl-paper-shadow about-section-inner">
-            <div className="jl-about-body-inner jl-about-body-inner--brief">
-              <AboutBriefContent />
+            <div className="jl-about-body-inner jl-about-body-inner--grid">
+              <div className="jl-about-main-grid">
+                <div className="jl-about-visual-col">
+                  <JournalAboutPhotoCarousel
+                    slides={ABOUT_PHOTO_SLIDES}
+                    autoAdvanceIntervalMs={5200}
+                  />
+                  <AboutApproachPostIt />
+                </div>
+                <div className="jl-about-text-col">
+                  <AboutBriefContent />
+                </div>
+              </div>
             </div>
           </div>
         </div>
