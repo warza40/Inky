@@ -417,6 +417,11 @@
     border-top: none;
   }
 
+  /* Below 900px row-gap is 0 — add the same +10px title→caption offset as desktop row-gap */
+  .home-layout--journal .jl-hero-top .jl-hero-g-cap.home-hero-caption {
+    padding-top: clamp(20px, calc(10px + 1.5vw), 26px);
+  }
+
   .home-layout--journal .jl-hero-bottom {
     grid-template-columns: 1fr;
     row-gap: 20px;
@@ -467,7 +472,7 @@
   grid-template-rows: auto auto;
   align-items: start;
   column-gap: 0;
-  row-gap: 10px;
+  row-gap: 20px;
   padding: 48px var(--jl-sheet-pad-inline-end) 20px
     var(--jl-sheet-pad-inline-start);
 }
@@ -486,7 +491,8 @@
   padding: clamp(10px, 1.5vw, 16px) 0 0;
   border-top: none;
   align-self: start;
-  max-width: min(30rem, 58%);
+  /* Wider than the headline so the supporting line runs further across the sheet */
+  max-width: min(44rem, 92%);
   box-sizing: border-box;
 }
 
@@ -550,10 +556,8 @@
   font-style: normal;
   font-synthesis: none;
   font-weight: inherit;
-  color: inherit;
-  text-decoration: underline solid var(--color-madder-900);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 5px;
+  color: var(--color-madder-900);
+  text-decoration: none;
 }
 
 .home-layout--journal .jl-btn-row {
@@ -635,6 +639,8 @@
 
 .home-layout--journal .jl-hero-bio-heading.jl-hero-g-head {
   margin: 0;
+  /* Tighter measure so the headline wraps like the journal mock (wins over .jl-hero-bio-heading max-width) */
+  max-width: min(34rem, 72%);
 }
 
 .home-layout--journal .jl-mini-tag {
