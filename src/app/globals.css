@@ -8318,3 +8318,61 @@ body:has(.cs-page.cs-page--journal-omantel) {
 .cs-page.cs-page--journal-omantel .cs-section-label::after {
   background: var(--ojo-eyebrow-rule-dark);
 }
+
+/* =====================================================================
+ * Mobile responsiveness — global + shared case shell (append-only)
+ * Breakpoints: 1024 / 768 / 390 per mobile spec
+ * ===================================================================== */
+:root {
+  --bp-tablet: 1024px;
+  --bp-mobile: 768px;
+  --bp-small: 390px;
+}
+
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  img,
+  svg,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  .case-site-header {
+    min-height: 50px;
+  }
+
+  .case-top-bar .cs-nav-wrap {
+    padding-left: max(24px, env(safe-area-inset-left, 0px));
+    padding-right: max(24px, env(safe-area-inset-right, 0px));
+  }
+}
+
+@media (max-width: 768px) {
+  .case-site-header {
+    min-height: 48px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+
+  .case-top-bar .cs-nav-wrap {
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+
+  .cs-noteworthy-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 390px) {
+  .cs-noteworthy-grid {
+    gap: 16px;
+  }
+}

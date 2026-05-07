@@ -1122,3 +1122,248 @@
 .ojo-footer-spacer {
   min-height: 1px;
 }
+
+/* =====================================================================
+ * Omantel journal case — mobile / tablet (append-only; 1024 / 768 / 390)
+ * ===================================================================== */
+
+@media (max-width: 1024px) {
+  .cs-page.cs-page--journal-omantel .ojo-overview-section {
+    padding-left: max(24px, var(--fluid-gutter));
+    padding-right: max(24px, var(--fluid-gutter));
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-title-section {
+    padding-left: max(24px, var(--fluid-gutter));
+    padding-right: max(24px, var(--fluid-gutter));
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-decisions-header {
+    padding-left: max(24px, var(--fluid-gutter));
+    padding-right: max(24px, var(--fluid-gutter));
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-decision-content {
+    margin-left: max(24px, var(--fluid-gutter));
+    margin-right: max(24px, var(--fluid-gutter));
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-problem-section {
+    padding-left: max(24px, var(--fluid-gutter));
+    padding-right: max(24px, var(--fluid-gutter));
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-journal-footer {
+    padding-left: max(24px, var(--fluid-gutter));
+    padding-right: max(24px, var(--fluid-gutter));
+  }
+
+  .cs-page.cs-page--journal-omantel
+    .ojo-title-insert
+    .ojo-main-title.cs-hero-title {
+    font-size: clamp(42px, 8vw, 52px);
+  }
+}
+
+@media (max-width: 768px) {
+  .cs-page.cs-page--journal-omantel .ojo-hero {
+    min-height: 55vh;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-hero-stage {
+    min-height: 55vh;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-hero-img {
+    object-fit: contain;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-tape-wave,
+  .cs-page.cs-page--journal-omantel .ojo-tape-seigaiha,
+  .cs-page.cs-page--journal-omantel .ojo-punch-holes,
+  .cs-page.cs-page--journal-omantel .ojo-footer-tape {
+    display: none;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-title-insert {
+    padding: 40px 20px 32px 32px;
+    grid-template-columns: 1fr;
+    gap: 0 0;
+  }
+
+  .cs-page.cs-page--journal-omantel
+    .ojo-title-insert
+    .ojo-main-title.cs-hero-title {
+    font-size: 38px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-sub-title {
+    font-size: 16px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-meta-grid {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid var(--ojo-rule);
+    padding-top: 20px;
+    margin-top: 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-overview-section {
+    padding-left: max(16px, var(--fluid-gutter));
+    padding-right: max(16px, var(--fluid-gutter));
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-overview-insert {
+    padding: 32px 20px 32px 32px;
+    gap: 24px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-overview-inner {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-overview-vdivider {
+    display: none;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-overview-col-r {
+    padding-top: 24px;
+    border-top: 1px solid var(--ojo-rule);
+    margin-top: 0;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-overview-text,
+  .cs-page.cs-page--journal-omantel .ojo-overview-p {
+    font-size: 16px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-impact-value {
+    font-size: 36px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-problem-section {
+    padding-left: max(16px, var(--fluid-gutter));
+    padding-right: max(16px, var(--fluid-gutter));
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-problem-insert {
+    padding: 32px 20px 32px 32px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-problem-text,
+  .cs-page.cs-page--journal-omantel .ojo-after-text {
+    font-size: 16px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-decisions-header {
+    padding-left: max(16px, var(--fluid-gutter));
+    padding-right: max(16px, var(--fluid-gutter));
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-decision-stage {
+    height: clamp(360px, 52vh, 420px);
+    min-height: unset;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-decision-content {
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: -32px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-decision-inner {
+    grid-template-columns: 1fr;
+    padding: 28px 20px 28px 32px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-decision-right {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid var(--ojo-rule);
+    padding-top: 20px;
+    margin-top: 4px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-decision-badge {
+    font-size: clamp(48px, 16vw, 80px);
+    right: max(16px, var(--fluid-gutter));
+    top: 20px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-d-title {
+    font-size: clamp(22px, 5.5vw, 28px);
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-d-rationale {
+    font-size: 15px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-decision-carousel {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-outcome-paper {
+    padding: 32px 20px 36px 32px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-reflection-p {
+    font-size: 15px;
+  }
+
+  .cs-page.cs-page--journal-omantel .cs-noteworthy-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .cs-page.cs-page--journal-omantel .cs-noteworthy-grid .cs-visual-img {
+    min-height: 0;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-journal-footer {
+    padding: 32px max(16px, var(--fluid-gutter)) 36px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-footer-insert {
+    padding: 28px 20px 28px 32px;
+    gap: 24px;
+    text-align: left;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-footer-next {
+    text-align: left !important;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-footer-vdiv {
+    display: none;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-footer-project {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 390px) {
+  .cs-page.cs-page--journal-omantel
+    .ojo-title-insert
+    .ojo-main-title.cs-hero-title {
+    font-size: 30px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-decision-stage {
+    height: 320px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-outcome-paper {
+    padding-inline: 18px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-impact-value {
+    font-size: 32px;
+  }
+}
