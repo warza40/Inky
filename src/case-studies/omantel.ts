@@ -362,13 +362,7 @@ export const omantelCase: CaseStudy = {
           {
             src: "/Omantel%20assets/Om-Mobile.png",
             alt: "Omantel bulk actions on mobile — scoped flows for on-the-go updates",
-            caption:
-              "Mobile-first views for tactical line changes and scoped bulk actions.",
-          },
-          {
-            src: "/Omantel%20assets/KD4.png",
-            alt: "Mobile screens showing scoped bulk experience",
-            caption: "Mobile screens showing the scoped mobile experience.",
+            caption: "Mobile-first views with limited scope of features.",
           },
         ],
       },
