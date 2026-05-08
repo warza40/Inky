@@ -76,7 +76,7 @@ export function JournalAboutPhotoCarousel({
           key={slide.src + safe}
           src={slide.src}
           alt={slide.alt}
-          className="jl-about-carousel-img"
+          className={`jl-about-carousel-img${safe === 1 ? " jl-about-carousel-img--slide-2" : ""}`}
           loading={safe === 0 ? "eager" : "lazy"}
           decoding="async"
           width={slide.width ?? 1440}

@@ -1504,6 +1504,8 @@
   border-radius: 2px;
   overflow: hidden;
   background: rgba(130, 145, 155, 0.22);
+  width: 100%;
+  height: min(340px, 38vw);
 }
 
 .home-layout--journal .jl-about-carousel-chev {
@@ -1545,11 +1547,15 @@
 
 .home-layout--journal .jl-about-carousel-img {
   width: 100%;
-  height: auto;
-  max-height: min(340px, 38vw);
+  height: 100%;
   object-fit: cover;
   object-position: center 22%;
   display: block;
+}
+
+/* Landscape slide 2: fills fixed viewport; tune focal crop */
+.home-layout--journal .jl-about-carousel-img--slide-2 {
+  object-position: center 44%;
 }
 
 @media (max-width: 840px) {
@@ -1558,8 +1564,8 @@
     justify-self: center;
   }
 
-  .home-layout--journal .jl-about-carousel-img {
-    max-height: min(380px, 72vw);
+  .home-layout--journal .jl-about-carousel-viewport {
+    height: min(380px, 72vw);
   }
 }
 
@@ -1568,9 +1574,10 @@
   bottom: 12px;
   right: 14px;
   margin: 0;
-  font-family: var(--font-label);
+  font-family: var(--font-body);
   font-size: 9px;
-  letter-spacing: 0.14em;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.92);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
@@ -1617,15 +1624,18 @@
   margin-bottom: 0;
 }
 
-.home-layout--journal .jl-about-copy-eyebrow {
-  font-family: var(--font-label);
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
+/* Eyebrows in About (matches `.jl-h-eyebrow` — journal body uppercase stack) */
+.home-layout--journal .jl-about-copy-eyebrow,
+.home-layout--journal .jl-about-approach-eyebrow {
+  font-family: var(--font-body);
   font-size: 9px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  font-weight: var(--weight-eyebrow);
-  color: rgba(120, 95, 55, 0.5);
+  font-weight: 500;
+  color: var(--jl-ink-faded);
+}
+
+.home-layout--journal .jl-about-copy-eyebrow {
   margin: 0 0 12px;
 }
 
@@ -1665,14 +1675,6 @@
 }
 
 .home-layout--journal .jl-about-approach-eyebrow {
-  font-family: var(--font-label);
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  font-weight: var(--weight-eyebrow);
-  color: rgba(120, 95, 55, 0.5);
   margin: 0 0 18px;
 }
 
@@ -2051,8 +2053,8 @@
     padding-top: 44px;
   }
 
-  .home-layout--journal .jl-about-carousel-img {
-    max-height: 190px;
+  .home-layout--journal .jl-about-carousel-viewport {
+    height: 190px;
   }
 
   .home-layout--journal .jl-about-main-grid > .jl-about-text-col {
@@ -2178,14 +2180,13 @@
   border-top-color: var(--jl-rule);
 }
 .home-layout--journal .jl-about-insert .about-brief-label {
-  font-family: var(--font-label);
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
+  font-family: var(--font-body);
   font-style: normal;
-  font-weight: var(--weight-eyebrow);
+  font-weight: 500;
   font-size: 9px;
   line-height: 1.35;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: var(--jl-ink-faded);
 }
 .home-layout--journal
