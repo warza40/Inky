@@ -5509,6 +5509,7 @@ h3.cs-impact-postits-eyebrow {
     var(--color-moss-700) 72%,
     var(--color-ink-900) 28%
   );
+  white-space: pre-line;
 }
 
 .cs-impact-postit .ojo-impact-detail--plain {

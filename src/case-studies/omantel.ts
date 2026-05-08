@@ -267,7 +267,7 @@ export const omantelCase: CaseStudy = {
           value: "48hrs",
           labelItalic: "→ 0",
           metaDetail:
-            "Time to confirmation\nper batch activation\n\nFrom days to seconds\n\nOperators now see batch confirmation in real time",
+            "From days to seconds\n\nOperators now see batch\nconfirmation in real time",
           metaDetailPlain: true,
         },
       ],

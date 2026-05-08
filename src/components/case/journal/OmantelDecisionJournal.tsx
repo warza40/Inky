@@ -110,7 +110,6 @@ export function OmantelDecisionJournal({
                     <div className="ojo-d-impact-label">Rationale</div>
                     <RiPoints text={decision.rationale} />
                   </div>
-                  <div className="ojo-d-divider" />
                   <div className="ojo-d-impact-block">
                     <div className="ojo-d-impact-label">Impact</div>
                     <RiPoints text={decision.impact} />
@@ -118,13 +117,10 @@ export function OmantelDecisionJournal({
                 </>
               )}
               {decision.designResponse?.trim() ? (
-                <>
-                  <div className="ojo-d-divider" />
-                  <div className="ojo-d-impact-block">
-                    <div className="ojo-d-impact-label">Solutioning</div>
-                    <RiPoints text={decision.designResponse} />
-                  </div>
-                </>
+                <div className="ojo-d-impact-block">
+                  <div className="ojo-d-impact-label">Solutioning</div>
+                  <RiPoints text={decision.designResponse} />
+                </div>
               ) : null}
             </div>
           ) : null}

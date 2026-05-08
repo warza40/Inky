@@ -125,11 +125,11 @@ export function CaseJournalMap({ caseStudy }: CaseJournalMapProps) {
           ) : null}
           {nDecisions > 0
             ? s.decisions.map((decision, index) => (
-                <div key={`${decision.title}-${index}`}>
+                <div
+                  key={`${decision.title}-${index}`}
+                  className={cn(index > 0 && "ojo-decision-follow")}
+                >
                   <OmantelDecisionJournal decision={decision} index={index} />
-                  {index < nDecisions - 1 ? (
-                    <hr className="ojo-decision-sep" aria-hidden />
-                  ) : null}
                 </div>
               ))
             : null}

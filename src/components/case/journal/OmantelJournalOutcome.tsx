@@ -129,13 +129,15 @@ export function OmantelJournalOutcome({
             ) : null}
             {hasNarrative ? (
               <>
-                {(highlights?.length ?? 0) > 0 ? (
-                  <div
-                    className="ojo-d-divider"
-                    style={{ marginTop: "28px" }}
-                  />
-                ) : null}
-                <div className="ojo-p-label">Outcome</div>
+                <div
+                  className={cn(
+                    "ojo-p-label",
+                    (highlights?.length ?? 0) > 0 &&
+                      "ojo-outcome-label--after-highlights",
+                  )}
+                >
+                  Outcome
+                </div>
                 <OutcomeNarrativeBody
                   text={outcomeNarrative!}
                   withVisualLead={hasOutcomeImages}
@@ -147,13 +149,12 @@ export function OmantelJournalOutcome({
             ) : null}
             {reflection ? (
               <>
-                {hasTopPaperContent ? (
-                  <div
-                    className="ojo-d-divider"
-                    style={{ marginTop: "32px" }}
-                  />
-                ) : null}
-                <div className="ojo-p-label">
+                <div
+                  className={cn(
+                    "ojo-p-label",
+                    hasTopPaperContent && "ojo-outcome-label--after-body",
+                  )}
+                >
                   {hasTopPaperContent ? "Reflection" : "Outcome & reflection"}
                 </div>
                 <p className="ojo-reflection-p whitespace-pre-line">

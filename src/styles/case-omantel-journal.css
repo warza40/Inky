@@ -81,7 +81,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(48px, 10vh, 100px) max(var(--fluid-gutter), 16px);
+  padding-top: calc(clamp(48px, 10vh, 100px) - 20px);
+  padding-bottom: calc(clamp(48px, 10vh, 100px) - 20px);
+  padding-left: max(var(--fluid-gutter), 16px);
+  padding-right: max(var(--fluid-gutter), 16px);
   overflow: hidden;
 }
 
@@ -399,7 +402,7 @@
   background: var(--ojo-eyebrow-rule-dark);
 }
 
-/* Equal-height cream cards lifted off the leather */
+/* Warmth moss sage post-its — equal row height, folded top-right corner */
 .cs-page--journal-omantel .ojo-impact-postits--on-leather {
   align-items: stretch;
   gap: clamp(14px, 2.4vw, 22px);
@@ -407,51 +410,87 @@
 }
 
 .cs-page--journal-omantel .ojo-impact-postits--on-leather .cs-impact-postit {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 0;
-  height: auto;
+  height: 100%;
   align-self: stretch;
-  transform: none;
+  overflow: hidden;
   margin: 0;
   padding: clamp(22px, 3vw, 28px) clamp(18px, 2.6vw, 24px);
-  background-color: var(--ojo-cream);
-  background-image:
-    linear-gradient(var(--ojo-grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--ojo-grid) 1px, transparent 1px);
-  background-size: 22px 22px;
-  background-repeat: repeat;
-  border: 1px solid rgba(120, 95, 55, 0.22);
+  padding-top: clamp(26px, 3.4vw, 32px);
+  background-color: var(--color-moss-100);
+  background-image: none;
+  border: 1px solid color-mix(in srgb, var(--color-moss-700) 22%, transparent);
+  border-radius: 2px;
   box-shadow:
-    0 10px 40px rgba(0, 0, 0, 0.45),
-    0 2px 8px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    2px 3px 0 rgba(62, 72, 52, 0.12),
+    5px 10px 24px rgba(45, 52, 38, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  isolation: isolate;
+}
+
+/* Folded dog-ear — darker moss underside (top right) */
+.cs-page--journal-omantel
+  .ojo-impact-postits--on-leather
+  .cs-impact-postit::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 34px;
+  height: 34px;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    225deg,
+    transparent 50%,
+    color-mix(in srgb, var(--color-moss-700) 52%, #243018) 50%
+  );
+  box-shadow: inset 1px -1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.cs-page--journal-omantel
+  .ojo-impact-postits--on-leather
+  .cs-impact-postit
+  > * {
+  position: relative;
+  z-index: 1;
 }
 
 .cs-page--journal-omantel .ojo-impact-postits--on-leather .ojo-impact-detail {
   flex-grow: 1;
-  color: var(--ojo-ink-mid);
+  color: color-mix(
+    in srgb,
+    var(--color-moss-700) 72%,
+    var(--color-ink-900) 28%
+  );
 }
 
 .cs-page--journal-omantel .ojo-impact-postits--on-leather .ojo-impact-value {
-  color: var(--ojo-ink);
+  color: var(--color-moss-700);
 }
 
 .cs-page--journal-omantel .ojo-impact-postits--on-leather .ojo-impact-suffix,
 .cs-page--journal-omantel
   .ojo-impact-postits--on-leather
   .ojo-impact-suffix--scale {
-  color: var(--ojo-ink-mid);
+  color: color-mix(
+    in srgb,
+    var(--color-moss-700) 76%,
+    var(--color-ink-900) 24%
+  );
 }
 
 .cs-page--journal-omantel .ojo-impact-postits--on-leather .ojo-impact-caps {
-  color: var(--ojo-eyebrow-paper);
+  color: color-mix(in srgb, var(--color-moss-700) 82%, transparent);
 }
 
 .cs-page--journal-omantel
   .ojo-impact-postits--on-leather
   .ojo-impact-detail--plain {
-  color: var(--ojo-ink);
+  color: var(--color-ink-900);
 }
 
 .ojo-overview-p {
@@ -584,6 +623,20 @@
   box-sizing: border-box;
 }
 
+/* Context: drop ghost [00] slot so “CONTEXT” lines up with Impact / Overview eyebrows */
+.cs-page.cs-page--journal-omantel
+  #context
+  > .cs-section-head
+  .cs-section-label::before {
+  content: none;
+  display: none;
+  width: 0;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  flex: 0 0 0;
+}
+
 .cs-page.cs-page--journal-omantel
   section.cs-section.ojo-decisions-wrap
   > .cs-section-head {
@@ -653,6 +706,11 @@
 /* ─── Decision stage + carousel ─── */
 .ojo-decision-block {
   margin-bottom: 0;
+}
+
+/* Space between decision articles (replaces gradient `hr.ojo-decision-sep`) */
+.ojo-decision-follow {
+  margin-top: clamp(44px, 6.5vw, 80px);
 }
 
 .ojo-decision-stage {
@@ -998,12 +1056,7 @@
   padding-left: 36px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-}
-
-.ojo-d-divider {
-  height: 1px;
-  background: var(--ojo-rule);
+  gap: 28px;
 }
 
 .ojo-d-impact-label {
@@ -1014,23 +1067,6 @@
   text-transform: uppercase;
   color: var(--ojo-eyebrow-paper);
   margin-bottom: 8px;
-}
-
-.ojo-decision-sep {
-  box-sizing: border-box;
-  display: block;
-  width: auto;
-  flex-shrink: 0;
-  height: 2px;
-  margin: clamp(44px, 6.5vw, 80px) max(var(--fluid-gutter), 32px) 0;
-  border: none;
-  border-radius: 1px;
-  background: linear-gradient(
-    90deg,
-    rgba(230, 210, 175, 0.55),
-    rgba(196, 168, 130, 0.28) 45%,
-    rgba(120, 95, 55, 0.08) 100%
-  );
 }
 
 .ojo-decision-placeholder-wrap {
@@ -1044,6 +1080,15 @@
 /* ─── Outcome ─── */
 .ojo-outcome-paper {
   padding: 48px 48px 52px 64px;
+}
+
+/* Outcome — spacing before subsection labels (no duplicate rules vs .ojo-p-label::after) */
+.ojo-outcome-label--after-highlights {
+  margin-top: 28px;
+}
+
+.ojo-outcome-label--after-body {
+  margin-top: 32px;
 }
 
 .ojo-highlight-list {
@@ -1190,10 +1235,6 @@
     margin-right: max(24px, var(--fluid-gutter));
   }
 
-  .cs-page.cs-page--journal-omantel .ojo-decision-sep {
-    margin-inline: max(24px, var(--fluid-gutter));
-  }
-
   .cs-page.cs-page--journal-omantel .ojo-problem-section {
     padding-left: max(24px, var(--fluid-gutter));
     padding-right: max(24px, var(--fluid-gutter));
@@ -1311,10 +1352,6 @@
     margin-left: 16px;
     margin-right: 16px;
     margin-top: -8px;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-decision-sep {
-    margin-inline: 16px;
   }
 
   .cs-page.cs-page--journal-omantel .ojo-decision-inner {
