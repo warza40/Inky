@@ -17,16 +17,18 @@ export function CaseJournalOutcomeSupplement({
   if (visualsPresentation.mode !== "legacy") return null;
 
   return (
-    <div className="ojo-outcome-legacy-visuals space-y-6">
-      {visualsPresentation.images.map((image, index) => (
-        <MotionImage
-          key={index}
-          src={image.src}
-          alt={image.alt}
-          caption={image.caption}
-          fill
-        />
-      ))}
+    <div className="ojo-outcome-legacy-shell">
+      <div className="ojo-outcome-legacy-visuals space-y-6">
+        {visualsPresentation.images.map((image, index) => (
+          <MotionImage
+            key={index}
+            src={image.src}
+            alt={image.alt}
+            caption={image.caption}
+            fill
+          />
+        ))}
+      </div>
     </div>
   );
 }

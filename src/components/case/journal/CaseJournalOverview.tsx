@@ -130,7 +130,15 @@ export function CaseJournalOverview({ caseStudy }: CaseJournalOverviewProps) {
       ) : null}
 
       {s.contextEcosystem ? (
-        <ContextEcosystem data={s.contextEcosystem} />
+        <div className="ojo-context-ecosystem-paper ojo-overview-insert ojo-paper ojo-paper-shadow">
+          <div className="ojo-punch-holes ojo-punch-holes--dual" aria-hidden>
+            <span className="ojo-punch-hole" />
+            <span className="ojo-punch-hole" />
+          </div>
+          <div className="ojo-context-ecosystem-inner">
+            <ContextEcosystem data={s.contextEcosystem} />
+          </div>
+        </div>
       ) : null}
     </div>
   );

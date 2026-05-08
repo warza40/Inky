@@ -831,7 +831,7 @@
 }
 
 .home-layout--journal .jl-wc-card--compact .jl-wc-hero-wrap .jl-wc-tape {
-  top: clamp(9px, 2.2cqh, 17px);
+  top: 0;
   left: clamp(1px, 0.9cqw, 9px);
   width: clamp(88px, 20cqw, 124px);
   height: clamp(26px, 3.6cqh, 34px);
@@ -855,7 +855,7 @@
 
 .home-layout--journal .jl-wc-tape {
   position: absolute;
-  top: -8px;
+  top: 0;
   left: 14px;
   width: 64px;
   height: 28px;
@@ -874,7 +874,7 @@
 .home-layout--journal
   .jl-wc-hero--featured.jl-wc-hero--cover-photo
   .jl-wc-tape {
-  top: clamp(10px, 3.4cqh, 20px);
+  top: 0;
   left: clamp(2px, 1.2cqw, 12px);
   width: clamp(104px, 22cqw, 140px);
   height: clamp(30px, 4.2cqh, 38px);
@@ -1421,7 +1421,7 @@
 
 .home-layout--journal .jl-about-tape {
   position: absolute;
-  top: -9px;
+  top: 0;
   left: clamp(72px, 12vw, 120px);
   width: 100px;
   height: 20px;
@@ -1979,7 +1979,7 @@
   /* Compact grid: show extended washi on leather (same intent as desktop) */
   .home-layout--journal .jl-wc-card--compact .jl-wc-hero-wrap .jl-wc-tape {
     display: block;
-    top: 9px;
+    top: 0;
     left: 4px;
     width: 76px;
     height: 26px;
@@ -1993,7 +1993,7 @@
     .jl-wc-hero--cover-photo
     .jl-wc-tape {
     display: block;
-    top: 11px;
+    top: 0;
     left: 6px;
     width: 88px;
     height: 28px;

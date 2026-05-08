@@ -73,25 +73,39 @@ export function CaseJournalMap({ caseStudy }: CaseJournalMapProps) {
           {hasLegacyProblemStack ? (
             <div
               className={cn(
-                "ojo-problem-legacy-stack",
-                s.outcomeBeforeAfter && "mt-10 md:mt-12",
+                "ojo-problem-section",
+                s.outcomeBeforeAfter &&
+                  "ojo-problem-section--legacy-follows-ba",
               )}
             >
-              {s.problem.length > 0 ? <Problem problem={s.problem} /> : null}
-              {s.understanding ? (
-                <CaseUnderstandingBlock
-                  slug={caseStudy.slug}
-                  understanding={s.understanding}
-                />
-              ) : null}
-              {s.problemProcessVisual ? (
-                <CaseProblemProcessVisual
-                  src={s.problemProcessVisual.src}
-                  alt={s.problemProcessVisual.alt}
-                  caption={s.problemProcessVisual.caption}
-                />
-              ) : null}
-              <CaseConstraintsBlock constraints={s.constraints} />
+              <div className="ojo-problem-legacy-insert ojo-paper ojo-paper-shadow">
+                <div
+                  className="ojo-punch-holes ojo-punch-holes--dual"
+                  aria-hidden
+                >
+                  <span className="ojo-punch-hole" />
+                  <span className="ojo-punch-hole" />
+                </div>
+                <div className="ojo-problem-legacy-stack">
+                  {s.problem.length > 0 ? (
+                    <Problem problem={s.problem} />
+                  ) : null}
+                  {s.understanding ? (
+                    <CaseUnderstandingBlock
+                      slug={caseStudy.slug}
+                      understanding={s.understanding}
+                    />
+                  ) : null}
+                  {s.problemProcessVisual ? (
+                    <CaseProblemProcessVisual
+                      src={s.problemProcessVisual.src}
+                      alt={s.problemProcessVisual.alt}
+                      caption={s.problemProcessVisual.caption}
+                    />
+                  ) : null}
+                  <CaseConstraintsBlock constraints={s.constraints} />
+                </div>
+              </div>
             </div>
           ) : null}
         </MotionSection>
@@ -107,7 +121,7 @@ export function CaseJournalMap({ caseStudy }: CaseJournalMapProps) {
           )}
         >
           {hasReportCategories && s.reportCategories ? (
-            <div className="cs-report-categories-wrap cs-report-before-decisions">
+            <div className="cs-report-categories-wrap cs-report-before-decisions ojo-journal-report-categories">
               <div className="cs-report-grid">
                 {s.reportCategories.map((item, i) => (
                   <div key={i} className="cs-report-card">
@@ -152,7 +166,9 @@ export function CaseJournalMap({ caseStudy }: CaseJournalMapProps) {
           />
           {visualsPresentation.mode === "noteworthy" ? (
             <div className="ojo-noteworthy-wrap">
-              <p className="ojo-p-label">Noteworthy iterations</p>
+              <div className="cs-section-head ojo-noteworthy-rail-head">
+                <h3 className="cs-section-label">Noteworthy iterations</h3>
+              </div>
               <CaseNoteworthyIterations caseStudy={caseStudy} />
             </div>
           ) : null}

@@ -126,7 +126,7 @@
 }
 
 .ojo-tape-wave {
-  top: -14px;
+  top: 0;
   left: 12%;
   width: 118px;
   height: 34px;
@@ -136,7 +136,7 @@
 }
 
 .ojo-tape-seigaiha {
-  top: -14px;
+  top: 0;
   right: 11%;
   width: 80px;
   height: 34px;
@@ -424,6 +424,7 @@
   background-image: none;
   border: 1px solid color-mix(in srgb, var(--color-moss-700) 22%, transparent);
   border-radius: 2px;
+  border-top-right-radius: 0;
   box-shadow:
     2px 3px 0 rgba(62, 72, 52, 0.12),
     5px 10px 24px rgba(45, 52, 38, 0.14),
@@ -431,7 +432,7 @@
   isolation: isolate;
 }
 
-/* Folded dog-ear — darker moss underside (top right) */
+/* Dog-ear flap only — sharp card corner avoids a moss arc behind the fold */
 .cs-page--journal-omantel
   .ojo-impact-postits--on-leather
   .cs-impact-postit::after {
@@ -443,12 +444,8 @@
   height: 34px;
   z-index: 0;
   pointer-events: none;
-  background: linear-gradient(
-    225deg,
-    transparent 50%,
-    color-mix(in srgb, var(--color-moss-700) 52%, #243018) 50%
-  );
-  box-shadow: inset 1px -1px 0 rgba(255, 255, 255, 0.12);
+  background-color: color-mix(in srgb, var(--color-moss-700) 52%, #243018);
+  clip-path: polygon(100% 0, 100% 50%, 50% 0);
 }
 
 .cs-page--journal-omantel
@@ -627,6 +624,25 @@
 .cs-page.cs-page--journal-omantel
   #context
   > .cs-section-head
+  .cs-section-label::before {
+  content: none;
+  display: none;
+  width: 0;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  flex: 0 0 0;
+}
+
+/* Outcome › Noteworthy — secondary rail matches primary MotionSection header metrics */
+.cs-page.cs-page--journal-omantel #outcome .ojo-noteworthy-rail-head {
+  padding-inline: max(var(--fluid-gutter), 40px);
+  box-sizing: border-box;
+}
+
+.cs-page.cs-page--journal-omantel
+  #outcome
+  .ojo-noteworthy-rail-head
   .cs-section-label::before {
   content: none;
   display: none;
@@ -1127,8 +1143,211 @@
   margin-top: clamp(var(--space-12), 4vw, var(--space-16));
 }
 
-.cs-page--journal-omantel .ojo-noteworthy-wrap .ojo-p-label {
-  margin-bottom: clamp(var(--space-6), 2vw, var(--space-8));
+/* Context · ecosystem — same cream paper rhythm as Overview */
+.cs-page.cs-page--journal-omantel .ojo-context-ecosystem-inner .cs-ecosystem {
+  margin-bottom: 0;
+  padding-top: 4px;
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-context-ecosystem-paper
+  .cs-ecosystem-box {
+  background: color-mix(in srgb, var(--ojo-cream) 88%, var(--ojo-cream-mid));
+  border-color: rgba(120, 95, 55, 0.22);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-context-ecosystem-paper
+  .cs-ecosystem-box-head {
+  border-bottom-color: rgba(120, 95, 55, 0.18);
+  color: var(--ojo-eyebrow-paper);
+  background: color-mix(
+    in srgb,
+    var(--ojo-cream-mid) 55%,
+    rgba(185, 60, 46, 0.06)
+  );
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-context-ecosystem-paper
+  .cs-ecosystem-row {
+  border-bottom-color: rgba(120, 95, 55, 0.14);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-context-ecosystem-paper
+  .cs-ecosystem-row:hover {
+  background: rgba(237, 229, 208, 0.55);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-context-ecosystem-paper
+  .cs-ecosystem-icon-cell {
+  border-right-color: rgba(120, 95, 55, 0.16);
+  color: rgba(74, 61, 46, 0.55);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-context-ecosystem-paper
+  .cs-ecosystem-eyebrow-text,
+.cs-page.cs-page--journal-omantel
+  .ojo-context-ecosystem-paper
+  .cs-ecosystem-intro {
+  color: var(--ojo-ink-mid);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-context-ecosystem-paper
+  .cs-ecosystem-intro {
+  max-width: none;
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-context-ecosystem-paper
+  .cs-ecosystem-name {
+  color: var(--ojo-ink);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-context-ecosystem-paper
+  .cs-ecosystem-desc {
+  color: rgba(74, 61, 46, 0.72);
+}
+
+/* Problem · legacy narrative (warehouse, DR, etc.) — cream sheet like before/after */
+.cs-page.cs-page--journal-omantel .ojo-problem-section--legacy-follows-ba {
+  padding-top: clamp(24px, 3.8vw, 40px);
+}
+
+.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert {
+  position: relative;
+  padding: 48px 48px 48px 64px;
+}
+
+.cs-page.cs-page--journal-omantel .ojo-problem-legacy-stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 4vw, 40px);
+}
+
+.cs-page.cs-page--journal-omantel
+  #problem
+  .ojo-problem-legacy-insert
+  .case-subsection-title {
+  color: var(--ojo-ink);
+}
+
+.cs-page.cs-page--journal-omantel
+  #problem
+  .ojo-problem-legacy-insert
+  .case-body {
+  color: var(--ojo-ink-mid);
+}
+
+.cs-page.cs-page--journal-omantel
+  #problem
+  .ojo-problem-legacy-insert
+  .case-divider {
+  border-color: var(--ojo-rule);
+}
+
+.cs-page.cs-page--journal-omantel
+  #problem
+  .ojo-problem-legacy-insert
+  .cs-constraint-list-item {
+  color: var(--ojo-ink-mid);
+  border-bottom-color: rgba(120, 95, 55, 0.2);
+}
+
+.cs-page.cs-page--journal-omantel
+  #problem
+  .ojo-problem-legacy-insert
+  .cs-cl-marker {
+  border-color: rgba(120, 95, 55, 0.35);
+  color: rgba(74, 61, 46, 0.65);
+}
+
+.cs-page.cs-page--journal-omantel
+  #problem
+  .ojo-problem-legacy-insert
+  .cs-problem-process-visual-caption {
+  color: var(--ojo-eyebrow-paper);
+}
+
+.cs-page.cs-page--journal-omantel
+  #problem
+  .ojo-problem-legacy-insert
+  .cs-problem-process-visual-img {
+  border-radius: 2px;
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(120, 95, 55, 0.12);
+}
+
+/* Decision rail · report categories */
+.cs-page.cs-page--journal-omantel
+  .ojo-journal-report-categories
+  .cs-report-card {
+  background: color-mix(in srgb, var(--ojo-cream) 92%, transparent);
+  border-color: rgba(120, 95, 55, 0.22);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-journal-report-categories
+  .cs-report-title {
+  color: var(--ojo-ink);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-journal-report-categories
+  .cs-report-desc {
+  color: var(--ojo-ink-mid);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-journal-report-categories
+  .cs-report-num {
+  color: rgba(74, 61, 46, 0.45);
+}
+
+/* Disaster recovery · understanding personas on journal canvas */
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-dr-understanding {
+  color: var(--ojo-ink-mid);
+}
+
+.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert hr.cs-dr-rule {
+  border: none;
+  height: 1px;
+  background: var(--ojo-rule);
+  margin: clamp(28px, 4vw, 44px) 0;
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-dr-section-head {
+  color: var(--ojo-ink);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-dr-section-label-text--accent {
+  color: var(--ojo-eyebrow-paper);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-dr-ia-bullets
+  li::marker {
+  color: rgba(120, 95, 55, 0.55);
+}
+
+/* Outcome · legacy stacked images */
+.cs-page.cs-page--journal-omantel .ojo-outcome-legacy-shell {
+  margin-top: clamp(28px, 4vw, 44px);
+  margin-inline: max(var(--fluid-gutter), 32px);
 }
 
 /* ─── Journal footer ─── */
@@ -1140,7 +1359,7 @@
 }
 
 .ojo-footer-tape {
-  top: 28px;
+  top: 0;
   left: 10%;
 }
 
@@ -1229,8 +1448,17 @@
     padding-inline: max(24px, var(--fluid-gutter));
   }
 
+  .cs-page.cs-page--journal-omantel #outcome .ojo-noteworthy-rail-head {
+    padding-inline: max(24px, var(--fluid-gutter));
+  }
+
   .cs-page.cs-page--journal-omantel .ojo-decision-content,
   .cs-page.cs-page--journal-omantel .ojo-outcome-text-wrap {
+    margin-left: max(24px, var(--fluid-gutter));
+    margin-right: max(24px, var(--fluid-gutter));
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-outcome-legacy-shell {
     margin-left: max(24px, var(--fluid-gutter));
     margin-right: max(24px, var(--fluid-gutter));
   }
@@ -1330,6 +1558,10 @@
     padding: 32px 20px 32px 32px;
   }
 
+  .cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert {
+    padding: 32px 20px 32px 32px;
+  }
+
   .cs-page.cs-page--journal-omantel .ojo-problem-text,
   .cs-page.cs-page--journal-omantel .ojo-after-text {
     font-size: 16px;
@@ -1339,6 +1571,10 @@
     .ojo-case-map
     > section.cs-section
     > .cs-section-head {
+    padding-inline: max(16px, var(--fluid-gutter));
+  }
+
+  .cs-page.cs-page--journal-omantel #outcome .ojo-noteworthy-rail-head {
     padding-inline: max(16px, var(--fluid-gutter));
   }
 
@@ -1352,6 +1588,11 @@
     margin-left: 16px;
     margin-right: 16px;
     margin-top: -8px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-outcome-legacy-shell {
+    margin-left: 16px;
+    margin-right: 16px;
   }
 
   .cs-page.cs-page--journal-omantel .ojo-decision-inner {

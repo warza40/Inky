@@ -6255,6 +6255,18 @@ h3.cs-impact-postits-eyebrow {
   height: 1px;
   background: var(--section-rail-rule);
 }
+h3.cs-section-label {
+  font-family: var(--section-rail-title-font);
+  font-size: var(--section-rail-title-size);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
+  font-weight: var(--section-rail-title-weight);
+  letter-spacing: var(--section-rail-title-tracking);
+  text-transform: var(--section-rail-title-transform);
+  color: var(--section-rail-title-fg);
+  line-height: 1;
+}
+
 /* Rail headings — overrides global `h2 { font-heading }` */
 h2.cs-section-label {
   font-family: var(--section-rail-title-font);
