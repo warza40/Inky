@@ -13,7 +13,7 @@ export interface CaseStudy {
   heroProblemStatement?: string;
   /** Shown as a minimal pill next to role */
   year?: string;
-  /** Full-width image below the tab bar */
+  /** Full-width image below site header / section tabs */
   heroImage?: { src: string; alt: string };
   /** Override "Next project" link (defaults to next item in the case study list) */
   nextProjectSlug?: string;

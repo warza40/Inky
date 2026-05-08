@@ -32,7 +32,8 @@ function buildCaseNavSections(
     Boolean(s.contextSections?.length) ||
     Boolean(s.contextFlow?.paragraphs?.length) ||
     Boolean(s.contextFlow?.images?.length) ||
-    Boolean(s.contextEcosystem);
+    Boolean(s.contextEcosystem) ||
+    Boolean(s.journalImpact?.blocks?.length);
   const hasProblem =
     s.problem.length > 0 ||
     Boolean(s.understanding) ||
@@ -94,19 +95,6 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
       >
         <div className="home-bg-grid" aria-hidden />
         <div className="cs-page-inner">
-          {caseStudy?.heroImage ? (
-            isJournalOmantel ? (
-              <OmantelJournalHero
-                src={caseStudy.heroImage.src}
-                alt={caseStudy.heroImage.alt}
-              />
-            ) : (
-              <CaseHeroMedia
-                src={caseStudy.heroImage.src}
-                alt={caseStudy.heroImage.alt}
-              />
-            )
-          ) : null}
           <div className="case-top-bar">
             <header className="case-site-header" aria-label="Site header">
               <Link href="/" className="home-header-name">
@@ -126,6 +114,19 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
               </div>
             )}
           </div>
+          {caseStudy?.heroImage ? (
+            isJournalOmantel ? (
+              <OmantelJournalHero
+                src={caseStudy.heroImage.src}
+                alt={caseStudy.heroImage.alt}
+              />
+            ) : (
+              <CaseHeroMedia
+                src={caseStudy.heroImage.src}
+                alt={caseStudy.heroImage.alt}
+              />
+            )
+          ) : null}
           {isJournalOmantel && caseStudy ? (
             <OmantelJournalTitlePaper
               metaLine={hero.metaLine}

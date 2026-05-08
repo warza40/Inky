@@ -4883,8 +4883,8 @@ body:has(.cs-page) {
   overflow: hidden;
   box-shadow: var(--shadow-md);
 }
-/* Hero banner leads the page — no top margin above title band */
-.cs-page-inner > .cs-case-hero-media:first-child {
+/* Hero sits under sticky header bar — flush to tabs, no stacked top margin */
+.cs-page-inner > .case-top-bar + .cs-case-hero-media {
   margin-top: 0;
 }
 .cs-case-hero-media-img {
