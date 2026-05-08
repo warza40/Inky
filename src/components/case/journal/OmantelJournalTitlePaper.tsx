@@ -22,12 +22,18 @@ const META_ROWS: ReadonlyArray<{
   { label: "Focus", field: "focus" },
 ];
 
-/** Domain chips under lede — B2B / Telecom from context (role lives in meta elsewhere if needed). */
-function domainChipsFromContext(context: string): string[] {
+/** Domain chips under lede — company, then Telecom / B2B when present in context. */
+function domainChipsFromOverview(overview: {
+  context: string;
+  company: string;
+}): string[] {
+  const { context, company } = overview;
   const chips: string[] = [];
-  if (/\bb2b\b/i.test(context)) chips.push("B2B");
+  const co = company.trim();
+  if (co) chips.push(co);
   if (/\btelecom\b/i.test(context)) chips.push("Telecom");
-  return chips.length > 0 ? chips : ["B2B", "Telecom"];
+  if (/\bb2b\b/i.test(context)) chips.push("B2B");
+  return chips.length > 0 ? chips : ["Omantel", "Telecom", "B2B"];
 }
 
 /** Paper title insert — typography uses existing DS classes (font stacks unchanged) */
@@ -37,7 +43,7 @@ export function OmantelJournalTitlePaper({
   problemStatement,
   overview,
 }: OmantelJournalTitlePaperProps) {
-  const chips = domainChipsFromContext(overview.context);
+  const chips = domainChipsFromOverview(overview);
 
   return (
     <section className="ojo-title-section">

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { CaseStudy } from "@/case-studies/omantel";
+import { CaseImpactPostIts } from "@/components/case/CaseImpactPostIts";
 import { ContextEcosystem } from "./ContextEcosystem";
 import { CaseContextFlow } from "./CaseContextFlow";
 import { MotionSection } from "./MotionSection";
@@ -15,12 +16,19 @@ export function CaseContextSection({ caseStudy }: CaseContextSectionProps) {
     Boolean(s.contextSections?.length) ||
     Boolean(s.contextFlow?.paragraphs?.length) ||
     Boolean(s.contextFlow?.images?.length) ||
-    Boolean(s.contextEcosystem);
+    Boolean(s.contextEcosystem) ||
+    Boolean(s.journalImpact?.blocks?.length);
 
   if (!hasContext) return null;
 
   return (
     <MotionSection id="context" title="Context">
+      {s.journalImpact?.blocks && s.journalImpact.blocks.length > 0 ? (
+        <div className="cs-impact-postits-section">
+          <h3 className="cs-impact-postits-eyebrow">Impact</h3>
+          <CaseImpactPostIts blocks={s.journalImpact.blocks} />
+        </div>
+      ) : null}
       {s.contextFlow?.paragraphs?.length ? (
         <>
           <CaseContextFlow

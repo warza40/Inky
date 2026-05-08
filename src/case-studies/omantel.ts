@@ -41,7 +41,7 @@ export interface CaseStudy {
       images?: Array<{ src: string; alt: string; caption?: string }>;
     };
     /**
-     * Omantel journal: right column beside overview (impact stats, single insert).
+     * Impact metrics — sage moss post-its above overview/context copy (journal + generic case map).
      */
     journalImpact?: {
       blocks: Array<{
@@ -219,7 +219,8 @@ export interface CaseStudy {
 export const omantelCase: CaseStudy = {
   slug: "omantel-bulk-activation",
   title: "Fixing the Fragility in Enterprise SIM Activation",
-  heroMetaLine: "enterprise · telecom · omantel",
+  /** Deliberately empty: suppresses eyebrow above title and `context · company` fallback */
+  heroMetaLine: "",
   heroProblemStatement:
     "Thousands of SIM activations, processed through email chains and manual data entry across three disconnected systems. One invalid record was enough to restart the entire batch.",
   year: "2024",
@@ -263,9 +264,11 @@ export const omantelCase: CaseStudy = {
           metaDetailPlain: true,
         },
         {
-          value: "4.5",
-          labelItalic: "/5",
-          metaCaps: "Stakeholder satisfaction across delivery phases",
+          value: "48hrs",
+          labelItalic: "→ 0",
+          metaDetail:
+            "Time to confirmation\nper batch activation\n\n— Baseline from operational logs",
+          metaDetailPlain: true,
         },
       ],
     },
@@ -289,14 +292,10 @@ export const omantelCase: CaseStudy = {
               "Search-and-modify path — add or locate lines before editing.",
           },
           {
-            src: omantelCaseCardImageSrc,
-            alt: "Bulk Actions page with both paths: Change existing lines and Add new postpaid lines",
-            caption: "The Bulk Actions page showing both paths.",
-          },
-          {
-            src: "/Omantel%20assets/Outcome1.png",
-            alt: "Bulk upload drag-and-drop empty state",
-            caption: "CSV upload flow — empty state before a file is selected.",
+            src: "/Omantel%20assets/Upload%20file.png",
+            alt: "CSV upload: selecting or dragging a file into the bulk upload area",
+            caption:
+              "Upload file — prepare changes offline and bring them into the flow.",
           },
         ],
       },

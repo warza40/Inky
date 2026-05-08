@@ -23,43 +23,10 @@ export function OmantelJournalOutcome({
   const hasOutcomeImages = Boolean(images?.length ?? 0);
   const outcomeImages = images ?? [];
 
-  return (
-    <div className="ojo-outcome-stack space-y-8">
-      {(highlights?.length ?? 0) > 0 || reflection ? (
-        <div className="ojo-outcome-paper ojo-paper ojo-paper-shadow">
-          <div className="ojo-punch-holes" aria-hidden>
-            <span className="ojo-punch-hole" />
-            <span className="ojo-punch-hole" />
-            <span className="ojo-punch-hole" />
-          </div>
-          {(highlights?.length ?? 0) > 0 ? (
-            <>
-              <div className="ojo-p-label">Outcome</div>
-              <ul className="ojo-highlight-list" role="list">
-                {highlights!.map((line, i) => (
-                  <li key={i} className="ojo-highlight-item">
-                    {line}
-                  </li>
-                ))}
-              </ul>
-            </>
-          ) : null}
-          {reflection ? (
-            <>
-              {(highlights?.length ?? 0) > 0 ? (
-                <div className="ojo-d-divider" style={{ marginTop: "32px" }} />
-              ) : null}
-              <div className="ojo-p-label">
-                {(highlights?.length ?? 0) > 0
-                  ? "Reflection"
-                  : "Outcome & reflection"}
-              </div>
-              <p className="ojo-reflection-p">{reflection}</p>
-            </>
-          ) : null}
-        </div>
-      ) : null}
+  const hasPaper = (highlights?.length ?? 0) > 0 || Boolean(reflection);
 
+  return (
+    <div className="ojo-outcome-stack">
       {hasOutcomeImages ? (
         <div className="ojo-outcome-visuals">
           <div className="ojo-decision-stage">
@@ -73,6 +40,46 @@ export function OmantelJournalOutcome({
             <div className="ojo-decision-fade-top" aria-hidden />
             <OmantelJournalImageCarousel images={outcomeImages} />
             <div className="ojo-decision-fade-bottom" aria-hidden />
+          </div>
+        </div>
+      ) : null}
+
+      {hasPaper ? (
+        <div className={hasOutcomeImages ? "ojo-outcome-text-wrap" : undefined}>
+          <div className="ojo-outcome-paper ojo-paper ojo-paper-shadow">
+            <div className="ojo-punch-holes" aria-hidden>
+              <span className="ojo-punch-hole" />
+              <span className="ojo-punch-hole" />
+              <span className="ojo-punch-hole" />
+            </div>
+            {(highlights?.length ?? 0) > 0 ? (
+              <>
+                <div className="ojo-p-label">Outcome</div>
+                <ul className="ojo-highlight-list" role="list">
+                  {highlights!.map((line, i) => (
+                    <li key={i} className="ojo-highlight-item">
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
+            {reflection ? (
+              <>
+                {(highlights?.length ?? 0) > 0 ? (
+                  <div
+                    className="ojo-d-divider"
+                    style={{ marginTop: "32px" }}
+                  />
+                ) : null}
+                <div className="ojo-p-label">
+                  {(highlights?.length ?? 0) > 0
+                    ? "Reflection"
+                    : "Outcome & reflection"}
+                </div>
+                <p className="ojo-reflection-p">{reflection}</p>
+              </>
+            ) : null}
           </div>
         </div>
       ) : null}

@@ -94,6 +94,19 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
       >
         <div className="home-bg-grid" aria-hidden />
         <div className="cs-page-inner">
+          {caseStudy?.heroImage ? (
+            isJournalOmantel ? (
+              <OmantelJournalHero
+                src={caseStudy.heroImage.src}
+                alt={caseStudy.heroImage.alt}
+              />
+            ) : (
+              <CaseHeroMedia
+                src={caseStudy.heroImage.src}
+                alt={caseStudy.heroImage.alt}
+              />
+            )
+          ) : null}
           <div className="case-top-bar">
             <header className="case-site-header" aria-label="Site header">
               <Link href="/" className="home-header-name">
@@ -113,19 +126,6 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
               </div>
             )}
           </div>
-          {caseStudy?.heroImage ? (
-            isJournalOmantel ? (
-              <OmantelJournalHero
-                src={caseStudy.heroImage.src}
-                alt={caseStudy.heroImage.alt}
-              />
-            ) : (
-              <CaseHeroMedia
-                src={caseStudy.heroImage.src}
-                alt={caseStudy.heroImage.alt}
-              />
-            )
-          ) : null}
           {isJournalOmantel && caseStudy ? (
             <OmantelJournalTitlePaper
               metaLine={hero.metaLine}
@@ -143,17 +143,18 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
             showHeroBand={!isJournalOmantel}
           />
           <main className="cs-main">
-            <div className="cs-content">
-              {children}
-              {caseStudy && !isJournalOmantel ? (
+            <div className="cs-content">{children}</div>
+          </main>
+          <CaseStudyFooter
+            nextProject={
+              caseStudy && !isJournalOmantel ? (
                 <CaseNextProject
                   currentSlug={caseStudy.slug}
                   nextSlugOverride={caseStudy.nextProjectSlug}
                 />
-              ) : null}
-            </div>
-          </main>
-          <CaseStudyFooter />
+              ) : undefined
+            }
+          />
         </div>
       </div>
     </CaseMain>

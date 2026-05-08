@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -15,7 +16,8 @@ const sectionVariants = {
 interface MotionSectionProps {
   children: React.ReactNode;
   id?: string;
-  title?: string;
+  /** Section rail label (`h2.cs-section-label`) — string or richer tree (e.g. index + title) */
+  title?: ReactNode;
   className?: string;
 }
 

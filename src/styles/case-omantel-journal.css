@@ -35,14 +35,16 @@
     inset 0 0 0 1px rgba(160, 130, 80, 0.1);
 }
 
-/* ─── Shared labels ─── */
+/* ─── Shared labels (tokens on `.cs-page` — same metrics as MotionSection rails) ─── */
 .ojo-p-label {
-  font-family: var(--ojo-eyebrow-font, var(--font-body));
-  font-size: var(--ojo-eyebrow-size, 8px);
-  letter-spacing: var(--ojo-eyebrow-track, 0.16em);
-  font-weight: var(--ojo-eyebrow-weight, 600);
-  text-transform: uppercase;
-  color: var(--ojo-eyebrow-paper);
+  font-family: var(--cs-milestone-font);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
+  font-size: var(--cs-milestone-size);
+  font-weight: var(--cs-milestone-weight);
+  letter-spacing: var(--cs-milestone-tracking);
+  text-transform: var(--cs-milestone-transform);
+  color: var(--cs-milestone-paper-fg);
   margin-bottom: 10px;
   display: flex;
   align-items: center;
@@ -53,7 +55,7 @@
   content: "";
   flex: 1;
   height: 1px;
-  background: var(--ojo-eyebrow-rule-paper);
+  background: var(--cs-milestone-rule-paper);
 }
 
 /* ─── Hero ─── */
@@ -359,37 +361,36 @@
 }
 
 .ojo-overview-inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) 2px minmax(0, 1fr);
-  gap: 0 40px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+  align-items: stretch;
 }
 
-.ojo-overview-vdivider {
-  width: 2px;
-  align-self: stretch;
-  margin-top: 2.85rem;
-  margin-bottom: 0.75rem;
-  background: var(--ojo-rule);
-  pointer-events: none;
+.ojo-overview-impact-band {
+  width: 100%;
 }
 
-@media (max-width: 900px) {
-  .ojo-overview-inner {
-    grid-template-columns: 1fr;
-  }
-  .ojo-overview-vdivider {
-    display: none;
-  }
-  .ojo-overview-col-r {
-    padding-left: 0;
-    padding-top: 28px;
-    border-top: 1px solid var(--ojo-rule);
-  }
+.ojo-overview-narrative {
+  width: 100%;
 }
 
-.ojo-overview-col-r {
-  padding-left: 0;
+/* Overview body reuses `.cs-context-text`; strip extra top padding so label → copy matches other paper blocks. */
+.ojo-overview-narrative .cs-context-text {
+  padding-top: 0;
+}
+
+.cs-page--journal-omantel .cs-impact-postits-eyebrow {
+  color: var(--cs-milestone-paper-fg);
+  margin-bottom: 10px;
+}
+
+.cs-page--journal-omantel .cs-impact-postits-grid {
+  margin-top: 8px;
+}
+
+.cs-page--journal-omantel .cs-impact-postits-eyebrow::after {
+  background: var(--ojo-eyebrow-rule-paper);
 }
 
 .ojo-overview-p {
@@ -427,37 +428,13 @@
   margin: 1.25rem 0 0;
 }
 
-.ojo-impact-stack {
-  margin: 0;
-  padding: 0 12px 0 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.ojo-impact-row {
-  margin: 0;
-  padding: 0;
-  position: relative;
-}
-
-/* Metrics: bordered inset plate; translucent fill keeps parent grid readable */
-.ojo-impact-metric-box {
-  border-radius: 6px;
-  border: 1px solid rgba(74, 61, 46, 0.28);
-  background-color: rgba(74, 61, 46, 0.06);
-  padding: clamp(22px, 3.5vw, 30px);
-  box-sizing: border-box;
-}
-
 .ojo-impact-stat {
   margin: 0 0 12px;
   font-family: var(--font-accent);
   line-height: 1.05;
 }
 
-.ojo-impact-metric-box .ojo-impact-stat {
+.cs-impact-postit .ojo-impact-stat {
   margin-bottom: 10px;
 }
 
@@ -505,6 +482,7 @@
   font-weight: 400;
   line-height: 1.5;
   color: var(--ojo-ink-mid);
+  white-space: pre-line;
 }
 
 .ojo-impact-detail--plain {
@@ -596,43 +574,10 @@
   padding-top: 12px;
 }
 
-.ojo-decisions-header {
+.ojo-decisions-wrap > .cs-section-head {
   padding: 0 max(var(--fluid-gutter), 40px) 28px;
+  box-sizing: border-box;
 }
-
-.ojo-s-label {
-  font-family: var(--ojo-eyebrow-font, var(--font-body));
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-/* Decisions index bracket — tiny caps, matches paper eyebrows */
-.ojo-s-label > span:first-of-type {
-  font-family: var(--ojo-eyebrow-font, var(--font-body));
-  font-size: var(--ojo-eyebrow-size, 8px);
-  letter-spacing: 0.12em;
-  font-weight: var(--ojo-eyebrow-weight, 600);
-  text-transform: none;
-  color: var(--ojo-eyebrow-dark);
-}
-
-.ojo-s-label-title {
-  font-family: var(--font-heading);
-  font-size: clamp(1.2rem, 2.35vw, 1.52rem);
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(240, 232, 216, 0.9);
-}
-
-.ojo-s-label::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--ojo-eyebrow-rule-dark);
-}
-
 /* ─── Decision stage + carousel ─── */
 .ojo-decision-block {
   margin-bottom: 0;
@@ -906,7 +851,8 @@
   transform: scale(1.3);
 }
 
-.ojo-decision-content {
+.ojo-decision-content,
+.ojo-outcome-text-wrap {
   margin: 0 max(var(--fluid-gutter), 32px);
   position: relative;
   z-index: 6;
@@ -1149,12 +1095,13 @@
     padding-right: max(24px, var(--fluid-gutter));
   }
 
-  .cs-page.cs-page--journal-omantel .ojo-decisions-header {
+  .cs-page.cs-page--journal-omantel .ojo-decisions-wrap > .cs-section-head {
     padding-left: max(24px, var(--fluid-gutter));
     padding-right: max(24px, var(--fluid-gutter));
   }
 
-  .cs-page.cs-page--journal-omantel .ojo-decision-content {
+  .cs-page.cs-page--journal-omantel .ojo-decision-content,
+  .cs-page.cs-page--journal-omantel .ojo-outcome-text-wrap {
     margin-left: max(24px, var(--fluid-gutter));
     margin-right: max(24px, var(--fluid-gutter));
   }
@@ -1230,22 +1177,10 @@
 
   .cs-page.cs-page--journal-omantel .ojo-overview-insert {
     padding: 32px 20px 32px 32px;
-    gap: 24px;
   }
 
   .cs-page.cs-page--journal-omantel .ojo-overview-inner {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-overview-vdivider {
-    display: none;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-overview-col-r {
-    padding-top: 24px;
-    border-top: 1px solid var(--ojo-rule);
-    margin-top: 0;
+    gap: var(--space-10);
   }
 
   .cs-page.cs-page--journal-omantel .ojo-overview-text,
@@ -1271,7 +1206,7 @@
     font-size: 16px;
   }
 
-  .cs-page.cs-page--journal-omantel .ojo-decisions-header {
+  .cs-page.cs-page--journal-omantel .ojo-decisions-wrap > .cs-section-head {
     padding-left: max(16px, var(--fluid-gutter));
     padding-right: max(16px, var(--fluid-gutter));
   }
@@ -1281,7 +1216,8 @@
     min-height: unset;
   }
 
-  .cs-page.cs-page--journal-omantel .ojo-decision-content {
+  .cs-page.cs-page--journal-omantel .ojo-decision-content,
+  .cs-page.cs-page--journal-omantel .ojo-outcome-text-wrap {
     margin-left: 16px;
     margin-right: 16px;
     margin-top: -8px;
@@ -1325,15 +1261,6 @@
 
   .cs-page.cs-page--journal-omantel .ojo-reflection-p {
     font-size: 15px;
-  }
-
-  .cs-page.cs-page--journal-omantel .cs-noteworthy-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .cs-page.cs-page--journal-omantel .cs-noteworthy-grid .cs-visual-img {
-    min-height: 0;
   }
 
   .cs-page.cs-page--journal-omantel .ojo-journal-footer {

@@ -2,7 +2,10 @@
 
 import type { CaseStudy } from "@/case-studies/omantel";
 import { MotionSection } from "@/components/case/MotionSection";
-import { OmantelJournalOverview } from "./OmantelJournalOverview";
+import {
+  OmantelJournalOverview,
+  omantelJournalOverviewHasContent,
+} from "./OmantelJournalOverview";
 import { OmantelJournalProblem } from "./OmantelJournalProblem";
 import { OmantelDecisionJournal } from "./OmantelDecisionJournal";
 import { OmantelJournalOutcome } from "./OmantelJournalOutcome";
@@ -26,26 +29,33 @@ export function OmantelCaseJournalMap({
   const nDecisions = s.decisions.length;
   const visualsPresentation = getCaseVisualsPresentation(caseStudy);
 
+  const decisionsRailTitle = (
+    <>
+      <span className="cs-section-label-prefix">{`[${String(nDecisions).padStart(2, "0")}] `}</span>
+      Key Decisions
+    </>
+  );
+
   return (
     <div className="ojo-case-map">
-      <OmantelJournalOverview caseStudy={caseStudy} />
+      {omantelJournalOverviewHasContent(caseStudy) ? (
+        <MotionSection id="context" title="Context">
+          <OmantelJournalOverview caseStudy={caseStudy} />
+        </MotionSection>
+      ) : null}
 
       {s.outcomeBeforeAfter ? (
-        <OmantelJournalProblem beforeAfter={s.outcomeBeforeAfter} />
+        <MotionSection id="problem" title="Problem">
+          <OmantelJournalProblem beforeAfter={s.outcomeBeforeAfter} />
+        </MotionSection>
       ) : null}
 
       {nDecisions > 0 ? (
-        <section
+        <MotionSection
           id="decisions"
-          className="cs-section ojo-decisions-wrap"
-          aria-labelledby="ojo-decisions-heading"
+          title={decisionsRailTitle}
+          className="ojo-decisions-wrap"
         >
-          <div className="ojo-decisions-header">
-            <div className="ojo-s-label" id="ojo-decisions-heading">
-              <span>[{String(nDecisions).padStart(2, "0")}]</span>
-              <span className="ojo-s-label-title">Key Decisions</span>
-            </div>
-          </div>
           {s.decisions.map((decision, index) => (
             <div key={`${decision.title}-${index}`}>
               <OmantelDecisionJournal decision={decision} index={index} />
@@ -54,7 +64,7 @@ export function OmantelCaseJournalMap({
               ) : null}
             </div>
           ))}
-        </section>
+        </MotionSection>
       ) : null}
 
       <MotionSection id="outcome" title="Outcome">

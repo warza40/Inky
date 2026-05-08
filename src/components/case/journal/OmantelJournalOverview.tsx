@@ -3,13 +3,21 @@
 import Image from "next/image";
 import type { CaseStudy } from "@/case-studies/omantel";
 import { parseMadderSpans } from "@/lib/case-rich-text";
-import { cn } from "@/lib/utils";
+import { CaseImpactPostIts } from "@/components/case/CaseImpactPostIts";
 
 interface OmantelJournalOverviewProps {
   caseStudy: CaseStudy;
 }
 
-/** Single insert: Overview + Impact columns; optional context visuals below */
+export function omantelJournalOverviewHasContent(
+  caseStudy: CaseStudy,
+): boolean {
+  const cf = caseStudy.sections.contextFlow;
+  const ji = caseStudy.sections.journalImpact;
+  return Boolean(cf?.paragraphs?.length) || Boolean(ji?.blocks?.length);
+}
+
+/** Insert: Impact post-its (sage) above Overview; optional context visuals below */
 export function OmantelJournalOverview({
   caseStudy,
 }: OmantelJournalOverviewProps) {
@@ -20,88 +28,49 @@ export function OmantelJournalOverview({
   const hasOverview = Boolean(cf?.paragraphs?.length);
 
   return (
-    <section id="context" className="ojo-overview-section cs-section">
+    <div className="ojo-overview-section">
       <div className="ojo-overview-insert ojo-paper ojo-paper-shadow">
         <div className="ojo-punch-holes ojo-punch-holes--dual" aria-hidden>
           <span className="ojo-punch-hole" />
           <span className="ojo-punch-hole" />
         </div>
-        <div className="ojo-overview-inner">
-          <div className="ojo-overview-col-l">
-            {hasOverview ? (
-              <>
-                <div className="ojo-p-label">Overview</div>
-                <div className="ojo-overview-text cs-context-text cs-context-text--flow">
-                  {cf.paragraphs.map((p, i) => (
-                    <p key={i} className="ojo-overview-p cs-context-flow-p">
-                      {parseMadderSpans(p)}
+        <div className="ojo-overview-inner ojo-overview-inner--stacked">
+          {ji?.blocks?.length ? (
+            <div className="ojo-overview-impact-band">
+              <h3 className="cs-impact-postits-eyebrow">Impact</h3>
+              <CaseImpactPostIts blocks={ji.blocks} />
+            </div>
+          ) : null}
+
+          {(hasOverview || (!ji?.blocks?.length && cf?.aim)) && (
+            <div className="ojo-overview-narrative">
+              {hasOverview ? (
+                <>
+                  <div className="ojo-p-label">Overview</div>
+                  <div className="ojo-overview-text cs-context-text cs-context-text--flow">
+                    {cf!.paragraphs.map((p, i) => (
+                      <p key={i} className="ojo-overview-p cs-context-flow-p">
+                        {parseMadderSpans(p)}
+                      </p>
+                    ))}
+                  </div>
+                  {cf!.aim ? (
+                    <p className="ojo-overview-aim">
+                      {parseMadderSpans(cf!.aim)}
                     </p>
-                  ))}
-                </div>
-                {cf.aim ? (
-                  <p className="ojo-overview-aim">{parseMadderSpans(cf.aim)}</p>
-                ) : null}
-              </>
-            ) : null}
-          </div>
-
-          <div className="ojo-overview-vdivider" aria-hidden />
-
-          <div className="ojo-overview-col-r">
-            {ji?.blocks?.length ? (
-              <>
-                <div className="ojo-p-label">Impact</div>
-                <ul className="ojo-impact-stack" role="list">
-                  {ji.blocks.map((b, i) => (
-                    <li
-                      key={i}
-                      className="ojo-impact-row ojo-impact-metric-box"
-                    >
-                      {b.value?.trim() || b.labelItalic?.trim() ? (
-                        <p className="ojo-impact-stat">
-                          <span className="ojo-impact-value">{b.value}</span>
-                          {b.labelItalic ? (
-                            <>
-                              {" "}
-                              <span
-                                className={
-                                  b.labelItalic.startsWith("/")
-                                    ? "ojo-impact-suffix ojo-impact-suffix--scale"
-                                    : "ojo-impact-suffix"
-                                }
-                              >
-                                {b.labelItalic}
-                              </span>
-                            </>
-                          ) : null}
-                        </p>
-                      ) : null}
-                      {b.metaCaps ? (
-                        <p className="ojo-impact-caps">{b.metaCaps}</p>
-                      ) : null}
-                      {b.metaDetail ? (
-                        <p
-                          className={cn(
-                            "ojo-impact-detail",
-                            b.metaDetailPlain && "ojo-impact-detail--plain",
-                          )}
-                        >
-                          {b.metaDetail}
-                        </p>
-                      ) : null}
-                    </li>
-                  ))}
-                </ul>
-              </>
-            ) : cf?.aim ? (
-              <>
-                <div className="ojo-p-label">Constraints &amp; context</div>
-                <p className="ojo-impact-panel cs-context-aim">
-                  {parseMadderSpans(cf.aim)}
-                </p>
-              </>
-            ) : null}
-          </div>
+                  ) : null}
+                </>
+              ) : null}
+              {!ji?.blocks?.length && cf?.aim ? (
+                <>
+                  <div className="ojo-p-label">Constraints &amp; context</div>
+                  <p className="ojo-impact-panel cs-context-aim">
+                    {parseMadderSpans(cf!.aim)}
+                  </p>
+                </>
+              ) : null}
+            </div>
+          )}
         </div>
         {cf?.images && cf.images.length > 0 ? (
           <div className="ojo-context-visuals">
@@ -125,6 +94,6 @@ export function OmantelJournalOverview({
           </div>
         ) : null}
       </div>
-    </section>
+    </div>
   );
 }

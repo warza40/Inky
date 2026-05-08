@@ -163,7 +163,7 @@
    * Fluid gutters + column guardrails:
    * - vw is capped by DS gutter (no runaway horizontal padding on ultra-wide).
    * - min floor keeps narrow viewports from crowding type below touch targets.
-   * - Case pages set --cs-column-cap on .cs-page (stepped caps, not vw-only).
+   * - Case pages set --cs-column-cap on .cs-page (fluid cap aligned to reading rail).
    */
   --fluid-gutter-min: 20px;
   --fluid-gutter: clamp(
@@ -4551,8 +4551,12 @@ body:has(.cs-page) {
 .cs-page {
   position: relative;
   isolation: isolate;
-  /* Reading column cap — stepped max widths only (fluidity from min() + gutter) */
-  --cs-column-cap: 680px;
+  /*
+   * Reading column — fluid cap aligned with journal Omantel (full-width case rail).
+   * Section stack rhythm matches `.cs-page--journal-omantel` MotionSection spacing.
+   */
+  --case-section-stack: clamp(28px, 5vw, 40px);
+  --cs-column-cap: min(1240px, 95vw);
   /* Case accent tokens — default madder; `.cs-theme-moss` overrides */
   --cs-accent: var(--color-madder-900);
   --cs-accent-mid: var(--color-madder-500);
@@ -4570,19 +4574,18 @@ body:has(.cs-page) {
   --cs-accent-bar: var(--madder);
   --cs-footer-link: var(--madder);
   --cs-footer-link-hover: #c9604c;
+  /* Major section headings (MotionSection rails + mirrored in-content labels) */
+  --cs-milestone-font: var(--font-label);
+  --cs-milestone-size: var(--text-sm);
+  --cs-milestone-weight: 300;
+  --cs-milestone-tracking: 0.1em;
+  --cs-milestone-transform: none;
+  --cs-milestone-optical-align: optical;
+  --cs-milestone-rail-fg: var(--color-ink-300);
+  --cs-milestone-paper-fg: var(--color-ink-300);
+  --cs-milestone-rule-rail: var(--color-border);
+  --cs-milestone-rule-paper: var(--color-border);
   background-color: var(--color-ground-primary);
-}
-
-@media (min-width: 1024px) {
-  .cs-page {
-    --cs-column-cap: 780px;
-  }
-}
-
-@media (min-width: 1440px) {
-  .cs-page {
-    --cs-column-cap: 860px;
-  }
 }
 
 /* Journal dot grid — same layer as About section; sits under .home-bg-grid + content */
@@ -4905,36 +4908,6 @@ body:has(.cs-page) {
     opacity: 1;
   }
 }
-.cs-next-project {
-  margin-top: var(--space-24);
-  padding-top: var(--space-10);
-  border-top: 1px solid var(--color-border);
-}
-.cs-next-project-label {
-  font-family: var(--font-label);
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
-  font-size: var(--text-sm);
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  color: var(--color-ink-300);
-  margin: 0 0 var(--space-3);
-}
-.cs-next-project-link {
-  font-family: var(--font-heading);
-  font-size: clamp(1.125rem, 2vw + 0.5rem, 1.5rem);
-  font-weight: 500;
-  color: var(--color-ink-900);
-  text-decoration: none;
-  border-bottom: 2px solid var(--color-madder-900);
-  padding-bottom: 2px;
-  transition: color 150ms ease;
-}
-.cs-next-project-link:hover {
-  color: var(--color-madder-900);
-}
-
-/* Case study — site nav bar (sticky top), then breadcrumb + tabs below */
 .site-nav {
   position: sticky;
   top: 3px; /* sits below 3px progress bar */
@@ -5139,25 +5112,92 @@ body:has(.cs-page) {
   font-optical-sizing: auto;
 }
 
-/* Case study footer — same ink + parchment as homepage .site-footer */
-.cs-case-footer {
+/* Case study footer — extends homepage .site-footer (ink, parchment, dotted veil) */
+.cs-page .cs-case-footer.site-footer {
   position: relative;
+  isolation: isolate;
   z-index: 2;
   width: 100%;
   margin-top: 0;
-  padding: 20px max(var(--fluid-gutter), env(safe-area-inset-left, 0px)) 24px
-    max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
+  padding: 0;
   box-sizing: border-box;
   background: var(--ink);
   color: var(--parchment);
 }
+
+.cs-page .cs-case-footer.site-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle,
+    rgba(245, 239, 228, 0.08) 1px,
+    transparent 1px
+  );
+  background-size: 20px 20px;
+  background-position: 10px 10px;
+  background-attachment: fixed;
+}
+
 .cs-case-footer-inner {
   position: relative;
+  z-index: 1;
   width: min(var(--cs-column-cap), 100%);
   max-width: 100%;
   margin-inline: auto;
   box-sizing: border-box;
+  padding: 20px max(var(--fluid-gutter), env(safe-area-inset-left, 0px)) 24px
+    max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
 }
+
+.cs-case-footer-inner:has(.cs-next-project) {
+  padding-top: 48px;
+}
+
+.cs-case-footer-inner:has(.cs-next-project) .cs-case-footer-actions {
+  padding-top: 8px;
+}
+
+/* Next project — inside case footer only (same rail as main; dark footer band) */
+.cs-case-footer .cs-next-project {
+  margin: 0;
+  padding: 0 0 40px;
+  border: none;
+  border-bottom: 1px solid rgba(245, 239, 228, 0.1);
+}
+
+.cs-case-footer .cs-next-project-label {
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
+  font-size: var(--text-eyebrow);
+  font-weight: var(--weight-eyebrow);
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
+  color: rgba(245, 239, 228, 0.35);
+  margin: 0 0 12px;
+}
+
+.cs-case-footer .cs-next-project-link {
+  font-family: var(--font-heading);
+  font-size: clamp(1.125rem, 2vw + 0.5rem, 1.5rem);
+  font-weight: 500;
+  color: var(--parchment);
+  text-decoration: none;
+  border-bottom: 2px solid var(--cs-footer-link);
+  padding-bottom: 2px;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease;
+}
+
+.cs-case-footer .cs-next-project-link:hover {
+  color: var(--cs-footer-link-hover);
+  border-bottom-color: var(--cs-footer-link-hover);
+}
+
 .cs-case-footer-actions {
   display: flex;
   align-items: center;
@@ -5208,10 +5248,14 @@ body:has(.cs-page) {
   max-width: min(100%, 42rem);
 }
 @media (max-width: 768px) {
-  .cs-case-footer {
+  .cs-case-footer-inner {
     padding: 20px 24px 24px;
   }
+  .cs-case-footer-inner:has(.cs-next-project) {
+    padding-top: 48px;
+  }
 }
+
 @media (max-width: 480px) {
   .cs-case-footer-actions {
     flex-direction: column;
@@ -5286,14 +5330,14 @@ body:has(.cs-page) {
   margin: 0;
 }
 .cs-context-section-title {
-  font-family: var(--font-label);
+  font-family: var(--cs-milestone-font);
   font-optical-sizing: auto;
   font-variation-settings: "wdth" 100;
-  font-size: var(--text-eyebrow);
-  font-weight: var(--weight-eyebrow);
-  letter-spacing: var(--tracking-wider);
-  text-transform: none;
-  color: var(--cs-accent, var(--color-madder-900));
+  font-size: var(--cs-milestone-size);
+  font-weight: var(--cs-milestone-weight);
+  letter-spacing: var(--cs-milestone-tracking);
+  text-transform: var(--cs-milestone-transform);
+  color: var(--cs-milestone-paper-fg);
   margin: 0 0 var(--space-3);
 }
 .cs-context-section-body {
@@ -5303,6 +5347,124 @@ body:has(.cs-page) {
   color: var(--color-ink-900);
   line-height: 1.75;
   margin: 0;
+}
+
+/* Context — impact metrics as moss post-its (`sections.journalImpact`; all cases) */
+.cs-impact-postits-section {
+  /* Sibling gaps use `#context .cs-section-body > * + *` (same rhythm as `#problem`). */
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+h3.cs-impact-postits-eyebrow {
+  margin: 0;
+}
+
+.cs-impact-postits-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 0 var(--space-3);
+  font-family: var(--cs-milestone-font);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
+  font-size: var(--cs-milestone-size);
+  font-weight: var(--cs-milestone-weight);
+  letter-spacing: var(--cs-milestone-tracking);
+  text-transform: var(--cs-milestone-transform);
+  color: var(--cs-milestone-paper-fg);
+}
+
+.cs-impact-postits-eyebrow::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--cs-milestone-rule-paper);
+}
+
+.cs-impact-postits-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.cs-impact-postit {
+  margin: 0;
+  padding: clamp(20px, 3.2vw, 28px) clamp(18px, 2.8vw, 26px);
+  box-sizing: border-box;
+  background: var(--color-moss-100);
+  border: 1px solid color-mix(in srgb, var(--color-moss-700) 22%, transparent);
+  border-radius: 2px;
+  box-shadow:
+    2px 3px 0 rgba(62, 72, 52, 0.12),
+    5px 10px 24px rgba(45, 52, 38, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transform-origin: 50% 0;
+}
+
+.cs-impact-postit--1 {
+  transform: rotate(-1.05deg);
+}
+.cs-impact-postit--2 {
+  transform: rotate(0.85deg);
+}
+.cs-impact-postit--3 {
+  transform: rotate(-0.65deg);
+}
+
+.cs-impact-postit .ojo-impact-stat:last-child {
+  margin-bottom: 0;
+}
+
+.cs-impact-postit .ojo-impact-value {
+  color: var(--color-moss-700);
+}
+
+.cs-impact-postit .ojo-impact-suffix {
+  color: color-mix(
+    in srgb,
+    var(--color-moss-700) 76%,
+    var(--color-ink-900) 24%
+  );
+}
+
+.cs-impact-postit .ojo-impact-suffix--scale {
+  color: color-mix(
+    in srgb,
+    var(--color-moss-700) 76%,
+    var(--color-ink-900) 24%
+  );
+}
+
+.cs-impact-postit .ojo-impact-caps {
+  color: color-mix(in srgb, var(--color-moss-700) 82%, transparent);
+}
+
+.cs-impact-postit .ojo-impact-detail {
+  color: color-mix(
+    in srgb,
+    var(--color-moss-700) 72%,
+    var(--color-ink-900) 28%
+  );
+}
+
+.cs-impact-postit .ojo-impact-detail--plain {
+  color: var(--color-ink-900);
+}
+
+@media (max-width: 640px) {
+  .cs-impact-postit--1,
+  .cs-impact-postit--2,
+  .cs-impact-postit--3 {
+    transform: none;
+  }
 }
 
 /* Case context — ecosystem (four products module; aligned with static HTML reference) */
@@ -5635,13 +5797,14 @@ body:has(.cs-page) {
   margin-top: var(--space-2);
 }
 .cs-dr-section-label-text {
-  font-family: var(--font-label);
+  font-family: var(--cs-milestone-font);
   font-optical-sizing: auto;
   font-variation-settings: "wdth" 100;
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-wide);
-  text-transform: none;
-  color: var(--color-ink-300);
+  font-size: var(--cs-milestone-size);
+  font-weight: var(--cs-milestone-weight);
+  letter-spacing: var(--cs-milestone-tracking);
+  text-transform: var(--cs-milestone-transform);
+  color: var(--cs-milestone-paper-fg);
 }
 .cs-dr-section-label-text--accent {
   color: var(--color-madder-900);
@@ -5978,17 +6141,24 @@ body:has(.cs-page) {
   align-items: center;
   width: 100%;
   gap: var(--space-3);
-  font-family: var(--font-label);
+  font-family: var(--cs-milestone-font);
   font-optical-sizing: auto;
   font-variation-settings: "wdth" 100;
-  font-size: var(--text-sm);
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  text-transform: none;
-  color: var(--color-ink-300);
+  font-size: var(--cs-milestone-size);
+  font-weight: var(--cs-milestone-weight);
+  letter-spacing: var(--cs-milestone-tracking);
+  text-transform: var(--cs-milestone-transform);
+  color: var(--cs-milestone-rail-fg);
   margin: 0;
 }
-/* Label + rule (case sections — no em dash prefix) */
+
+.cs-section-label-prefix {
+  flex-shrink: 0;
+  margin-right: calc(var(--space-1) * -0.25);
+  opacity: 0.78;
+  font-variant-numeric: tabular-nums;
+}
+/* Label + rule (MotionSection rails) */
 .cs-section-label::before {
   content: none;
   display: none;
@@ -5997,23 +6167,27 @@ body:has(.cs-page) {
   content: "";
   flex: 1;
   height: 1px;
-  background: var(--color-border);
+  background: var(--cs-milestone-rule-rail);
 }
-/* Rail labels (Context / Problem / …) — Bricolage; beats global h2 { font-heading } */
+/* Rail headings — overrides global `h2 { font-heading }` */
 h2.cs-section-label {
-  font-family: var(--font-label);
+  font-family: var(--cs-milestone-font);
+  font-size: var(--cs-milestone-size);
   font-optical-sizing: auto;
   font-variation-settings: "wdth" 100;
-  font-weight: 300;
-  letter-spacing: 0.1em;
+  font-weight: var(--cs-milestone-weight);
+  letter-spacing: var(--cs-milestone-tracking);
+  text-transform: var(--cs-milestone-transform);
 }
-/* Context subsection titles — Bricolage; beats global h3 { font-heading } */
+
+/* Context in-section titles — match milestone typography (body / paper fg) */
 h3.cs-context-section-title {
-  font-family: var(--font-label);
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
-  font-weight: var(--weight-eyebrow);
-  letter-spacing: var(--tracking-wider);
+  font-family: var(--cs-milestone-font);
+  font-size: var(--cs-milestone-size);
+  font-weight: var(--cs-milestone-weight);
+  letter-spacing: var(--cs-milestone-tracking);
+  text-transform: var(--cs-milestone-transform);
+  color: var(--cs-milestone-paper-fg);
 }
 .cs-section-body {
   padding-top: 0;
@@ -6034,22 +6208,34 @@ h3.cs-context-section-title {
 #problem .cs-section-body > * + * {
   margin-top: var(--space-10);
 }
+
+#context .cs-section-body > * + * {
+  margin-top: var(--space-10);
+}
+
+#context .cs-section-body > .cs-context-text:not(:first-child) {
+  padding-top: 0;
+}
 .cs-report-before-decisions {
   margin-bottom: var(--space-10);
 }
 .cs-decisions-stack {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: var(--case-section-stack);
+}
+.cs-decisions-stack > .cs-decision {
+  margin-bottom: 0;
 }
 .cs-reflection-label {
-  font-family: var(--font-label);
+  font-family: var(--cs-milestone-font);
   font-optical-sizing: auto;
   font-variation-settings: "wdth" 100;
-  font-size: var(--text-sm);
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  color: var(--color-ink-300);
+  font-size: var(--cs-milestone-size);
+  font-weight: var(--cs-milestone-weight);
+  letter-spacing: var(--cs-milestone-tracking);
+  text-transform: var(--cs-milestone-transform);
+  color: var(--cs-milestone-paper-fg);
   margin: var(--space-12) 0 var(--space-4);
 }
 .cs-outcome-reflection .case-body {
@@ -6178,7 +6364,7 @@ h3.cs-context-section-title {
 .cs-report-categories-wrap {
   margin: 0 auto;
   width: 100%;
-  max-width: 720px;
+  max-width: min(var(--cs-column-cap), 100%);
 }
 .cs-report-grid {
   display: grid;
@@ -6924,59 +7110,259 @@ h3.cs-context-section-title {
   line-height: 1.5;
 }
 
-/* Noteworthy iterations — grid row height = tallest card; inner fill flex pins caption to card bottom */
-.cs-noteworthy-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
-  align-items: stretch;
+/* Case study inline media carousel — light “editorial” surface (dark journal uses `.ojo-decision-*`) */
+.cs-mc-footer-meta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  flex-wrap: wrap;
 }
-.cs-noteworthy-grid > button.cs-visual-clickable {
+
+.cs-mc-slide-counter {
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
+  font-size: var(--text-eyebrow);
+  font-weight: var(--weight-eyebrow);
+  letter-spacing: 0.14em;
+  text-transform: none;
+  white-space: nowrap;
+  color: var(--color-ink-400);
+}
+
+.cs-mc-slide-counter.is-dark {
+  color: rgba(245, 239, 228, 0.52);
+}
+
+.dark .cs-mc-slide-counter:not(.is-dark) {
+  color: rgba(240, 236, 224, 0.48);
+}
+
+.dark .cs-mc-chev {
+  border-color: rgba(240, 236, 224, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(245, 239, 228, 0.88);
+}
+
+.dark .cs-mc-chev:hover {
+  border-color: var(--cs-accent);
+  color: var(--parchment);
+}
+
+.dark .case-main .cs-mc-caption {
+  color: rgba(240, 236, 224, 0.72);
+}
+
+.cs-media-carousel--surface {
+  position: relative;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
-  min-height: 0;
-  align-self: stretch;
-  justify-self: stretch;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  padding: clamp(var(--space-8), 3vw, var(--space-10))
+    max(var(--fluid-gutter), 24px) clamp(var(--space-10), 4vw, var(--space-12));
   box-sizing: border-box;
-  font: inherit;
-  color: inherit;
-  text-align: left;
-  cursor: pointer;
-  padding: 0;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  background: var(--color-ground-primary);
-  transition:
-    border-color 200ms ease,
-    box-shadow 200ms ease,
-    transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  gap: 0;
 }
-.cs-noteworthy-grid .cs-noteworthy-card-fill {
-  flex: 1 1 auto;
+
+.cs-mc-row {
   display: flex;
-  flex-direction: column;
-  min-height: 0;
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  gap: clamp(10px, 2.2vw, 24px);
+}
+
+.cs-mc-row--multi .cs-mc-stage {
+  flex: 1 1 auto;
   min-width: 0;
 }
-.cs-noteworthy-grid .cs-noteworthy-card-fill .cs-visual-img {
+
+.cs-mc-chev {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-radius: var(--radius-sm, 2px);
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-ground-primary);
+  color: var(--color-ink-700);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.cs-mc-chev:hover {
+  border-color: var(--cs-accent);
+  color: var(--color-ink-900);
+}
+
+.cs-mc-chev:focus-visible {
+  outline: 2px solid var(--color-madder-500);
+  outline-offset: 2px;
+}
+
+.cs-mc-stage {
+  position: relative;
+  width: 100%;
+  max-width: min(880px, 100%);
   flex: 1 1 auto;
-  min-height: 0;
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+.cs-mc-slides {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  flex-shrink: 0;
+}
+
+.cs-mc-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.cs-mc-slide.is-active {
+  opacity: 1;
+  z-index: 2;
+}
+
+.cs-mc-slide-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cs-mc-slide-img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.cs-mc-mi {
+  height: 100%;
+  border: none !important;
+  border-radius: var(--radius-md) !important;
+  background: transparent !important;
+  box-shadow: var(--shadow-md);
+}
+
+.cs-mc-mi .relative {
+  background: var(--color-ground-secondary) !important;
+  border-radius: var(--radius-md);
+}
+
+.cs-mc-footer {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-}
-.cs-noteworthy-grid .cs-noteworthy-card-fill .cs-visual-caption {
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: min(880px, 100%);
   flex-shrink: 0;
-  margin-top: auto;
+  margin-top: 16px;
+  padding-bottom: 4px;
+  box-sizing: border-box;
 }
-button.cs-visual-clickable:hover {
-  border-color: var(--cs-accent);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-3px);
+
+.cs-mc-caption {
+  margin: 0;
+  width: 100%;
+  padding: var(--space-2) max(var(--space-4), env(safe-area-inset-right, 0px))
+    var(--space-3);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.cs-mc-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.cs-mc-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: color-mix(in srgb, var(--color-ink-900) 22%, transparent);
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.dark .cs-mc-dot {
+  background: rgba(240, 236, 224, 0.28);
+}
+
+.cs-mc-dot.is-active {
+  background: var(--cs-accent);
+  transform: scale(1.3);
+}
+
+.dark .cs-mc-dot.is-active {
+  background: rgba(245, 239, 228, 0.85);
+}
+
+.case-main .cs-mc-caption {
+  font-family: var(--font-heading);
+  font-size: clamp(13px, 1.35vw, 15px);
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: normal;
+  color: var(--color-ink-500);
+}
+
+@media (max-width: 520px) {
+  .cs-mc-row--multi {
+    position: relative;
+    gap: 0;
+  }
+
+  .cs-mc-row--multi .cs-mc-stage {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .cs-mc-row--multi .cs-mc-chev {
+    position: absolute;
+    top: 50%;
+    z-index: 15;
+    transform: translateY(-50%);
+  }
+
+  .cs-mc-row--multi .cs-mc-chev--prev {
+    left: 4px;
+  }
+
+  .cs-mc-row--multi .cs-mc-chev--next {
+    right: 4px;
+  }
 }
 
 @media (max-width: 900px) {
@@ -8411,9 +8797,18 @@ button.cs-visual-clickable:hover {
   --ojo-eyebrow-dark: rgba(240, 234, 220, 0.82);
   --ojo-eyebrow-rule-dark: rgba(196, 168, 130, 0.22);
 
+  --cs-milestone-font: var(--ojo-eyebrow-font);
+  --cs-milestone-size: var(--ojo-eyebrow-size);
+  --cs-milestone-weight: var(--ojo-eyebrow-weight);
+  --cs-milestone-tracking: var(--ojo-eyebrow-track);
+  --cs-milestone-transform: uppercase;
+  --cs-milestone-optical-align: none;
+  --cs-milestone-rail-fg: var(--ojo-eyebrow-dark);
+  --cs-milestone-paper-fg: var(--ojo-eyebrow-paper);
+  --cs-milestone-rule-rail: var(--ojo-eyebrow-rule-dark);
+  --cs-milestone-rule-paper: var(--ojo-eyebrow-rule-paper);
+
   background-color: var(--ojo-leather);
-  /* Slightly wider main column so Key Decision paper + media read fuller */
-  --cs-column-cap: min(1240px, 95vw);
 }
 
 body:has(.cs-page.cs-page--journal-omantel) {
@@ -8438,36 +8833,6 @@ body:has(.cs-page.cs-page--journal-omantel) {
 
 .cs-page.cs-page--journal-omantel > .home-bg-grid {
   opacity: 0;
-}
-
-.cs-page.cs-page--journal-omantel .cs-main {
-  --case-section-stack: clamp(28px, 5vw, 40px);
-}
-
-/* MotionSection rail (e.g. Outcome) — same eyebrow as paper inserts */
-.cs-page.cs-page--journal-omantel .cs-section-head h2.cs-section-label,
-.cs-page.cs-page--journal-omantel h2.cs-section-label {
-  font-family: var(--ojo-eyebrow-font);
-  font-size: var(--ojo-eyebrow-size);
-  font-weight: var(--ojo-eyebrow-weight);
-  letter-spacing: var(--ojo-eyebrow-track);
-  text-transform: uppercase;
-  color: var(--ojo-eyebrow-dark);
-  font-variation-settings: normal;
-}
-
-.cs-page.cs-page--journal-omantel .cs-section-label {
-  font-family: var(--ojo-eyebrow-font);
-  font-size: var(--ojo-eyebrow-size);
-  font-weight: var(--ojo-eyebrow-weight);
-  letter-spacing: var(--ojo-eyebrow-track);
-  text-transform: uppercase;
-  color: var(--ojo-eyebrow-dark);
-  font-variation-settings: normal;
-}
-
-.cs-page.cs-page--journal-omantel .cs-section-label::after {
-  background: var(--ojo-eyebrow-rule-dark);
 }
 
 /* =====================================================================
@@ -8514,16 +8879,5 @@ body:has(.cs-page.cs-page--journal-omantel) {
   .case-top-bar .cs-nav-wrap {
     padding-left: max(16px, env(safe-area-inset-left, 0px));
     padding-right: max(16px, env(safe-area-inset-right, 0px));
-  }
-
-  .cs-noteworthy-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-}
-
-@media (max-width: 390px) {
-  .cs-noteworthy-grid {
-    gap: 16px;
   }
 }

@@ -9,7 +9,7 @@ export function OmantelJournalProblem({
   beforeAfter,
 }: OmantelJournalProblemProps) {
   return (
-    <section id="problem" className="ojo-problem-section cs-section">
+    <div className="ojo-problem-section">
       <div className="ojo-problem-insert ojo-paper ojo-paper-shadow">
         <div className="ojo-p-label">Current scenario</div>
         <div className="ojo-problem-grid">
@@ -23,6 +23,6 @@ export function OmantelJournalProblem({
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
