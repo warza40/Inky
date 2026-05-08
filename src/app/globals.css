@@ -8412,7 +8412,8 @@ button.cs-visual-clickable:hover {
   --ojo-eyebrow-rule-dark: rgba(196, 168, 130, 0.22);
 
   background-color: var(--ojo-leather);
-  --cs-column-cap: min(1100px, 92vw);
+  /* Slightly wider main column so Key Decision paper + media read fuller */
+  --cs-column-cap: min(1240px, 95vw);
 }
 
 body:has(.cs-page.cs-page--journal-omantel) {

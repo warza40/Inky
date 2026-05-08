@@ -95,9 +95,6 @@ export function OmantelJournalImageCarousel({
       </div>
       {slideCount > 1 || images[si]?.caption?.trim() ? (
         <div className="ojo-decision-carousel-footer">
-          {images[si]?.caption?.trim() ? (
-            <p className="ojo-decision-slide-caption">{images[si]!.caption}</p>
-          ) : null}
           {slideCount > 1 ? (
             <div
               className="ojo-decision-dots"
@@ -116,6 +113,9 @@ export function OmantelJournalImageCarousel({
                 />
               ))}
             </div>
+          ) : null}
+          {images[si]?.caption?.trim() ? (
+            <p className="ojo-decision-slide-caption">{images[si]!.caption}</p>
           ) : null}
         </div>
       ) : null}

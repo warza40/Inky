@@ -283,6 +283,12 @@ export const omantelCase: CaseStudy = {
           "The entire email → manual verification → manual entry pipeline was eliminated for valid submissions. Company reps self-serve directly. Zero Omantel staff involvement required for clean batches.",
         images: [
           {
+            src: "/Omantel%20assets/Om-Addbysearch.gif",
+            alt: "Add-by-search flow: finding and selecting lines to modify in bulk",
+            caption:
+              "Search-and-modify path — add or locate lines before editing.",
+          },
+          {
             src: omantelCaseCardImageSrc,
             alt: "Bulk Actions page with both paths: Change existing lines and Add new postpaid lines",
             caption: "The Bulk Actions page showing both paths.",
