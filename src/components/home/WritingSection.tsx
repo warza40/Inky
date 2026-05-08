@@ -70,7 +70,9 @@ export function WritingSection({
     <>
       <div className="writing-section-header">
         <div className="writing-section-header-left">
-          <p className="writing-section-label">— Writing</p>
+          {!journalLayout ? (
+            <p className="writing-section-label">— Writing</p>
+          ) : null}
           <h2 className="writing-section-headline">
             Thinking in public. Notes, essays, observations.
           </h2>

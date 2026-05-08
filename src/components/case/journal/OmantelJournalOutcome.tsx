@@ -1,6 +1,8 @@
 "use client";
 
 import { OmantelJournalImageCarousel } from "@/components/case/journal/OmantelJournalImageCarousel";
+import { parseBoldSpans } from "@/lib/case-rich-text";
+import { cn } from "@/lib/utils";
 
 interface OmantelJournalOutcomeProps {
   highlights?: string[];
@@ -10,20 +12,81 @@ interface OmantelJournalOutcomeProps {
     caption?: string;
   }>;
   reflection?: string;
+  reflectionClosing?: string;
+  /** Long-form outcome (paragraphs + optional • bullets), same as `sections.outcome` */
+  outcomeNarrative?: string;
+  outcomePill?: string;
+}
+
+function OutcomeNarrativeBody({
+  text,
+  withVisualLead,
+}: {
+  text: string;
+  withVisualLead: boolean;
+}) {
+  const lines = text.split("\n").filter((line) => line.trim());
+  const bulletPoints: string[] = [];
+  const textParts: string[] = [];
+
+  lines.forEach((line) => {
+    const trimmed = line.trim();
+    if (trimmed.startsWith("•")) {
+      bulletPoints.push(trimmed.replace(/^•\s*/, ""));
+    } else if (trimmed) {
+      textParts.push(trimmed);
+    }
+  });
+
+  return (
+    <>
+      {textParts.map((para, paraIndex) => (
+        <p key={paraIndex} className="mb-4 case-body opacity-90">
+          {para}
+        </p>
+      ))}
+      {bulletPoints.length > 0 ? (
+        <ul
+          className={cn(
+            "cs-outcome-list",
+            withVisualLead && "cs-outcome-list--with-visuals",
+          )}
+        >
+          {bulletPoints.map((point, pointIndex) => (
+            <li key={pointIndex} className="cs-outcome-result-item">
+              {parseBoldSpans(point)}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </>
+  );
 }
 
 export function OmantelJournalOutcome({
   highlights,
   images,
   reflection,
+  reflectionClosing,
+  outcomeNarrative,
+  outcomePill,
 }: OmantelJournalOutcomeProps) {
-  if (!(highlights?.length ?? 0) && !(images?.length ?? 0) && !reflection)
+  const hasNarrative = Boolean(outcomeNarrative?.trim());
+  if (
+    !(highlights?.length ?? 0) &&
+    !(images?.length ?? 0) &&
+    !reflection &&
+    !hasNarrative
+  )
     return null;
 
   const hasOutcomeImages = Boolean(images?.length ?? 0);
   const outcomeImages = images ?? [];
 
-  const hasPaper = (highlights?.length ?? 0) > 0 || Boolean(reflection);
+  const hasPaper =
+    (highlights?.length ?? 0) > 0 || Boolean(reflection) || hasNarrative;
+
+  const hasTopPaperContent = (highlights?.length ?? 0) > 0 || hasNarrative;
 
   return (
     <div className="ojo-outcome-stack">
@@ -64,20 +127,41 @@ export function OmantelJournalOutcome({
                 </ul>
               </>
             ) : null}
-            {reflection ? (
+            {hasNarrative ? (
               <>
                 {(highlights?.length ?? 0) > 0 ? (
+                  <div
+                    className="ojo-d-divider"
+                    style={{ marginTop: "28px" }}
+                  />
+                ) : null}
+                <div className="ojo-p-label">Outcome</div>
+                <OutcomeNarrativeBody
+                  text={outcomeNarrative!}
+                  withVisualLead={hasOutcomeImages}
+                />
+                {outcomePill ? (
+                  <div className="cs-outcome-pill">{outcomePill}</div>
+                ) : null}
+              </>
+            ) : null}
+            {reflection ? (
+              <>
+                {hasTopPaperContent ? (
                   <div
                     className="ojo-d-divider"
                     style={{ marginTop: "32px" }}
                   />
                 ) : null}
                 <div className="ojo-p-label">
-                  {(highlights?.length ?? 0) > 0
-                    ? "Reflection"
-                    : "Outcome & reflection"}
+                  {hasTopPaperContent ? "Reflection" : "Outcome & reflection"}
                 </div>
-                <p className="ojo-reflection-p">{reflection}</p>
+                <p className="ojo-reflection-p whitespace-pre-line">
+                  {reflection}
+                </p>
+                {reflectionClosing ? (
+                  <p className="cs-reflection-closing">{reflectionClosing}</p>
+                ) : null}
               </>
             ) : null}
           </div>

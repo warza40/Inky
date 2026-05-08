@@ -6,8 +6,6 @@ import type { CaseMediaSlide } from "@/components/case/CaseStudyMediaCarousel";
 import { CaseStudyMediaCarousel } from "@/components/case/CaseStudyMediaCarousel";
 import { cn } from "@/lib/utils";
 
-const OMANTEL_JOURNAL_SLUG = "omantel-bulk-activation";
-
 interface CaseNoteworthyIterationsProps {
   caseStudy: CaseStudy;
   /** Additional classes on the wrapper (spacing / theme) */
@@ -56,33 +54,20 @@ export function CaseNoteworthyIterations({
   const media = noteworthySlidesToMedia(visualsPresentation);
   if (media.length === 0) return null;
 
-  const isJournalOmantel = caseStudy.slug === OMANTEL_JOURNAL_SLUG;
-
   const carousel = (
-    <CaseStudyMediaCarousel
-      tone={isJournalOmantel ? "dark" : "light"}
-      images={media}
-      showSlideCounter
-    />
+    <CaseStudyMediaCarousel tone="dark" images={media} showSlideCounter />
   );
 
   return (
     <div className={cn("cs-outcome-noteworthy", gridClassName)}>
-      {isJournalOmantel ? (
-        <div className="ojo-outcome-visuals">
-          <div className="ojo-decision-stage">
-            <div
-              className="ojo-decision-bg ojo-decision-bg--solid"
-              aria-hidden
-            />
-            <div className="ojo-decision-fade-top" aria-hidden />
-            {carousel}
-            <div className="ojo-decision-fade-bottom" aria-hidden />
-          </div>
+      <div className="ojo-outcome-visuals">
+        <div className="ojo-decision-stage">
+          <div className="ojo-decision-bg ojo-decision-bg--solid" aria-hidden />
+          <div className="ojo-decision-fade-top" aria-hidden />
+          {carousel}
+          <div className="ojo-decision-fade-bottom" aria-hidden />
         </div>
-      ) : (
-        carousel
-      )}
+      </div>
     </div>
   );
 }

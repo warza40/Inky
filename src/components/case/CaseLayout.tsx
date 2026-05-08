@@ -10,8 +10,6 @@ import { CaseNextProject } from "./CaseNextProject";
 import { OmantelJournalHero } from "@/components/case/journal/OmantelJournalHero";
 import { OmantelJournalTitlePaper } from "@/components/case/journal/OmantelJournalTitlePaper";
 
-const OMANTEL_JOURNAL_SLUG = "omantel-bulk-activation";
-
 interface CaseLayoutProps {
   children: React.ReactNode;
   title: string;
@@ -39,7 +37,7 @@ function buildCaseNavSections(
     Boolean(s.understanding) ||
     s.constraints.length > 0 ||
     Boolean(s.problemProcessVisual) ||
-    (caseStudy.slug === OMANTEL_JOURNAL_SLUG && Boolean(s.outcomeBeforeAfter));
+    Boolean(s.outcomeBeforeAfter);
   const hasDecisions =
     s.decisions.length > 0 || Boolean(s.reportCategories?.length);
   const hasOutcome =
@@ -86,12 +84,12 @@ function heroCopyFromCaseStudy(caseStudy: CaseStudy): {
 export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
   const sections = caseStudy ? buildCaseNavSections(caseStudy) : [];
   const hero = caseStudy ? heroCopyFromCaseStudy(caseStudy) : {};
-  const isJournalOmantel = caseStudy?.slug === OMANTEL_JOURNAL_SLUG;
+  const isJournalCase = Boolean(caseStudy);
 
   return (
     <CaseMain>
       <div
-        className={`cs-page${caseStudy?.warmthTheme ? ` cs-theme-${caseStudy.warmthTheme}` : ""}${isJournalOmantel ? " cs-page--journal-omantel" : ""}`}
+        className={`cs-page${caseStudy?.warmthTheme ? ` cs-theme-${caseStudy.warmthTheme}` : ""}${isJournalCase ? " cs-page--journal-omantel" : ""}`}
       >
         <div className="home-bg-grid" aria-hidden />
         <div className="cs-page-inner">
@@ -115,7 +113,7 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
             )}
           </div>
           {caseStudy?.heroImage ? (
-            isJournalOmantel ? (
+            isJournalCase ? (
               <OmantelJournalHero
                 src={caseStudy.heroImage.src}
                 alt={caseStudy.heroImage.alt}
@@ -127,7 +125,7 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
               />
             )
           ) : null}
-          {isJournalOmantel && caseStudy ? (
+          {isJournalCase && caseStudy ? (
             <OmantelJournalTitlePaper
               metaLine={hero.metaLine}
               title={formatLabel(title)}
@@ -141,14 +139,14 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
             problemStatement={hero.problemStatement}
             role={hero.role}
             warmthTheme={caseStudy?.warmthTheme ?? "madder"}
-            showHeroBand={!isJournalOmantel}
+            showHeroBand={!isJournalCase}
           />
           <main className="cs-main">
             <div className="cs-content">{children}</div>
           </main>
           <CaseStudyFooter
             nextProject={
-              caseStudy && !isJournalOmantel ? (
+              caseStudy && !isJournalCase ? (
                 <CaseNextProject
                   currentSlug={caseStudy.slug}
                   nextSlugOverride={caseStudy.nextProjectSlug}
