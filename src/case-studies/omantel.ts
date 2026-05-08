@@ -267,7 +267,7 @@ export const omantelCase: CaseStudy = {
           value: "48hrs",
           labelItalic: "→ 0",
           metaDetail:
-            "Time to confirmation\nper batch activation\n\n— Baseline from operational logs",
+            "Time to confirmation\nper batch activation\n\nFrom days to seconds\n\nOperators now see batch confirmation in real time",
           metaDetailPlain: true,
         },
       ],
@@ -289,7 +289,7 @@ export const omantelCase: CaseStudy = {
             src: "/Omantel%20assets/Om-Addbysearch.gif",
             alt: "Add-by-search flow: finding and selecting lines to modify in bulk",
             caption:
-              "Search-and-modify path — add or locate lines before editing.",
+              "Flow that caters to both use cases — quick search and modify few lines or upload a large batch of lines for modification.",
           },
           {
             src: "/Omantel%20assets/Upload%20file.png",
@@ -308,6 +308,12 @@ export const omantelCase: CaseStudy = {
         impact:
           "Users could review bulk changes with full context before submission. Decision-making under pressure became deliberate rather than reactive.",
         images: [
+          {
+            src: "/Omantel%20assets/Preserving%20context%20-1.png",
+            alt: "Bulk-edit table showing current limits and editable proposed values before changes are applied",
+            caption:
+              "Preserving context — current and proposed limits visible while editing.",
+          },
           {
             src: "/Omantel%20assets/KD2.png",
             alt: "Side-by-side credit limit comparison with current vs proposed values",
@@ -330,6 +336,12 @@ export const omantelCase: CaseStudy = {
         impact:
           "Bulk actions became traceable and verifiable. Users could self-serve status checks instead of raising support tickets. The system earned trust by showing its work.",
         images: [
+          {
+            src: "/Omantel%20assets/Batch%20History.gif",
+            alt: "Batch history view: scanning status and drill-down into individual records",
+            caption:
+              "Batch history — status at a glance with detail on demand.",
+          },
           {
             src: "/Omantel%20assets/KD3.png",
             alt: "History and tracking: batch-level and record-level status",

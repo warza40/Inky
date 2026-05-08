@@ -354,7 +354,11 @@
 .ojo-overview-section {
   position: relative;
   z-index: 4;
-  padding: 32px max(var(--fluid-gutter), 32px) 0;
+  padding: 32px max(var(--fluid-gutter), 40px) 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 4vw, 44px);
+  box-sizing: border-box;
 }
 
 .ojo-overview-insert {
@@ -368,8 +372,10 @@
   align-items: stretch;
 }
 
-.ojo-overview-impact-band {
+/* Impact metrics on leather — full-width rack above Overview paper */
+.ojo-overview-impact-rail {
   width: 100%;
+  box-sizing: border-box;
 }
 
 .ojo-overview-narrative {
@@ -381,17 +387,71 @@
   padding-top: 0;
 }
 
-.cs-page--journal-omantel .cs-impact-postits-eyebrow {
-  color: var(--cs-milestone-paper-fg);
+/* Impact eyebrow sits on leather (not inside cream overview paper) */
+.cs-page--journal-omantel .ojo-overview-impact-rail .cs-impact-postits-eyebrow {
+  color: var(--ojo-eyebrow-dark);
   margin-bottom: 10px;
 }
 
-.cs-page--journal-omantel .cs-impact-postits-grid {
-  margin-top: 8px;
+.cs-page--journal-omantel
+  .ojo-overview-impact-rail
+  .cs-impact-postits-eyebrow::after {
+  background: var(--ojo-eyebrow-rule-dark);
 }
 
-.cs-page--journal-omantel .cs-impact-postits-eyebrow::after {
-  background: var(--ojo-eyebrow-rule-paper);
+/* Equal-height cream cards lifted off the leather */
+.cs-page--journal-omantel .ojo-impact-postits--on-leather {
+  align-items: stretch;
+  gap: clamp(14px, 2.4vw, 22px);
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+}
+
+.cs-page--journal-omantel .ojo-impact-postits--on-leather .cs-impact-postit {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: auto;
+  align-self: stretch;
+  transform: none;
+  margin: 0;
+  padding: clamp(22px, 3vw, 28px) clamp(18px, 2.6vw, 24px);
+  background-color: var(--ojo-cream);
+  background-image:
+    linear-gradient(var(--ojo-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ojo-grid) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-repeat: repeat;
+  border: 1px solid rgba(120, 95, 55, 0.22);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.45),
+    0 2px 8px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.cs-page--journal-omantel .ojo-impact-postits--on-leather .ojo-impact-detail {
+  flex-grow: 1;
+  color: var(--ojo-ink-mid);
+}
+
+.cs-page--journal-omantel .ojo-impact-postits--on-leather .ojo-impact-value {
+  color: var(--ojo-ink);
+}
+
+.cs-page--journal-omantel .ojo-impact-postits--on-leather .ojo-impact-suffix,
+.cs-page--journal-omantel
+  .ojo-impact-postits--on-leather
+  .ojo-impact-suffix--scale {
+  color: var(--ojo-ink-mid);
+}
+
+.cs-page--journal-omantel .ojo-impact-postits--on-leather .ojo-impact-caps {
+  color: var(--ojo-eyebrow-paper);
+}
+
+.cs-page--journal-omantel
+  .ojo-impact-postits--on-leather
+  .ojo-impact-detail--plain {
+  color: var(--ojo-ink);
 }
 
 .ojo-overview-p {
@@ -515,9 +575,29 @@
   color: var(--ojo-eyebrow-paper);
 }
 
+/* MotionSection rails — same inset as Problem / Overview body so titles align row-to-row */
+.cs-page.cs-page--journal-omantel
+  .ojo-case-map
+  > section.cs-section
+  > .cs-section-head {
+  padding-inline: max(var(--fluid-gutter), 40px);
+  box-sizing: border-box;
+}
+
+.cs-page.cs-page--journal-omantel
+  section.cs-section.ojo-decisions-wrap
+  > .cs-section-head {
+  padding-bottom: 28px;
+}
+
+/* ─── Decisions ─── */
+.ojo-decisions-wrap {
+  padding-top: 12px;
+}
+
 /* ─── Problem (before / after) ─── */
 .ojo-problem-section {
-  padding: 8px max(var(--fluid-gutter), 32px) 0;
+  padding: 8px max(var(--fluid-gutter), 40px) 0;
 }
 
 .ojo-problem-insert {
@@ -570,15 +650,6 @@
   color: var(--ojo-ink-mid);
 }
 
-/* ─── Decisions header ─── */
-.ojo-decisions-wrap {
-  padding-top: 12px;
-}
-
-.ojo-decisions-wrap > .cs-section-head {
-  padding: 0 max(var(--fluid-gutter), 40px) 28px;
-  box-sizing: border-box;
-}
 /* ─── Decision stage + carousel ─── */
 .ojo-decision-block {
   margin-bottom: 0;
@@ -946,10 +1017,20 @@
 }
 
 .ojo-decision-sep {
-  width: 1px;
-  height: 48px;
-  background: linear-gradient(rgba(196, 168, 130, 0.14), transparent);
-  margin: 16px auto 0;
+  box-sizing: border-box;
+  display: block;
+  width: auto;
+  flex-shrink: 0;
+  height: 2px;
+  margin: clamp(44px, 6.5vw, 80px) max(var(--fluid-gutter), 32px) 0;
+  border: none;
+  border-radius: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(230, 210, 175, 0.55),
+    rgba(196, 168, 130, 0.28) 45%,
+    rgba(120, 95, 55, 0.08) 100%
+  );
 }
 
 .ojo-decision-placeholder-wrap {
@@ -1096,15 +1177,21 @@
     padding-right: max(24px, var(--fluid-gutter));
   }
 
-  .cs-page.cs-page--journal-omantel .ojo-decisions-wrap > .cs-section-head {
-    padding-left: max(24px, var(--fluid-gutter));
-    padding-right: max(24px, var(--fluid-gutter));
+  .cs-page.cs-page--journal-omantel
+    .ojo-case-map
+    > section.cs-section
+    > .cs-section-head {
+    padding-inline: max(24px, var(--fluid-gutter));
   }
 
   .cs-page.cs-page--journal-omantel .ojo-decision-content,
   .cs-page.cs-page--journal-omantel .ojo-outcome-text-wrap {
     margin-left: max(24px, var(--fluid-gutter));
     margin-right: max(24px, var(--fluid-gutter));
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-decision-sep {
+    margin-inline: max(24px, var(--fluid-gutter));
   }
 
   .cs-page.cs-page--journal-omantel .ojo-problem-section {
@@ -1207,9 +1294,11 @@
     font-size: 16px;
   }
 
-  .cs-page.cs-page--journal-omantel .ojo-decisions-wrap > .cs-section-head {
-    padding-left: max(16px, var(--fluid-gutter));
-    padding-right: max(16px, var(--fluid-gutter));
+  .cs-page.cs-page--journal-omantel
+    .ojo-case-map
+    > section.cs-section
+    > .cs-section-head {
+    padding-inline: max(16px, var(--fluid-gutter));
   }
 
   .cs-page.cs-page--journal-omantel .ojo-decision-stage {
@@ -1222,6 +1311,10 @@
     margin-left: 16px;
     margin-right: 16px;
     margin-top: -8px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-decision-sep {
+    margin-inline: 16px;
   }
 
   .cs-page.cs-page--journal-omantel .ojo-decision-inner {

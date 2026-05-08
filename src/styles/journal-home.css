@@ -32,7 +32,9 @@
   );
   --jl-hero-sheet-min-h: clamp(560px, 62vw, 760px);
   /** Space from hero title block to supporting caption body */
-  --jl-hero-title-caption-gap: 64px;
+  --jl-hero-title-caption-gap: 32px;
+  /** Space from hero caption (secondary text) to primary button row */
+  --jl-hero-caption-actions-gap: 32px;
   /** Must match inset on `.jl-hero-insert` paper so rails align with hero type */
   --jl-sheet-pad-inline-start: clamp(44px, 6vw, 56px);
   --jl-sheet-pad-inline-end: clamp(40px, 5vw, 52px);
@@ -414,7 +416,7 @@
     grid-template-columns: 1fr;
     grid-template-rows: none;
     row-gap: var(--jl-hero-title-caption-gap);
-    padding: 36px var(--jl-sheet-pad-inline-end) 16px
+    padding: 36px var(--jl-sheet-pad-inline-end) 0
       var(--jl-sheet-pad-inline-start);
   }
 
@@ -486,7 +488,7 @@
   align-items: start;
   column-gap: 0;
   row-gap: var(--jl-hero-title-caption-gap);
-  padding: 52px var(--jl-sheet-pad-inline-end) 28px
+  padding: 52px var(--jl-sheet-pad-inline-end) 0
     var(--jl-sheet-pad-inline-start);
 }
 
@@ -504,9 +506,8 @@
   padding: 0;
   border-top: none;
   align-self: start;
-  /* Use more of the sheet so supporting copy isn’t visually clipped */
-  max-width: min(52rem, 100%);
   box-sizing: border-box;
+  max-width: 100%;
 }
 
 .home-layout--journal .jl-hero-bottom {
@@ -514,10 +515,11 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: end;
+  margin-top: var(--jl-hero-caption-actions-gap);
 }
 
 .home-layout--journal .jl-hero-actions {
-  padding: 8px clamp(38px, 4.5vw, 44px) 48px var(--jl-sheet-pad-inline-start);
+  padding: 0 clamp(38px, 4.5vw, 44px) 48px var(--jl-sheet-pad-inline-start);
 }
 
 .home-layout--journal .jl-hero-bottom .jl-hero-tags {
@@ -645,9 +647,11 @@
   color: var(--jl-ink);
 }
 
-/* Single source of spacing: headline → caption (--jl-hero-title-caption-gap) */
+/* Single source of spacing: headline → caption; measure for ~3–4 lines on desktop */
 .home-layout--journal .jl-hero-top .jl-hero-g-cap.home-hero-caption {
   padding-top: 0;
+  max-width: clamp(34ch, 40vw, 50ch);
+  text-wrap: pretty;
 }
 
 .home-layout--journal .jl-hero-bio-heading.jl-hero-g-head {
@@ -656,13 +660,9 @@
   max-width: min(42rem, 88%);
 }
 
-/* Narrow viewports: drop forced headline / caption line breaks */
+/* Narrow viewports: drop forced headline line breaks */
 @media (max-width: 768px) {
   .home-layout--journal .jl-hero-bio-heading.jl-hero-g-head br.jl-hero-head-br {
-    display: none;
-  }
-
-  .home-layout--journal .jl-hero-top .home-hero-caption br.jl-hero-cap-br {
     display: none;
   }
 }
@@ -815,6 +815,11 @@
     transform 0.2s ease;
 }
 
+/* Featured strip: tape bleeds slightly above hero — allow visibility on black gutters */
+.home-layout--journal .jl-work-subgrid > .jl-wc-card.jl-wc-card--featured {
+  overflow: visible;
+}
+
 .home-layout--journal .jl-work-subgrid .jl-wc-card:hover {
   border-color: rgba(190, 155, 110, 0.45);
   box-shadow: 0 14px 44px rgba(0, 0, 0, 0.42);
@@ -836,6 +841,22 @@
   transform: rotate(-3deg);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.38);
   pointer-events: none;
+}
+
+/* Featured + real screenshot: keep tape on dark canvas (not clipped), above scrim */
+.home-layout--journal .jl-wc-hero--featured.jl-wc-hero--cover-photo {
+  overflow: visible;
+}
+
+.home-layout--journal
+  .jl-wc-hero--featured.jl-wc-hero--cover-photo
+  .jl-wc-tape {
+  top: clamp(12px, 3.8cqh, 22px);
+  left: clamp(16px, 3.6cqw, 28px);
+  z-index: 8;
+  box-shadow:
+    0 3px 12px rgba(0, 0, 0, 0.5),
+    0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .home-layout--journal .jl-wc-tape--red {
@@ -1863,7 +1884,7 @@
   }
 
   .home-layout--journal .jl-hero-top {
-    padding: 44px max(18px, var(--jl-sheet-pad-inline-end)) 24px 32px;
+    padding: 44px max(18px, var(--jl-sheet-pad-inline-end)) 0 32px;
   }
 
   .home-layout--journal .jl-h-eyebrow {
@@ -1925,6 +1946,18 @@
 
   .home-layout--journal .jl-wc-tape {
     display: none;
+  }
+
+  /* Featured Omantel-style screenshot hero: keep washi readable on dark stage */
+  .home-layout--journal
+    .jl-wc-card--featured
+    .jl-wc-hero--cover-photo
+    .jl-wc-tape {
+    display: block;
+    top: 12px;
+    left: 14px;
+    width: 56px;
+    height: 26px;
   }
 
   .home-layout--journal .jl-wc-paper--split {

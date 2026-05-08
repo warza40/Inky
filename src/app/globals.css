@@ -266,7 +266,7 @@
   --section-rail-title-transform: uppercase;
   --section-rail-prefix-font: var(--font-body);
   --section-rail-prefix-size: 11px;
-  --section-rail-prefix-weight: 500;
+  --section-rail-prefix-weight: 600;
   --section-rail-prefix-tracking: 0.2em;
   --section-rail-prefix-transform: uppercase;
 
@@ -4598,18 +4598,43 @@ body:has(.cs-page) {
   );
   --section-rail-rule: rgba(120, 95, 55, 0.22);
 
+  /*
+   * MotionSection: ghost index slot when no `.cs-section-label-prefix`
+   * (aligns "PROBLEM" with "KEY DECISIONS" etc.). See `::before` on `.cs-section-label`.
+   */
+  --cs-section-rail-index-ghost: "[00]";
+
   /* Major section headings (in-case paper subtitles + eyebrows — milestone scale) */
   --cs-milestone-font: var(--font-label);
   --cs-milestone-size: var(--text-sm);
-  --cs-milestone-weight: 300;
+  --cs-milestone-weight: 600;
   --cs-milestone-tracking: 0.1em;
   --cs-milestone-transform: none;
   --cs-milestone-optical-align: optical;
-  --cs-milestone-rail-fg: var(--color-ink-300);
-  --cs-milestone-paper-fg: var(--color-ink-300);
+  --cs-milestone-rail-fg: var(--color-ink-500);
+  --cs-milestone-paper-fg: var(--color-ink-700);
   --cs-milestone-rule-rail: var(--color-border);
   --cs-milestone-rule-paper: var(--color-border);
+
+  /*
+   * Case pages: captions + small labels skew heavier for legibility
+   * (`var(--weight-eyebrow)` only — does not alter global homepage tokens).
+   */
+  --weight-eyebrow: var(--weight-semibold);
   background-color: var(--color-ground-primary);
+}
+
+/* Case study — hero strip + optional meta row: match stronger section eyebrow legibility */
+.cs-page .cs-hero-meta-line {
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink-700);
+}
+.cs-page .cs-hero-pill {
+  font-weight: var(--weight-medium);
+}
+.cs-page .cs-meta-label {
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink-700);
 }
 
 /* Journal dot grid — same layer as About section; sits under .home-bg-grid + content */
@@ -5359,7 +5384,9 @@ body:has(.cs-page) {
 .cs-context-section-title {
   font-family: var(--cs-milestone-font);
   font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
+  font-variation-settings:
+    "wdth" 100,
+    "wght" var(--cs-milestone-weight);
   font-size: var(--cs-milestone-size);
   font-weight: var(--cs-milestone-weight);
   letter-spacing: var(--cs-milestone-tracking);
@@ -5397,7 +5424,9 @@ h3.cs-impact-postits-eyebrow {
   margin: 0 0 var(--space-3);
   font-family: var(--cs-milestone-font);
   font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
+  font-variation-settings:
+    "wdth" 100,
+    "wght" var(--cs-milestone-weight);
   font-size: var(--cs-milestone-size);
   font-weight: var(--cs-milestone-weight);
   letter-spacing: var(--cs-milestone-tracking);
@@ -5826,7 +5855,9 @@ h3.cs-impact-postits-eyebrow {
 .cs-dr-section-label-text {
   font-family: var(--cs-milestone-font);
   font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
+  font-variation-settings:
+    "wdth" 100,
+    "wght" var(--cs-milestone-weight);
   font-size: var(--cs-milestone-size);
   font-weight: var(--cs-milestone-weight);
   letter-spacing: var(--cs-milestone-tracking);
@@ -6193,11 +6224,28 @@ h3.cs-impact-postits-eyebrow {
   text-transform: var(--section-rail-prefix-transform);
   color: var(--section-rail-prefix-fg);
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  min-inline-size: 9ch;
+  box-sizing: border-box;
 }
 /* Label + rule (MotionSection rails) */
 .cs-section-label::before {
   content: none;
-  display: none;
+}
+.cs-section-label:not(:has(.cs-section-label-prefix))::before {
+  content: var(--cs-section-rail-index-ghost, "[00]");
+  visibility: hidden;
+  pointer-events: none;
+  font-family: var(--section-rail-prefix-font);
+  font-size: var(--section-rail-prefix-size);
+  font-weight: var(--section-rail-prefix-weight);
+  letter-spacing: var(--section-rail-prefix-tracking);
+  text-transform: var(--section-rail-prefix-transform);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-inline-size: 9ch;
+  box-sizing: border-box;
 }
 .cs-section-label::after {
   content: "";
@@ -6269,7 +6317,9 @@ h3.cs-context-section-title {
 .cs-reflection-label {
   font-family: var(--cs-milestone-font);
   font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
+  font-variation-settings:
+    "wdth" 100,
+    "wght" var(--cs-milestone-weight);
   font-size: var(--cs-milestone-size);
   font-weight: var(--cs-milestone-weight);
   letter-spacing: var(--cs-milestone-tracking);
@@ -6976,6 +7026,13 @@ h3.cs-context-section-title {
   color: var(--color-text-tertiary);
   margin-bottom: 22px;
   text-align: left;
+}
+
+.cs-page .cs-ri-label {
+  font-variation-settings:
+    "wdth" 100,
+    "wght" var(--weight-semibold);
+  color: var(--color-ink-700);
 }
 /* Rationale / Impact — ↳ rows (split on \\n\\n in data) */
 .cs-ri-list {
@@ -8827,20 +8884,17 @@ h3.cs-context-section-title {
   --ojo-grid: rgba(120, 95, 55, 0.09);
   --ojo-rule: rgba(120, 95, 55, 0.15);
 
-  /* Leather canvas — large rail matches homepage WORK strip */
-  --section-rail-title-fg: rgba(240, 232, 216, 0.9);
-  --section-rail-prefix-fg: rgba(240, 232, 216, 0.55);
-  --section-rail-rule: rgba(196, 168, 130, 0.2);
-
-  /* Eyebrows: sans body, tiny caps, semibold, darker ink (+ rules in case-omantel-journal.css) */
+  /* Leather canvas — large rail matches homepage WORK strip; rails read at small caps sizes */
+  --section-rail-title-fg: rgba(252, 248, 238, 0.96);
+  --section-rail-prefix-fg: rgba(240, 232, 216, 0.78);
   --ojo-eyebrow-font: var(--font-body);
-  --ojo-eyebrow-size: 8px;
-  --ojo-eyebrow-weight: 600;
+  --ojo-eyebrow-size: 9px;
+  --ojo-eyebrow-weight: 700;
   --ojo-eyebrow-track: 0.16em;
-  --ojo-eyebrow-paper: rgba(58, 47, 34, 0.78);
+  --ojo-eyebrow-paper: rgba(44, 36, 26, 0.92);
   --ojo-eyebrow-rule-paper: rgba(120, 95, 55, 0.28);
-  --ojo-eyebrow-dark: rgba(240, 234, 220, 0.82);
-  --ojo-eyebrow-rule-dark: rgba(196, 168, 130, 0.22);
+  --ojo-eyebrow-dark: rgba(248, 242, 228, 0.94);
+  --ojo-eyebrow-rule-dark: rgba(210, 188, 150, 0.32);
 
   --cs-milestone-font: var(--ojo-eyebrow-font);
   --cs-milestone-size: var(--ojo-eyebrow-size);

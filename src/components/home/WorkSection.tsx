@@ -83,7 +83,6 @@ const WORK: WorkCard[] = [
     ],
     href: "/case/omantel-bulk-activation",
     journal: {
-      heroMeta: "B2C storefront · Enterprise platform",
       indexLabel: "01",
       clientLine: "Publicis Sapient · Omantel",
       quote:

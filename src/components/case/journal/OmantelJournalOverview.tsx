@@ -17,7 +17,7 @@ export function omantelJournalOverviewHasContent(
   return Boolean(cf?.paragraphs?.length) || Boolean(ji?.blocks?.length);
 }
 
-/** Insert: Impact post-its (sage) above Overview; optional context visuals below */
+/** Impact strip on leather, then Overview paper + optional context visuals */
 export function OmantelJournalOverview({
   caseStudy,
 }: OmantelJournalOverviewProps) {
@@ -29,19 +29,22 @@ export function OmantelJournalOverview({
 
   return (
     <div className="ojo-overview-section">
+      {ji?.blocks?.length ? (
+        <div className="ojo-overview-impact-rail">
+          <h3 className="cs-impact-postits-eyebrow">Impact</h3>
+          <CaseImpactPostIts
+            blocks={ji.blocks}
+            className="ojo-impact-postits--on-leather"
+          />
+        </div>
+      ) : null}
+
       <div className="ojo-overview-insert ojo-paper ojo-paper-shadow">
         <div className="ojo-punch-holes ojo-punch-holes--dual" aria-hidden>
           <span className="ojo-punch-hole" />
           <span className="ojo-punch-hole" />
         </div>
         <div className="ojo-overview-inner ojo-overview-inner--stacked">
-          {ji?.blocks?.length ? (
-            <div className="ojo-overview-impact-band">
-              <h3 className="cs-impact-postits-eyebrow">Impact</h3>
-              <CaseImpactPostIts blocks={ji.blocks} />
-            </div>
-          ) : null}
-
           {(hasOverview || (!ji?.blocks?.length && cf?.aim)) && (
             <div className="ojo-overview-narrative">
               {hasOverview ? (

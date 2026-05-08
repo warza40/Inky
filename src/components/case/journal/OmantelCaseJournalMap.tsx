@@ -31,7 +31,7 @@ export function OmantelCaseJournalMap({
 
   const decisionsRailTitle = (
     <>
-      <span className="cs-section-label-prefix">{`[${String(nDecisions).padStart(2, "0")}] `}</span>
+      <span className="cs-section-label-prefix">{`[${String(nDecisions).padStart(2, "0")}]`}</span>
       Key Decisions
     </>
   );
@@ -60,7 +60,7 @@ export function OmantelCaseJournalMap({
             <div key={`${decision.title}-${index}`}>
               <OmantelDecisionJournal decision={decision} index={index} />
               {index < nDecisions - 1 ? (
-                <div className="ojo-decision-sep" aria-hidden />
+                <hr className="ojo-decision-sep" aria-hidden />
               ) : null}
             </div>
           ))}

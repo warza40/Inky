@@ -52,10 +52,8 @@ export function JournalHero() {
               <span className="jl-hero-head-em">real-world complexity</span>.
             </h1>
             <p className="home-hero-caption jl-caption-on-right jl-hero-g-cap">
-              The real problem usually isn&apos;t the interface — it&apos;s{" "}
-              <br className="jl-hero-cap-br" aria-hidden />
-              getting a room full of smart people to agree on what the problem{" "}
-              <br className="jl-hero-cap-br" aria-hidden />
+              The real problem usually isn&apos;t the interface — it&apos;s
+              getting a room full of smart people to agree on what the problem
               actually is. I help with that.
             </p>
           </div>
