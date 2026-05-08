@@ -25,9 +25,14 @@
   --jl-section-space: clamp(72px, 8vw, 96px);
   /** Alias: same rhythm as :root --fluid-section-gap-y (homepage seams) */
   --jl-stack-gap-y: var(--fluid-section-gap-y);
-  /* Hero cream sheet: centered inset from leather — widened/taller sheet per comp */
-  --jl-hero-sheet-max: 1160px;
-  --jl-hero-sheet-min-h: clamp(500px, 54vw, 640px);
+  /* Hero cream sheet: centered inset from leather — room for headline, caption, CTAs + tags */
+  --jl-hero-sheet-max: min(
+    1320px,
+    calc(100vw - 2 * var(--jl-section-padding-x))
+  );
+  --jl-hero-sheet-min-h: clamp(560px, 62vw, 760px);
+  /** Space from hero title block to supporting caption body */
+  --jl-hero-title-caption-gap: 64px;
   /** Must match inset on `.jl-hero-insert` paper so rails align with hero type */
   --jl-sheet-pad-inline-start: clamp(44px, 6vw, 56px);
   --jl-sheet-pad-inline-end: clamp(40px, 5vw, 52px);
@@ -35,6 +40,10 @@
   isolation: isolate;
   background: var(--jl-leather);
   color: rgba(237, 230, 214, 0.88);
+  /* Same rail strip as case MotionSection (.cs-section-label) — leather values */
+  --section-rail-title-fg: rgba(240, 232, 216, 0.9);
+  --section-rail-prefix-fg: rgba(240, 232, 216, 0.55);
+  --section-rail-rule: rgba(196, 168, 130, 0.2);
 }
 
 .home-layout--journal .jl-atmo {
@@ -101,22 +110,22 @@
 }
 
 .home-layout--journal .jl-s-num {
-  font-family: var(--font-body);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  font-weight: 500;
-  text-transform: uppercase;
-  color: rgba(240, 232, 216, 0.55);
+  font-family: var(--section-rail-prefix-font);
+  font-size: var(--section-rail-prefix-size);
+  letter-spacing: var(--section-rail-prefix-tracking);
+  font-weight: var(--section-rail-prefix-weight);
+  text-transform: var(--section-rail-prefix-transform);
+  color: var(--section-rail-prefix-fg);
   flex-shrink: 0;
 }
 
 .home-layout--journal .jl-s-title {
-  font-family: var(--font-heading);
-  font-size: clamp(18px, 2.2vw, 26px);
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(240, 232, 216, 0.9);
+  font-family: var(--section-rail-title-font);
+  font-size: var(--section-rail-title-size);
+  font-weight: var(--section-rail-title-weight);
+  letter-spacing: var(--section-rail-title-tracking);
+  text-transform: var(--section-rail-title-transform);
+  color: var(--section-rail-title-fg);
   line-height: 1;
   flex-shrink: 0;
   margin: 0;
@@ -125,7 +134,7 @@
 .home-layout--journal .jl-s-rule {
   flex: 1;
   height: 1px;
-  background: rgba(196, 168, 130, 0.2);
+  background: var(--section-rail-rule);
 }
 
 /* Paper base */
@@ -200,12 +209,12 @@
 /* ── Hero journal ─────────────────────────────── */
 .home-layout--journal .jl-hero {
   position: relative;
-  /* Content-height hero: avoid a near-full-viewport leather band under the insert */
+  /* Content-height hero: leather band grows with the sheet + extra tail for scroll cue */
   min-height: auto;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 64px var(--jl-section-padding-x) var(--fluid-hero-tail-y);
+  padding: 72px var(--jl-section-padding-x) clamp(80px, 10vw, 120px);
 }
 
 .home-layout--journal .jl-hero-journal {
@@ -213,12 +222,14 @@
   width: 100%;
   max-width: var(--jl-hero-sheet-max);
   margin-inline: auto;
-  min-height: var(--jl-hero-sheet-min-h);
 }
 
 .home-layout--journal .jl-hero-back {
   position: absolute;
-  inset: 8px 0 0;
+  top: 8px;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: var(--jl-cream-dark);
   background-image: repeating-linear-gradient(
     0deg,
@@ -357,11 +368,14 @@
 }
 
 .home-layout--journal .jl-hero-insert {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-height: var(--jl-hero-sheet-min-h);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr auto;
+  /* Content-sized rows so copy + CTAs aren’t trapped in a short fixed band */
+  grid-template-rows: auto auto;
   /* Rounded paper must not clip the bookmark filter / tab */
   overflow: visible;
 }
@@ -399,7 +413,7 @@
   .home-layout--journal .jl-hero-top {
     grid-template-columns: 1fr;
     grid-template-rows: none;
-    row-gap: 0;
+    row-gap: var(--jl-hero-title-caption-gap);
     padding: 36px var(--jl-sheet-pad-inline-end) 16px
       var(--jl-sheet-pad-inline-start);
   }
@@ -413,13 +427,12 @@
 
   .home-layout--journal .jl-hero-g-cap {
     margin-top: 0;
-    padding-top: clamp(10px, 1.5vw, 16px);
+    padding-top: 0;
     border-top: none;
   }
 
-  /* Below 900px row-gap is 0 — add the same +10px title→caption offset as desktop row-gap */
   .home-layout--journal .jl-hero-top .jl-hero-g-cap.home-hero-caption {
-    padding-top: clamp(20px, calc(10px + 1.5vw), 26px);
+    padding-top: 0;
   }
 
   .home-layout--journal .jl-hero-bottom {
@@ -472,8 +485,8 @@
   grid-template-rows: auto auto;
   align-items: start;
   column-gap: 0;
-  row-gap: 20px;
-  padding: 48px var(--jl-sheet-pad-inline-end) 20px
+  row-gap: var(--jl-hero-title-caption-gap);
+  padding: 52px var(--jl-sheet-pad-inline-end) 28px
     var(--jl-sheet-pad-inline-start);
 }
 
@@ -488,11 +501,11 @@
   grid-column: 1;
   grid-row: 2;
   margin: 0;
-  padding: clamp(10px, 1.5vw, 16px) 0 0;
+  padding: 0;
   border-top: none;
   align-self: start;
-  /* Wider than the headline so the supporting line runs further across the sheet */
-  max-width: min(44rem, 92%);
+  /* Use more of the sheet so supporting copy isn’t visually clipped */
+  max-width: min(52rem, 100%);
   box-sizing: border-box;
 }
 
@@ -504,11 +517,11 @@
 }
 
 .home-layout--journal .jl-hero-actions {
-  padding: 0 clamp(38px, 4.5vw, 44px) 40px var(--jl-sheet-pad-inline-start);
+  padding: 8px clamp(38px, 4.5vw, 44px) 48px var(--jl-sheet-pad-inline-start);
 }
 
 .home-layout--journal .jl-hero-bottom .jl-hero-tags {
-  padding: 0 var(--jl-sheet-pad-inline-end) 40px clamp(36px, 4vw, 40px);
+  padding: 8px var(--jl-sheet-pad-inline-end) 48px clamp(36px, 4vw, 40px);
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -632,15 +645,26 @@
   color: var(--jl-ink);
 }
 
-/* inherits max-width / padding-top from jl-hero-g-cap */
+/* Single source of spacing: headline → caption (--jl-hero-title-caption-gap) */
 .home-layout--journal .jl-hero-top .jl-hero-g-cap.home-hero-caption {
-  padding-top: clamp(10px, 1.5vw, 16px);
+  padding-top: 0;
 }
 
 .home-layout--journal .jl-hero-bio-heading.jl-hero-g-head {
   margin: 0;
-  /* Tighter measure so the headline wraps like the journal mock (wins over .jl-hero-bio-heading max-width) */
-  max-width: min(34rem, 72%);
+  /* Wider measure: three-line stack (see `.jl-hero-head-br`) + large display size */
+  max-width: min(42rem, 88%);
+}
+
+/* Narrow viewports: drop forced headline / caption line breaks */
+@media (max-width: 768px) {
+  .home-layout--journal .jl-hero-bio-heading.jl-hero-g-head br.jl-hero-head-br {
+    display: none;
+  }
+
+  .home-layout--journal .jl-hero-top .home-hero-caption br.jl-hero-cap-br {
+    display: none;
+  }
 }
 
 .home-layout--journal .jl-mini-tag {
@@ -1745,8 +1769,8 @@
   }
 
   .home-layout--journal .jl-hero {
-    padding-top: 80px;
-    padding-bottom: var(--fluid-hero-tail-y);
+    padding-top: 88px;
+    padding-bottom: clamp(72px, 9vw, 100px);
   }
 
   .home-layout--journal .jl-work-section-inner,
@@ -1756,10 +1780,6 @@
 
   .home-layout--journal .jl-about-outer {
     padding-inline: max(28px, var(--fluid-gutter));
-  }
-
-  .home-layout--journal .jl-s-title {
-    font-size: 22px;
   }
 
   .home-layout--journal .jl-work-subgrid {
@@ -1800,14 +1820,10 @@
     margin-bottom: 28px;
   }
 
-  .home-layout--journal .jl-s-title {
-    font-size: 20px;
-  }
-
   .home-layout--journal .jl-hero {
     min-height: unset;
     padding: 72px max(16px, env(safe-area-inset-left, 0px))
-      var(--fluid-hero-tail-y) max(16px, env(safe-area-inset-right, 0px));
+      clamp(64px, 12vw, 88px) max(16px, env(safe-area-inset-right, 0px));
     align-items: flex-start;
   }
 

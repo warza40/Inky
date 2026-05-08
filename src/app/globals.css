@@ -258,6 +258,18 @@
   --home-panel-bg: var(--color-ground-secondary);
   --home-cta-hover: rgba(28, 24, 18, 0.04);
 
+  /* Homepage WORK row + case MotionSection rails (shared typography) */
+  --section-rail-title-font: var(--font-heading);
+  --section-rail-title-size: clamp(18px, 2.2vw, 26px);
+  --section-rail-title-weight: 600;
+  --section-rail-title-tracking: 0.12em;
+  --section-rail-title-transform: uppercase;
+  --section-rail-prefix-font: var(--font-body);
+  --section-rail-prefix-size: 11px;
+  --section-rail-prefix-weight: 500;
+  --section-rail-prefix-tracking: 0.2em;
+  --section-rail-prefix-transform: uppercase;
+
   /* Case study — vertical rhythm (major sections share one stack measure) */
   --case-section-stack: var(--space-24);
   --case-section-label-to-body: var(--space-6);
@@ -267,6 +279,7 @@
   :root {
     --fluid-section-gap-y: clamp(44px, 5.5vw, 64px);
     --fluid-hero-tail-y: clamp(52px, 6.5vw, 72px);
+    --section-rail-title-size: 22px;
   }
 }
 
@@ -274,6 +287,7 @@
   :root {
     --fluid-section-gap-y: clamp(40px, 5vw, 56px);
     --fluid-hero-tail-y: clamp(48px, 6vw, 64px);
+    --section-rail-title-size: 20px;
   }
 }
 
@@ -4574,7 +4588,17 @@ body:has(.cs-page) {
   --cs-accent-bar: var(--madder);
   --cs-footer-link: var(--madder);
   --cs-footer-link-hover: #c9604c;
-  /* Major section headings (MotionSection rails + mirrored in-content labels) */
+
+  /** MotionSection rails + optional `[nn]` prefix (match journal WORK header tokens) */
+  --section-rail-title-fg: var(--color-ink-900);
+  --section-rail-prefix-fg: color-mix(
+    in srgb,
+    var(--color-ink-700) 72%,
+    var(--color-ink-500) 28%
+  );
+  --section-rail-rule: rgba(120, 95, 55, 0.22);
+
+  /* Major section headings (in-case paper subtitles + eyebrows — milestone scale) */
   --cs-milestone-font: var(--font-label);
   --cs-milestone-size: var(--text-sm);
   --cs-milestone-weight: 300;
@@ -4878,6 +4902,8 @@ body:has(.cs-page) {
 }
 .cs-case-hero-media {
   width: 100%;
+  /** Slightly shorter than 16∶9 × width ( −20px at full bleed ) */
+  aspect-ratio: 1440 / 790;
   margin-top: var(--space-8);
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -4889,7 +4915,8 @@ body:has(.cs-page) {
 }
 .cs-case-hero-media-img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
   display: block;
   vertical-align: middle;
 }
@@ -6127,7 +6154,7 @@ h3.cs-impact-postits-eyebrow {
 }
 .cs-section-head {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   width: 100%;
   margin-bottom: var(--case-section-label-to-body);
 }
@@ -6138,24 +6165,33 @@ h3.cs-impact-postits-eyebrow {
 }
 .cs-section-label {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   width: 100%;
-  gap: var(--space-3);
-  font-family: var(--cs-milestone-font);
+  gap: var(--space-4);
+  box-sizing: border-box;
+  min-width: 0;
+  font-family: var(--section-rail-title-font);
   font-optical-sizing: auto;
   font-variation-settings: "wdth" 100;
-  font-size: var(--cs-milestone-size);
-  font-weight: var(--cs-milestone-weight);
-  letter-spacing: var(--cs-milestone-tracking);
-  text-transform: var(--cs-milestone-transform);
-  color: var(--cs-milestone-rail-fg);
+  font-size: var(--section-rail-title-size);
+  font-weight: var(--section-rail-title-weight);
+  letter-spacing: var(--section-rail-title-tracking);
+  text-transform: var(--section-rail-title-transform);
+  color: var(--section-rail-title-fg);
+  line-height: 1;
   margin: 0;
 }
 
 .cs-section-label-prefix {
   flex-shrink: 0;
-  margin-right: calc(var(--space-1) * -0.25);
-  opacity: 0.78;
+  margin-right: 0;
+  opacity: 1;
+  font-family: var(--section-rail-prefix-font);
+  font-size: var(--section-rail-prefix-size);
+  font-weight: var(--section-rail-prefix-weight);
+  letter-spacing: var(--section-rail-prefix-tracking);
+  text-transform: var(--section-rail-prefix-transform);
+  color: var(--section-rail-prefix-fg);
   font-variant-numeric: tabular-nums;
 }
 /* Label + rule (MotionSection rails) */
@@ -6166,18 +6202,21 @@ h3.cs-impact-postits-eyebrow {
 .cs-section-label::after {
   content: "";
   flex: 1;
+  min-width: var(--space-4);
   height: 1px;
-  background: var(--cs-milestone-rule-rail);
+  background: var(--section-rail-rule);
 }
 /* Rail headings — overrides global `h2 { font-heading }` */
 h2.cs-section-label {
-  font-family: var(--cs-milestone-font);
-  font-size: var(--cs-milestone-size);
+  font-family: var(--section-rail-title-font);
+  font-size: var(--section-rail-title-size);
   font-optical-sizing: auto;
   font-variation-settings: "wdth" 100;
-  font-weight: var(--cs-milestone-weight);
-  letter-spacing: var(--cs-milestone-tracking);
-  text-transform: var(--cs-milestone-transform);
+  font-weight: var(--section-rail-title-weight);
+  letter-spacing: var(--section-rail-title-tracking);
+  text-transform: var(--section-rail-title-transform);
+  color: var(--section-rail-title-fg);
+  line-height: 1;
 }
 
 /* Context in-section titles — match milestone typography (body / paper fg) */
@@ -8787,6 +8826,12 @@ h3.cs-context-section-title {
   --ojo-ink-faded: #7a6a54;
   --ojo-grid: rgba(120, 95, 55, 0.09);
   --ojo-rule: rgba(120, 95, 55, 0.15);
+
+  /* Leather canvas — large rail matches homepage WORK strip */
+  --section-rail-title-fg: rgba(240, 232, 216, 0.9);
+  --section-rail-prefix-fg: rgba(240, 232, 216, 0.55);
+  --section-rail-rule: rgba(196, 168, 130, 0.2);
+
   /* Eyebrows: sans body, tiny caps, semibold, darker ink (+ rules in case-omantel-journal.css) */
   --ojo-eyebrow-font: var(--font-body);
   --ojo-eyebrow-size: 8px;

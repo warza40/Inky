@@ -62,7 +62,7 @@
 .ojo-hero {
   position: relative;
   width: 100%;
-  min-height: min(90vh, 880px);
+  min-height: min(90vh, 860px);
   display: flex;
   flex-direction: column;
 }
@@ -88,6 +88,7 @@
 .ojo-hero-img {
   width: min(980px, 100%);
   height: auto;
+  max-height: min(790px, calc(100vw * 810 / 1440 - 20px));
   border-radius: 4px;
   box-shadow:
     0 40px 100px rgba(0, 0, 0, 0.55),
@@ -1125,11 +1126,11 @@
 
 @media (max-width: 768px) {
   .cs-page.cs-page--journal-omantel .ojo-hero {
-    min-height: 55vh;
+    min-height: calc(55vh - 20px);
   }
 
   .cs-page.cs-page--journal-omantel .ojo-hero-stage {
-    min-height: 55vh;
+    min-height: calc(55vh - 20px);
   }
 
   .cs-page.cs-page--journal-omantel .ojo-hero-img {

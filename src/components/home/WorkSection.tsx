@@ -88,7 +88,6 @@ const WORK: WorkCard[] = [
       clientLine: "Publicis Sapient · Omantel",
       quote:
         "Enterprise clients were activating SIMs through phone calls and spreadsheets. The system was the bottleneck.",
-      statusLine: "Ongoing",
       skillTags: ["B2C ecommerce", "Enterprise UX", "End-to-end"],
       tape: "red",
       displayTitle: "Omantel — eShop & Enterprise Activation",

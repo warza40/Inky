@@ -46,12 +46,16 @@ export function JournalHero() {
 
           <div className="jl-hero-top">
             <h1 className="jl-hero-bio-heading jl-hero-g-head">
-              I design products that have to handle{" "}
+              I design products
+              <br className="jl-hero-head-br" aria-hidden /> that have to handle
+              <br className="jl-hero-head-br" aria-hidden />{" "}
               <span className="jl-hero-head-em">real-world complexity</span>.
             </h1>
             <p className="home-hero-caption jl-caption-on-right jl-hero-g-cap">
-              The real problem usually isn&apos;t the interface — it&apos;s
-              getting a room full of smart people to agree on what the problem
+              The real problem usually isn&apos;t the interface — it&apos;s{" "}
+              <br className="jl-hero-cap-br" aria-hidden />
+              getting a room full of smart people to agree on what the problem{" "}
+              <br className="jl-hero-cap-br" aria-hidden />
               actually is. I help with that.
             </p>
           </div>
