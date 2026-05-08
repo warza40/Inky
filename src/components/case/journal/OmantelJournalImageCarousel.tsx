@@ -33,65 +33,72 @@ export function OmantelJournalImageCarousel({
 
   return (
     <div className="ojo-decision-carousel">
-      <div className="ojo-decision-carousel-stage">
+      <div
+        className={cn(
+          "ojo-decision-carousel-row",
+          slideCount > 1 && "ojo-decision-carousel-row--multi",
+        )}
+      >
         {slideCount > 1 ? (
-          <>
-            <button
-              type="button"
-              className="ojo-decision-carousel-chev ojo-decision-carousel-chev--prev"
-              aria-label="Previous image"
-              onClick={() => go(-1)}
-            >
-              <ChevronLeft size={22} strokeWidth={1.15} aria-hidden />
-            </button>
-            <button
-              type="button"
-              className="ojo-decision-carousel-chev ojo-decision-carousel-chev--next"
-              aria-label="Next image"
-              onClick={() => go(1)}
-            >
-              <ChevronRight size={22} strokeWidth={1.15} aria-hidden />
-            </button>
-          </>
+          <button
+            type="button"
+            className="ojo-decision-carousel-chev ojo-decision-carousel-chev--prev"
+            aria-label="Previous image"
+            onClick={() => go(-1)}
+          >
+            <ChevronLeft size={20} strokeWidth={2} aria-hidden />
+          </button>
         ) : null}
-        <div className="ojo-decision-carousel-slides">
-          {images.map((image, i) => {
-            const active = i === si;
-            const isVideo = /\.(mov|mp4|webm)(\?|$)/i.test(image.src);
-            return (
-              <div
-                key={`${image.src}-${i}`}
-                className={cn("ojo-decision-slide", active && "is-active")}
-                aria-hidden={!active}
-              >
-                <div className="ojo-decision-slide-inner">
-                  <div className="ojo-decision-slide-img">
-                    {isVideo ? (
-                      <video
-                        src={image.src}
-                        controls
-                        playsInline
-                        className="h-full w-full object-contain"
-                        aria-label={image.alt}
-                      />
-                    ) : (
-                      <MotionImage
-                        className="ojo-decision-mi"
-                        src={image.src}
-                        alt={image.alt}
-                        caption={image.caption}
-                        hideFigcaption
-                        fill
-                        objectFit="contain"
-                        lightbox
-                      />
-                    )}
+        <div className="ojo-decision-carousel-stage">
+          <div className="ojo-decision-carousel-slides">
+            {images.map((image, i) => {
+              const active = i === si;
+              const isVideo = /\.(mov|mp4|webm)(\?|$)/i.test(image.src);
+              return (
+                <div
+                  key={`${image.src}-${i}`}
+                  className={cn("ojo-decision-slide", active && "is-active")}
+                  aria-hidden={!active}
+                >
+                  <div className="ojo-decision-slide-inner">
+                    <div className="ojo-decision-slide-img">
+                      {isVideo ? (
+                        <video
+                          src={image.src}
+                          controls
+                          playsInline
+                          className="h-full w-full object-contain"
+                          aria-label={image.alt}
+                        />
+                      ) : (
+                        <MotionImage
+                          className="ojo-decision-mi"
+                          src={image.src}
+                          alt={image.alt}
+                          caption={image.caption}
+                          hideFigcaption
+                          fill
+                          objectFit="contain"
+                          lightbox
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
+        {slideCount > 1 ? (
+          <button
+            type="button"
+            className="ojo-decision-carousel-chev ojo-decision-carousel-chev--next"
+            aria-label="Next image"
+            onClick={() => go(1)}
+          >
+            <ChevronRight size={20} strokeWidth={2} aria-hidden />
+          </button>
+        ) : null}
       </div>
       {slideCount > 1 || images[si]?.caption?.trim() ? (
         <div className="ojo-decision-carousel-footer">
