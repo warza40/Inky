@@ -1,15 +1,40 @@
 import { JournalSectionHeader } from "@/components/home/JournalSectionHeader";
-import { JournalAboutPhotoCarousel } from "@/components/home/JournalAboutPhotoCarousel";
+import {
+  JournalAboutPhotoCarousel,
+  type AboutCarouselSlide,
+} from "@/components/home/JournalAboutPhotoCarousel";
 import { AboutApproachPostIt } from "@/components/home/AboutApproachPostIt";
 
-/** Portrait / photo rail — swap paths when final assets land in `public/` */
-const ABOUT_PHOTO_SRC = "/about-rachana.svg";
+const ABOUT_ME_ASSET_PREFIX = "/About me";
 
-/** Three slides; auto-advance cycles for rhythm (replace with distinct files anytime). */
-const ABOUT_PHOTO_SLIDES = [
-  { src: ABOUT_PHOTO_SRC, alt: "Rachana Mandal" },
-  { src: ABOUT_PHOTO_SRC, alt: "Rachana Mandal — slide 2" },
-  { src: ABOUT_PHOTO_SRC, alt: "Rachana Mandal — slide 3" },
+/** Encode spaces in paths under `public/About me/`. */
+function aboutMeAsset(fileName: string): string {
+  return encodeURI(`${ABOUT_ME_ASSET_PREFIX}/${fileName}`);
+}
+
+/**
+ * Journal carousel images from `public/About me/`.
+ * Third slide uses a resized JPEG exported from HEIC so it loads reliably in Chromium/Firefox.
+ */
+const ABOUT_PHOTO_SLIDES: AboutCarouselSlide[] = [
+  {
+    src: aboutMeAsset("About me 1.png"),
+    alt: "Rachana Mandal",
+    width: 1440,
+    height: 2120,
+  },
+  {
+    src: aboutMeAsset("About me 2.JPEG"),
+    alt: "Rachana Mandal",
+    width: 4000,
+    height: 3000,
+  },
+  {
+    src: aboutMeAsset("About me 3-carousel.jpg"),
+    alt: "Rachana Mandal",
+    width: 2000,
+    height: 1500,
+  },
 ];
 
 function AboutBriefContent() {

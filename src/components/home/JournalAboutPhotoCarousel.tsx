@@ -6,6 +6,9 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 export interface AboutCarouselSlide {
   src: string;
   alt: string;
+  /** Intrinsic size for layout hint (optional). */
+  width?: number;
+  height?: number;
 }
 
 interface JournalAboutPhotoCarouselProps {
@@ -76,8 +79,8 @@ export function JournalAboutPhotoCarousel({
           className="jl-about-carousel-img"
           loading={safe === 0 ? "eager" : "lazy"}
           decoding="async"
-          width={1440}
-          height={2120}
+          width={slide.width ?? 1440}
+          height={slide.height ?? 2120}
         />
         {caption ? (
           <p className="jl-about-carousel-caption">{caption}</p>
