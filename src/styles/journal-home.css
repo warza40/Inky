@@ -563,7 +563,10 @@
   color: var(--jl-ink);
   margin: 0 0 var(--space-5);
   max-width: none;
-  text-wrap: pretty;
+}
+
+.home-layout--journal .jl-hero-bio-line {
+  display: block;
 }
 
 .home-layout--journal .jl-hero-bio-heading .jl-hero-head-em {
@@ -656,15 +659,8 @@
 
 .home-layout--journal .jl-hero-bio-heading.jl-hero-g-head {
   margin: 0;
-  /* Wider measure: three-line stack (see `.jl-hero-head-br`) + large display size */
+  /* Wider measure: three-line stack (`.jl-hero-bio-line`) + large display size */
   max-width: min(42rem, 88%);
-}
-
-/* Narrow viewports: drop forced headline line breaks */
-@media (max-width: 768px) {
-  .home-layout--journal .jl-hero-bio-heading.jl-hero-g-head br.jl-hero-head-br {
-    display: none;
-  }
 }
 
 .home-layout--journal .jl-mini-tag {

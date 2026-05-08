@@ -264,10 +264,10 @@ export const omantelCase: CaseStudy = {
           metaDetailPlain: true,
         },
         {
-          value: "48hrs",
-          labelItalic: "→ 0",
+          value: "48hrs → 0",
+          labelItalic: "",
           metaDetail:
-            "From days to seconds\n\nOperators now see batch\nconfirmation in real time",
+            "From days to seconds\n\nBatch activations of up to 500 or more SIMs now confirm within the session — replacing a process where users waited days for email confirmation with no visibility in between.",
           metaDetailPlain: true,
         },
       ],
@@ -359,6 +359,12 @@ export const omantelCase: CaseStudy = {
         impact:
           "The experience avoided cognitive overload on mobile while still supporting meaningful on-the-go actions. No features were broken by being forced into a screen size they weren't designed for.",
         images: [
+          {
+            src: "/Omantel%20assets/Om-Mobile.png",
+            alt: "Omantel bulk actions on mobile — scoped flows for on-the-go updates",
+            caption:
+              "Mobile-first views for tactical line changes and scoped bulk actions.",
+          },
           {
             src: "/Omantel%20assets/KD4.png",
             alt: "Mobile screens showing scoped bulk experience",

@@ -1,4 +1,5 @@
 import "./globals.css";
+import "@/styles/case-omantel-journal.css";
 import type { Viewport } from "next";
 import ThinkingTopography from "@/components/ThinkingTopography";
 import { ThemeProvider } from "@/contexts/ThemeContext";

@@ -1,6 +1,5 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
 import type { CaseStudy } from "@/case-studies/omantel";
 import { OmantelJournalImageCarousel } from "@/components/case/journal/OmantelJournalImageCarousel";
 
@@ -37,7 +36,6 @@ export function OmantelDecisionJournal({
   index,
 }: OmantelDecisionJournalProps) {
   const imgs = decision.images ?? [];
-  const reduceMotion = useReducedMotion();
 
   const hasRi =
     Boolean(decision.rationale?.trim()) ||
@@ -45,13 +43,7 @@ export function OmantelDecisionJournal({
     Boolean(decision.designResponse?.trim());
 
   return (
-    <motion.article
-      className="ojo-decision-block"
-      initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
-      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.08 }}
-      transition={{ duration: 0.42, ease: [0, 0, 0.2, 1] }}
-    >
+    <article className="ojo-decision-block">
       <div className="ojo-decision-stage">
         <div className="ojo-decision-bg ojo-decision-bg--solid" aria-hidden />
 
@@ -89,7 +81,7 @@ export function OmantelDecisionJournal({
 
       <div className="ojo-decision-content">
         <div className="ojo-paper ojo-paper-shadow ojo-decision-inner">
-          <div className="ojo-decision-left">
+          <div className="ojo-decision-head">
             <div className="ojo-decision-num-bg" aria-hidden>
               {String(index + 1).padStart(2, "0")}
             </div>
@@ -100,32 +92,34 @@ export function OmantelDecisionJournal({
                 {decision.description}
               </p>
             ) : null}
-            <div className="ojo-d-rule" />
           </div>
           {hasRi ? (
-            <div className="ojo-decision-right">
-              {(decision.rationale?.trim() || decision.impact?.trim()) && (
-                <>
+            <>
+              <div className="ojo-d-rule" aria-hidden />
+              <div className="ojo-decision-ri">
+                {(decision.rationale?.trim() || decision.impact?.trim()) && (
+                  <>
+                    <div className="ojo-d-impact-block">
+                      <div className="ojo-d-impact-label">Rationale</div>
+                      <RiPoints text={decision.rationale} />
+                    </div>
+                    <div className="ojo-d-impact-block">
+                      <div className="ojo-d-impact-label">Impact</div>
+                      <RiPoints text={decision.impact} />
+                    </div>
+                  </>
+                )}
+                {decision.designResponse?.trim() ? (
                   <div className="ojo-d-impact-block">
-                    <div className="ojo-d-impact-label">Rationale</div>
-                    <RiPoints text={decision.rationale} />
+                    <div className="ojo-d-impact-label">Solutioning</div>
+                    <RiPoints text={decision.designResponse} />
                   </div>
-                  <div className="ojo-d-impact-block">
-                    <div className="ojo-d-impact-label">Impact</div>
-                    <RiPoints text={decision.impact} />
-                  </div>
-                </>
-              )}
-              {decision.designResponse?.trim() ? (
-                <div className="ojo-d-impact-block">
-                  <div className="ojo-d-impact-label">Solutioning</div>
-                  <RiPoints text={decision.designResponse} />
-                </div>
-              ) : null}
-            </div>
+                ) : null}
+              </div>
+            </>
           ) : null}
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 }

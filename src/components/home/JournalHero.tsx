@@ -46,10 +46,11 @@ export function JournalHero() {
 
           <div className="jl-hero-top">
             <h1 className="jl-hero-bio-heading jl-hero-g-head">
-              I design products
-              <br className="jl-hero-head-br" aria-hidden /> that have to handle
-              <br className="jl-hero-head-br" aria-hidden />{" "}
-              <span className="jl-hero-head-em">real-world complexity</span>.
+              <span className="jl-hero-bio-line">I design products</span>
+              <span className="jl-hero-bio-line">that have to handle</span>
+              <span className="jl-hero-bio-line">
+                <span className="jl-hero-head-em">real-world complexity</span>.
+              </span>
             </h1>
             <p className="home-hero-caption jl-caption-on-right jl-hero-g-cap">
               The real problem usually isn&apos;t the interface — it&apos;s
