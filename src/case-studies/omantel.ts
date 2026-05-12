@@ -243,7 +243,7 @@ export const omantelCase: CaseStudy = {
         "Omantel is Oman's national telecom provider. Work spanned a B2C eShop and a B2B bulk activation platform: enterprise customers need to activate, modify, or deactivate SIM services in bulk — hundreds of records at a time, governed by strict eligibility and credit rules.",
         "The existing process ran entirely on email. A company rep would send a request to the Omantel team, who would manually verify details against a separate backend system, re-enter the data into the portal, generate the batch — and discover errors only after submission. Every request meant tab-switching between email, the backend, and the portal. Every error meant starting over.",
       ],
-      aim: "No research phase. Business vision pre-defined. Strict eligibility rules. Aggressive timelines. Multiple legacy backends with rate limits.",
+      aim: "There was no defined scope for research, as the vision was pre-defined from the business side.",
     },
     journalImpact: {
       blocks: [
