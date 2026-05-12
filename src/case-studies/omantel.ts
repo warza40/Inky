@@ -264,10 +264,10 @@ export const omantelCase: CaseStudy = {
           metaDetailPlain: true,
         },
         {
-          value: "48hrs → 0",
+          value: "-48hrs → 0",
           labelItalic: "",
           metaDetail:
-            "From days to seconds\n\nBatch activations of up to 500 or more SIMs now confirm within the session — replacing a process where users waited days for email confirmation with no visibility in between.",
+            "From days to seconds\n\nBatch activations of up to 500 SIMs now confirm within the session — replacing a process where operators waited days for email confirmation with no visibility in between.",
           metaDetailPlain: true,
         },
       ],
@@ -277,13 +277,13 @@ export const omantelCase: CaseStudy = {
     decisions: [
       {
         title:
-          "Replacing the email-to-portal pipeline with self-service bulk upload",
+          "Redesigning the manual batch request process to a self service system",
         description:
           "Two input paths in one interface: CSV templates for bulk preparation offline, and a search-and-modify flow for quick single-record changes.",
         rationale:
           "Enterprise users already work in spreadsheets. Meeting them there — rather than inventing a new input method — reduced learning curve and adoption friction. The search-and-modify path exists because not every request is bulk; seasoned users making quick changes shouldn't be forced through a CSV workflow.",
         impact:
-          "The entire email → manual verification → manual entry pipeline was eliminated for valid submissions. Company reps self-serve directly. Zero Omantel staff involvement required for clean batches.",
+          "The entire email → manual verification → manual entry pipeline was eliminated for valid submissions. Company reps self-serve directly. Zero dependency on internal staff for a clean batch submission.",
         images: [
           {
             src: "/Omantel%20assets/Om-Addbysearch.gif",
@@ -300,13 +300,14 @@ export const omantelCase: CaseStudy = {
         ],
       },
       {
-        title: "Preserving context to prevent bulk errors",
+        title:
+          "Reducing error risk through early validation and contextual visibility",
         description:
-          "When editing values at scale, losing sight of the current state increases the chance of mistakes. For each record, the existing credit limit and the proposed new limit are shown side by side in the same table.",
+          "In the previous process, a single invalid entry could fail the entire batch — and users would receive a confirmation email in a span of 48-72hrs. Two decisions addressed this together: 1. error validation was moved earlier in the flow, surfacing issues at form level and during file upload before submission. 2. For every record being edited, the existing value and the proposed change appear side by side in the same table, so users can make an informed commitment.",
         rationale:
-          "Reduced reliance on memory. When you can see what was and what will be in the same view, you catch errors before they propagate. The per-row undo gives confidence to make changes without fear of irreversible bulk mistakes.",
+          "Early validation and contextual visibility address two distinct failure modes in bulk operations. Surfacing errors at the form and file-upload stage prevents invalid records from entering the submission pipeline entirely. Presenting the existing value alongside the proposed change within the same view reduces operator reliance on memory and eliminates the risk of unconsidered overwrites — both conditions that, at batch scale, compound into significant downstream failures.",
         impact:
-          "Users could review bulk changes with full context before submission. Decision-making under pressure became deliberate rather than reactive.",
+          "Errors that previously propagated through to post-submission discovery were intercepted at the point of input. Operators gained the ability to review proposed changes against existing state before committing, shifting the error-handling model from recovery to prevention. Bulk operations became reliable at higher volumes without increasing the cognitive load on the operator.",
         images: [
           {
             src: "/Omantel%20assets/Preserving%20context%20-1.png",

@@ -127,6 +127,7 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
           ) : null}
           {isJournalCase && caseStudy ? (
             <OmantelJournalTitlePaper
+              slug={caseStudy.slug}
               metaLine={hero.metaLine}
               title={formatLabel(title)}
               problemStatement={hero.problemStatement}

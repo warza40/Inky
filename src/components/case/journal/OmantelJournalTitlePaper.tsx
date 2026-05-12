@@ -1,6 +1,8 @@
 import { PaperClipSticky } from "@/components/home/PaperClipIcons";
 
 interface OmantelJournalTitlePaperProps {
+  /** Case slug — gates whether an Omantel domain pill appears */
+  slug: string;
   metaLine?: string;
   title: string;
   problemStatement?: string;
@@ -22,28 +24,50 @@ const META_ROWS: ReadonlyArray<{
   { label: "Focus", field: "focus" },
 ];
 
-/** Domain chips under lede — company, then Telecom / B2B when present in context. */
-function domainChipsFromOverview(overview: {
-  context: string;
-  company: string;
-}): string[] {
+/** Title-strip pills only include Omantel for these Omantel-client studies */
+const SLUGS_WITH_OMANTEL_PILL = new Set([
+  "omantel-bulk-activation",
+  "real-estate-connectivity",
+]);
+
+/** Domain chips under lede — company when meaningful; Telecom/B2B from context; Omantel only for bulk + REC */
+function domainChipsFromOverview(
+  slug: string,
+  overview: {
+    context: string;
+    company: string;
+  },
+): string[] {
   const { context, company } = overview;
   const chips: string[] = [];
   const co = company.trim();
-  if (co) chips.push(co);
+  const isPlaceholderCo =
+    co === "" || co === "—" || co === "-" || co === "–" || co === "...";
+
+  if (co && !isPlaceholderCo) {
+    chips.push(co);
+  }
+
   if (/\btelecom\b/i.test(context)) chips.push("Telecom");
   if (/\bb2b\b/i.test(context)) chips.push("B2B");
-  return chips.length > 0 ? chips : ["Omantel", "Telecom", "B2B"];
+
+  if (SLUGS_WITH_OMANTEL_PILL.has(slug)) {
+    const hasOmantel = chips.some((c) => /^omantel$/i.test(c.trim()));
+    if (!hasOmantel) chips.unshift("Omantel");
+  }
+
+  return chips;
 }
 
 /** Paper title insert — typography uses existing DS classes (font stacks unchanged) */
 export function OmantelJournalTitlePaper({
+  slug,
   metaLine,
   title,
   problemStatement,
   overview,
 }: OmantelJournalTitlePaperProps) {
-  const chips = domainChipsFromOverview(overview);
+  const chips = domainChipsFromOverview(slug, overview);
 
   return (
     <section className="ojo-title-section">
@@ -67,13 +91,15 @@ export function OmantelJournalTitlePaper({
               {problemStatement ? (
                 <p className="ojo-sub-title">{problemStatement}</p>
               ) : null}
-              <div className="ojo-title-pills">
-                {chips.map((c) => (
-                  <span key={c} className="ojo-title-pill">
-                    {c}
-                  </span>
-                ))}
-              </div>
+              {chips.length > 0 ? (
+                <div className="ojo-title-pills">
+                  {chips.map((c) => (
+                    <span key={c} className="ojo-title-pill">
+                      {c}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
