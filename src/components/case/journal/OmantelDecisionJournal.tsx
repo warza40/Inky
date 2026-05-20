@@ -2,6 +2,7 @@
 
 import type { CaseStudy } from "@/case-studies/omantel";
 import { OmantelJournalImageCarousel } from "@/components/case/journal/OmantelJournalImageCarousel";
+import { cn } from "@/lib/utils";
 
 function splitRiText(text: string) {
   return text
@@ -70,6 +71,26 @@ export function OmantelDecisionJournal({
           <div className="ojo-decision-placeholder-wrap cs-decision-placeholder cs-visual-wrap--editorial">
             <div className="cs-decision-placeholder-note">
               {decision.imagePlaceholder}
+            </div>
+          </div>
+        ) : null}
+        {decision.navExploration?.length ? (
+          <div className="ojo-decision-placeholder-wrap cs-decision-nav-wrap cs-visual-wrap--editorial">
+            <div className="cs-decision-nav-exploration">
+              {decision.navExploration.map((item, itemIndex) => (
+                <div key={itemIndex} className="cs-nav-exp-item">
+                  <div className="cs-nei-label">{item.label}</div>
+                  <div
+                    className={cn(
+                      "cs-nei-sketch",
+                      item.variant === "mega" && "cs-nei-sketch--mega",
+                      item.variant === "ribbon" && "cs-nei-sketch--ribbon",
+                      item.variant === "panel" && "cs-nei-sketch--panel",
+                    )}
+                    aria-hidden
+                  />
+                </div>
+              ))}
             </div>
           </div>
         ) : null}

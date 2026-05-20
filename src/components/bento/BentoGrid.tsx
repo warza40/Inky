@@ -7,6 +7,7 @@ import { TicketCard } from "./TicketCard";
 import { HeaderCard } from "./HeaderCard";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { omantelCaseCardImageSrc } from "@/case-studies/omantel-card-preview";
+import { RESUME_URL } from "@/lib/site-links";
 
 const EMAIL = "mrachana674@gmail.com";
 
@@ -177,7 +178,9 @@ export function BentoGrid() {
               </div>
             </div>
             <Link
-              href="/resume.pdf"
+              href={RESUME_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-auto inline-flex w-fit items-center justify-center gap-2 rounded-xl bg-neutral-900 dark:bg-neutral-700 px-5 py-2.5 text-sm font-medium text-neutral-100 hover:bg-neutral-800 dark:hover:bg-neutral-600 transition-colors"
             >
               <Download size={18} />
