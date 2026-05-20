@@ -8,6 +8,7 @@ import { AboutSection } from "@/components/home/AboutSection";
 import { WorkSection } from "@/components/home/WorkSection";
 import { WritingSection } from "@/components/home/WritingSection";
 import { JournalHero } from "@/components/home/JournalHero";
+import { RESUME_URL } from "@/lib/site-links";
 
 const CENTER_LINKS = [
   { label: "Work", href: "#work" },
@@ -49,7 +50,12 @@ export function HomePageLines() {
           ))}
         </nav>
         <div className="home-header-end">
-          <Link href="/resume.pdf" download className="home-header-resume">
+          <Link
+            href={RESUME_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="home-header-resume"
+          >
             Resume &rarr;
           </Link>
         </div>

@@ -2,15 +2,13 @@
 
 import Link from "next/link";
 import { PaperClipSticky } from "@/components/home/PaperClipIcons";
+import { RESUME_URL } from "@/lib/site-links";
 
 const JL_HERO_BADGES = [
   "Senior Product Designer",
   "5+ years",
   "B2B & enterprise · Bengaluru",
 ];
-
-const RESUME_URL =
-  "https://drive.google.com/file/d/11pRdPZdKTFnX9Q06PUfgj922_X8luZ9K/view?usp=drivesdk";
 
 export function JournalHero() {
   return (
