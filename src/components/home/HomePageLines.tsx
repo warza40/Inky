@@ -48,11 +48,6 @@ export function HomePageLines() {
             </Link>
           ))}
         </nav>
-        <div className="home-header-end">
-          <Link href="/resume.pdf" download className="home-header-resume">
-            Resume &rarr;
-          </Link>
-        </div>
       </header>
 
       <JournalHero />

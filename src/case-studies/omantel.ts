@@ -1,5 +1,3 @@
-import { omantelCaseCardImageSrc } from "./omantel-card-preview";
-
 export type CaseStudyWarmthTheme = "madder" | "moss" | "ochre" | "slate";
 
 export interface CaseStudy {
@@ -226,7 +224,7 @@ export const omantelCase: CaseStudy = {
   year: "2024",
   nextProjectSlug: "warehouse-operations",
   heroImage: {
-    src: omantelCaseCardImageSrc,
+    src: "/Omantel%20assets/Bulk%20Hero.png",
     alt: "Bulk Actions landing: Change existing lines and Add new postpaid lines",
   },
   warmthTheme: "madder",
@@ -310,15 +308,15 @@ export const omantelCase: CaseStudy = {
           "Errors that previously propagated through to post-submission discovery were intercepted at the point of input. Operators gained the ability to review proposed changes against existing state before committing, shifting the error-handling model from recovery to prevention. Bulk operations became reliable at higher volumes without increasing the cognitive load on the operator.",
         images: [
           {
-            src: "/Omantel%20assets/Preserving%20context%20-1.png",
-            alt: "Bulk-edit table showing current limits and editable proposed values before changes are applied",
-            caption:
-              "Preserving context — current and proposed limits visible while editing.",
-          },
-          {
-            src: "/Omantel%20assets/KD2.png",
+            src: "/Omantel%20assets/Bulk%3AKD2.png",
             alt: "Side-by-side credit limit comparison with current vs proposed values",
             caption: "Side-by-side credit limit comparison with undo controls.",
+          },
+          {
+            src: "/Omantel%20assets/Bulk%3AKD%202.2.gif",
+            alt: "Bulk-edit flow with early validation and contextual limits visible while editing",
+            caption:
+              "Preserving context — current and proposed limits visible while editing.",
           },
           {
             src: "/Omantel%20assets/KD2.5.png",
@@ -361,6 +359,11 @@ export const omantelCase: CaseStudy = {
           "The experience avoided cognitive overload on mobile while still supporting meaningful on-the-go actions. No features were broken by being forced into a screen size they weren't designed for.",
         images: [
           {
+            src: "/Omantel%20assets/Om%20mobile%201.gif",
+            alt: "Omantel bulk actions on mobile — animated scoped flow",
+            caption: "Mobile bulk actions — scoped on-the-go updates.",
+          },
+          {
             src: "/Omantel%20assets/Om-Mobile.png",
             alt: "Omantel bulk actions on mobile — scoped flows for on-the-go updates",
             caption: "Mobile-first views with limited scope of features.",
@@ -377,10 +380,16 @@ export const omantelCase: CaseStudy = {
           'Bulk actions became more predictable and less fragile, even at larger volumes. The cost of a single bad record went from "restart the entire batch" to "fix this field before you submit."',
         images: [
           {
-            src: "/Omantel%20assets/KD5.png",
-            alt: "Inline validation during input and file upload",
+            src: "/Omantel%20assets/KD5-Template%20generation.png",
+            alt: "Bulk Actions template generation for offline batch preparation",
             caption:
-              "Error and recovery — form-level and upload-level validation.",
+              "Template generation — prepare valid batches offline before upload.",
+          },
+          {
+            src: "/Omantel%20assets/KD5-Data%20Validity.png",
+            alt: "Inline data validity checks during input and file upload",
+            caption:
+              "Data validity — form-level and upload-level validation before submission.",
           },
         ],
       },

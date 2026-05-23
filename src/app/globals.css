@@ -1630,28 +1630,7 @@ html.dark .home-page-main,
   color: var(--color-ink-700);
 }
 
-.home-header-end {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-.home-header-resume {
-  font-family: var(--font-label);
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
-  font-size: var(--text-sm);
-  font-weight: 300;
-  letter-spacing: var(--tracking-wider);
-  text-transform: none;
-  color: var(--color-ink-300);
-  text-decoration: none;
-  transition: color var(--duration-fast) var(--ease-default);
-}
-.home-header-resume:hover {
-  color: var(--color-madder-900);
-}
-
-/* 3-column grid: name | nav | end */
+/* 3-column grid: name | nav | spacer (balances center nav) */
 .home-header {
   position: sticky;
   top: 0;
@@ -1708,15 +1687,11 @@ html.dark .home-page-main,
   color: var(--color-madder-500);
 }
 
-.dark .home-header-nav-link,
-.dark .home-header-resume {
+.dark .home-header-nav-link {
   color: rgba(168, 152, 128, 0.85);
 }
 .dark .home-header-nav-link:hover {
   color: var(--color-ground-primary);
-}
-.dark .home-header-resume:hover {
-  color: var(--color-madder-500);
 }
 
 @media (max-width: 640px) {
@@ -1730,8 +1705,7 @@ html.dark .home-page-main,
   .home-header-nav {
     gap: 20px;
   }
-  .home-header-nav-link,
-  .home-header-resume {
+  .home-header-nav-link {
     letter-spacing: var(--tracking-wider);
   }
 }
@@ -1741,9 +1715,6 @@ html.dark .home-page-main,
   }
   .home-header-name {
     font-size: 15px;
-  }
-  .home-header-resume {
-    letter-spacing: var(--tracking-wider);
   }
 }
 @media (min-width: 641px) and (max-width: 1024px) {
