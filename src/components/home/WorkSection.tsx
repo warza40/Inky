@@ -70,7 +70,8 @@ const WORK: WorkCard[] = [
     category: "Enterprise",
     categoryDetail: "Telecom",
     tag: "enterprise",
-    title: "Fixing the Fragility in Enterprise SIM Activation",
+    title:
+      "Redesigning the bulk SIM activation experience from a manual process to an automated one.",
     description:
       "Thousands of SIM activations, processed manually. One invalid record was enough to restart the entire process.",
     imageBg: "#1c1812",
@@ -89,7 +90,6 @@ const WORK: WorkCard[] = [
         "Enterprise clients were activating SIMs through phone calls and spreadsheets. The system was the bottleneck.",
       skillTags: ["B2C ecommerce", "Enterprise UX", "End-to-end"],
       tape: "red",
-      displayTitle: "Omantel — eShop & Enterprise Activation",
       heroCoverPhoto: true,
     },
   },

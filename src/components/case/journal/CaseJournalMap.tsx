@@ -9,7 +9,6 @@ import {
 import { OmantelJournalProblem } from "./OmantelJournalProblem";
 import { OmantelDecisionJournal } from "./OmantelDecisionJournal";
 import { OmantelJournalOutcome } from "./OmantelJournalOutcome";
-import { OmantelJournalFooter } from "./OmantelJournalFooter";
 import { CaseNoteworthyIterations } from "@/components/case/CaseNoteworthyIterations";
 import { getCaseVisualsPresentation } from "@/case-studies/case-visuals";
 import { Problem } from "@/components/case/Problem";
@@ -174,11 +173,6 @@ export function CaseJournalMap({ caseStudy }: CaseJournalMapProps) {
           ) : null}
         </MotionSection>
       ) : null}
-
-      <OmantelJournalFooter
-        currentSlug={caseStudy.slug}
-        nextSlugOverride={caseStudy.nextProjectSlug}
-      />
     </div>
   );
 }

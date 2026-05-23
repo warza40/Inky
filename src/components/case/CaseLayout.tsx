@@ -7,6 +7,8 @@ import { caseStudyHasVisualsSection } from "@/case-studies/case-visuals";
 import { CaseStudyDirection } from "./CaseStudyDirection";
 import { CaseHeroMedia } from "./CaseHeroMedia";
 import { CaseNextProject } from "./CaseNextProject";
+import { JournalCaseFooterNext } from "@/components/case/journal/JournalCaseFooterNext";
+import { JournalFooterSeam } from "@/components/case/journal/JournalFooterSeam";
 import { OmantelJournalHero } from "@/components/case/journal/OmantelJournalHero";
 import { OmantelJournalTitlePaper } from "@/components/case/journal/OmantelJournalTitlePaper";
 
@@ -145,13 +147,22 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
           <main className="cs-main">
             <div className="cs-content">{children}</div>
           </main>
+          {isJournalCase ? <JournalFooterSeam /> : null}
           <CaseStudyFooter
+            journalLayout={isJournalCase}
             nextProject={
-              caseStudy && !isJournalCase ? (
-                <CaseNextProject
-                  currentSlug={caseStudy.slug}
-                  nextSlugOverride={caseStudy.nextProjectSlug}
-                />
+              caseStudy ? (
+                isJournalCase ? (
+                  <JournalCaseFooterNext
+                    currentSlug={caseStudy.slug}
+                    nextSlugOverride={caseStudy.nextProjectSlug}
+                  />
+                ) : (
+                  <CaseNextProject
+                    currentSlug={caseStudy.slug}
+                    nextSlugOverride={caseStudy.nextProjectSlug}
+                  />
+                )
               ) : undefined
             }
           />

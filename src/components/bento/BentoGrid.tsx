@@ -93,7 +93,7 @@ export function BentoGrid() {
         <div className="bento-card card-3">
           <TicketCard
             className="bg-rose-50 dark:bg-rose-950/50 border-rose-200/80 dark:border-white/30"
-            title="Fixing the Fragility in Enterprise SIM Activation flows"
+            title="Redesigning the bulk SIM activation experience from a manual process to an automated one."
             subtitle="A system-level redesign inside a Telecom giant's enterprise portal"
             tag="B2B, UI/UX"
             image={omantelCaseCardImageSrc}

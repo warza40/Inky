@@ -25,7 +25,8 @@ const MAIL_OPTIONS = [
 
 const CASE_STUDIES = [
   {
-    title: "Fixing the Fragility in Enterprise SIM Activation flows",
+    title:
+      "Redesigning the bulk SIM activation experience from a manual process to an automated one.",
     subtitle:
       "Designing a self-serve bulk activation experience for enterprise customers",
     href: "/case/omantel-bulk-activation",

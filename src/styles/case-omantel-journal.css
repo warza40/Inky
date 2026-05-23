@@ -1361,17 +1361,20 @@
   margin-inline: max(var(--fluid-gutter), 32px);
 }
 
-/* ─── Journal footer ─── */
-.ojo-journal-footer {
+/* ─── Journal footer seam (washi tape straddles leather + dark footer) ─── */
+.cs-page.cs-page--journal-omantel .ojo-journal-footer-seam {
   position: relative;
-  z-index: 4;
-  padding: 48px max(var(--fluid-gutter), 32px) 32px;
-  margin-top: 12px;
+  z-index: 6;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
 }
 
-.ojo-footer-tape {
-  top: 0;
-  left: 10%;
+.cs-page.cs-page--journal-omantel .ojo-journal-footer-seam .ojo-footer-tape {
+  top: -17px;
+  left: clamp(24px, 8vw, 120px);
+  transform: rotate(-2deg);
 }
 
 .ojo-tape-koi {
@@ -1382,55 +1385,66 @@
   background-size: 52px 34px;
 }
 
-.ojo-footer-insert {
-  padding: 44px 40px 44px 56px;
+/* Journal next project — inside dark case footer */
+.cs-page.cs-page--journal-omantel .cs-case-footer--journal .cs-case-footer-top {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0 36px;
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  align-items: end;
+  gap: 24px 36px;
+  padding-bottom: 32px;
 }
 
-@media (max-width: 720px) {
-  .ojo-footer-insert {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 28px;
-  }
-  .ojo-footer-next {
-    text-align: center !important;
-  }
+.cs-page.cs-page--journal-omantel
+  .cs-case-footer--journal
+  .cs-case-footer-inner {
+  padding-top: 36px;
 }
 
-.ojo-footer-link {
+.cs-page.cs-page--journal-omantel .ojo-journal-footer-next-link {
   display: flex;
   flex-direction: column;
   gap: 8px;
   text-decoration: none;
+  text-align: right;
+  justify-self: end;
 }
 
-.ojo-footer-dir {
+.cs-page.cs-page--journal-omantel .ojo-journal-footer-next-dir {
   font-family: var(--ojo-eyebrow-font, var(--font-body));
   font-size: var(--ojo-eyebrow-size, 8px);
   letter-spacing: var(--ojo-eyebrow-track, 0.16em);
   font-weight: var(--ojo-eyebrow-weight, 600);
   text-transform: uppercase;
-  color: var(--ojo-eyebrow-paper);
+  color: rgba(245, 239, 228, 0.35);
 }
 
-.ojo-footer-project {
+.cs-page.cs-page--journal-omantel .ojo-journal-footer-next-title {
   font-family: var(--font-heading);
-  font-size: 1.35rem;
+  font-size: clamp(1.125rem, 2vw + 0.5rem, 1.5rem);
   font-weight: 500;
-  color: var(--ojo-ink);
-  transition: color 0.2s;
+  color: var(--parchment);
+  transition: color 0.2s ease;
 }
 
-.ojo-footer-link:hover .ojo-footer-project {
-  color: var(--color-madder-700);
+.cs-page.cs-page--journal-omantel
+  .ojo-journal-footer-next-link:hover
+  .ojo-journal-footer-next-title {
+  color: var(--cs-footer-link-hover);
 }
 
-.ojo-footer-next {
-  text-align: right;
+@media (max-width: 720px) {
+  .cs-page.cs-page--journal-omantel
+    .cs-case-footer--journal
+    .cs-case-footer-top {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 28px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-journal-footer-next-link {
+    text-align: left;
+    justify-self: start;
+  }
 }
 
 .ojo-footer-spacer {
@@ -1479,11 +1493,6 @@
     padding-right: max(24px, var(--fluid-gutter));
   }
 
-  .cs-page.cs-page--journal-omantel .ojo-journal-footer {
-    padding-left: max(24px, var(--fluid-gutter));
-    padding-right: max(24px, var(--fluid-gutter));
-  }
-
   .cs-page.cs-page--journal-omantel
     .ojo-title-insert
     .ojo-main-title.cs-hero-title {
@@ -1506,8 +1515,7 @@
 
   .cs-page.cs-page--journal-omantel .ojo-tape-wave,
   .cs-page.cs-page--journal-omantel .ojo-tape-seigaiha,
-  .cs-page.cs-page--journal-omantel .ojo-punch-holes,
-  .cs-page.cs-page--journal-omantel .ojo-footer-tape {
+  .cs-page.cs-page--journal-omantel .ojo-punch-holes {
     display: none;
   }
 
@@ -1639,24 +1647,6 @@
 
   .cs-page.cs-page--journal-omantel .ojo-reflection-p {
     font-size: 15px;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-journal-footer {
-    padding: 32px max(16px, var(--fluid-gutter)) 36px;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-footer-insert {
-    padding: 28px 20px 28px 32px;
-    gap: 24px;
-    text-align: left;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-footer-next {
-    text-align: left !important;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-footer-project {
-    font-size: 18px;
   }
 }
 

@@ -216,7 +216,8 @@ export interface CaseStudy {
 
 export const omantelCase: CaseStudy = {
   slug: "omantel-bulk-activation",
-  title: "Fixing the Fragility in Enterprise SIM Activation",
+  title:
+    "Redesigning the bulk SIM activation experience from a manual process to an automated one.",
   /** Deliberately empty: suppresses eyebrow above title and `context · company` fallback */
   heroMetaLine: "",
   heroProblemStatement:
@@ -371,13 +372,13 @@ export const omantelCase: CaseStudy = {
         ],
       },
       {
-        title: "Validating records early",
+        title: "Ensuring error prevention through data validity",
         description:
-          "In the previous process, a single invalid entry could cause the entire batch to fail. Validation was moved earlier in the flow — at form level during input and during file upload — so issues surfaced before submission, not after.",
+          "Using outdated/ invalid data to place batch requests can be a very costly mistake. To make it easy for enterprise reps to keep track of the latest data (associated with the numbers)- a logic was set for the system to self validate the data and prompt the user based on the same.",
         rationale:
-          "Prevented full batch reprocessing. Reduced reliance on support teams for error resolution. Users got clearer feedback before committing — shifting error handling from post-failure recovery to pre-submission prevention.",
+          "The system would keep track of the latest data associated with the numbers.",
         impact:
-          'Bulk actions became more predictable and less fragile, even at larger volumes. The cost of a single bad record went from "restart the entire batch" to "fix this field before you submit."',
+          "The user will be informed by the system regarding outdated data and redirected to download the template containing the latest data. Reducing the effort required to recall information- keeping context intact.",
         images: [
           {
             src: "/Omantel%20assets/KD5-Template%20generation.png",

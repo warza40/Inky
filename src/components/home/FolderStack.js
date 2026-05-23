@@ -67,7 +67,8 @@ const DEFAULTS = {
   tabs: {
     work: [
       {
-        title: "Fixing the Fragility in Enterprise SIM Activation flows",
+        title:
+          "Redesigning the bulk SIM activation experience from a manual process to an automated one.",
         sub: "Omantel · UX",
         tag: "Case Study",
         tagColor: "blue",
