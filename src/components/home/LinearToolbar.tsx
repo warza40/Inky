@@ -33,13 +33,6 @@ const CASE_STUDIES = [
     image: omantelCaseCardImageSrc,
   },
   {
-    title: "Making Bulk Connectivity Purchases Transparent for Property Owners",
-    subtitle:
-      "Purchase flow and management for multi-unit building connectivity",
-    href: "/case/real-estate-connectivity",
-    image: "/REC.png",
-  },
-  {
     title: "Bringing Clarity to Warehouse Operations Across Distributed Teams",
     subtitle:
       "Centralized warehouse management portal for operations and quality",

@@ -24,13 +24,10 @@ const META_ROWS: ReadonlyArray<{
   { label: "Focus", field: "focus" },
 ];
 
-/** Title-strip pills only include Omantel for these Omantel-client studies */
-const SLUGS_WITH_OMANTEL_PILL = new Set([
-  "omantel-bulk-activation",
-  "real-estate-connectivity",
-]);
+/** Title-strip pills only include Omantel for the bulk activation case study */
+const SLUGS_WITH_OMANTEL_PILL = new Set(["omantel-bulk-activation"]);
 
-/** Domain chips under lede — company when meaningful; Telecom/B2B from context; Omantel only for bulk + REC */
+/** Domain chips under lede — company when meaningful; Telecom/B2B from context; Omantel pill for bulk activation only */
 function domainChipsFromOverview(
   slug: string,
   overview: {

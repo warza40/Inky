@@ -101,25 +101,25 @@ export function BentoGrid() {
           />
         </div>
 
-        {/* Row 2: Column 2 - Real estate connectivity case study */}
+        {/* Row 2: Column 2 - Warehouse (progress bar style) */}
         <div className="bento-card card-4">
-          <TicketCard
-            title="Making Bulk Connectivity Purchases Transparent for Property Owners"
-            subtitle="Self-serve purchase flow for multi-unit building connectivity"
-            tag="B2B · UX"
-            image="/REC.png"
-            href="/case/real-estate-connectivity"
-          />
-        </div>
-
-        {/* Row 2: Column 3 - Warehouse (progress bar style) */}
-        <div className="bento-card card-5">
           <TicketCard
             title="Bringing Clarity to Warehouse Operations Across Distributed Teams"
             subtitle="Clarity and operations at scale"
             tag="B2B · OPERATIONS"
             image="/warehouse.png"
             href="/case/warehouse-operations"
+          />
+        </div>
+
+        {/* Row 2: Column 3 - Disaster recovery */}
+        <div className="bento-card card-5">
+          <TicketCard
+            title="Accelerating Disaster Recovery Response Through Automation"
+            subtitle="Four-product ecosystem for disaster recovery operations"
+            tag="B2B · OPERATIONS"
+            image="/DM.png"
+            href="/case/disaster-recovery"
           />
         </div>
 

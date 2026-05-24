@@ -84,13 +84,7 @@ const WORK: WorkCard[] = [
     ],
     href: "/case/omantel-bulk-activation",
     journal: {
-      indexLabel: "01",
-      clientLine: "Publicis Sapient · Omantel",
-      quote:
-        "Enterprise clients were activating SIMs through phone calls and spreadsheets. The system was the bottleneck.",
-      skillTags: ["B2C ecommerce", "Enterprise UX", "End-to-end"],
       tape: "red",
-      heroCoverPhoto: true,
     },
   },
   {
@@ -111,25 +105,6 @@ const WORK: WorkCard[] = [
     ],
     href: "/case/warehouse-operations",
     journal: { tape: "teal" },
-  },
-  {
-    slug: "real-estate-connectivity",
-    category: "Strategy",
-    categoryDetail: "Telecom",
-    tag: "strategy",
-    title: "Making Bulk Connectivity Purchases Transparent for Property Owners",
-    description:
-      "Introducing a new framework for data connectivity as a real estate amenity.",
-    imageBg: "#1a2820",
-    imageSrc: "/REC.png",
-    graph: [
-      { flex: 4, color: "#8aa0b4" },
-      { flex: 3, color: "#b84c3a" },
-      { flex: 2, color: "#d4705e" },
-      { flex: 1, color: "#8a9e78" },
-    ],
-    href: "/case/real-estate-connectivity",
-    journal: { tape: "gold" },
   },
   {
     slug: "disaster-recovery",
@@ -225,54 +200,6 @@ function WireframeLayoutIcon({ className }: { className?: string }) {
         strokeWidth="1"
       />
     </svg>
-  );
-}
-
-function SimGlyphIllustration({ className }: { className?: string }) {
-  return (
-    <div className={className} aria-hidden>
-      <svg
-        width="72"
-        height="88"
-        viewBox="0 0 72 88"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect
-          x="12"
-          y="8"
-          width="48"
-          height="72"
-          rx="6"
-          stroke="rgba(90, 70, 45, 0.35)"
-          strokeWidth="1.2"
-          fill="rgba(255, 255, 255, 0.35)"
-        />
-        <path
-          d="M22 28h28M22 38h28M22 48h18"
-          stroke="rgba(90, 70, 45, 0.28)"
-          strokeWidth="1"
-          strokeLinecap="round"
-        />
-        <text
-          x="36"
-          y="71"
-          textAnchor="middle"
-          fill="rgba(74, 55, 32, 0.45)"
-          fontSize="10"
-          fontFamily="system-ui, sans-serif"
-          letterSpacing="0.12em"
-        >
-          SIM
-        </text>
-        <path
-          d="M48 12v6M54 14v6M48 84v-6M54 82v-6"
-          stroke="rgba(90, 70, 45, 0.3)"
-          strokeWidth="1"
-          strokeLinecap="round"
-        />
-      </svg>
-    </div>
   );
 }
 
@@ -445,8 +372,8 @@ function JournalFeaturedCard({
     </div>
   ) : (
     <div className="jl-wc-paper jl-wc-paper--split">
+      <p className="jl-wc-num-line">{indexLine}</p>
       <div className="jl-wc-split-col jl-wc-split-col--main">
-        <p className="jl-wc-num-line">{indexLine}</p>
         <JournalPaperTitle card={card} journal={j} />
         <p className="jl-wc-paper-desc">{card.description}</p>
         {j.skillTags && j.skillTags.length > 0 ? (
@@ -466,7 +393,6 @@ function JournalFeaturedCard({
         {j.quote ? (
           <blockquote className="jl-wc-quote">{j.quote}</blockquote>
         ) : null}
-        <SimGlyphIllustration className="jl-wc-deco-sim" />
         {j.statusLine ? (
           <p className="jl-wc-status-line">{j.statusLine}</p>
         ) : null}
@@ -565,15 +491,10 @@ export function WorkSection({
         : WORK.filter((c) => c.tag === activeTab);
 
   const isFeaturedJournalCard = (c: WorkCard) =>
-    Boolean(c.journal?.quote || c.journal?.featuredLayout);
-
-  const firstCardIsFeaturedJournal =
-    filtered.length > 0 && isFeaturedJournalCard(filtered[0]);
+    Boolean(c.journal?.featuredLayout);
 
   const journalCard = (card: WorkCard, indexInFiltered: number) => {
-    const isFeatured = indexInFiltered === 0 && isFeaturedJournalCard(card);
-
-    if (isFeatured) {
+    if (isFeaturedJournalCard(card)) {
       return (
         <JournalFeaturedCard
           key={card.slug}
@@ -583,14 +504,12 @@ export function WorkSection({
       );
     }
 
-    const eagerImage = indexInFiltered === (firstCardIsFeaturedJournal ? 1 : 0);
-
     return (
       <JournalCompactCard
         key={card.slug}
         card={card}
         visualIndex={indexInFiltered}
-        imagePriority={eagerImage}
+        imagePriority={indexInFiltered === 0}
       />
     );
   };

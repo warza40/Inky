@@ -31,9 +31,12 @@ export function HomePageLines() {
       <HomepageFixes />
 
       <header className="home-header" aria-label="Site header">
-        <Link href="/" className="home-header-name">
-          Rachana Mandal
-          <em className="home-header-name-accent">.</em>
+        <Link
+          href="/"
+          className="home-header-name"
+          aria-label="Rachana Mandal home"
+        >
+          RM
         </Link>
         <nav className="home-header-nav" aria-label="Primary navigation">
           {CENTER_LINKS.map((item) => (

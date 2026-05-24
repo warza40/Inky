@@ -12,7 +12,6 @@ export async function generateStaticParams() {
   return [
     { slug: "omantel-bulk-activation" },
     { slug: "another-case" },
-    { slug: "real-estate-connectivity" },
     { slug: "warehouse-operations" },
     { slug: "disaster-recovery" },
   ];

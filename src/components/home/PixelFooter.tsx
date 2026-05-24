@@ -29,33 +29,33 @@ export function PixelFooter() {
             Senior Product Designer · Available for remote work
           </p>
 
-          {/* Social links */}
-          <nav className="sf-links" aria-label="Social links">
-            <Link
-              href="https://www.linkedin.com/in/rachanamandal/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="sf-link"
-            >
-              LinkedIn
-            </Link>
-            <span className="sf-link-sep">·</span>
-            <Link
-              href="https://substack.com/@thelilyput"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="sf-link"
-            >
-              Substack
-            </Link>
-            <span className="sf-link-sep">·</span>
-            <Link
-              href="mailto:rachanamandal@gmail.com"
-              className="sf-link sf-link-cta"
-            >
-              → Email me
-            </Link>
-          </nav>
+          <div className="sf-reach-block">
+            <p className="sf-reach-out">Reach out to me —</p>
+            <nav className="sf-links" aria-label="Social links">
+              <Link
+                href="https://www.linkedin.com/in/rachanamandal/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="sf-link-btn"
+              >
+                LinkedIn
+              </Link>
+              <Link
+                href="https://substack.com/@thelilyput"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="sf-link-btn"
+              >
+                Substack
+              </Link>
+              <Link
+                href="mailto:rachanamandal@gmail.com"
+                className="sf-link-btn"
+              >
+                → Email me
+              </Link>
+            </nav>
+          </div>
 
           {/* Currently */}
           <div className="sf-currently">

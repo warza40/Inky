@@ -77,15 +77,6 @@ const DEFAULTS = {
       },
       {
         title:
-          "Making Bulk Connectivity Purchases Transparent for Property Owners",
-        sub: "Real Estate",
-        tag: "Case Study",
-        tagColor: "blue",
-        palette: ["#378ADD", "#7F77DD", "#5544CC"],
-        href: "/case/real-estate-connectivity",
-      },
-      {
-        title:
           "Bringing Clarity to Warehouse Operations Across Distributed Teams",
         sub: "Logistics · Amazon",
         tag: "Case Study",

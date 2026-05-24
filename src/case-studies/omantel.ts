@@ -1,3 +1,5 @@
+import { OMANTEL_BULK_HERO_SRC } from "./omantel-assets";
+
 export type CaseStudyWarmthTheme = "madder" | "moss" | "ochre" | "slate";
 
 export interface CaseStudy {
@@ -225,7 +227,7 @@ export const omantelCase: CaseStudy = {
   year: "2024",
   nextProjectSlug: "warehouse-operations",
   heroImage: {
-    src: "/Omantel%20assets/Bulk%20Hero.png",
+    src: OMANTEL_BULK_HERO_SRC,
     alt: "Bulk Actions landing: Change existing lines and Add new postpaid lines",
   },
   warmthTheme: "madder",
@@ -391,6 +393,11 @@ export const omantelCase: CaseStudy = {
             alt: "Inline data validity checks during input and file upload",
             caption:
               "Data validity — form-level and upload-level validation before submission.",
+          },
+          {
+            src: "/Omantel%20assets/Feedback.png",
+            alt: "System informing the user about outdated data",
+            caption: "The system informing the user about the outdated data",
           },
         ],
       },

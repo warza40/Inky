@@ -22,7 +22,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 52px;
+  left: var(--ojo-sheet-margin-x, 52px);
   width: 1px;
   background: rgba(190, 65, 50, 0.16);
   pointer-events: none;
@@ -116,6 +116,7 @@
   z-index: 4;
   padding: 0 max(var(--fluid-gutter), 32px);
   margin-top: -20px;
+  overflow: visible;
 }
 
 .ojo-tape {
@@ -130,6 +131,8 @@
   left: 12%;
   width: 118px;
   height: 34px;
+  transform: translateY(-50%) rotate(-2deg);
+  transform-origin: 12% 50%;
   background-color: rgba(185, 60, 46, 0.85);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20'%3E%3Cpath d='M0 14 C5 8,10 5,15 8 C20 11,25 15,30 12 C35 9,40 6,45 9' stroke='rgba(255,255,255,0.3)' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");
   background-size: 42px 34px;
@@ -140,13 +143,15 @@
   right: 11%;
   width: 80px;
   height: 34px;
+  transform: translateY(-50%) rotate(1.5deg);
+  transform-origin: 88% 50%;
   background-color: rgba(45, 105, 103, 0.85);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='16'%3E%3Cellipse cx='12' cy='16' rx='12' ry='9' stroke='rgba(255,255,255,0.25)' stroke-width='1' fill='none'/%3E%3C/svg%3E");
   background-size: 28px 22px;
 }
 
 .ojo-title-insert {
-  padding: 52px 48px 48px 64px;
+  padding: 52px 48px 48px var(--ojo-sheet-content-start, 64px);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(200px, 0.34fr);
   gap: 0 44px;
@@ -157,7 +162,7 @@
 @media (max-width: 900px) {
   .ojo-title-insert {
     grid-template-columns: 1fr;
-    padding: 48px 32px 40px 48px;
+    padding: 48px 32px 40px var(--ojo-sheet-content-start, 64px);
   }
   .ojo-title-eyebrow,
   .ojo-title-copy-wrap {
@@ -365,7 +370,7 @@
 }
 
 .ojo-overview-insert {
-  padding: 48px 48px 48px 64px;
+  padding: 48px 48px 48px var(--ojo-sheet-content-start, 64px);
 }
 
 .ojo-overview-inner {
@@ -670,7 +675,7 @@
 }
 
 .ojo-problem-insert {
-  padding: 48px 48px 48px 64px;
+  padding: 48px 48px 48px var(--ojo-sheet-content-start, 64px);
 }
 
 .ojo-problem-grid {
@@ -1007,7 +1012,7 @@
 }
 
 .ojo-decision-inner {
-  padding: 44px 48px 44px 64px;
+  padding: 44px 48px 44px var(--ojo-sheet-content-start, 64px);
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -1106,7 +1111,7 @@
 
 /* ─── Outcome ─── */
 .ojo-outcome-paper {
-  padding: 48px 48px 52px 64px;
+  padding: 48px 48px 52px var(--ojo-sheet-content-start, 64px);
 }
 
 /* Outcome — spacing before subsection labels (no duplicate rules vs .ojo-p-label::after) */
@@ -1232,7 +1237,7 @@
 
 .cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert {
   position: relative;
-  padding: 48px 48px 48px 64px;
+  padding: 48px 48px 48px var(--ojo-sheet-content-start, 64px);
 }
 
 .cs-page.cs-page--journal-omantel .ojo-problem-legacy-stack {
@@ -1372,9 +1377,10 @@
 }
 
 .cs-page.cs-page--journal-omantel .ojo-journal-footer-seam .ojo-footer-tape {
-  top: -17px;
+  top: 0;
   left: clamp(24px, 8vw, 120px);
-  transform: rotate(-2deg);
+  transform: translateY(-50%) rotate(-2deg);
+  transform-origin: 20% 50%;
 }
 
 .ojo-tape-koi {
@@ -1520,7 +1526,7 @@
   }
 
   .cs-page.cs-page--journal-omantel .ojo-title-insert {
-    padding: 40px 20px 32px 32px;
+    padding: 40px 20px 32px var(--ojo-sheet-content-start, 64px);
     grid-template-columns: 1fr;
     gap: 0 0;
   }
@@ -1552,7 +1558,7 @@
   }
 
   .cs-page.cs-page--journal-omantel .ojo-overview-insert {
-    padding: 32px 20px 32px 32px;
+    padding: 32px 20px 32px var(--ojo-sheet-content-start, 64px);
   }
 
   .cs-page.cs-page--journal-omantel .ojo-overview-inner {
@@ -1574,11 +1580,11 @@
   }
 
   .cs-page.cs-page--journal-omantel .ojo-problem-insert {
-    padding: 32px 20px 32px 32px;
+    padding: 32px 20px 32px var(--ojo-sheet-content-start, 64px);
   }
 
   .cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert {
-    padding: 32px 20px 32px 32px;
+    padding: 32px 20px 32px var(--ojo-sheet-content-start, 64px);
   }
 
   .cs-page.cs-page--journal-omantel .ojo-problem-text,
@@ -1615,7 +1621,7 @@
   }
 
   .cs-page.cs-page--journal-omantel .ojo-decision-inner {
-    padding: 28px 20px 28px 32px;
+    padding: 28px 20px 28px var(--ojo-sheet-content-start, 64px);
   }
 
   .cs-page.cs-page--journal-omantel .ojo-d-rule {
@@ -1642,7 +1648,7 @@
   }
 
   .cs-page.cs-page--journal-omantel .ojo-outcome-paper {
-    padding: 32px 20px 36px 32px;
+    padding: 32px 20px 36px var(--ojo-sheet-content-start, 64px);
   }
 
   .cs-page.cs-page--journal-omantel .ojo-reflection-p {

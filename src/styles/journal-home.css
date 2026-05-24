@@ -17,7 +17,18 @@
   --jl-note-hline: rgba(98, 115, 135, 0.12);
   --jl-note-line-step: 28px;
   --jl-note-margin-red: rgba(206, 78, 52, 0.52);
+  /** Gutter width = red margin line position (cards scale with container width) */
   --jl-note-margin-x: clamp(26px, 10%, 52px);
+  --jl-note-content-inset: 12px;
+  /** Large cream sheets (hero / about) — fixed margin line + content start */
+  --jl-sheet-margin-x: 52px;
+  --jl-sheet-content-start: calc(
+    var(--jl-sheet-margin-x) + var(--jl-note-content-inset)
+  );
+  /** Hero name washi — scales with viewport (caps at footer `.sf-name` 22px) */
+  --jl-name-tape-size: clamp(14px, calc(0.5rem + 2.35vw), 22px);
+  --jl-name-tape-pad-y: clamp(5px, 1.1vw, 7px);
+  --jl-name-tape-pad-x: clamp(12px, 3.6vw, 28px);
   --jl-shadow-heavy: rgba(0, 0, 0, 0.55);
   --jl-shadow-mid: rgba(0, 0, 0, 0.3);
   /** Shared horizontal gutters + vertical space between stacked sections */
@@ -31,10 +42,12 @@
     calc(100vw - 2 * var(--jl-section-padding-x))
   );
   --jl-hero-sheet-min-h: clamp(560px, 62vw, 760px);
-  /** Space from hero title block to supporting caption body */
-  --jl-hero-title-caption-gap: 32px;
-  /** Space from hero caption (secondary text) to primary button row */
-  --jl-hero-caption-actions-gap: 32px;
+  /** Space between hero stack items (tape → bio → actions) — DS `--space-8` */
+  --jl-hero-stack-gap: var(--space-8);
+  --jl-hero-title-caption-gap: var(--jl-hero-stack-gap);
+  --jl-hero-caption-actions-gap: var(--jl-hero-stack-gap);
+  /** Bio copy column — fixed measure per breakpoint */
+  --jl-hero-bio-width: 42rem;
   /** Must match inset on `.jl-hero-insert` paper so rails align with hero type */
   --jl-sheet-pad-inline-start: clamp(44px, 6vw, 56px);
   --jl-sheet-pad-inline-end: clamp(40px, 5vw, 52px);
@@ -46,6 +59,11 @@
   --section-rail-title-fg: rgba(240, 232, 216, 0.9);
   --section-rail-prefix-fg: rgba(240, 232, 216, 0.55);
   --section-rail-rule: rgba(196, 168, 130, 0.2);
+  /* Cream paper eyebrows — matches case journal `--ojo-eyebrow-paper` */
+  --jl-paper-eyebrow-fg: rgba(44, 36, 26, 0.92);
+  --jl-paper-eyebrow-size: 9px;
+  --jl-paper-eyebrow-weight: 600;
+  --jl-paper-eyebrow-track: 0.16em;
 }
 
 .home-layout--journal .jl-atmo {
@@ -156,7 +174,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 52px;
+  left: var(--jl-sheet-margin-x);
   width: 1px;
   background: var(--jl-margin-line);
   pointer-events: none;
@@ -247,12 +265,13 @@
 
 .home-layout--journal .jl-hero-tape-l {
   position: absolute;
-  left: -10px;
+  left: 0;
   top: 72px;
   width: 29px;
   height: 88px;
   border-radius: 1px;
   z-index: 20;
+  transform: translateX(-50%);
 }
 
 /* Resume Post-it + brass clip — lives on hero insert so it actually stacks on the paper */
@@ -384,8 +403,8 @@
 
 @media (max-width: 900px) {
   .home-layout--journal {
-    --jl-sheet-pad-inline-start: clamp(44px, 8vw, 56px);
     --jl-sheet-pad-inline-end: clamp(24px, 5vw, 40px);
+    --jl-hero-bio-width: 100%;
   }
 
   .home-layout--journal .jl-hero-insert {
@@ -413,18 +432,8 @@
   }
 
   .home-layout--journal .jl-hero-top {
-    grid-template-columns: 1fr;
-    grid-template-rows: none;
-    row-gap: var(--jl-hero-title-caption-gap);
     padding: 36px var(--jl-sheet-pad-inline-end) 0
       var(--jl-sheet-pad-inline-start);
-  }
-
-  .home-layout--journal .jl-hero-g-eyebrow,
-  .home-layout--journal .jl-hero-g-head,
-  .home-layout--journal .jl-hero-g-cap {
-    grid-column: 1;
-    grid-row: auto;
   }
 
   .home-layout--journal .jl-hero-g-cap {
@@ -439,7 +448,7 @@
 
   .home-layout--journal .jl-hero-bottom {
     grid-template-columns: 1fr;
-    row-gap: 20px;
+    row-gap: var(--space-5);
   }
 
   .home-layout--journal .jl-hero-actions {
@@ -480,34 +489,80 @@
 
 .home-layout--journal .jl-hero-top {
   grid-column: 1 / -1;
-  display: grid;
-  /* Single column — full paper width for bio (no empty “right column” rail) */
-  grid-template-columns: minmax(0, 1fr);
-  /* Headline + caption only (no eyebrow meta line) */
-  grid-template-rows: auto auto;
-  align-items: start;
-  column-gap: 0;
-  row-gap: var(--jl-hero-title-caption-gap);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--jl-hero-stack-gap);
   padding: 52px var(--jl-sheet-pad-inline-end) 0
     var(--jl-sheet-pad-inline-start);
+  min-width: 0;
+}
+
+/* Headline + caption share one fixed-width column */
+.home-layout--journal .jl-hero-bio {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--jl-hero-stack-gap);
+  width: var(--jl-hero-bio-width);
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* Name on black washi — above bio; soft torn edges, aligned with type column */
+.home-layout--journal .jl-hero-name-tape-wrap {
+  margin: 0;
+  align-self: flex-start;
+  width: auto;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.home-layout--journal .jl-hero-name-tape {
+  --jl-name-tape-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 32' preserveAspectRatio='none'%3E%3Cpath fill='white' d='M4 0C1.5 2.5 1.5 5.5 4 8C1.5 10.5 1.5 13.5 4 16C1.5 18.5 1.5 21.5 4 24C1.5 26.5 1.5 29.5 4 32H196C198.5 29.5 198.5 26.5 196 24C198.5 21.5 198.5 18.5 196 16C198.5 13.5 198.5 10.5 196 8C198.5 5.5 198.5 2.5 196 0Z'/%3E%3C/svg%3E");
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
+  min-width: 0;
+  padding: var(--jl-name-tape-pad-y) var(--jl-name-tape-pad-x);
+  background-color: var(--jl-leather);
+  color: var(--parchment);
+  font-family: var(--font-display);
+  font-size: var(--jl-name-tape-size);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  white-space: nowrap;
+  transform: rotate(-0.45deg);
+  transform-origin: left center;
+  box-shadow:
+    0 3px 14px rgba(0, 0, 0, 0.22),
+    0 1px 0 rgba(255, 255, 255, 0.04);
+  -webkit-mask-image: var(--jl-name-tape-mask);
+  mask-image: var(--jl-name-tape-mask);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
 
 .home-layout--journal .jl-hero-g-head {
-  grid-column: 1;
-  grid-row: 1;
   margin: 0;
   max-width: none;
+  width: 100%;
 }
 
 .home-layout--journal .jl-hero-g-cap {
-  grid-column: 1;
-  grid-row: 2;
   margin: 0;
   padding: 0;
   border-top: none;
-  align-self: start;
+  align-self: stretch;
   box-sizing: border-box;
-  max-width: 100%;
+  max-width: none;
+  width: 100%;
 }
 
 .home-layout--journal .jl-hero-bottom {
@@ -523,7 +578,8 @@
 }
 
 .home-layout--journal .jl-hero-bottom .jl-hero-tags {
-  padding: 8px var(--jl-sheet-pad-inline-end) 48px clamp(36px, 4vw, 40px);
+  padding: 8px var(--jl-sheet-pad-inline-end) 48px
+    var(--jl-sheet-pad-inline-start);
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -561,7 +617,7 @@
   line-height: 1.15;
   letter-spacing: -0.02em;
   color: var(--jl-ink);
-  margin: 0 0 var(--space-5);
+  margin: 0;
   max-width: none;
 }
 
@@ -650,17 +706,16 @@
   color: var(--jl-ink);
 }
 
-/* Single source of spacing: headline → caption; measure for ~3–4 lines on desktop */
+/* Bio caption — full width of `.jl-hero-bio` column */
 .home-layout--journal .jl-hero-top .jl-hero-g-cap.home-hero-caption {
   padding-top: 0;
-  max-width: clamp(34ch, 40vw, 50ch);
   text-wrap: pretty;
 }
 
 .home-layout--journal .jl-hero-bio-heading.jl-hero-g-head {
   margin: 0;
-  /* Wider measure: three-line stack (`.jl-hero-bio-line`) + large display size */
-  max-width: min(42rem, 88%);
+  width: 100%;
+  max-width: none;
 }
 
 .home-layout--journal .jl-mini-tag {
@@ -749,6 +804,8 @@
   gap: clamp(18px, 2.8vw, 24px);
   align-items: stretch;
   justify-items: stretch;
+  /* Room for tape straddling card top edge onto leather */
+  padding-top: 16px;
 }
 
 /* Equal-width columns: links are flex containers; min-width:auto can skew track sizing */
@@ -831,7 +888,7 @@
   left: clamp(1px, 0.9cqw, 9px);
   width: clamp(88px, 20cqw, 124px);
   height: clamp(26px, 3.6cqh, 34px);
-  transform: rotate(-2.5deg);
+  transform: translateY(-50%) rotate(-2.5deg);
   transform-origin: 12% 50%;
   z-index: 8;
   box-shadow:
@@ -857,7 +914,8 @@
   height: 28px;
   z-index: 5;
   border-radius: 4px;
-  transform: rotate(-3deg);
+  transform: translateY(-50%) rotate(-3deg);
+  transform-origin: 20% 50%;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.38);
   pointer-events: none;
 }
@@ -874,7 +932,7 @@
   left: clamp(2px, 1.2cqw, 12px);
   width: clamp(104px, 22cqw, 140px);
   height: clamp(30px, 4.2cqh, 38px);
-  transform: rotate(-2.5deg);
+  transform: translateY(-50%) rotate(-2.5deg);
   transform-origin: 12% 50%;
   border-radius: 4px;
   z-index: 8;
@@ -915,7 +973,7 @@
 .home-layout--journal .jl-wc-hero--featured {
   position: relative;
   min-height: 0;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1021,21 +1079,37 @@
 
 .home-layout--journal .jl-wc-paper--split {
   display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
-  gap: 0;
+  grid-template-columns: var(--jl-note-margin-x) minmax(0, 1.12fr) minmax(
+      0,
+      0.88fr
+    );
+  column-gap: var(--jl-note-content-inset);
   align-items: stretch;
   padding: clamp(22px, 3.2vw, 32px) clamp(20px, 3vw, 32px)
-    clamp(26px, 3.8vw, 36px) calc(var(--jl-note-margin-x) + 12px);
+    clamp(26px, 3.8vw, 36px) 0;
   border-top: 1px solid rgba(120, 95, 55, 0.12);
 }
 
+.home-layout--journal .jl-wc-paper--split .jl-wc-num-line {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+  text-align: right;
+}
+
 .home-layout--journal .jl-wc-paper--minimal {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: var(--jl-note-margin-x) minmax(0, 1fr);
+  column-gap: var(--jl-note-content-inset);
   align-items: stretch;
   padding: clamp(26px, 4vw, 36px) clamp(22px, 4vw, 40px)
-    clamp(30px, 4.5vw, 42px) calc(var(--jl-note-margin-x) + 12px);
+    clamp(30px, 4.5vw, 42px) 0;
   border-top: 1px solid rgba(120, 95, 55, 0.12);
+}
+
+.home-layout--journal .jl-wc-paper--minimal .jl-wc-paper-title,
+.home-layout--journal .jl-wc-paper--minimal .jl-wc-wip-stamp {
+  grid-column: 2;
 }
 
 .home-layout--journal .jl-wc-paper--minimal .jl-wc-paper-title {
@@ -1084,11 +1158,13 @@
 }
 
 .home-layout--journal .jl-wc-split-col--main {
+  grid-column: 2;
   padding-right: clamp(18px, 2.8vw, 28px);
   min-width: 0;
 }
 
 .home-layout--journal .jl-wc-split-col--rail {
+  grid-column: 3;
   position: relative;
   padding-left: clamp(18px, 2.8vw, 28px);
   border-left: 1px solid var(--jl-rule);
@@ -1105,7 +1181,10 @@
   font-weight: 500;
   text-transform: uppercase;
   color: var(--jl-ink-faded);
-  margin: 0 0 14px;
+  margin: 0;
+  text-align: right;
+  align-self: start;
+  min-width: 0;
 }
 
 .home-layout--journal .jl-wc-paper-title {
@@ -1204,23 +1283,49 @@
 
 .home-layout--journal .jl-wc-paper--compact {
   flex: 1;
+  display: grid;
+  grid-template-columns: var(--jl-note-margin-x) minmax(0, 1fr);
+  column-gap: var(--jl-note-content-inset);
+  align-content: start;
   padding: clamp(18px, 2.8vw, 24px) clamp(18px, 2.6vw, 24px)
-    clamp(22px, 3.2vw, 28px) calc(var(--jl-note-margin-x) + 11px);
-  display: flex;
-  flex-direction: column;
+    clamp(22px, 3.2vw, 28px) 0;
   min-height: 0;
 }
 
+.home-layout--journal .jl-wc-paper--compact .jl-wc-num-line {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.home-layout--journal .jl-wc-paper--compact .jl-wc-paper-title,
+.home-layout--journal .jl-wc-paper--compact .jl-wc-paper-desc,
+.home-layout--journal .jl-wc-paper--compact .jl-wc-skill-tags {
+  grid-column: 2;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.home-layout--journal .jl-wc-split-col--main,
+.home-layout--journal .jl-wc-split-col--rail,
+.home-layout--journal .jl-writing-patch .wr-info-main,
+.home-layout--journal .jl-writing-patch .wr-tags {
+  overflow-wrap: break-word;
+}
+
 .home-layout--journal .jl-work-subgrid .jl-wc-card--compact {
+  display: flex;
+  flex-direction: column;
   min-height: 100%;
+  height: 100%;
 }
 
 @media (max-width: 720px) {
   .home-layout--journal .jl-wc-paper--split {
-    grid-template-columns: 1fr;
+    grid-template-columns: var(--jl-note-margin-x) minmax(0, 1fr);
   }
 
   .home-layout--journal .jl-wc-split-col--rail {
+    grid-column: 2;
     border-left: none;
     border-top: 1px solid var(--jl-rule);
     padding-left: 0;
@@ -1312,9 +1417,19 @@
 }
 
 .home-layout--journal .jl-writing-patch .wr-info {
+  display: grid;
+  grid-template-columns: var(--jl-note-margin-x) minmax(0, 1fr);
+  column-gap: var(--jl-note-content-inset);
+  align-content: start;
   padding: clamp(16px, 2.2vw, 20px) clamp(16px, 2.2vw, 20px)
-    clamp(18px, 2.5vw, 22px) calc(var(--jl-note-margin-x) + 11px);
+    clamp(18px, 2.5vw, 22px) 0;
   border-top: 1px solid rgba(120, 95, 55, 0.12);
+}
+
+.home-layout--journal .jl-writing-patch .wr-info-main,
+.home-layout--journal .jl-writing-patch .wr-tags {
+  grid-column: 2;
+  min-width: 0;
 }
 
 .home-layout--journal .jl-writing-patch .wr-type {
@@ -1393,7 +1508,7 @@
 }
 
 .home-layout--journal .jl-about-insert.jl-paper::before {
-  left: 52px;
+  left: var(--jl-sheet-margin-x);
 }
 
 .home-layout--journal .jl-about-clip-left .pc-index-clip-on-paper {
@@ -1422,7 +1537,7 @@
   width: 100px;
   height: 20px;
   border-radius: 1px;
-  transform: rotate(-0.6deg);
+  transform: translateY(-50%) rotate(-0.6deg);
   z-index: 20;
 }
 
@@ -1438,15 +1553,15 @@
 }
 
 .home-layout--journal .jl-about-body-inner {
-  padding: 56px 48px 48px clamp(52px, 7vw, 68px);
+  padding: 56px clamp(28px, 3.5vw, 40px) 48px var(--jl-sheet-content-start);
   position: relative;
   z-index: 2;
 }
 
 .home-layout--journal .jl-about-main-grid {
   display: grid;
-  grid-template-columns: minmax(160px, min(268px, 30%)) minmax(0, 1fr);
-  gap: clamp(24px, 4vw, 44px);
+  grid-template-columns: minmax(200px, 240px) minmax(0, 1fr);
+  gap: clamp(28px, 4.5vw, 52px);
   align-items: start;
 }
 
@@ -1460,7 +1575,7 @@
   position: relative;
   justify-self: start;
   width: 100%;
-  max-width: min(268px, 100%);
+  max-width: 240px;
 }
 
 .home-layout--journal .jl-photo-clip {
@@ -1608,7 +1723,7 @@
 .home-layout--journal .jl-about-text-col {
   min-width: 0;
   padding-top: 4px;
-  padding-right: clamp(22px, 4.8vw, 42px);
+  padding-right: 0;
   box-sizing: border-box;
 }
 
@@ -1620,15 +1735,18 @@
   margin-bottom: 0;
 }
 
-/* Eyebrows in About (matches `.jl-h-eyebrow` — journal body uppercase stack) */
+/* Eyebrows on cream paper (About brief + approach — DS paper stack) */
 .home-layout--journal .jl-about-copy-eyebrow,
-.home-layout--journal .jl-about-approach-eyebrow {
+.home-layout--journal .jl-about-approach-eyebrow,
+.home-layout--journal .jl-about-insert .about-brief-label {
   font-family: var(--font-body);
-  font-size: 9px;
-  letter-spacing: 0.16em;
+  font-size: var(--jl-paper-eyebrow-size);
+  letter-spacing: var(--jl-paper-eyebrow-track);
   text-transform: uppercase;
-  font-weight: 500;
-  color: var(--jl-ink-faded);
+  font-weight: var(--jl-paper-eyebrow-weight);
+  color: var(--jl-paper-eyebrow-fg);
+  font-style: normal;
+  line-height: 1.35;
 }
 
 .home-layout--journal .jl-about-copy-eyebrow {
@@ -1813,6 +1931,7 @@
   .home-layout--journal {
     --jl-section-padding-x: 32px;
     --jl-section-space: clamp(56px, 7vw, 80px);
+    --jl-hero-bio-width: 36rem;
   }
 
   .home-layout--journal .jl-hero {
@@ -1834,7 +1953,7 @@
   }
 
   .home-layout--journal .jl-about-body-inner {
-    padding: 48px 40px 44px 52px;
+    padding: 48px 40px 44px var(--jl-sheet-content-start);
   }
 }
 
@@ -1906,7 +2025,12 @@
   }
 
   .home-layout--journal .jl-hero-top {
-    padding: 44px max(18px, var(--jl-sheet-pad-inline-end)) 0 32px;
+    padding: 44px max(18px, var(--jl-sheet-pad-inline-end)) 0
+      var(--jl-sheet-pad-inline-start);
+  }
+
+  .home-layout--journal .jl-hero-name-tape {
+    transform: rotate(-0.25deg);
   }
 
   .home-layout--journal .jl-h-eyebrow {
@@ -1935,14 +2059,17 @@
   .home-layout--journal .jl-hero-bottom {
     grid-template-columns: 1fr;
     align-items: stretch;
+    row-gap: var(--space-5);
   }
 
   .home-layout--journal .jl-hero-actions {
-    padding: 0 max(18px, var(--jl-sheet-pad-inline-end)) 14px 32px;
+    padding: 0 max(18px, var(--jl-sheet-pad-inline-end)) 14px
+      var(--jl-sheet-pad-inline-start);
   }
 
   .home-layout--journal .jl-hero-bottom .jl-hero-tags {
-    padding: 20px max(18px, var(--jl-sheet-pad-inline-end)) 28px 32px;
+    padding: 20px max(18px, var(--jl-sheet-pad-inline-end)) 28px
+      var(--jl-sheet-pad-inline-start);
     border-top: 1px solid var(--jl-rule);
   }
 
@@ -1977,7 +2104,7 @@
     left: 4px;
     width: 76px;
     height: 26px;
-    transform: rotate(-2.5deg);
+    transform: translateY(-50%) rotate(-2.5deg);
     transform-origin: 12% 50%;
   }
 
@@ -1991,14 +2118,13 @@
     left: 6px;
     width: 88px;
     height: 28px;
-    transform: rotate(-2.5deg);
+    transform: translateY(-50%) rotate(-2.5deg);
     transform-origin: 12% 50%;
   }
 
   .home-layout--journal .jl-wc-paper--split {
-    display: flex;
-    flex-direction: column;
-    padding: 24px 20px 22px 36px;
+    display: grid;
+    flex-direction: unset;
   }
 
   .home-layout--journal .jl-wc-paper-title {
@@ -2018,10 +2144,6 @@
     min-height: 140px;
   }
 
-  .home-layout--journal .jl-wc-paper--compact {
-    padding: 20px 20px 18px 36px;
-  }
-
   .home-layout--journal .jl-about-outer {
     padding-inline: max(16px, var(--fluid-gutter));
     padding-bottom: 64px;
@@ -2038,7 +2160,7 @@
   }
 
   .home-layout--journal .jl-about-body-inner {
-    padding: 36px 20px 32px 28px;
+    padding: 36px 20px 32px var(--jl-sheet-content-start);
   }
 
   .home-layout--journal .jl-about-body-inner.jl-about-body-inner--grid {
@@ -2121,6 +2243,17 @@
 }
 
 @media (max-width: 390px) {
+  .home-layout--journal {
+    --jl-name-tape-size: clamp(13px, calc(0.35rem + 3.6vw), 17px);
+    --jl-name-tape-pad-y: 4px;
+    --jl-name-tape-pad-x: clamp(10px, 3.2vw, 16px);
+  }
+
+  .home-layout--journal .jl-hero-name-tape {
+    transform: none;
+    letter-spacing: -0.02em;
+  }
+
   .home-layout--journal .home-header-nav {
     display: flex !important;
     gap: 12px;
@@ -2144,7 +2277,7 @@
   }
 
   .home-layout--journal .jl-about-body-inner {
-    padding: 28px 16px 24px 20px;
+    padding: 28px 16px 24px var(--jl-sheet-content-start);
   }
 
   .home-layout--journal .jl-work-section-inner {
@@ -2160,9 +2293,18 @@
 .home-layout--journal .jl-about-text-col .about-brief {
   max-width: none;
   margin-inline: 0;
+  width: 100%;
+}
+.home-layout--journal .jl-about-text-col .about-brief-block {
+  grid-template-columns: minmax(96px, 112px) minmax(0, 1fr);
+  gap: clamp(20px, 3vw, 32px);
 }
 .home-layout--journal .jl-about-text-col .about-brief-content {
-  max-width: min(40rem, 100%);
+  max-width: none;
+}
+.home-layout--journal .jl-about-text-col .about-brief-label {
+  text-align: left;
+  padding-top: 6px;
 }
 .home-layout--journal .jl-about-insert .about-brief-quote {
   border-left-color: var(--jl-ink);
@@ -2170,16 +2312,6 @@
 }
 .home-layout--journal .jl-about-insert .about-brief-rule {
   border-top-color: var(--jl-rule);
-}
-.home-layout--journal .jl-about-insert .about-brief-label {
-  font-family: var(--font-body);
-  font-style: normal;
-  font-weight: 500;
-  font-size: 9px;
-  line-height: 1.35;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--jl-ink-faded);
 }
 .home-layout--journal
   .jl-about-insert

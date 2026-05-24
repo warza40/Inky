@@ -97,9 +97,12 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
         <div className="cs-page-inner">
           <div className="case-top-bar">
             <header className="case-site-header" aria-label="Site header">
-              <Link href="/" className="home-header-name">
-                Rachana Mandal
-                <em className="home-header-name-accent">.</em>
+              <Link
+                href="/"
+                className="home-header-name"
+                aria-label="Rachana Mandal home"
+              >
+                RM
               </Link>
             </header>
             {sections.length > 0 && (

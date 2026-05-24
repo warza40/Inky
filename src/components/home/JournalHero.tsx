@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { HeroNameWashiTape } from "@/components/home/HeroNameWashiTape";
 import { PaperClipSticky } from "@/components/home/PaperClipIcons";
 
 const JL_HERO_BADGES = [
@@ -45,18 +46,22 @@ export function JournalHero() {
           </div>
 
           <div className="jl-hero-top">
-            <h1 className="jl-hero-bio-heading jl-hero-g-head">
-              <span className="jl-hero-bio-line">I design products</span>
-              <span className="jl-hero-bio-line">that have to handle</span>
-              <span className="jl-hero-bio-line">
-                <span className="jl-hero-head-em">real-world complexity</span>.
-              </span>
-            </h1>
-            <p className="home-hero-caption jl-caption-on-right jl-hero-g-cap">
-              The real problem usually isn&apos;t the interface — it&apos;s
-              getting a room full of smart people to agree on what the problem
-              actually is. I help with that.
-            </p>
+            <HeroNameWashiTape />
+            <div className="jl-hero-bio">
+              <h1 className="jl-hero-bio-heading jl-hero-g-head">
+                <span className="jl-hero-bio-line">I design products</span>
+                <span className="jl-hero-bio-line">that have to handle</span>
+                <span className="jl-hero-bio-line">
+                  <span className="jl-hero-head-em">real-world complexity</span>
+                  .
+                </span>
+              </h1>
+              <p className="home-hero-caption jl-caption-on-right jl-hero-g-cap">
+                The real problem usually isn&apos;t the interface — it&apos;s
+                getting a room full of smart people to agree on what the problem
+                actually is. I help with that.
+              </p>
+            </div>
           </div>
 
           <div className="jl-hero-bottom">
