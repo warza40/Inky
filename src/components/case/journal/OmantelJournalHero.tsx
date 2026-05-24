@@ -16,7 +16,7 @@ export function OmantelJournalHero({ src, alt }: OmantelJournalHeroProps) {
           alt={alt}
           width={1440}
           height={810}
-          sizes="100vw"
+          sizes="(max-width: 768px) 100vw, min(1200px, 96vw)"
           priority
           className="ojo-hero-img"
         />

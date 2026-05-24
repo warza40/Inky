@@ -62,7 +62,7 @@
 .ojo-hero {
   position: relative;
   width: 100%;
-  min-height: min(90vh, 860px);
+  min-height: min(94vh, 960px);
   display: flex;
   flex-direction: column;
 }
@@ -81,17 +81,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: calc(clamp(48px, 10vh, 100px) - 20px);
-  padding-bottom: calc(clamp(48px, 10vh, 100px) - 20px);
-  padding-left: max(var(--fluid-gutter), 16px);
-  padding-right: max(var(--fluid-gutter), 16px);
+  padding-top: calc(clamp(40px, 8vh, 72px) - 12px);
+  padding-bottom: calc(clamp(40px, 8vh, 72px) - 12px);
+  padding-left: clamp(12px, 2vw, 24px);
+  padding-right: clamp(12px, 2vw, 24px);
   overflow: hidden;
 }
 
 .ojo-hero-img {
-  width: min(980px, 100%);
+  width: min(1200px, 100%);
   height: auto;
-  max-height: min(790px, calc(100vw * 810 / 1440 - 20px));
+  max-height: min(900px, calc(100vw * 810 / 1440 + 48px));
   border-radius: 4px;
   box-shadow:
     0 40px 100px rgba(0, 0, 0, 0.55),
@@ -1508,14 +1508,18 @@
 
 @media (max-width: 768px) {
   .cs-page.cs-page--journal-omantel .ojo-hero {
-    min-height: calc(55vh - 20px);
+    min-height: min(62vh, 640px);
   }
 
   .cs-page.cs-page--journal-omantel .ojo-hero-stage {
-    min-height: calc(55vh - 20px);
+    min-height: min(62vh, 640px);
+    padding-left: clamp(10px, 3vw, 16px);
+    padding-right: clamp(10px, 3vw, 16px);
   }
 
   .cs-page.cs-page--journal-omantel .ojo-hero-img {
+    width: min(1200px, 100%);
+    max-height: min(720px, calc(100vw * 810 / 1440 + 32px));
     object-fit: contain;
   }
 
