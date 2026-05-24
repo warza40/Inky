@@ -389,7 +389,7 @@ export const omantelCase: CaseStudy = {
               "Template generation — prepare valid batches offline before upload.",
           },
           {
-            src: "/Omantel%20assets/KD5-Data%20Validity.png",
+            src: "/Omantel%20assets/KD5%3AVisual%202.gif",
             alt: "Inline data validity checks during input and file upload",
             caption:
               "Data validity — form-level and upload-level validation before submission.",
