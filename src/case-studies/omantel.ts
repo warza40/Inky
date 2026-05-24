@@ -411,14 +411,16 @@ export const omantelCase: CaseStudy = {
     outcomeHighlights: [],
     outcomeImages: [
       {
-        src: "/Omantel%20assets/Outcome1.png",
-        alt: "Bulk Actions upload step with drag-and-drop area before a file is selected",
-        caption: "Empty upload state (drag-and-drop).",
+        src: "/Omantel%20assets/Outcome_new.gif",
+        alt: "Omantel enterprise dashboard with Bulk Actions in quick actions",
+        caption:
+          "Bulk Actions surfaced on the dashboard — enterprise reps start self-serve batches from quick actions.",
       },
       {
         src: "/Omantel%20assets/Outcome%202.gif",
-        alt: "Bulk Actions file upload in progress with percentage",
-        caption: "Active upload with progress.",
+        alt: "Omantel dashboard hero carousel with upgrade and service prompts",
+        caption:
+          "Dashboard home with contextual prompts — the entry environment for bulk and account workflows.",
       },
     ],
     reflection:
@@ -426,30 +428,30 @@ export const omantelCase: CaseStudy = {
   },
   visualsSections: [
     {
-      title: "Bulk-edit comparisons",
+      title: "Single page to guided flow",
       image: {
-        src: "/Omantel%20assets/KD2.png",
-        alt: "Side-by-side credit limit comparison with current vs proposed values",
+        src: "/Omantel%20assets/Noteworthy%201.png",
+        alt: "Before and after: bulk actions on one page versus a stepped select-actions flow",
         caption:
-          "Iteration on exposing current vs proposed credit limits before locking the bulk pattern.",
+          "From bulk activations on the lines table to a guided flow — users choose the path before entering the process.",
       },
     },
     {
-      title: "Apply-to-all and undo",
+      title: "One action to multi-service batches",
       image: {
-        src: "/Omantel%20assets/KD2.5.png",
-        alt: "Apply to all scenario — bulk-edit pattern with per-row undo",
+        src: "/Omantel%20assets/Noteworthy%202.png",
+        alt: "Older single-action bulk flow compared with redesigned multi-service batch table",
         caption:
-          "Mid-stage refinement: how granular undo felt when edits spanned many rows.",
+          "One bulk action at a time became multiple services in a single batch, with the line detail needed to decide.",
       },
     },
     {
-      title: "Production breadth",
+      title: "Apply to all and undo",
       image: {
-        src: "/Omantel%20assets/Screens%20from%20Production.png",
-        alt: "Shipped Bulk Actions views across breakpoints",
+        src: "/Omantel%20assets/Noteworthy%203.gif",
+        alt: "Bulk actions select step with apply-to-all and per-row undo for credit limit and international calling",
         caption:
-          "Late iteration aligning layouts once production constraints were clearer.",
+          "Apply-to-all and per-row undo when bulk edits span credit limits and add-on services.",
       },
     },
   ],
