@@ -2,6 +2,7 @@
 
 import type { CaseStudy } from "@/case-studies/omantel";
 import { OmantelJournalImageCarousel } from "@/components/case/journal/OmantelJournalImageCarousel";
+import { cn } from "@/lib/utils";
 
 function splitRiText(text: string) {
   return text
@@ -36,6 +37,7 @@ export function OmantelDecisionJournal({
   index,
 }: OmantelDecisionJournalProps) {
   const imgs = decision.images ?? [];
+  const navExploration = decision.navExploration ?? [];
 
   const hasRi =
     Boolean(decision.rationale?.trim()) ||
@@ -75,6 +77,26 @@ export function OmantelDecisionJournal({
         ) : null}
 
         {imgs.length > 0 ? <OmantelJournalImageCarousel images={imgs} /> : null}
+        {imgs.length === 0 && navExploration.length > 0 ? (
+          <div className="ojo-decision-placeholder-wrap cs-decision-nav-wrap cs-visual-wrap--editorial">
+            <div className="cs-decision-nav-exploration">
+              {navExploration.map((n, i) => (
+                <div key={`${n.label}-${i}`} className="cs-nav-exp-item">
+                  <div className="cs-nei-label">{n.label}</div>
+                  <div
+                    className={cn(
+                      "cs-nei-sketch",
+                      n.variant === "mega" && "cs-nei-sketch--mega",
+                      n.variant === "ribbon" && "cs-nei-sketch--ribbon",
+                      n.variant === "panel" && "cs-nei-sketch--panel",
+                    )}
+                    aria-hidden
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
 
         <div className="ojo-decision-fade-bottom" aria-hidden />
       </div>
