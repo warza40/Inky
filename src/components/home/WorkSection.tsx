@@ -162,7 +162,7 @@ const EXPERIMENTS: WorkCard[] = [
 
 const TABS = [
   { label: "Case Studies", value: "all" },
-  { label: "Exploration", value: "experiments" },
+  { label: "Other projects", value: "experiments" },
 ] as const;
 
 function WireframeLayoutIcon({ className }: { className?: string }) {

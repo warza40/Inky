@@ -110,7 +110,21 @@ export function CaseJournalOverview({ caseStudy }: CaseJournalOverviewProps) {
             <span className="ojo-punch-hole" />
             <span className="ojo-punch-hole" />
           </div>
-          <p className="ojo-context-text cs-context-text">{s.context}</p>
+          <div className="ojo-overview-inner ojo-overview-inner--stacked">
+            <div className="ojo-overview-narrative">
+              <div className="ojo-p-label">Overview</div>
+              <div className="cs-context-text cs-context-text--flow">
+                {s.context
+                  .split("\n\n")
+                  .filter((p) => p.trim())
+                  .map((para, i) => (
+                    <p key={i} className="cs-context-flow-p">
+                      {para.trim()}
+                    </p>
+                  ))}
+              </div>
+            </div>
+          </div>
         </div>
       ) : showAimOnlyPaper ? (
         <div className="ojo-overview-insert ojo-paper ojo-paper-shadow">

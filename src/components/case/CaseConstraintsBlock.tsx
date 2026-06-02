@@ -53,24 +53,20 @@ export function CaseConstraintsBlock({
           return (
             <div key={index} className="cs-constraint-collapsible-inline">
               <h3 className="case-subsection-title">{item.title}</h3>
-              <div className="case-body text-neutral-700 dark:text-neutral-300">
+              <div className="case-body">
                 {textParts.map((para, paraIndex) => (
-                  <p key={paraIndex} className="mb-4">
-                    {para}
-                  </p>
+                  <p key={paraIndex}>{para}</p>
                 ))}
                 {bulletPoints.length > 0 && (
-                  <ul className="list-disc list-inside space-y-2 mb-4 ml-4">
+                  <ul className="cs-understanding-list">
                     {bulletPoints.map((point, pointIndex) => (
                       <li key={pointIndex}>{point}</li>
                     ))}
                   </ul>
                 )}
-                {conclusion && <p className="mb-4">{conclusion}</p>}
+                {conclusion && <p>{conclusion}</p>}
                 {item.expandedContent && (
-                  <p className="mt-4 case-body text-neutral-600 dark:text-neutral-400 italic">
-                    {item.expandedContent}
-                  </p>
+                  <p className="cs-context-aim">{item.expandedContent}</p>
                 )}
               </div>
             </div>
@@ -81,7 +77,7 @@ export function CaseConstraintsBlock({
             {item.title && (
               <h3 className="case-subsection-title">{item.title}</h3>
             )}
-            <div className="case-body text-neutral-700 dark:text-neutral-300">
+            <div className="case-body">
               {(() => {
                 const lines = item.content
                   .split("\n")
@@ -109,15 +105,10 @@ export function CaseConstraintsBlock({
                 return (
                   <>
                     {textParts.map((para, paraIndex) => (
-                      <p
-                        key={paraIndex}
-                        className={paraIndex === 0 ? "mb-3" : "mb-3"}
-                      >
-                        {para}
-                      </p>
+                      <p key={paraIndex}>{para}</p>
                     ))}
                     {bulletPoints.length > 0 && (
-                      <ul className="list-disc list-inside space-y-1 mb-3 ml-4">
+                      <ul className="cs-understanding-list">
                         {bulletPoints.map((point, pointIndex) => (
                           <li key={pointIndex}>{point}</li>
                         ))}

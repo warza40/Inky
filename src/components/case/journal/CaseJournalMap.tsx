@@ -114,10 +114,7 @@ export function CaseJournalMap({ caseStudy }: CaseJournalMapProps) {
         <MotionSection
           id="decisions"
           title={decisionsRailTitle}
-          className={cn(
-            "ojo-decisions-wrap",
-            caseStudy.slug === "disaster-recovery" && "cs-key-decisions-dr",
-          )}
+          className="ojo-decisions-wrap"
         >
           {hasReportCategories && s.reportCategories ? (
             <div className="cs-report-categories-wrap cs-report-before-decisions ojo-journal-report-categories">

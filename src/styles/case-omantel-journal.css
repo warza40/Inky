@@ -1214,6 +1214,23 @@
 
 .cs-page.cs-page--journal-omantel
   .ojo-context-ecosystem-paper
+  .cs-ecosystem-eyebrow-text {
+  font-family: var(--cs-milestone-font);
+  font-size: var(--cs-milestone-size);
+  font-weight: var(--cs-milestone-weight);
+  letter-spacing: var(--cs-milestone-tracking);
+  text-transform: var(--cs-milestone-transform);
+  color: var(--cs-milestone-paper-fg);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-context-ecosystem-paper
+  .cs-ecosystem-eyebrow::before {
+  color: rgba(185, 60, 46, 0.75);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-context-ecosystem-paper
   .cs-ecosystem-intro {
   max-width: none;
 }
@@ -1358,6 +1375,193 @@
   .cs-dr-ia-bullets
   li::marker {
   color: rgba(120, 95, 55, 0.55);
+}
+
+/* Context · overview flow on cream paper (warehouse, etc.) */
+.cs-page.cs-page--journal-omantel
+  .ojo-overview-insert
+  .cs-context-text--flow
+  .cs-context-flow-p {
+  color: var(--ojo-ink-mid);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-overview-insert
+  .cs-context-text--flow
+  .cs-context-aim {
+  color: rgba(185, 60, 46, 0.88);
+}
+
+/* Problem · understanding + constraints nested typography */
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-understanding-body,
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-understanding-body
+  p {
+  color: var(--ojo-ink-mid);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-understanding-body
+  > *
+  + * {
+  margin-top: var(--space-4);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-understanding-subsection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-understanding-subsection
+  .cs-context-section-title {
+  margin-bottom: 0;
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-understanding-goal-label {
+  font-weight: 600;
+  color: var(--ojo-ink);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-understanding-list {
+  list-style: disc;
+  margin: 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  color: var(--ojo-ink-mid);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-understanding-list
+  li::marker {
+  color: rgba(120, 95, 55, 0.55);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-understanding-visuals {
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--ojo-rule);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-understanding-visual-placeholder {
+  width: 100%;
+  min-height: 120px;
+  border-radius: 2px;
+  border: 1px solid rgba(120, 95, 55, 0.18);
+  background: color-mix(in srgb, var(--ojo-cream) 88%, var(--ojo-cream-mid));
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-understanding-image-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-understanding-workflows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-understanding-workflows
+  strong {
+  display: block;
+  color: var(--ojo-ink);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-understanding-workflows
+  span {
+  color: var(--ojo-ink-mid);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-workflows-inline {
+  margin-top: var(--space-6);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-workflows-inline-title {
+  color: var(--ojo-ink);
+}
+
+.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-context-aim {
+  color: rgba(185, 60, 46, 0.88);
+  margin: 0;
+}
+
+/* Disaster recovery · personas on cream paper */
+.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-persona-card {
+  background: color-mix(in srgb, var(--ojo-cream) 92%, var(--ojo-cream-mid));
+  border-color: rgba(120, 95, 55, 0.22);
+}
+
+.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-persona-name {
+  color: var(--ojo-ink);
+}
+
+.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-persona-age,
+.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-persona-works {
+  color: var(--ojo-ink-faded);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-persona-section-label {
+  color: rgba(185, 60, 46, 0.88);
+}
+
+.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-persona-list {
+  color: var(--ojo-ink-mid);
+}
+
+.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-persona-quote {
+  color: var(--ojo-ink-mid);
+  border-left-color: rgba(185, 60, 46, 0.45);
+  background: color-mix(in srgb, var(--ojo-cream) 88%, var(--ojo-cream-mid));
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-dr-section-head {
+  font-weight: 500;
+  color: var(--ojo-ink);
 }
 
 /* Outcome · legacy stacked images */

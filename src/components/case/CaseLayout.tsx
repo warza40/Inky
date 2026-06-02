@@ -65,7 +65,9 @@ function heroCopyFromCaseStudy(caseStudy: CaseStudy): {
   const overview = caseStudy.overview;
   const metaLine =
     caseStudy.heroMetaLine ??
-    (overview ? `${overview.context} · ${overview.company}` : undefined);
+    (overview
+      ? [overview.context, overview.company].filter(Boolean).join(" · ")
+      : undefined);
   const fromOverviewProblem = overview?.problem?.trim();
   const fromFirstProblemPara = caseStudy.sections.problem[0]?.content
     ?.split("\n\n")
