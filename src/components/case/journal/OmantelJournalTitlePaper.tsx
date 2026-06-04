@@ -6,6 +6,7 @@ interface OmantelJournalTitlePaperProps {
   metaLine?: string;
   title: string;
   problemStatement?: string;
+  heroPills?: string[];
   overview: {
     role: string;
     context: string;
@@ -24,36 +25,72 @@ const META_ROWS: ReadonlyArray<{
   { label: "Focus", field: "focus" },
 ];
 
-/** Title-strip pills only include Omantel for the bulk activation case study */
 const SLUGS_WITH_OMANTEL_PILL = new Set(["omantel-bulk-activation"]);
 
-/** Domain chips under lede — company when meaningful; Telecom/B2B from context; Omantel pill for bulk activation only */
-function domainChipsFromOverview(
-  slug: string,
-  overview: {
-    context: string;
-    company: string;
-  },
-): string[] {
+const PLACEHOLDER_COMPANIES = new Set(["", "—", "-", "–", "..."]);
+
+const MAX_AUTO_PILL_LEN = 36;
+
+function isPlaceholderCompany(company: string): boolean {
+  return PLACEHOLDER_COMPANIES.has(company.trim());
+}
+
+/** Bulk activation — company + domain keywords from context */
+function omantelBulkPills(overview: {
+  context: string;
+  company: string;
+}): string[] {
   const { context, company } = overview;
   const chips: string[] = [];
   const co = company.trim();
-  const isPlaceholderCo =
-    co === "" || co === "—" || co === "-" || co === "–" || co === "...";
 
-  if (co && !isPlaceholderCo) {
+  if (co && !isPlaceholderCompany(co)) {
     chips.push(co);
   }
 
   if (/\btelecom\b/i.test(context)) chips.push("Telecom");
   if (/\bb2b\b/i.test(context)) chips.push("B2B");
 
-  if (SLUGS_WITH_OMANTEL_PILL.has(slug)) {
-    const hasOmantel = chips.some((c) => /^omantel$/i.test(c.trim()));
-    if (!hasOmantel) chips.unshift("Omantel");
+  const hasOmantel = chips.some((c) => /^omantel$/i.test(c.trim()));
+  if (!hasOmantel) chips.unshift("Omantel");
+
+  return chips;
+}
+
+/** Short tags from company + ` · `-delimited context segments (skips long prose) */
+function autoPillsFromOverview(overview: {
+  context: string;
+  company: string;
+}): string[] {
+  const chips: string[] = [];
+  const co = overview.company.trim();
+
+  if (co && !isPlaceholderCompany(co)) {
+    chips.push(co);
+  }
+
+  const contextParts = overview.context
+    .split(/\s·\s/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .filter((part) => part.length <= MAX_AUTO_PILL_LEN);
+
+  for (const part of contextParts) {
+    const exists = chips.some((c) => c.toLowerCase() === part.toLowerCase());
+    if (!exists) chips.push(part);
   }
 
   return chips;
+}
+
+function titlePillsFromCase(
+  slug: string,
+  overview: { context: string; company: string },
+  heroPills?: string[],
+): string[] {
+  if (heroPills?.length) return heroPills;
+  if (SLUGS_WITH_OMANTEL_PILL.has(slug)) return omantelBulkPills(overview);
+  return autoPillsFromOverview(overview);
 }
 
 /** Paper title insert — typography uses existing DS classes (font stacks unchanged) */
@@ -62,9 +99,10 @@ export function OmantelJournalTitlePaper({
   metaLine,
   title,
   problemStatement,
+  heroPills,
   overview,
 }: OmantelJournalTitlePaperProps) {
-  const chips = domainChipsFromOverview(slug, overview);
+  const chips = titlePillsFromCase(slug, overview, heroPills);
 
   return (
     <section className="ojo-title-section">

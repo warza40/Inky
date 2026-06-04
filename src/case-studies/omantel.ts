@@ -11,6 +11,8 @@ export interface CaseStudy {
   heroMetaLine?: string;
   /** Short problem lede under the hero title */
   heroProblemStatement?: string;
+  /** Optional pill tags under the hero lede (overrides auto chips from overview) */
+  heroPills?: string[];
   /** Shown as a minimal pill next to role */
   year?: string;
   /** Full-width image below site header / section tabs */

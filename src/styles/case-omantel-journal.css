@@ -414,6 +414,23 @@
   grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
 }
 
+/* Four impact notes — uniform 2×2 grid (e.g. disaster recovery) */
+.cs-page--journal-omantel
+  .ojo-impact-postits--on-leather:has(
+    .cs-impact-postit:nth-child(4):last-child
+  ) {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 1024px) {
+  .cs-page--journal-omantel
+    .ojo-impact-postits--on-leather:has(
+      .cs-impact-postit:nth-child(4):last-child
+    ) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 .cs-page--journal-omantel .ojo-impact-postits--on-leather .cs-impact-postit {
   position: relative;
   display: flex;
@@ -969,7 +986,9 @@
   font-family: var(--font-heading);
   font-size: clamp(13px, 1.35vw, 15px);
   font-weight: 400;
+  font-style: normal;
   line-height: 1.65;
+  letter-spacing: normal;
   color: rgba(255, 255, 255, 0.78);
   background: none;
   border-radius: 0;
@@ -1052,7 +1071,7 @@
   font-size: var(--ojo-eyebrow-size, 8px);
   letter-spacing: var(--ojo-eyebrow-track, 0.16em);
   font-weight: var(--ojo-eyebrow-weight, 600);
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--ojo-eyebrow-paper);
   margin-bottom: 14px;
   display: block;
@@ -1096,7 +1115,7 @@
   font-size: var(--ojo-eyebrow-size, 8px);
   letter-spacing: var(--ojo-eyebrow-track, 0.16em);
   font-weight: var(--ojo-eyebrow-weight, 600);
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--ojo-eyebrow-paper);
   margin-bottom: 8px;
 }
@@ -1174,6 +1193,13 @@
 
 .cs-page.cs-page--journal-omantel
   .ojo-context-ecosystem-paper
+  .cs-ecosystem-box-title {
+  border-bottom-color: rgba(120, 95, 55, 0.18);
+  padding: var(--space-5) var(--space-5) var(--space-3);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-context-ecosystem-paper
   .cs-ecosystem-box-head {
   border-bottom-color: rgba(120, 95, 55, 0.18);
   color: var(--ojo-eyebrow-paper);
@@ -1182,6 +1208,19 @@
     var(--ojo-cream-mid) 55%,
     rgba(185, 60, 46, 0.06)
   );
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-context-ecosystem-paper
+  .cs-ecosystem-intro {
+  max-width: none;
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-context-ecosystem-paper
+  .cs-ecosystem-desc {
+  color: rgba(74, 61, 46, 0.72);
+  font-style: normal;
 }
 
 .cs-page.cs-page--journal-omantel
@@ -1304,7 +1343,40 @@
   #problem
   .ojo-problem-legacy-insert
   .cs-problem-process-visual-caption {
-  color: var(--ojo-eyebrow-paper);
+  color: var(--ojo-ink-mid);
+  font-family: var(--font-heading);
+  font-size: clamp(13px, 1.35vw, 15px);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: normal;
+  line-height: 1.65;
+}
+
+/* Problem · inline visuals (DR IA / flows) — plain caption, same scale as decision carousel */
+.cs-page.cs-page--journal-omantel
+  #problem
+  .ojo-problem-legacy-insert
+  .cs-visual-caption,
+.cs-page.cs-page--journal-omantel .cs-dr-ia-image-stack .cs-visual-caption {
+  color: var(--ojo-ink-mid);
+  font-family: var(--font-heading);
+  font-size: clamp(13px, 1.35vw, 15px);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: normal;
+  line-height: 1.65;
+  text-align: left;
+  padding: 8px 0 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+}
+
+.cs-page.cs-page--journal-omantel .cs-dr-ia-image-stack figure {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .cs-page.cs-page--journal-omantel
@@ -1547,14 +1619,28 @@
   color: rgba(185, 60, 46, 0.88);
 }
 
-.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-persona-list {
-  color: var(--ojo-ink-mid);
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .ojo-d-impact-label {
+  margin-top: 12px;
 }
 
-.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-persona-quote {
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-persona-works
+  + .ojo-d-impact-label {
+  margin-top: 12px;
+}
+
+.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-persona-list {
   color: var(--ojo-ink-mid);
-  border-left-color: rgba(185, 60, 46, 0.45);
-  background: color-mix(in srgb, var(--ojo-cream) 88%, var(--ojo-cream-mid));
+  font-style: normal;
+}
+
+.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-persona-aside {
+  color: var(--ojo-ink-mid);
+  font-style: normal;
+  margin-top: var(--space-6);
 }
 
 .cs-page.cs-page--journal-omantel

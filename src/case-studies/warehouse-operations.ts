@@ -4,6 +4,9 @@ export const warehouseOperationsCase: CaseStudy = {
   slug: "warehouse-operations",
   title: "Bringing Clarity to Warehouse Operations Across Distributed Teams",
   heroTitleAccent: "Across Distributed Teams",
+  heroMetaLine: "",
+  heroProblemStatement:
+    "Though the system technically functioned, it placed a high cognitive and coordination load on individual stakeholders and teams.",
   heroImage: {
     src: "/Warehouse%20assets/KD1.png",
     alt: "Warehouse management portal — role-based views for distributed teams",

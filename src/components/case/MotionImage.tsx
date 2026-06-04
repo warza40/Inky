@@ -145,9 +145,7 @@ export function MotionImage({
             document.body,
           )}
         {caption && !hideFigcaption && (
-          <figcaption className="p-4 bg-neutral-100 dark:bg-neutral-200 text-sm text-neutral-800 dark:text-neutral-900">
-            {caption}
-          </figcaption>
+          <figcaption className="cs-visual-caption">{caption}</figcaption>
         )}
       </figure>
 

@@ -104,7 +104,8 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
                 className="home-header-name"
                 aria-label="Rachana Mandal home"
               >
-                RM
+                Rachana Mandal
+                <em className="home-header-name-accent">.</em>
               </Link>
             </header>
             {sections.length > 0 && (
@@ -138,6 +139,7 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
               metaLine={hero.metaLine}
               title={formatLabel(title)}
               problemStatement={hero.problemStatement}
+              heroPills={caseStudy.heroPills}
               overview={caseStudy.overview}
             />
           ) : null}

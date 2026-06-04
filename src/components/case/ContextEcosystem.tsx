@@ -63,14 +63,19 @@ function EcosystemIcon({ id }: { id: IconId }) {
 
 export function ContextEcosystem({ data }: { data: Ecosystem }) {
   return (
-    <div className="cs-ecosystem fade-in" style={{ ["--delay" as string]: "140ms" }}>
-      <p className="cs-ecosystem-eyebrow">
-        <span className="cs-ecosystem-eyebrow-text">{data.eyebrow}</span>
-      </p>
+    <div
+      className="cs-ecosystem fade-in"
+      style={{ ["--delay" as string]: "140ms" }}
+    >
+      <h3 className="cs-context-section-title">{data.eyebrow}</h3>
       <p className="cs-ecosystem-intro">{data.intro}</p>
 
       <div className="cs-ecosystem-box">
-        <div className="cs-ecosystem-box-head">{data.boxTitle}</div>
+        {data.boxTitle ? (
+          <h3 className="cs-context-section-title cs-ecosystem-box-title">
+            {data.boxTitle}
+          </h3>
+        ) : null}
         <div className="cs-ecosystem-rows">
           {data.products.map((p, i) => (
             <div key={i} className="cs-ecosystem-row">

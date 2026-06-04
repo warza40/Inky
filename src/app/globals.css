@@ -5572,9 +5572,15 @@ h3.cs-impact-postits-eyebrow {
   font-weight: var(--weight-eyebrow);
   letter-spacing: var(--tracking-wider);
   text-transform: none;
-  text-align: center;
+  text-align: left;
   color: var(--color-ink-300);
   padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cs-ecosystem-box-title {
+  margin: 0;
+  padding: var(--space-5) var(--space-5) var(--space-3);
   border-bottom: 1px solid var(--color-border);
 }
 .cs-ecosystem-rows {
@@ -5638,7 +5644,8 @@ h3.cs-impact-postits-eyebrow {
   font-family: var(--font-body);
   font-optical-sizing: auto;
   font-size: 11px;
-  font-style: italic;
+  font-style: normal;
+  font-weight: 400;
   color: var(--color-ink-300);
   line-height: 1.5;
   margin: 0;
@@ -5807,7 +5814,7 @@ h3.cs-impact-postits-eyebrow {
   padding: 0;
   font-family: var(--font-body);
   font-optical-sizing: auto;
-  font-style: italic;
+  font-style: normal;
   font-size: 11px;
   color: var(--color-ink-500);
   line-height: 1.7;
@@ -5816,21 +5823,15 @@ h3.cs-impact-postits-eyebrow {
   content: "· ";
   color: var(--color-madder-900);
 }
-.cs-persona-quote {
-  grid-column: 1 / -1;
-  font-family: var(--font-body);
-  font-optical-sizing: auto;
-  font-style: italic;
-  font-weight: 400;
-  font-size: 16px;
-  color: var(--color-ink-300);
-  line-height: 1.7;
-  text-align: center;
-  padding: var(--space-6) var(--space-8);
-  margin: 0;
-  border: 1px solid var(--color-border);
-  background: var(--color-paper);
-  border-left: 3px solid var(--color-madder-900);
+.cs-persona-aside {
+  margin: var(--space-6) 0 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-style: normal;
+  text-align: left;
+  color: var(--color-ink-500);
+  line-height: 1.65;
 }
 
 /* DR understanding subsection */
@@ -6421,15 +6422,16 @@ h3.cs-context-section-title {
   box-shadow: var(--shadow-sm);
 }
 .cs-context-visual-caption {
-  font-family: var(--font-label);
+  font-family: var(--font-heading);
   font-optical-sizing: auto;
   font-variation-settings: "wdth" 100;
-  font-size: var(--text-sm);
-  font-weight: 300;
+  font-size: clamp(13px, 1.35vw, 15px);
+  font-weight: 400;
+  font-style: normal;
   color: var(--color-ink-500);
   margin: 8px 0 0;
-  line-height: 1.5;
-  letter-spacing: 0.04em;
+  line-height: 1.65;
+  letter-spacing: normal;
 }
 .cs-outcome-reflection .case-body {
   font-family: var(--font-body);
@@ -6970,15 +6972,16 @@ h3.cs-context-section-title {
   box-shadow: var(--shadow-md);
 }
 .cs-problem-process-visual-caption {
-  font-family: var(--font-label);
+  font-family: var(--font-heading);
   font-optical-sizing: auto;
   font-variation-settings: "wdth" 100;
-  font-size: var(--text-sm);
-  font-weight: 300;
+  font-size: clamp(13px, 1.35vw, 15px);
+  font-weight: 400;
+  font-style: normal;
   color: var(--color-ink-500);
   margin: 8px 0 0;
-  line-height: 1.5;
-  letter-spacing: 0.04em;
+  line-height: 1.65;
+  letter-spacing: normal;
 }
 
 /* Hero band → sticky tab: keep rhythm inside the nav (padding), not margin —
@@ -7183,34 +7186,35 @@ h3.cs-context-section-title {
   overflow: visible;
 }
 .cs-visual-caption {
-  padding: 10px 14px;
-  background: var(--color-ground-tertiary);
-  border-top: 1px solid var(--color-border);
-  font-family: var(--font-label);
+  padding: 8px 0 0;
+  background: transparent;
+  border: none;
+  font-family: var(--font-heading);
   font-optical-sizing: auto;
   font-variation-settings: "wdth" 100;
-  font-size: 11px;
-  font-weight: 300;
-  color: var(--color-ink-300);
+  font-size: clamp(13px, 1.35vw, 15px);
+  font-weight: 400;
   font-style: normal;
-  letter-spacing: 0.04em;
-  line-height: 1.55;
+  color: var(--color-ink-500);
+  letter-spacing: normal;
+  line-height: 1.65;
 }
 
-/* Case study pages — captions: Bricolage, text-sm, ink.500, 8px above baseline from image */
+/* Case study pages — captions: plain heading scale, ink.500, 8px above baseline from image */
 .case-main .cs-visual-caption {
   padding: 8px 0 0;
   margin: 0;
   background: transparent;
   border: none;
-  font-family: var(--font-label);
+  font-family: var(--font-heading);
   font-optical-sizing: auto;
   font-variation-settings: "wdth" 100;
-  font-size: var(--text-sm);
-  font-weight: 300;
+  font-size: clamp(13px, 1.35vw, 15px);
+  font-weight: 400;
+  font-style: normal;
   color: var(--color-ink-500);
-  letter-spacing: 0.04em;
-  line-height: 1.5;
+  letter-spacing: normal;
+  line-height: 1.65;
 }
 
 /* Case study inline media carousel — light “editorial” surface (dark journal uses `.ojo-decision-*`) */
@@ -7435,6 +7439,7 @@ h3.cs-context-section-title {
   font-family: var(--font-heading);
   font-size: clamp(13px, 1.35vw, 15px);
   font-weight: 400;
+  font-style: normal;
   line-height: 1.65;
   letter-spacing: normal;
   color: var(--color-ink-500);
@@ -8582,10 +8587,14 @@ h3.cs-context-section-title {
 .noteworthy-lightbox-caption {
   margin-top: 16px;
   padding: 0 24px;
-  font-family: var(--font-label);
+  font-family: var(--font-heading);
   font-optical-sizing: auto;
   font-variation-settings: "wdth" 100;
-  font-size: 14px;
+  font-size: clamp(13px, 1.35vw, 15px);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: normal;
+  line-height: 1.65;
   color: rgba(255, 255, 255, 0.9);
   text-align: center;
   max-width: 560px;
@@ -8912,7 +8921,7 @@ h3.cs-context-section-title {
   --cs-milestone-size: var(--ojo-eyebrow-size);
   --cs-milestone-weight: var(--ojo-eyebrow-weight);
   --cs-milestone-tracking: var(--ojo-eyebrow-track);
-  --cs-milestone-transform: uppercase;
+  --cs-milestone-transform: none;
   --cs-milestone-optical-align: none;
   --cs-milestone-rail-fg: var(--ojo-eyebrow-dark);
   --cs-milestone-paper-fg: var(--ojo-eyebrow-paper);

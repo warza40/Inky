@@ -9,6 +9,10 @@ export interface PersonaCardData {
   painPoints: string[];
 }
 
+function PersonaFieldLabel({ children }: { children: string }) {
+  return <div className="ojo-d-impact-label">{children}</div>;
+}
+
 export function CasePersonaGrid({
   personas,
   quote,
@@ -24,19 +28,19 @@ export function CasePersonaGrid({
             <div className="cs-persona-name">{p.name}</div>
             <div className="cs-persona-age">{p.ageLine}</div>
             <div className="cs-persona-works">{p.worksWith}</div>
-            <div className="cs-persona-section-label">Motivations</div>
+            <PersonaFieldLabel>Motivations</PersonaFieldLabel>
             <ul className="cs-persona-list">
               {p.motivations.map((item, j) => (
                 <li key={j}>{item}</li>
               ))}
             </ul>
-            <div className="cs-persona-section-label">Frustrations</div>
+            <PersonaFieldLabel>Frustrations</PersonaFieldLabel>
             <ul className="cs-persona-list">
               {p.frustrations.map((item, j) => (
                 <li key={j}>{item}</li>
               ))}
             </ul>
-            <div className="cs-persona-section-label">Pain Points</div>
+            <PersonaFieldLabel>Pain points</PersonaFieldLabel>
             <ul className="cs-persona-list">
               {p.painPoints.map((item, j) => (
                 <li key={j}>{item}</li>
@@ -44,10 +48,8 @@ export function CasePersonaGrid({
             </ul>
           </div>
         ))}
-        {quote ? (
-          <blockquote className="cs-persona-quote">{quote}</blockquote>
-        ) : null}
       </div>
+      {quote ? <p className="case-body cs-persona-aside">{quote}</p> : null}
     </>
   );
 }

@@ -5,17 +5,24 @@ export const disasterRecoveryCase: CaseStudy = {
   title: "Accelerating Disaster Recovery Response Through Automation",
   heroTitleAccent: "Through Automation",
   warmthTheme: "slate",
+  heroMetaLine: "",
+  heroProblemStatement:
+    "Legacy tools during active disaster response — fragmented, error-prone, and slow when every hour counted.",
+  heroPills: [
+    "Disaster Recovery Operations",
+    "3–4 months",
+    "Cross-functional team",
+  ],
   heroImage: {
     src: "/DM.png",
     alt: "Disaster recovery operations — reporting dashboards and field coordination",
   },
   overview: {
-    role: "UX, Data visualisation",
-    context:
-      "Disaster Recovery Operations · 3–4 months · In collaboration with a principal designer and development team",
+    role: "UX, Data visualisation · With principal designer & development team",
+    context: "Disaster Recovery Operations · Operations",
     company: "",
     problem: "Legacy tools during active disaster response",
-    focus: "Figma · FigJam",
+    focus: "Automation · Clarity",
     tools: "Figma · FigJam",
   },
   sections: {
@@ -27,11 +34,43 @@ export const disasterRecoveryCase: CaseStudy = {
       ],
       aim: "Our aim was to supercharge the client's response time and efficiency.",
     },
+    journalImpact: {
+      blocks: [
+        {
+          value: "",
+          labelItalic: "",
+          metaDetail:
+            "The centralised dashboard allowed crew captains and project managers to assess operational health quickly — reducing the need to navigate across multiple disconnected systems.",
+          metaDetailPlain: true,
+        },
+        {
+          value: "",
+          labelItalic: "",
+          metaDetail:
+            "Role-based views and structured approval workflows helped maintain data integrity while supporting collaboration between field workers and backend office teams.",
+          metaDetailPlain: true,
+        },
+        {
+          value: "",
+          labelItalic: "",
+          metaDetail:
+            "Clear traceability across debris collection, quality, and variance workflows improved confidence during reviews and audits.",
+          metaDetailPlain: true,
+        },
+        {
+          value: "",
+          labelItalic: "",
+          metaDetail:
+            "Standardised inputs and structured data flows through the Disposal Monitor and Time App reduced inconsistencies in operational reporting.",
+          metaDetailPlain: true,
+        },
+      ],
+    },
     contextEcosystem: {
-      eyebrow: "THE ECOSYSTEM · FOUR SOLUTIONS, ONE MISSION",
+      eyebrow: "The ecosystem",
       intro:
-        "Across a timeline of 4–5 months, we worked on the following solutions for the problem statements as part of the same ecosystem.",
-      boxTitle: "FOUR PRODUCTS · ONE DISASTER RECOVERY ECOSYSTEM",
+        "Across a timeline of 4–5 months, we worked on the following solutions for the problem statements as part of the same ecosystem — four products, one disaster recovery mission.",
+      boxTitle: "Four products in the ecosystem",
       products: [
         {
           name: "Debris Management Portal",
@@ -67,7 +106,7 @@ export const disasterRecoveryCase: CaseStudy = {
       {
         title: "The messy aftermath of natural calamities",
         content:
-          "The legacy tools supporting this critical operation were the real crisis. Field workers, dispatchers, crew captains, and regional managers all depended on systems that were fragmented, inconsistent, and deeply prone to error.\n\nThere was no single source of truth. Data lived in different tools, updated at different cadences, and trusted by nobody. Approvals were delayed. Debris collection progress was invisible. Decisions that should take minutes were taking hours — in a context where hours matter enormously.\n\nThe core problem was not an absence of data. It was an absence of **clarity, trust, and shared visibility** across roles, tools, and locations.",
+          "The legacy tools supporting this critical operation were the real crisis. Field workers, dispatchers, crew captains, and regional managers all depended on systems that were fragmented, inconsistent, and deeply prone to error.\n\nThere was no single source of truth. Data lived in different tools, updated at different cadences, and trusted by nobody. Approvals were delayed. Debris collection progress was invisible. Decisions that should take minutes were taking hours — in a context where hours matter enormously.\n\nThe core problem was not an absence of data. It was an absence of clarity, trust, and shared visibility across roles, tools, and locations.",
       },
     ],
     understanding: {
@@ -76,7 +115,7 @@ export const disasterRecoveryCase: CaseStudy = {
       afterSecondaryResearchDivider: {
         title: "Knowing the who's",
         intro:
-          "In actuality there were 9 different personas across our interviews. Most of their goals started becoming common while going through the interview data. At a high level, the personas can be categorised as **On-field personas** and **Backend personas**.\n\nAt a higher level, most personas were looking forward to having: a streamlined platform, all the details in one place, and automation of manual processes.",
+          "In actuality there were 9 different personas across our interviews. Most of their goals started becoming common while going through the interview data. At a high level, the personas can be categorised as on-field personas and backend personas.\n\nAt a higher level, most personas were looking forward to having: a streamlined platform, all the details in one place, and automation of manual processes.",
         content: "",
         personas: [
           {
@@ -158,21 +197,13 @@ export const disasterRecoveryCase: CaseStudy = {
           },
         ],
         content:
-          "Despite having a large number of menus (even after elimination), the navigation that was finalised was kept **straightforward and simple** — the requirement was to keep the learning curve for users to a minimum.",
+          "Despite having a large number of menus (even after elimination), the navigation that was finalised was kept straightforward and simple — the requirement was to keep the learning curve for users to a minimum.",
       },
     },
     constraints: [
       {
-        content: "",
-        intro:
-          "This project operated within several challenges — rather than constraints — that shaped every design decision we made.",
-        numberedItems: [
-          "Limited access to direct end users due to operational and time constraints — we were designing for people in the field during active disaster response.",
-          "Existing backend systems and data structures that could not be changed — we designed around the data model, not the other way around.",
-          "A predefined design system that needed to be followed — visual design decisions were not ours to make freely.",
-          "Multiple user roles with different access levels and responsibilities — the same platform had to serve field workers and executives without confusion.",
-          "Mission-critical timelines — every screen needed to enable fast, confident decisions. There was no room for cognitive overhead.",
-        ],
+        content:
+          "This project operated within several challenges — rather than constraints — that shaped every design decision we made.\n\n• Limited access to direct end users due to operational and time constraints — we were designing for people in the field during active disaster response.\n\n• Existing backend systems and data structures that could not be changed — we designed around the data model, not the other way around.\n\n• A predefined design system that needed to be followed — visual design decisions were not ours to make freely.\n\n• Multiple user roles with different access levels and responsibilities — the same platform had to serve field workers and executives without confusion.\n\n• Mission-critical timelines — every screen needed to enable fast, confident decisions. There was no room for cognitive overhead.",
       },
     ],
     decisions: [
@@ -243,33 +274,6 @@ export const disasterRecoveryCase: CaseStudy = {
         ],
       },
     ],
-    reportCategories: [
-      {
-        num: "01",
-        title: "Haul Out Reports",
-        description:
-          "Volume and weight of debris hauled by site, day, and debris type",
-      },
-      {
-        num: "02",
-        title: "ROW Collection Reports",
-        description:
-          "Right-of-way debris collection tracking by zone and contractor",
-      },
-      {
-        num: "03",
-        title: "Unit Rate Reports",
-        description: "Per-unit cost tracking and crew productivity metrics",
-      },
-      {
-        num: "04",
-        title: "Budget Summary Reports",
-        description:
-          "Fund allocation, invoicing, and budget reconciliation overview",
-      },
-    ],
-    outcome:
-      "• The centralised dashboard allowed crew captains and project managers to assess operational health quickly — reducing the need to navigate across multiple disconnected systems.\n\n• Role-based views and structured approval workflows helped maintain data integrity while supporting collaboration between field workers and backend office teams.\n\n• Clear traceability across debris collection, quality, and variance workflows improved confidence during reviews and audits.\n\n• Standardised inputs and structured data flows through the Disposal Monitor and Time App reduced inconsistencies in operational reporting.\n\n• The dual-mode visualisation approach (graph and tabular) meant that different user types — from field supervisors to invoice reconcilers — could consume the same data in their preferred format.",
     outcomeImages: [
       {
         src: "/DM%20assets/DM-outcome.png",
