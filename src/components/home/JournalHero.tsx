@@ -2,7 +2,10 @@
 
 import Link from "next/link";
 import { HeroNameWashiTape } from "@/components/home/HeroNameWashiTape";
-import { PaperClipSticky } from "@/components/home/PaperClipIcons";
+import {
+  PaperClipSticky,
+  StickyDownloadSketchIcon,
+} from "@/components/home/PaperClipIcons";
 
 const JL_HERO_BADGES = [
   "Senior Product Designer",
@@ -29,7 +32,8 @@ export function JournalHero() {
               className="jl-sticky-body"
               aria-label="Open resume (PDF) in Google Drive — opens in new tab"
             >
-              <span className="jl-sticky-txt">download Resume</span>
+              <StickyDownloadSketchIcon className="jl-sticky-dl-icon" />
+              <span className="jl-sticky-txt">Download Resume</span>
             </a>
             <div className="jl-sticky-clip-over" aria-hidden>
               <PaperClipSticky

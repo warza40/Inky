@@ -297,3 +297,28 @@ export function PaperClipPhoto(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+/** Hand-sketched download arrow + tray — hero resume post-it */
+export function StickyDownloadSketchIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 28 28"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+      {...props}
+    >
+      <path
+        d="M14.1 3.4 C13.75 7.8 14.35 11.4 14.05 15.1
+           M9.6 12.8 L14.15 17.6 L18.55 13.2
+           M6.8 20.2 L7.05 17.5
+           M6.8 20.2 L21.4 19.9
+           M21.4 19.9 L21.15 17.3"
+        stroke="currentColor"
+        strokeWidth={2.35}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
