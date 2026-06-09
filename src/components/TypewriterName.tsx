@@ -12,12 +12,35 @@ const LOOP_DELAY = 20_000;
 
 export function TypewriterName() {
   const [text, setText] = useState(SHORT);
-  const [isTyping, setIsTyping] = useState(false);
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const startCycleRef = useRef<() => void>(() => {});
 
   useEffect(() => {
+    const startCycle = () => {
+      timeoutRef.current = setTimeout(() => {
+        setText("");
+
+        let index = 0;
+
+        intervalRef.current = setInterval(() => {
+          index += 1;
+          setText(FULL.slice(0, index));
+
+          if (index === FULL.length) {
+            if (intervalRef.current) clearInterval(intervalRef.current);
+
+            timeoutRef.current = setTimeout(() => {
+              setText(SHORT);
+              startCycleRef.current();
+            }, LOOP_DELAY);
+          }
+        }, TYPE_INTERVAL);
+      }, START_DELAY);
+    };
+
+    startCycleRef.current = startCycle;
     startCycle();
 
     return () => {
@@ -25,30 +48,6 @@ export function TypewriterName() {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, []);
-
-  const startCycle = () => {
-    timeoutRef.current = setTimeout(() => {
-      setIsTyping(true);
-      setText("");
-
-      let index = 0;
-
-      intervalRef.current = setInterval(() => {
-        index += 1;
-        setText(FULL.slice(0, index));
-
-        if (index === FULL.length) {
-          if (intervalRef.current) clearInterval(intervalRef.current);
-
-          timeoutRef.current = setTimeout(() => {
-            setText(SHORT);
-            setIsTyping(false);
-            startCycle();
-          }, LOOP_DELAY);
-        }
-      }, TYPE_INTERVAL);
-    }, START_DELAY);
-  };
 
   return (
     <motion.span

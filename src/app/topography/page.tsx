@@ -2,8 +2,6 @@
 
 import { useEffect, useRef } from "react";
 
-const WORDS = ["patterns", "biases", "evolution", "synthesis", "data"];
-
 const COLORS = ["#966EA0", "#CBADDE", "#223057"];
 
 type ClusterSize = "small" | "medium" | "large";
@@ -90,10 +88,9 @@ export default function ThinkingTopography({
     };
 
     const REVEAL_DURATION = 1.5; // seconds
-    const TOTAL_DURATION = 20; // seconds
 
     const secondaryClusters = pickRandom(SECONDARY_WORDS, secondaryCount).map(
-      (word, idx) => ({
+      (word) => ({
         word,
         start: 4 + Math.random() * 10, // never at start, never all together
         size: Math.random() < 0.6 ? "small" : "medium",

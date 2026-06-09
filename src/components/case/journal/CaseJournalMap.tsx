@@ -157,7 +157,6 @@ export function CaseJournalMap({ caseStudy }: CaseJournalMapProps) {
             outcomePill={s.outcomePill}
           />
           <CaseJournalOutcomeSupplement
-            caseStudy={caseStudy}
             visualsPresentation={visualsPresentation}
           />
           {visualsPresentation.mode === "noteworthy" ? (

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -72,13 +73,12 @@ export function JournalAboutPhotoCarousel({
             </button>
           </>
         ) : null}
-        <img
+        <Image
           key={slide.src + safe}
           src={slide.src}
           alt={slide.alt}
           className={`jl-about-carousel-img${safe === 1 ? " jl-about-carousel-img--slide-2" : ""}`}
-          loading={safe === 0 ? "eager" : "lazy"}
-          decoding="async"
+          priority={safe === 0}
           width={slide.width ?? 1440}
           height={slide.height ?? 2120}
         />

@@ -38,7 +38,7 @@ export function HeaderCard() {
           I work on complex product systems where clarity often breaks down.
         </p>
         <p className="text-sm leading-relaxed">
-          While my past roles haven't always allowed space to address long-term
+          While my past roles have not always allowed space to address long-term
           impacts directly, I care deeply about how products shape behavior and
           everyday work — and I design with an intent to reduce mental effort
           and unnecessary friction wherever possible.

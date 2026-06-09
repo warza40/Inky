@@ -19,19 +19,38 @@ const DEFAULTS = {
   scatterRadius: 80,
   rippleDur: 40,
   colors: [
-    "#E8392A", "#F5B800", "#378ADD", "#44B86A",
-    "#D4537E", "#7F77DD", "#E07030", "#1D9E75",
-    "#C84090", "#0099CC", "#88AA00", "#FF6644",
-    "#5544CC", "#00AAAA", "#DD4488", "#BBAA00",
+    "#E8392A",
+    "#F5B800",
+    "#378ADD",
+    "#44B86A",
+    "#D4537E",
+    "#7F77DD",
+    "#E07030",
+    "#1D9E75",
+    "#C84090",
+    "#0099CC",
+    "#88AA00",
+    "#FF6644",
+    "#5544CC",
+    "#00AAAA",
+    "#DD4488",
+    "#BBAA00",
   ],
 };
 
 const TYPES = [
-  "dot2", "dot2", "dot4",
-  "checker", "checker",
-  "cross", "plus", "lshape",
-  "arrow", "arrow",
-  "tricheck", "row3",
+  "dot2",
+  "dot2",
+  "dot4",
+  "checker",
+  "checker",
+  "cross",
+  "plus",
+  "lshape",
+  "arrow",
+  "arrow",
+  "tricheck",
+  "row3",
 ];
 
 const P = 3;
@@ -138,14 +157,18 @@ class HeroBg {
   _pieceScreenPos(p) {
     const { cell } = this.cfg;
     return {
-      x: (p.axis === 0 ? p.col : Math.round(p.col)) * cell + (p.scattered ? p.scatterX : 0),
-      y: (p.axis === 1 ? p.row : Math.round(p.row)) * cell + (p.scattered ? p.scatterY : 0),
+      x:
+        (p.axis === 0 ? p.col : Math.round(p.col)) * cell +
+        (p.scattered ? p.scatterX : 0),
+      y:
+        (p.axis === 1 ? p.row : Math.round(p.row)) * cell +
+        (p.scattered ? p.scatterY : 0),
     };
   }
 
   _handleClick(e) {
     const { x, y } = this._getCanvasPos(e);
-    const { scatterRadius, rippleDur, colors } = this.cfg;
+    const { scatterRadius, colors } = this.cfg;
 
     this._ripples.push({ x, y, r: 0, maxR: 120, alpha: 0.5, born: this._t });
 
@@ -157,8 +180,7 @@ class HeroBg {
       const dist = Math.hypot(cx - x, cy - y);
 
       const directHit =
-        x >= px - 4 && x <= px + sz.w + 4 &&
-        y >= py - 4 && y <= py + sz.h + 4;
+        x >= px - 4 && x <= px + sz.w + 4 && y >= py - 4 && y <= py + sz.h + 4;
 
       if (directHit) {
         p.type = this._pick(TYPES);
@@ -244,9 +266,18 @@ class HeroBg {
     const W = this.cv.width,
       H = this.cv.height;
     const nodes = [
-      [1, 2, 4, 2], [5, 5, 5, 8], [9, 1, 12, 1], [14, 3, 14, 6],
-      [18, 2, 21, 2], [3, 10, 3, 13], [7, 9, 10, 9], [15, 8, 15, 11],
-      [20, 7, 23, 7], [2, 15, 5, 15], [11, 13, 14, 13], [18, 12, 18, 15],
+      [1, 2, 4, 2],
+      [5, 5, 5, 8],
+      [9, 1, 12, 1],
+      [14, 3, 14, 6],
+      [18, 2, 21, 2],
+      [3, 10, 3, 13],
+      [7, 9, 10, 9],
+      [15, 8, 15, 11],
+      [20, 7, 23, 7],
+      [2, 15, 5, 15],
+      [11, 13, 14, 13],
+      [18, 12, 18, 15],
     ];
     const a = 0.1 + 0.03 * Math.sin(this._t * 0.008);
     ctx.strokeStyle = `rgba(0,0,0,${a})`;

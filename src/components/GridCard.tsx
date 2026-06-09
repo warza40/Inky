@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight, ImageIcon, Folder, File } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -114,10 +115,12 @@ function StandardView({
   return (
     <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative bg-muted">
       {imageUrl ? (
-        <img
+        <Image
           src={imageUrl}
           alt={title}
-          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
+          className="object-cover transform group-hover:scale-105 transition-transform duration-500"
         />
       ) : (
         <div className="w-full h-full flex items-center justify-center bg-secondary">

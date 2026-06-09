@@ -1,17 +1,14 @@
 "use client";
 
-import type { CaseStudy } from "@/case-studies/omantel";
 import type { CaseVisualsPresentation } from "@/case-studies/case-visuals";
 import { MotionImage } from "@/components/case/MotionImage";
 
 interface CaseJournalOutcomeSupplementProps {
-  caseStudy: CaseStudy;
   visualsPresentation: CaseVisualsPresentation;
 }
 
 /** Legacy bottom-of-outcome gallery (when no noteworthy visuals). */
 export function CaseJournalOutcomeSupplement({
-  caseStudy,
   visualsPresentation,
 }: CaseJournalOutcomeSupplementProps) {
   if (visualsPresentation.mode !== "legacy") return null;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 
 const COLORS = ["#966EA0", "#CBADDE", "#223057"];
@@ -28,18 +28,18 @@ export default function ThinkingTopography({
   enabled?: boolean;
   opacity?: number;
 }) {
-  if (typeof window === "undefined") return null;
-
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 
   useEffect(() => {
+    if (!mounted || !enabled) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -98,7 +98,7 @@ export default function ThinkingTopography({
     const REVEAL_DURATION = 1.5; // seconds
 
     const secondaryClusters = pickRandom(SECONDARY_WORDS, secondaryCount).map(
-      (word, idx) => ({
+      (word) => ({
         word,
         start: 4 + Math.random() * 10,
         size: Math.random() < 0.6 ? "small" : "medium",
@@ -284,7 +284,7 @@ export default function ThinkingTopography({
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [mounted, enabled]);
 
   if (!mounted) return null;
 

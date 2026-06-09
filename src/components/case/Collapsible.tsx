@@ -11,7 +11,12 @@ interface CollapsibleProps {
   hideTitle?: boolean;
 }
 
-export function Collapsible({ children, title, className, hideTitle }: CollapsibleProps) {
+export function Collapsible({
+  children,
+  title,
+  className,
+  hideTitle,
+}: CollapsibleProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -22,7 +27,9 @@ export function Collapsible({ children, title, className, hideTitle }: Collapsib
         className={cn("cs-reveal", open && "open")}
         aria-expanded={open}
       >
-        <span className="cs-reveal-label">{title ?? "Details"}</span>
+        {!hideTitle ? (
+          <span className="cs-reveal-label">{title ?? "Details"}</span>
+        ) : null}
         <span className="cs-reveal-btn">
           {open ? "Hide" : "Reveal to read more"}
           <span className="cs-reveal-arrow">{open ? "↑" : "↓"}</span>
@@ -30,9 +37,7 @@ export function Collapsible({ children, title, className, hideTitle }: Collapsib
       </button>
 
       <div className={cn("cs-reveal-content", open && "open")}>
-        <div className="cs-reveal-inner pt-4 pb-2">
-          {children}
-        </div>
+        <div className="cs-reveal-inner pt-4 pb-2">{children}</div>
       </div>
     </div>
   );

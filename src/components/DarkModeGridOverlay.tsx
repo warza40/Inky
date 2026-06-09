@@ -1,7 +1,7 @@
 "use client";
 
 import { useTheme } from "@/contexts/ThemeContext";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 /** Bento grid has 3 columns. Light lines on dark at 20% opacity. */
 const LINE_COLOR = "rgba(255, 255, 255, 0.25)";
@@ -27,21 +27,20 @@ function getIsDark(): boolean {
   return document.documentElement.classList.contains("dark");
 }
 
+function subscribeToDarkClass(onStoreChange: () => void) {
+  const el = document.documentElement;
+  const observer = new MutationObserver(onStoreChange);
+  observer.observe(el, { attributes: true, attributeFilter: ["class"] });
+  return () => observer.disconnect();
+}
+
 export function DarkModeGridOverlay() {
   const { theme } = useTheme();
-  const [domDark, setDomDark] = useState(false);
-
-  useEffect(() => {
-    setDomDark(getIsDark());
-  }, [theme]);
-
-  useEffect(() => {
-    setDomDark(getIsDark());
-    const el = document.documentElement;
-    const observer = new MutationObserver(() => setDomDark(getIsDark()));
-    observer.observe(el, { attributes: true, attributeFilter: ["class"] });
-    return () => observer.disconnect();
-  }, []);
+  const domDark = useSyncExternalStore(
+    subscribeToDarkClass,
+    getIsDark,
+    () => false,
+  );
 
   const show = theme === "dark" || domDark;
   if (!show) return null;

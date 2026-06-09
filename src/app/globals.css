@@ -78,9 +78,9 @@
   --color-border-focus: var(--color-madder-900);
 
   /* ── TYPOGRAPHY: Font families ── */
-  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-bricolage: "Bricolage Grotesque", sans-serif;
-  --font-anybody: "Anybody", sans-serif;
+  --font-body: var(--font-plus-jakarta), system-ui, sans-serif;
+  --font-bricolage: var(--font-bricolage-grotesque), sans-serif;
+  --font-anybody: var(--font-anybody-family), sans-serif;
   --font-serif-stack: "Lora", Georgia, serif;
   --font-serif: var(--font-serif-stack);
   --font-display: var(--font-anybody);

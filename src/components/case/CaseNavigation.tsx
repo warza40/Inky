@@ -27,36 +27,45 @@ function prefersReducedMotion(): boolean {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
+function getInitialActiveSection(
+  sections: CaseNavigationProps["sections"],
+): string {
+  if (typeof window === "undefined") {
+    return sections[0]?.id ?? "";
+  }
+  const hash = window.location.hash.slice(1);
+  if (hash && sections.some((s) => s.id === hash)) {
+    return hash;
+  }
+  return sections[0]?.id ?? "";
+}
+
 export function CaseNavigation({
   sections,
   className,
   variant = "default",
 }: CaseNavigationProps) {
-  const [activeSection, setActiveSection] = useState<string>(
-    sections[0]?.id ?? "",
+  const [activeSection, setActiveSection] = useState<string>(() =>
+    getInitialActiveSection(sections),
   );
   const rowRef = useRef<HTMLDivElement | null>(null);
-  const [indicator, setIndicator] = useState({ left: 0, width: 0 });
+  const indicatorRef = useRef<HTMLSpanElement | null>(null);
 
-  const updateIndicator = useCallback(() => {
+  const syncIndicator = useCallback(() => {
     const row = rowRef.current;
-    if (!row) return;
+    const indicator = indicatorRef.current;
+    if (!row || !indicator) return;
     const btn = row.querySelector<HTMLButtonElement>(
       `button.cs-tab[data-section="${activeSection}"]`,
     );
     if (!btn) {
-      setIndicator({ left: 0, width: 0 });
+      indicator.style.width = "0px";
+      indicator.style.transform = "translateX(0px)";
       return;
     }
-    setIndicator({ left: btn.offsetLeft, width: btn.offsetWidth });
+    indicator.style.width = `${btn.offsetWidth}px`;
+    indicator.style.transform = `translateX(${btn.offsetLeft}px)`;
   }, [activeSection]);
-
-  useEffect(() => {
-    const hash = window.location.hash.slice(1);
-    if (hash && sections.some((s) => s.id === hash)) {
-      setActiveSection(hash);
-    }
-  }, [sections]);
 
   useEffect(() => {
     const observerOptions = {
@@ -95,16 +104,16 @@ export function CaseNavigation({
   }, [sections]);
 
   useLayoutEffect(() => {
-    updateIndicator();
-  }, [updateIndicator, sections]);
+    syncIndicator();
+  }, [syncIndicator, sections]);
 
   useEffect(() => {
     const row = rowRef.current;
     if (!row || typeof ResizeObserver === "undefined") return;
-    const ro = new ResizeObserver(() => updateIndicator());
+    const ro = new ResizeObserver(() => syncIndicator());
     ro.observe(row);
     return () => ro.disconnect();
-  }, [updateIndicator]);
+  }, [syncIndicator]);
 
   useEffect(() => {
     if (variant !== "cs") return;
@@ -152,14 +161,7 @@ export function CaseNavigation({
   if (isCs) {
     return (
       <div className="cs-tabs-row" ref={rowRef}>
-        <span
-          className="cs-tab-indicator"
-          aria-hidden
-          style={{
-            width: indicator.width,
-            transform: `translateX(${indicator.left}px)`,
-          }}
-        />
+        <span className="cs-tab-indicator" ref={indicatorRef} aria-hidden />
         {tabButtons}
       </div>
     );

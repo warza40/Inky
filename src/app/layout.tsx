@@ -8,6 +8,9 @@ import {
   Instrument_Serif,
   DM_Mono,
   Noto_Serif_JP,
+  Bricolage_Grotesque,
+  Anybody,
+  Plus_Jakarta_Sans,
 } from "next/font/google";
 
 const lora = Lora({
@@ -40,6 +43,24 @@ const notoSerifJP = Noto_Serif_JP({
   display: "swap",
 });
 
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-plus-jakarta",
+  display: "swap",
+});
+
+const bricolageGrotesque = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-bricolage-grotesque",
+  display: "swap",
+});
+
+const anybody = Anybody({
+  subsets: ["latin"],
+  variable: "--font-anybody-family",
+  display: "swap",
+});
+
 /** Mobile + tablet: correct initial scale, notches, safe areas */
 export const viewport: Viewport = {
   width: "device-width",
@@ -57,20 +78,8 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${lora.variable} ${instrumentSerif.variable} ${dmMono.variable} ${notoSerifJP.variable}`}
+      className={`${lora.variable} ${instrumentSerif.variable} ${dmMono.variable} ${notoSerifJP.variable} ${plusJakartaSans.variable} ${bricolageGrotesque.variable} ${anybody.variable}`}
     >
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Anybody:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Lora:ital,wght@0,400;0,500;0,600;1,300;1,400;1,500&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&family=Noto+Serif+JP:wght@200;300&display=swap"
-          rel="stylesheet"
-        />
-      </head>
       <body className="nebula-body text-neutral-900">
         <ThemeProvider>
           <div className="app-root">

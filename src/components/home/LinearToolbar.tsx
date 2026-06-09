@@ -72,17 +72,9 @@ const TOOLBAR_ITEMS: { id: ToolbarId; icon: typeof FileText; label: string }[] =
 
 export function LinearToolbar() {
   const [activeId, setActiveId] = useState<ToolbarId>(null);
-  const [indicatorLeft, setIndicatorLeft] = useState(0);
   const toolbarRef = useRef<HTMLDivElement>(null);
   const zoneRef = useRef<HTMLDivElement>(null);
   const buttonsRef = useRef<(HTMLButtonElement | null)[]>([]);
-
-  useEffect(() => {
-    if (activeId === null) return;
-    const index = TOOLBAR_ITEMS.findIndex((i) => i.id === activeId);
-    const btn = buttonsRef.current[index];
-    if (btn) setIndicatorLeft(btn.offsetLeft);
-  }, [activeId]);
 
   /* When case study cards open, scroll to bottom so the popup below the nav is visible */
   useEffect(() => {
@@ -106,14 +98,12 @@ export function LinearToolbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [activeId]);
 
-  const selectItem = (id: ToolbarId, index: number) => {
+  const selectItem = (id: ToolbarId) => {
     if (activeId === id) {
       setActiveId(null);
       return;
     }
     setActiveId(id);
-    const btn = buttonsRef.current[index];
-    if (btn) setIndicatorLeft(btn.offsetLeft);
   };
 
   const reset = () => setActiveId(null);
@@ -229,7 +219,7 @@ export function LinearToolbar() {
                 }}
                 type="button"
                 className={`linear-toolbar-btn ${isActive ? "active" : ""}`}
-                onClick={() => selectItem(item.id, index)}
+                onClick={() => selectItem(item.id)}
                 aria-label={item.label}
                 aria-expanded={isActive}
               >
