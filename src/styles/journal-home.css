@@ -25,10 +25,10 @@
   --jl-sheet-content-start: calc(
     var(--jl-sheet-margin-x) + var(--jl-note-content-inset)
   );
-  /** Hero name washi — scales with viewport (caps at footer `.sf-name` 22px) */
-  --jl-name-tape-size: clamp(14px, calc(0.5rem + 2.35vw), 22px);
-  --jl-name-tape-pad-y: clamp(5px, 1.1vw, 7px);
-  --jl-name-tape-pad-x: clamp(12px, 3.6vw, 28px);
+  /** Hero name washi — scales with viewport (+2 type sizes vs footer `.sf-name` 22px) */
+  --jl-name-tape-size: clamp(18px, calc(0.5rem + 2.75vw), 26px);
+  --jl-name-tape-pad-y: clamp(7px, 1.3vw, 9px);
+  --jl-name-tape-pad-x: clamp(16px, 4.25vw, 34px);
   --jl-shadow-heavy: rgba(0, 0, 0, 0.55);
   --jl-shadow-mid: rgba(0, 0, 0, 0.3);
   /** Shared horizontal gutters + vertical space between stacked sections */
@@ -46,8 +46,8 @@
   --jl-hero-stack-gap: var(--space-8);
   --jl-hero-title-caption-gap: var(--jl-hero-stack-gap);
   --jl-hero-caption-actions-gap: var(--jl-hero-stack-gap);
-  /** Bio copy column — fixed measure per breakpoint */
-  --jl-hero-bio-width: 42rem;
+  /** Bio copy column — fixed measure (same at all breakpoints) */
+  --jl-hero-bio-width: 60rem;
   /** Must match inset on `.jl-hero-insert` paper so rails align with hero type */
   --jl-sheet-pad-inline-start: clamp(44px, 6vw, 56px);
   --jl-sheet-pad-inline-end: clamp(40px, 5vw, 52px);
@@ -404,7 +404,6 @@
 @media (max-width: 900px) {
   .home-layout--journal {
     --jl-sheet-pad-inline-end: clamp(24px, 5vw, 40px);
-    --jl-hero-bio-width: 100%;
   }
 
   .home-layout--journal .jl-hero-insert {
@@ -719,16 +718,23 @@
 }
 
 .home-layout--journal .jl-mini-tag {
-  font-family: var(--font-body);
-  font-size: 9px;
-  letter-spacing: 0.08em;
-  font-weight: 500;
-  text-transform: uppercase;
-  padding: 4px 9px;
-  border: 1px solid rgba(120, 95, 55, 0.22);
-  color: var(--jl-ink-faded);
+  font-family: var(--font-label);
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
+  font-size: var(--text-eyebrow);
+  font-weight: var(--weight-eyebrow);
+  letter-spacing: var(--tracking-wider);
+  text-transform: none;
+  line-height: 1.2;
+  padding: 6px 12px;
+  border: 2px solid #fff;
+  color: var(--jl-paper-eyebrow-fg);
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 252, 245, 0.92);
+  box-shadow:
+    0 1px 4px rgba(45, 38, 28, 0.1),
+    0 0 0 1px rgba(120, 95, 55, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 
 .home-layout--journal .jl-scroll-hint {
@@ -1931,7 +1937,6 @@
   .home-layout--journal {
     --jl-section-padding-x: 32px;
     --jl-section-space: clamp(56px, 7vw, 80px);
-    --jl-hero-bio-width: 36rem;
   }
 
   .home-layout--journal .jl-hero {
@@ -2074,7 +2079,7 @@
   }
 
   .home-layout--journal .jl-mini-tag {
-    padding: 4px 8px;
+    padding: 5px 10px;
   }
 
   .home-layout--journal .jl-work-section-inner {
@@ -2244,9 +2249,9 @@
 
 @media (max-width: 390px) {
   .home-layout--journal {
-    --jl-name-tape-size: clamp(13px, calc(0.35rem + 3.6vw), 17px);
-    --jl-name-tape-pad-y: 4px;
-    --jl-name-tape-pad-x: clamp(10px, 3.2vw, 16px);
+    --jl-name-tape-size: clamp(17px, calc(0.35rem + 4.25vw), 21px);
+    --jl-name-tape-pad-y: 6px;
+    --jl-name-tape-pad-x: clamp(14px, 3.8vw, 20px);
   }
 
   .home-layout--journal .jl-hero-name-tape {
