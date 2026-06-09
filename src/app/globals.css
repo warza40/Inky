@@ -4693,22 +4693,22 @@ body:has(.cs-page) {
   --cs-footer-link-hover: var(--color-ochre-500);
 }
 .cs-theme-slate {
-  --cs-accent: var(--color-ink-700);
-  --cs-accent-mid: var(--color-ink-500);
-  --cs-accent-soft: var(--color-ink-100);
+  --cs-accent: var(--color-slate-700);
+  --cs-accent-mid: var(--color-slate-500);
+  --cs-accent-soft: var(--color-slate-200);
   --cs-accent-soft-bg: color-mix(
     in srgb,
-    var(--color-ink-500) 10%,
+    var(--color-slate-500) 12%,
     transparent
   );
   --cs-accent-soft-border: color-mix(
     in srgb,
-    var(--color-ink-500) 28%,
+    var(--color-slate-500) 30%,
     transparent
   );
-  --cs-accent-bar: var(--color-ink-700);
-  --cs-footer-link: var(--color-ink-500);
-  --cs-footer-link-hover: var(--color-ink-300);
+  --cs-accent-bar: var(--color-slate-700);
+  --cs-footer-link: var(--color-slate-700);
+  --cs-footer-link-hover: var(--color-slate-500);
 }
 
 /* CaseStudy direction — progress + hero band + background shapes + fade-in */
@@ -5076,7 +5076,7 @@ body:has(.cs-page) {
   bottom: -1px;
   left: 0;
   height: 3px;
-  background: var(--color-ink-900);
+  background: var(--cs-accent-bar);
   pointer-events: none;
   z-index: 2;
   border-radius: 1px;
@@ -5125,10 +5125,19 @@ body:has(.cs-page) {
   font-variation-settings:
     "wdth" 100,
     "wght" var(--weight-semibold);
-  color: var(--color-ink-900);
+  color: var(--cs-accent);
   letter-spacing: var(--tracking-wider);
 }
-/* Scale-reveal indicator — ink, not madder */
+
+/* Case nav — madder active state (portfolio primary; strong contrast on parchment) */
+.cs-page .cs-tab.active {
+  color: var(--color-madder-700);
+}
+.cs-page .cs-tab-indicator {
+  background: var(--color-madder-700);
+}
+
+/* Scale-reveal indicator — theme accent (fallback when no sliding bar) */
 .cs-tab::after {
   content: "";
   position: absolute;
@@ -5136,7 +5145,7 @@ body:has(.cs-page) {
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--color-ink-900);
+  background: var(--cs-accent-bar);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -5144,6 +5153,10 @@ body:has(.cs-page) {
 .cs-tab.active::after {
   transform: scaleX(1);
 }
+.cs-page .cs-tab::after {
+  background: var(--color-madder-700);
+}
+
 /* Case study — fluid column: min(cap, viewport − gutters); caps step at DS breakpoints */
 .cs-main {
   width: min(var(--cs-column-cap), calc(100% - 2 * var(--fluid-gutter)));
