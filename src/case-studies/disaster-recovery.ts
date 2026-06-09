@@ -208,17 +208,11 @@ export const disasterRecoveryCase: CaseStudy = {
     ],
     decisions: [
       {
-        title:
-          "Designing a four-product ecosystem rather than one monolithic platform",
-        rationale:
-          "Field workers and executives have fundamentally different contexts, devices, and tasks. A single platform would compromise all of them.\n\nThe Disposal Monitor needed to work on mobile under harsh field conditions. Forcing this into a desktop portal would make it unusable.\n\nSplitting by function allowed each product to be optimised for its specific user's workflow.",
-        impact:
-          "Role-appropriate interfaces reduced cognitive load across all 9 personas.\n\nMobile products could be designed for speed and single-handed use.\n\nDesktop products could support the data density required by analysts and supervisors.\n\nData from all four products fed into a single reporting layer — one source of truth.",
-      },
-      {
         title: "Reports as a first-class priority, not an afterthought",
+        description:
+          "Every required dataset had to be visible within minutes of opening a report — not buried behind navigation, filters, or secondary screens.",
         rationale:
-          "Reports are typically the most mundane or most time-consuming task in a data-heavy enterprise product.\n\nThe client had very high expectations from the reporting section. Every required parameter needed to be upfront — not buried.\n\nThe ask was to surface every single required dataset within a couple of minutes of opening the report.",
+          "Reports are typically the most mundane or most time-consuming task in a data-heavy enterprise product. The client had very high expectations from the reporting section. Every required parameter needed to be upfront — not buried. The ask was to surface every single required dataset within a couple of minutes of opening the report.",
         impact:
           "Dashboards structured so essential details are findable within minutes for quicker decisions.\n\nFilters for major categories added to increase efficiency.\n\nFour categories of reports designed: Haul Out, ROW Collection, Unit Rate, Budget Summary.\n\nDual-mode view — tabular and graph — catered to both analytical styles.",
         images: [
@@ -232,8 +226,10 @@ export const disasterRecoveryCase: CaseStudy = {
       {
         title:
           "Dual-mode data visualisation — tabular and graph simultaneously",
+        description:
+          "Each metric needed the right chart for its data type, screen space, and the persona reading it — often as tabular and graph views on the same screen.",
         rationale:
-          "The biggest challenge was finding the appropriate data visualisation for each metric and fitting them within limited screen real estate.\n\nPersonas consumed data differently — some were graph-oriented, others needed tabular detail for audit trails and reconciliation.\n\nIt was challenging to think beyond regular visualisation types and even come up with nameless data visualisation combinations.",
+          "The biggest challenge was finding the appropriate data visualisation for each metric and fitting them within limited screen real estate. Personas consumed data differently — some were graph-oriented, others needed tabular detail for audit trails and reconciliation. It was challenging to think beyond regular visualisation types and even come up with nameless data visualisation combinations.",
         impact:
           "Same screen presented in both tabular and graph format — catering to both styles of information consumption.\n\nData depicted: categorisation of debris by type, site, weight/volume, and contractor.\n\nEvery data visualisation chosen on basis of requirement, colour distribution, and easy interpretation.",
         images: [
@@ -247,8 +243,10 @@ export const disasterRecoveryCase: CaseStudy = {
       },
       {
         title: "Simplified navigation despite 9 personas and large menu depth",
+        description:
+          "Three navigation schemas were explored — Mega Menu, Ribbon, and Panel — before landing on a pattern learnable in minutes for field workers.",
         rationale:
-          "We explored three navigation schemas: Mega Menu, Ribbon, and Panel. Each represented a different tradeoff between discoverability and simplicity.\n\nUsers were working on critical, time-bound tasks. Navigation had to be learnable in minutes, not hours.\n\nMany pages and segments identified during IA work were redundant — elimination reduced navigation complexity significantly.",
+          "We explored three navigation schemas: Mega Menu, Ribbon, and Panel. Each represented a different tradeoff between discoverability and simplicity. Users were working on critical, time-bound tasks. Navigation had to be learnable in minutes, not hours. Many pages and segments identified during IA work were redundant — elimination reduced navigation complexity significantly.",
         impact:
           "Final navigation pattern kept straightforward and simple despite the underlying complexity.\n\nLearning curve minimised — a key client requirement for field workers who weren't power users.\n\nNavigation exploration also identified redundant features that were eliminated before build.",
         navExploration: [
@@ -260,8 +258,10 @@ export const disasterRecoveryCase: CaseStudy = {
       {
         title:
           "Content-heavy layouts designed around information hierarchy, not aesthetics",
+        description:
+          "Wireframes prioritised information hierarchy over visual polish — blocking layout structure before committing to detailed design.",
         rationale:
-          "Most real estate was content-heavy. The question was what grabs attention first, and what hierarchy of elements guides the user to a decision.\n\nThe visual design system was scalable and accessible by necessity — large number of users, mission-critical context.\n\nWe blocked out spaces to envision the best layout before committing to detailed design — exploring layouts as structure, not style.",
+          "Most real estate was content-heavy. The question was what grabs attention first, and what hierarchy of elements guides the user to a decision. The visual design system was scalable and accessible by necessity — large number of users, mission-critical context. We blocked out spaces to envision the best layout before committing to detailed design — exploring layouts as structure, not style.",
         impact:
           "Wireframing phase was critical — identified hierarchy issues before they became design debt.\n\nReports section designed so every required parameter is visible upfront — no buried data.\n\nThe design system (built by a separate team) was kept accessible and scalable throughout.",
         images: [

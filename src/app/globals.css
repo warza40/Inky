@@ -5075,7 +5075,7 @@ body:has(.cs-page) {
   position: absolute;
   bottom: -1px;
   left: 0;
-  height: 2px;
+  height: 3px;
   background: var(--color-ink-900);
   pointer-events: none;
   z-index: 2;
@@ -5097,9 +5097,9 @@ body:has(.cs-page) {
   font-family: var(--font-label);
   font-optical-sizing: auto;
   font-variation-settings: "wdth" 100;
-  font-size: var(--text-sm);
-  font-weight: 300;
-  letter-spacing: 0.1em;
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-wider);
   text-transform: none;
   padding: var(--space-3) var(--space-5);
   background: transparent;
@@ -5109,7 +5109,9 @@ body:has(.cs-page) {
   outline: none;
   position: relative;
   white-space: nowrap;
-  transition: color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    color 200ms cubic-bezier(0.4, 0, 0.2, 1),
+    font-weight 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .cs-tab:focus-visible {
   outline: 2px solid var(--cs-accent);
@@ -5119,9 +5121,12 @@ body:has(.cs-page) {
   color: var(--color-ink-700); /* clear step up, not yet active */
 }
 .cs-tab.active {
-  font-weight: 400;
+  font-weight: var(--weight-semibold);
+  font-variation-settings:
+    "wdth" 100,
+    "wght" var(--weight-semibold);
   color: var(--color-ink-900);
-  letter-spacing: 0.1em;
+  letter-spacing: var(--tracking-wider);
 }
 /* Scale-reveal indicator — ink, not madder */
 .cs-tab::after {
@@ -5760,11 +5765,15 @@ h3.cs-impact-postits-eyebrow {
   grid-template-columns: 1fr 1fr;
   gap: 3px;
   margin: var(--space-6) 0;
+  padding-top: 10px;
 }
 .cs-persona-card {
-  background: var(--color-ground-primary);
+  position: relative;
+  overflow: visible;
+  background: #fff;
   border: 1px solid var(--color-border);
-  padding: var(--space-5) var(--space-5);
+  padding: calc(var(--space-5) + 4px) var(--space-5) var(--space-5);
+  box-shadow: 0 2px 12px rgba(45, 38, 28, 0.07);
 }
 .cs-persona-name {
   font-family: var(--font-heading);
@@ -5836,7 +5845,17 @@ h3.cs-impact-postits-eyebrow {
 
 /* DR understanding subsection */
 .cs-dr-understanding {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(56px, 8vw, 88px);
   color: var(--color-ink-500);
+}
+
+.cs-dr-understanding-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: 0;
 }
 .cs-dr-rule {
   height: 1px;

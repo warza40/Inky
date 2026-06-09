@@ -21,7 +21,7 @@ export function CaseUnderstandingBlock({
   if (slug === "disaster-recovery") {
     return (
       <div className="cs-understanding-block">
-        <h3 className="case-subsection-title">{u.title}</h3>
+        <div className="ojo-p-label">{u.title}</div>
         <DisasterRecoveryUnderstanding understanding={u} />
       </div>
     );
@@ -29,7 +29,7 @@ export function CaseUnderstandingBlock({
 
   return (
     <div className="cs-understanding-block">
-      <h3 className="case-subsection-title">{u.title}</h3>
+      <div className="ojo-p-label">{u.title}</div>
       <div className="case-body cs-understanding-body">
         {(() => {
           const lines = u.content.split("\n").filter((line) => line.trim());

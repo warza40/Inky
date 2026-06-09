@@ -2,6 +2,7 @@
 
 import type { CaseStudy } from "@/case-studies/omantel";
 import { OmantelJournalImageCarousel } from "@/components/case/journal/OmantelJournalImageCarousel";
+import { cn } from "@/lib/utils";
 
 function splitRiText(text: string) {
   return text
@@ -76,6 +77,27 @@ export function OmantelDecisionJournal({
 
         {imgs.length > 0 ? <OmantelJournalImageCarousel images={imgs} /> : null}
 
+        {decision.navExploration && decision.navExploration.length > 0 ? (
+          <div className="cs-decision-nav-wrap cs-visual-wrap--editorial">
+            <div className="cs-decision-nav-exploration">
+              {decision.navExploration.map((n, i) => (
+                <div key={i} className="cs-nav-exp-item">
+                  <div className="cs-nei-label">{n.label}</div>
+                  <div
+                    className={cn(
+                      "cs-nei-sketch",
+                      n.variant === "mega" && "cs-nei-sketch--mega",
+                      n.variant === "ribbon" && "cs-nei-sketch--ribbon",
+                      n.variant === "panel" && "cs-nei-sketch--panel",
+                    )}
+                    aria-hidden
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
+
         <div className="ojo-decision-fade-bottom" aria-hidden />
       </div>
 
@@ -98,21 +120,30 @@ export function OmantelDecisionJournal({
               <div className="ojo-d-rule" aria-hidden />
               <div className="ojo-decision-ri">
                 {(decision.rationale?.trim() || decision.impact?.trim()) && (
-                  <>
-                    <div className="ojo-d-impact-block">
-                      <div className="ojo-d-impact-label">Rationale</div>
-                      <RiPoints text={decision.rationale} />
+                  <div className="cs-decision-ri-panel">
+                    <div className="cs-ri-grid cs-ri-grid--editorial-pair">
+                      <div className="cs-ri-col">
+                        <div className="cs-ri-label">Rationale</div>
+                        <RiPoints text={decision.rationale} />
+                      </div>
+                      <div className="cs-ri-col">
+                        <div className="cs-ri-label">Impact</div>
+                        <RiPoints text={decision.impact} />
+                      </div>
                     </div>
-                    <div className="ojo-d-impact-block">
-                      <div className="ojo-d-impact-label">Impact</div>
-                      <RiPoints text={decision.impact} />
-                    </div>
-                  </>
+                  </div>
                 )}
                 {decision.designResponse?.trim() ? (
-                  <div className="ojo-d-impact-block">
-                    <div className="ojo-d-impact-label">Solutioning</div>
-                    <RiPoints text={decision.designResponse} />
+                  <div className="cs-decision-ri-panel">
+                    <div className="cs-ri-grid cs-ri-grid--solutioning">
+                      <div
+                        className="cs-ri-col"
+                        style={{ gridColumn: "1 / -1" }}
+                      >
+                        <div className="cs-ri-label">Solutioning</div>
+                        <RiPoints text={decision.designResponse} />
+                      </div>
+                    </div>
                   </div>
                 ) : null}
               </div>

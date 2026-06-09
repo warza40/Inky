@@ -155,7 +155,7 @@ export function OmantelJournalOutcome({
                     hasTopPaperContent && "ojo-outcome-label--after-body",
                   )}
                 >
-                  {hasTopPaperContent ? "Reflection" : "Outcome & reflection"}
+                  Reflection
                 </div>
                 <p className="ojo-reflection-p whitespace-pre-line">
                   {reflection}

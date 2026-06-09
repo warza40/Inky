@@ -70,35 +70,37 @@ export function ContextEcosystem({ data }: { data: Ecosystem }) {
       <h3 className="cs-context-section-title">{data.eyebrow}</h3>
       <p className="cs-ecosystem-intro">{data.intro}</p>
 
-      <div className="cs-ecosystem-box">
-        {data.boxTitle ? (
-          <h3 className="cs-context-section-title cs-ecosystem-box-title">
-            {data.boxTitle}
-          </h3>
-        ) : null}
-        <div className="cs-ecosystem-rows">
-          {data.products.map((p, i) => (
-            <div key={i} className="cs-ecosystem-row">
-              <div className="cs-ecosystem-icon-cell">
-                <EcosystemIcon id={p.icon} />
+      <div className="cs-ecosystem-postit">
+        <div className="cs-ecosystem-box">
+          {data.boxTitle ? (
+            <h3 className="cs-context-section-title cs-ecosystem-box-title">
+              {data.boxTitle}
+            </h3>
+          ) : null}
+          <div className="cs-ecosystem-rows">
+            {data.products.map((p, i) => (
+              <div key={i} className="cs-ecosystem-row">
+                <div className="cs-ecosystem-icon-cell">
+                  <EcosystemIcon id={p.icon} />
+                </div>
+                <div className="cs-ecosystem-main">
+                  <div className="cs-ecosystem-name">{p.name}</div>
+                  <p className="cs-ecosystem-desc">{p.description}</p>
+                </div>
+                <div className="cs-ecosystem-badge-wrap">
+                  <span
+                    className={
+                      p.platform === "desktop"
+                        ? "cs-ecosystem-badge cs-ecosystem-badge--desktop"
+                        : "cs-ecosystem-badge cs-ecosystem-badge--mobile"
+                    }
+                  >
+                    {p.platform === "desktop" ? "Desktop" : "Mobile"}
+                  </span>
+                </div>
               </div>
-              <div className="cs-ecosystem-main">
-                <div className="cs-ecosystem-name">{p.name}</div>
-                <p className="cs-ecosystem-desc">{p.description}</p>
-              </div>
-              <div className="cs-ecosystem-badge-wrap">
-                <span
-                  className={
-                    p.platform === "desktop"
-                      ? "cs-ecosystem-badge cs-ecosystem-badge--desktop"
-                      : "cs-ecosystem-badge cs-ecosystem-badge--mobile"
-                  }
-                >
-                  {p.platform === "desktop" ? "Desktop" : "Mobile"}
-                </span>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
