@@ -27,6 +27,37 @@ function prefersReducedMotion(): boolean {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
+/** Keep the active tab visible in the horizontal tab strip without scrolling the page. */
+function scrollTabIntoTabsContainer(row: HTMLElement, btn: HTMLElement): void {
+  const tabsContainer = row.closest(".cs-tabs") as HTMLElement | null;
+  if (
+    !tabsContainer ||
+    tabsContainer.scrollWidth <= tabsContainer.clientWidth
+  ) {
+    return;
+  }
+
+  const containerScrollLeft = tabsContainer.scrollLeft;
+  const containerWidth = tabsContainer.clientWidth;
+  const btnLeft = btn.offsetLeft;
+  const btnRight = btnLeft + btn.offsetWidth;
+  const padding = 8;
+
+  let targetScroll = containerScrollLeft;
+  if (btnLeft < containerScrollLeft + padding) {
+    targetScroll = btnLeft - padding;
+  } else if (btnRight > containerScrollLeft + containerWidth - padding) {
+    targetScroll = btnRight - containerWidth + padding;
+  } else {
+    return;
+  }
+
+  tabsContainer.scrollTo({
+    left: Math.max(0, targetScroll),
+    behavior: prefersReducedMotion() ? "auto" : "smooth",
+  });
+}
+
 function getInitialActiveSection(
   sections: CaseNavigationProps["sections"],
 ): string {
@@ -122,11 +153,7 @@ export function CaseNavigation({
       `button.cs-tab[data-section="${activeSection}"]`,
     );
     if (!btn) return;
-    btn.scrollIntoView({
-      behavior: prefersReducedMotion() ? "auto" : "smooth",
-      block: "nearest",
-      inline: "center",
-    });
+    scrollTabIntoTabsContainer(row, btn);
   }, [activeSection, variant]);
 
   const handleClick = (id: string) => {

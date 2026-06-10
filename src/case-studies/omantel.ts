@@ -284,9 +284,9 @@ export const omantelCase: CaseStudy = {
         description:
           "Two input paths in one interface: CSV templates for bulk preparation offline, and a search-and-modify flow for quick single-record changes.",
         rationale:
-          "Enterprise users already work in spreadsheets. Meeting them there — rather than inventing a new input method — reduced learning curve and adoption friction. The search-and-modify path exists because not every request is bulk; seasoned users making quick changes shouldn't be forced through a CSV workflow.",
+          "Enterprise users already work in spreadsheets. The idea is to meet them there rather than reinventing the wheel — reducing the learning curve and adoption friction. Addressing both scenarios — smaller batches (less than 100) and large batches (goes up to 500 or even more) — through the self-service journey.",
         impact:
-          "The entire email → manual verification → manual entry pipeline was eliminated for valid submissions. Company reps self-serve directly. Zero dependency on internal staff for a clean batch submission.",
+          "The entire manual entry pipeline was replaced with self-service. Company reps have zero dependency on internal staff for a clean batch submission and negligible wait time.",
         images: [
           {
             src: "/Omantel%20assets/Om-Addbysearch.gif",
@@ -304,13 +304,13 @@ export const omantelCase: CaseStudy = {
       },
       {
         title:
-          "Reducing error risk through early validation and contextual visibility",
+          "Reducing error risk through context visibility and early validation",
         description:
-          "In the previous process, a single invalid entry could fail the entire batch — and users would receive a confirmation email in a span of 48-72hrs. Two decisions addressed this together: 1. error validation was moved earlier in the flow, surfacing issues at form level and during file upload before submission. 2. For every record being edited, the existing value and the proposed change appear side by side in the same table, so users can make an informed commitment.",
+          "In the manual process, a single invalid entry could fail the entire batch and the operator would have to go through the entire process again. The users would receive confirmation regarding batch submission in a span of 48-72hrs.",
         rationale:
-          "Early validation and contextual visibility address two distinct failure modes in bulk operations. Surfacing errors at the form and file-upload stage prevents invalid records from entering the submission pipeline entirely. Presenting the existing value alongside the proposed change within the same view reduces operator reliance on memory and eliminates the risk of unconsidered overwrites — both conditions that, at batch scale, compound into significant downstream failures.",
+          "Two micro decisions — 1. Surfacing errors at the form level and file-upload stage would allow room for recovery and reduce the scope for errors. 2. Providing the context of the existing value against the value being updated would reduce reliance on memory and eliminate unnecessary overwrites.",
         impact:
-          "Errors that previously propagated through to post-submission discovery were intercepted at the point of input. Operators gained the ability to review proposed changes against existing state before committing, shifting the error-handling model from recovery to prevention. Bulk operations became reliable at higher volumes without increasing the cognitive load on the operator.",
+          "The model shifted the error-handling from recovery to prevention. Bulk operations became reliable at higher volumes without increasing the cognitive load on the user.",
         images: [
           {
             src: "/Omantel%20assets/Bulk%3AKD2.png",

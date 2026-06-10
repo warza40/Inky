@@ -1064,7 +1064,7 @@
   min-width: 0;
 }
 
-/* Key decision — Rationale / Impact pair (editorial grid on cream paper) */
+/* Key decision — Rationale / Impact pair (transparent on cream paper) */
 .cs-page.cs-page--journal-omantel .ojo-decision-inner .cs-decision-ri-panel {
   margin-top: 0;
   padding: 0;
@@ -1077,14 +1077,10 @@
   .ojo-decision-inner
   .cs-decision-ri-panel
   .cs-ri-grid {
-  border: 1px solid color-mix(in srgb, var(--ojo-rule) 55%, transparent);
-  border-radius: 2px;
-  overflow: hidden;
-  background: color-mix(
-    in srgb,
-    var(--ojo-paper, #faf6ee) 98%,
-    var(--ojo-rule) 2%
-  );
+  border: none;
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
 }
 
 .cs-page.cs-page--journal-omantel
@@ -1098,7 +1094,7 @@
   .ojo-decision-inner
   .cs-decision-ri-panel
   .cs-ri-col:first-child {
-  border-color: color-mix(in srgb, var(--ojo-rule) 55%, transparent);
+  border-color: color-mix(in srgb, var(--ojo-rule) 40%, transparent);
 }
 
 .cs-page.cs-page--journal-omantel
@@ -1119,9 +1115,9 @@
   .ojo-decision-inner
   .cs-decision-ri-panel
   .cs-ri-grid--solutioning {
-  border-top: 1px solid color-mix(in srgb, var(--ojo-rule) 55%, transparent);
-  margin-top: 0;
-  padding-top: 0;
+  border-top: 1px solid color-mix(in srgb, var(--ojo-rule) 40%, transparent);
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
 }
 
 .ojo-decision-num-bg {

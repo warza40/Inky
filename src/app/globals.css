@@ -6934,10 +6934,10 @@ h3.cs-context-section-title {
 }
 .cs-decision-ri-panel {
   margin-top: var(--space-6);
-  padding: var(--space-8);
-  background: var(--color-ground-secondary);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
   box-sizing: border-box;
 }
 .cs-decision-ri-panel .cs-ri-grid--editorial-pair {
