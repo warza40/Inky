@@ -332,13 +332,13 @@ export const omantelCase: CaseStudy = {
         ],
       },
       {
-        title: "Designing for recovery, not just submission",
+        title: "Tracking batch submissions independently",
         description:
           "Enterprise users need to return later to verify outcomes or explain changes internally. A unified history view was designed to surface: overall batch status, individual order status within a batch, mixed outcomes when a batch contained both completed and in-progress requests.",
         rationale:
-          "Reduced uncertainty after submission. Without a history view, users had to contact Omantel support for status updates — adding another manual handoff to a process already overloaded with them. Making the system transparent made it trustworthy over time.",
+          "Dependency on Omantel staff for progress and updates added a layer of friction to the process. Making the system transparent meant making it trustworthy over time.",
         impact:
-          "Bulk actions became traceable and verifiable. Users could self-serve status checks instead of raising support tickets. The system earned trust by showing its work.",
+          "Bulk actions became traceable and verifiable. Users could self-serve status checks instead of raising support tickets. Users could refer to batch history details for internal discussions, planning their own timeline / making future changes.",
         images: [
           {
             src: "/Omantel%20assets/Batch%20History.gif",
@@ -359,7 +359,7 @@ export const omantelCase: CaseStudy = {
         description:
           "The experience needed to work across devices, but presenting hundreds of records on mobile risked turning simplification into confusion. Mobile was intentionally scoped to: creating or requesting new lines, updating a small number of known lines via manual search. High-volume bulk updates remained desktop-only, supported through structured CSV templates.",
         rationale:
-          "Mobile was meant to support quick, tactical changes. Desktop remained the environment for high-risk, high-volume actions. Users were guided toward the right tool for the task rather than given a degraded version of everything.",
+          "The mobile was meant to support quick modifications or as a tool for reference. The Desktop experience remains the primary environment for high-volume actions.",
         impact:
           "The experience avoided cognitive overload on mobile while still supporting meaningful on-the-go actions. No features were broken by being forced into a screen size they weren't designed for.",
         images: [
@@ -380,9 +380,9 @@ export const omantelCase: CaseStudy = {
         description:
           "Using outdated/ invalid data to place batch requests can be a very costly mistake. To make it easy for enterprise reps to keep track of the latest data (associated with the numbers)- a logic was set for the system to self validate the data and prompt the user based on the same.",
         rationale:
-          "The system would keep track of the latest data associated with the numbers.",
+          "The user will be informed by the system regarding outdated data and redirected to download the template containing the latest data. Reducing the effort required to recall information — keeping context intact.",
         impact:
-          "The user will be informed by the system regarding outdated data and redirected to download the template containing the latest data. Reducing the effort required to recall information- keeping context intact.",
+          "Increasing efficiency by eliminating the need for the user to remember the latest data associated with each number.",
         images: [
           {
             src: "/Omantel%20assets/KD5-Template%20generation.png",
