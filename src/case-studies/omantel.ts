@@ -103,6 +103,8 @@ export interface CaseStudy {
         goal?: string;
         content?: string;
         bullets?: string[];
+        /** Optional carousel after subsection copy */
+        images?: Array<{ src: string; alt?: string; caption?: string }>;
       };
       /** Optional subsection after the Approach divider (e.g. Secondary Research): title + content (use \\n\\n for paragraphs) */
       afterApproachDivider?: {
@@ -189,6 +191,8 @@ export interface CaseStudy {
     /** Optional pill below outcome bullets */
     outcomePill?: string;
     reflection?: string;
+    /** Optional bullet list after reflection intro */
+    reflectionBullets?: string[];
     /** Final madder italic line (after main reflection body) */
     reflectionClosing?: string;
     /** Optional 2×2 grid (numbered cards + title + description) shown after Key Decisions */
@@ -277,6 +281,50 @@ export const omantelCase: CaseStudy = {
     },
     problem: [],
     constraints: [],
+    understanding: {
+      title: "Understanding the existing scenario",
+      content:
+        "We were dealing with two sets of pain points — Omantel's and their business customers. It took some discussions to understand what a typical B2B telco journey looks like.\n\n---",
+      images: [
+        {
+          src: "/Omantel%20assets/Conceptual%20level%20understanding.png",
+          alt: "Conceptual map of B2B telco bulk activation — credit limits, enterprise process flow, and user guard rails",
+          caption:
+            "Conceptual understanding — credit limits, bulk activation process, and stakeholder guard rails.",
+        },
+      ],
+      afterDivider: {
+        title: "Mapping the User flows",
+        content:
+          "A walkthrough of the entire manual process from Omantel's staff allowed us to put ourselves in their shoes, gather a better understanding of their pain points in the journey. They were juggling between three different platforms — a back office, a CRM, the customers mails.",
+        images: [
+          {
+            src: "/Omantel%20assets/User%20flow%201.png",
+            alt: "Bulk activations user flow 1 — template upload and row editing paths",
+            caption:
+              "Mapping user flows with parts of the proposed design for stakeholder discussions.",
+          },
+          {
+            src: "/Omantel%20assets/User%20flow%201.5.png",
+            alt: "Bulk activations user flow 1.5 — scenario 1 upload and file uploaded states",
+            caption:
+              "Mapping user flows with parts of the proposed design for stakeholder discussions.",
+          },
+          {
+            src: "/Omantel%20assets/User%20flow%202.png",
+            alt: "Bulk activations user flow 2 — dashboard to bulk action import journey",
+            caption:
+              "Mapping user flows with parts of the proposed design for stakeholder discussions.",
+          },
+          {
+            src: "/Omantel%20assets/User%20flow.png",
+            alt: "Bulk activations user flow — limit change from subscriptions to confirmation",
+            caption:
+              "Mapping user flows with parts of the proposed design for stakeholder discussions.",
+          },
+        ],
+      },
+    },
     decisions: [
       {
         title:
@@ -426,7 +474,12 @@ export const omantelCase: CaseStudy = {
       },
     ],
     reflection:
-      "With more time, I would have pushed for a lightweight usability study with 2–3 enterprise reps before final handoff — even without a formal research phase, watching someone navigate the CSV upload flow once would have surfaced friction I couldn't predict from constraint analysis alone. I'd also explore batch-level progress indicators for large uploads where processing time becomes noticeable.",
+      "To me this project was a good example of what proactive collaboration should look like.",
+    reflectionBullets: [
+      "With more time, I would have pushed for a lightweight usability study with 2–3 enterprise reps before final handoff — even without a formal research phase, watching someone navigate the journey would have surfaced friction I may have missed.",
+      "I would have also explored batch-level progress indicators for large uploads where processing time becomes noticeable.",
+      "Given the complexity that AI can perform — there are parts of this process that could have been made smarter such as the tracking, surfacing business rules to the user etc.",
+    ],
   },
   visualsSections: [
     {

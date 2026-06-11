@@ -8,6 +8,8 @@ type Understanding = NonNullable<CaseStudy["sections"]["understanding"]>;
 interface CaseUnderstandingBlockProps {
   slug: string;
   understanding: Understanding;
+  /** When true, `afterDivider` is rendered in CaseUnderstandingFlowSection instead. */
+  externalAfterDivider?: boolean;
 }
 
 function UnderstandingSubsectionTitle({ children }: { children: ReactNode }) {
@@ -17,7 +19,10 @@ function UnderstandingSubsectionTitle({ children }: { children: ReactNode }) {
 export function CaseUnderstandingBlock({
   slug,
   understanding: u,
+  externalAfterDivider = false,
 }: CaseUnderstandingBlockProps) {
+  const hasExternalFlowSection =
+    externalAfterDivider && Boolean(u.afterDivider?.images?.length);
   if (slug === "disaster-recovery") {
     return (
       <div className="cs-understanding-block">
@@ -99,36 +104,43 @@ export function CaseUnderstandingBlock({
                   )}
                 </div>
               )}
-              {showDividerAfterVisuals && (
-                <hr className="cs-dr-rule" aria-hidden />
-              )}
-              {showDividerAfterVisuals && u.afterDivider && (
-                <div className="cs-understanding-subsection">
-                  <UnderstandingSubsectionTitle>
-                    {u.afterDivider.title}
-                  </UnderstandingSubsectionTitle>
-                  {u.afterDivider.goal && (
-                    <p>
-                      <span className="cs-understanding-goal-label">
-                        Goal :
-                      </span>{" "}
-                      {u.afterDivider.goal}
-                    </p>
-                  )}
-                  {u.afterDivider.content && <p>{u.afterDivider.content}</p>}
-                  {u.afterDivider.bullets &&
-                    u.afterDivider.bullets.length > 0 && (
-                      <ul className="cs-understanding-list">
-                        {u.afterDivider.bullets.map((item, i) => (
-                          <li key={i}>{item}</li>
-                        ))}
-                      </ul>
+              {showDividerAfterVisuals &&
+                u.afterDivider &&
+                !hasExternalFlowSection && (
+                  <hr className="cs-dr-rule" aria-hidden />
+                )}
+              {showDividerAfterVisuals &&
+                u.afterDivider &&
+                !hasExternalFlowSection && (
+                  <div className="cs-understanding-subsection">
+                    <UnderstandingSubsectionTitle>
+                      {u.afterDivider.title}
+                    </UnderstandingSubsectionTitle>
+                    {u.afterDivider.goal && (
+                      <p>
+                        <span className="cs-understanding-goal-label">
+                          Goal :
+                        </span>{" "}
+                        {u.afterDivider.goal}
+                      </p>
                     )}
-                </div>
-              )}
-              {showDividerAfterVisuals && u.afterDivider && (
-                <hr className="cs-dr-rule" aria-hidden />
-              )}
+                    {u.afterDivider.content && <p>{u.afterDivider.content}</p>}
+                    {u.afterDivider.bullets &&
+                      u.afterDivider.bullets.length > 0 && (
+                        <ul className="cs-understanding-list">
+                          {u.afterDivider.bullets.map((item, i) => (
+                            <li key={i}>{item}</li>
+                          ))}
+                        </ul>
+                      )}
+                  </div>
+                )}
+              {showDividerAfterVisuals &&
+                u.afterDivider &&
+                u.afterApproachDivider &&
+                !hasExternalFlowSection && (
+                  <hr className="cs-dr-rule" aria-hidden />
+                )}
               {showDividerAfterVisuals && u.afterApproachDivider && (
                 <div className="cs-understanding-subsection">
                   <UnderstandingSubsectionTitle>

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { TypewriterName } from "@/components/TypewriterName";
-import { AnimatedBlinkybot } from "@/components/bento/AnimatedBlinkybot";
 import { motion } from "framer-motion";
 
 export function HeaderCard() {
@@ -27,9 +26,6 @@ export function HeaderCard() {
       <span className="inline-flex w-fit items-center rounded-full border border-neutral-800 dark:border-neutral-400 px-3 py-1 text-xs font-medium text-neutral-800 dark:text-neutral-100 mb-4">
         AVAILABLE FOR HIRE
       </span>
-      <div className="mb-4">
-        <AnimatedBlinkybot />
-      </div>
       <div className="mb-6">
         <TypewriterName />
       </div>

@@ -80,6 +80,18 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${lora.variable} ${instrumentSerif.variable} ${dmMono.variable} ${notoSerifJP.variable} ${plusJakartaSans.variable} ${bricolageGrotesque.variable} ${anybody.variable}`}
     >
+      <head>
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `(function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "x5d18smvgm");`,
+          }}
+        />
+      </head>
       <body className="nebula-body text-neutral-900">
         <ThemeProvider>
           <div className="app-root">

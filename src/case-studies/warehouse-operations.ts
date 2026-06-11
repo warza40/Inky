@@ -19,6 +19,45 @@ export const warehouseOperationsCase: CaseStudy = {
     focus: "Clarity · Operations",
   },
   sections: {
+    journalImpact: {
+      blocks: [
+        {
+          value: "",
+          labelItalic: "",
+          metaDetail:
+            "Project Managers were able to assess project health quickly through centralized dashboards, reducing the need to navigate across multiple sections.",
+          metaDetailPlain: true,
+        },
+        {
+          value: "",
+          labelItalic: "",
+          metaDetail:
+            "Role-based views and approval workflows helped maintain data integrity while supporting collaboration with third-party teams.",
+          metaDetailPlain: true,
+        },
+        {
+          value: "",
+          labelItalic: "",
+          metaDetail:
+            "Clear traceability across quality and variance workflows improved confidence during reviews and audits.",
+          metaDetailPlain: true,
+        },
+        {
+          value: "",
+          labelItalic: "",
+          metaDetail:
+            "Standardized inputs and structured workflows reduced inconsistencies in operational data.",
+          metaDetailPlain: true,
+        },
+        {
+          value: "",
+          labelItalic: "",
+          metaDetail:
+            "The clarity and scalability of the system led to a Phase 2 engagement with the same client.",
+          metaDetailPlain: true,
+        },
+      ],
+    },
     context:
       "This project focused on designing a centralized warehouse management portal used by multiple internal teams to track operations, quality checks, and warehouse performance.\n\nThe product was part of a larger enterprise ecosystem, where data already existed across different systems — but was fragmented, inconsistent, and difficult to act on.\n\nMy role was to bring clarity to this complexity by designing a system that could support day-to-day operational decisions across roles without overwhelming stakeholders.",
     problem: [
@@ -194,8 +233,6 @@ export const warehouseOperationsCase: CaseStudy = {
         ],
       },
     ],
-    outcome:
-      "• Project Managers were able to assess project health quickly through centralized dashboards, reducing the need to navigate across multiple sections.\n\n• Role-based views and approval workflows helped maintain data integrity while supporting collaboration with third-party teams.\n\n• Clear traceability across quality and variance workflows improved confidence during reviews and audits.\n\n• Standardized inputs and structured workflows reduced inconsistencies in operational data.\n\n• The clarity and scalability of the system led to a Phase 2 engagement with the same client.",
     reflection:
       "This project involved designing within real operational and system constraints. Limited access to end users and fixed backend structures required decisions to be made based on system understanding, stakeholder input, and observed workflows rather than ideal scenarios.\n\nDesigning both desktop and mobile experiences clarified the need to separate planning work from on-site execution. Treating these as distinct contexts helped reduce complexity and supported more focused use during quality checks.\n\nIf revisited, the work would benefit from more validation in live on-site conditions to refine edge cases and reduce friction during high-volume usage.",
   },

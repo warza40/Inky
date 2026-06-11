@@ -12,6 +12,7 @@ interface OmantelJournalOutcomeProps {
     caption?: string;
   }>;
   reflection?: string;
+  reflectionBullets?: string[];
   reflectionClosing?: string;
   /** Long-form outcome (paragraphs + optional • bullets), same as `sections.outcome` */
   outcomeNarrative?: string;
@@ -67,15 +68,18 @@ export function OmantelJournalOutcome({
   highlights,
   images,
   reflection,
+  reflectionBullets,
   reflectionClosing,
   outcomeNarrative,
   outcomePill,
 }: OmantelJournalOutcomeProps) {
   const hasNarrative = Boolean(outcomeNarrative?.trim());
+  const hasReflection =
+    Boolean(reflection?.trim()) || Boolean(reflectionBullets?.length);
   if (
     !(highlights?.length ?? 0) &&
     !(images?.length ?? 0) &&
-    !reflection &&
+    !hasReflection &&
     !hasNarrative
   )
     return null;
@@ -84,7 +88,7 @@ export function OmantelJournalOutcome({
   const outcomeImages = images ?? [];
 
   const hasPaper =
-    (highlights?.length ?? 0) > 0 || Boolean(reflection) || hasNarrative;
+    (highlights?.length ?? 0) > 0 || hasReflection || hasNarrative;
 
   const hasTopPaperContent = (highlights?.length ?? 0) > 0 || hasNarrative;
 
@@ -147,7 +151,7 @@ export function OmantelJournalOutcome({
                 ) : null}
               </>
             ) : null}
-            {reflection ? (
+            {hasReflection ? (
               <>
                 <div
                   className={cn(
@@ -157,9 +161,23 @@ export function OmantelJournalOutcome({
                 >
                   Reflection
                 </div>
-                <p className="ojo-reflection-p whitespace-pre-line">
-                  {reflection}
-                </p>
+                {reflection?.trim() ? (
+                  <p className="ojo-reflection-p whitespace-pre-line">
+                    {reflection}
+                  </p>
+                ) : null}
+                {reflectionBullets && reflectionBullets.length > 0 ? (
+                  <ul
+                    className={cn(
+                      "ojo-reflection-list",
+                      !reflection?.trim() && "ojo-reflection-list--lead",
+                    )}
+                  >
+                    {reflectionBullets.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
+                ) : null}
                 {reflectionClosing ? (
                   <p className="cs-reflection-closing">{reflectionClosing}</p>
                 ) : null}

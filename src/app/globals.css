@@ -692,118 +692,15 @@ html.dark .home-page-main,
   min-height: 50vh;
 }
 
-/* Equalizer wave: full width, broken/segmented bar style */
-.equalizer-wave {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  max-width: 100%;
-  z-index: 2;
-  display: flex;
-  align-items: flex-end;
-  justify-content: stretch;
-  pointer-events: none;
-}
-
-.equalizer-wave-bars {
-  display: flex;
-  flex-direction: row;
-  justify-content: stretch;
-  align-items: flex-end;
-  gap: 1px;
-  width: 100%;
-  max-width: 100%;
-  height: 100%;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.equalizer-wave-bar {
-  flex: 1;
-  min-width: 3px;
-  max-width: none;
-  border-radius: 4px 4px 0 0;
-  opacity: 1;
-}
-
-/* Homepage: limit animation to main area, not under the fixed toolbar */
-.animation-wrapper--above-footer {
-  bottom: 140px;
-}
-
-/* Grain layer */
-.animation-wrapper::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-  mix-blend-mode: multiply;
-  opacity: 0.6;
-}
-
 /* Make content sit above — height follows children only (no stacked 100vh) */
 .content-wrap {
   position: relative;
   z-index: 2;
 }
 
-/* Equalizer sits behind hero/toolbar inside content area so it’s visible */
-.equalizer-wave-wrap {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 80px;
-  z-index: 0;
-  pointer-events: none;
-  display: none; /* Equalizer removed for new background animation */
-}
-
-@keyframes equalizer-height-cycle {
-  0% {
-    height: 80px;
-  }
-  22% {
-    height: 80px;
-  }
-  32% {
-    height: 124px;
-  }
-  55% {
-    height: 124px;
-  }
-  65% {
-    height: min(60vh, calc(100vh - 160px));
-  }
-  90% {
-    height: min(60vh, calc(100vh - 160px));
-  }
-  100% {
-    height: 80px;
-  }
-}
-
 .home-content-front {
   position: relative;
   z-index: 10;
-}
-
-.nebula-video,
-.nebula-canvas {
-  position: absolute;
-  top: 50%;
-  left: 55%;
-  transform: translate(-50%, -50%);
-  width: 1600px;
-  height: auto;
-  z-index: -1;
-  background: #c7d3e3;
-  pointer-events: none;
-  mix-blend-mode: screen;
 }
 
 .nebula-body::after {
@@ -952,29 +849,12 @@ html.dark .home-page-main,
 .home-layout .hero {
   justify-content: flex-start !important;
   padding: 48px 24px 40px !important;
-  overflow: visible !important; /* keep side arrows visible (avoid clipping) */
-}
-.home-layout .hero-stack-wrap {
-  margin-top: 0;
-  width: auto; /* let the stack take its natural width so arrows stay close */
-  flex: 0 0 auto;
-}
-.home-layout .stack-arrow-wrap {
-  justify-content: center;
-  width: 100%; /* allow both arrows to render within hero without clipping */
-  max-width: 960px; /* keeps the original spacing feel */
-  margin-left: auto;
-  margin-right: auto;
-  gap: 12px; /* closer arrows to card stack */
+  overflow: visible !important;
 }
 .home-layout .hero-bio-copy {
   max-width: 960px !important; /* aligns with stack row */
   margin-left: auto;
   margin-right: auto;
-}
-.home-layout .folder-stack-root {
-  width: 360px;
-  flex-shrink: 0;
 }
 
 .home-layout .hero-headline {
@@ -1025,15 +905,6 @@ html.dark .home-page-main,
   .home-layout .hero-bio-copy {
     max-width: 704px !important;
   }
-  .home-layout .stack-arrow-wrap {
-    max-width: 704px;
-  }
-  .home-layout .folder-stack-root {
-    width: 320px;
-  }
-  .home-layout .stack-arrow-wrap {
-    gap: 12px;
-  }
 }
 
 @media (max-width: 767px) {
@@ -1053,12 +924,6 @@ html.dark .home-page-main,
   .home-layout .hero-bio-copy {
     max-width: 100% !important;
   }
-  .home-layout .stack-arrow-wrap {
-    max-width: 100%;
-  }
-  .home-layout .folder-stack-root {
-    width: 300px;
-  }
 }
 
 #hero-canvas,
@@ -1070,8 +935,7 @@ html.dark .home-page-main,
   z-index: 0;
   display: block;
 }
-.hero .hero-text,
-.hero .hero-stack {
+.hero .hero-text {
   position: relative;
   z-index: 1;
 }
@@ -1093,190 +957,6 @@ html.dark .home-page-main,
   min-width: 0;
   width: 100% !important;
   max-width: 960px !important;
-}
-
-.hero-stack-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 32px;
-  position: relative;
-  z-index: 1;
-}
-
-/* Homepage fixes: solid tab bar bg (no bleed) */
-.fs-tabs {
-  background: transparent;
-  padding: 0;
-  border-radius: 0;
-  position: relative;
-  z-index: 2;
-}
-.fs-tab.fs-active {
-  background: var(--madder) !important;
-  color: var(--ink) !important;
-  border-color: #e6ac00 !important;
-  border-bottom: 2px solid var(--madder) !important;
-  opacity: 1 !important;
-}
-
-/* Use external stack-arrow buttons; hide FolderStack’s built-in arrows */
-.hero .fs-carousel-prev,
-.hero .fs-carousel-next {
-  display: none !important;
-  visibility: hidden !important;
-  width: 0 !important;
-  height: 0 !important;
-  overflow: hidden !important;
-  position: absolute !important;
-  pointer-events: none !important;
-}
-
-/* Homepage fixes: arrow buttons flanking the stack */
-.stack-arrow-wrap {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  position: relative;
-  z-index: 2;
-}
-.stack-arrow {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  border: 2px solid var(--ink);
-  background: #ffffff;
-  color: var(--ink);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition:
-    background 120ms,
-    transform 80ms,
-    box-shadow 120ms;
-  box-shadow: 3px 3px 0 var(--ink);
-  font-family: inherit;
-  line-height: 1;
-}
-.stack-arrow svg {
-  stroke: currentColor;
-}
-.stack-arrow:hover {
-  background: #f5f5f5;
-  box-shadow: 2px 2px 0 var(--ink);
-  transform: translate(1px, 1px);
-}
-.stack-arrow:active {
-  background: var(--madder);
-  box-shadow: 0 0 0 var(--ink);
-  transform: translate(3px, 3px);
-}
-.stack-arrow svg {
-  width: 16px;
-  height: 16px;
-  stroke: currentColor;
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  fill: none;
-}
-
-/* Homepage fixes: scroll cue */
-.scroll-cue {
-  position: absolute;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  opacity: 1;
-  transition: opacity 400ms ease;
-  pointer-events: none;
-  z-index: 10;
-}
-.scroll-cue.hidden {
-  opacity: 0;
-}
-.scroll-cue-label {
-  font-family: var(--font-label);
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
-  font-size: var(--text-sm);
-  font-weight: 300;
-  letter-spacing: var(--tracking-wider);
-  text-transform: none;
-  color: var(--whisper);
-}
-.scroll-cue-arrow {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  border: 1.5px solid #d8d4cc;
-  background: rgba(255, 255, 255, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: scrollBounce 1.6s ease-in-out infinite;
-}
-.scroll-cue-arrow svg {
-  width: 12px;
-  height: 12px;
-  stroke: #aaa;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  fill: none;
-}
-@keyframes scrollBounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(4px);
-  }
-}
-
-@media (max-width: 768px) {
-  .hero {
-    padding: 60px 20px 40px;
-  }
-  .hero-headline {
-    font-size: clamp(24px, 6vw, 36px);
-    margin-bottom: 0;
-  }
-  .hero-text {
-    margin-bottom: 36px;
-  }
-  .stack-arrow {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-  }
-  .stack-arrow-wrap {
-    gap: 12px;
-  }
-  .scroll-cue {
-    bottom: 20px;
-  }
-}
-@media (max-width: 480px) {
-  .stack-arrow {
-    display: none;
-  }
-  .stack-arrow-wrap {
-    gap: 0;
-  }
-}
-
-.hero-stack-wrap .fs-tabs {
-  align-self: flex-start;
-  margin-left: 10px;
-  margin-bottom: 24px;
 }
 
 .hero::after {
@@ -1501,12 +1181,6 @@ html.dark .home-page-main,
   color: var(--ink);
   text-transform: none;
   margin-bottom: 0;
-}
-
-.hero-blinky-bot {
-  display: block;
-  margin-top: 8px;
-  margin-bottom: 16px;
 }
 
 /* Role line — Instrument Serif italic, accent voice — Madder like the pull-quote colour */
@@ -3209,55 +2883,6 @@ h2 {
   orphans: 3;
   widows: 3;
   overflow-wrap: break-word;
-}
-
-/* Folder stack tabs — match header CTA style (dark mode) */
-.dark .fs-tab {
-  color: #e5e5e5;
-  border-color: rgba(255, 255, 255, 0.25);
-}
-.dark .fs-tab:not(.fs-active):hover {
-  border-color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.dark .fs-carousel-prev,
-.dark .fs-carousel-next {
-  color: #e5e5e5;
-  border-color: rgba(255, 255, 255, 0.25);
-}
-.dark .fs-carousel-prev:hover,
-.dark .fs-carousel-next:hover {
-  border-color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.06);
-}
-
-/* Right column: folder stack — aligned to right edge of column, vertically centred */
-.hero-stack {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  align-self: center;
-  padding: 0;
-  background: transparent;
-}
-.hero-stack > div {
-  width: 460px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
-
-@media (max-width: 900px) {
-  .hero {
-    padding: 60px 20px 40px;
-    /* align-items and layout locked above — do not override */
-  }
-  .hero-stack > div {
-    width: 100%;
-    max-width: 460px;
-  }
 }
 
 .home-work,

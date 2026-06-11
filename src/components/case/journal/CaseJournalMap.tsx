@@ -14,6 +14,7 @@ import { getCaseVisualsPresentation } from "@/case-studies/case-visuals";
 import { Problem } from "@/components/case/Problem";
 import { CaseUnderstandingBlock } from "@/components/case/CaseUnderstandingBlock";
 import { CaseProblemProcessVisual } from "@/components/case/CaseProblemProcessVisual";
+import { CaseUnderstandingFlowSection } from "@/components/case/CaseUnderstandingFlowSection";
 import { CaseConstraintsBlock } from "@/components/case/CaseConstraintsBlock";
 import { CaseJournalOutcomeSupplement } from "./CaseJournalOutcomeSupplement";
 import { cn } from "@/lib/utils";
@@ -70,42 +71,52 @@ export function CaseJournalMap({ caseStudy }: CaseJournalMapProps) {
             <OmantelJournalProblem beforeAfter={s.outcomeBeforeAfter} />
           ) : null}
           {hasLegacyProblemStack ? (
-            <div
-              className={cn(
-                "ojo-problem-section",
-                s.outcomeBeforeAfter &&
-                  "ojo-problem-section--legacy-follows-ba",
-              )}
-            >
-              <div className="ojo-problem-legacy-insert ojo-paper ojo-paper-shadow">
-                <div
-                  className="ojo-punch-holes ojo-punch-holes--dual"
-                  aria-hidden
-                >
-                  <span className="ojo-punch-hole" />
-                  <span className="ojo-punch-hole" />
-                </div>
-                <div className="ojo-problem-legacy-stack">
-                  {s.problem.length > 0 ? (
-                    <Problem problem={s.problem} />
-                  ) : null}
-                  {s.understanding ? (
-                    <CaseUnderstandingBlock
-                      slug={caseStudy.slug}
-                      understanding={s.understanding}
-                    />
-                  ) : null}
-                  {s.problemProcessVisual ? (
-                    <CaseProblemProcessVisual
-                      src={s.problemProcessVisual.src}
-                      alt={s.problemProcessVisual.alt}
-                      caption={s.problemProcessVisual.caption}
-                    />
-                  ) : null}
-                  <CaseConstraintsBlock constraints={s.constraints} />
+            <>
+              <div
+                className={cn(
+                  "ojo-problem-section",
+                  s.outcomeBeforeAfter &&
+                    "ojo-problem-section--legacy-follows-ba",
+                )}
+              >
+                <div className="ojo-problem-legacy-insert ojo-paper ojo-paper-shadow">
+                  <div
+                    className="ojo-punch-holes ojo-punch-holes--dual"
+                    aria-hidden
+                  >
+                    <span className="ojo-punch-hole" />
+                    <span className="ojo-punch-hole" />
+                  </div>
+                  <div className="ojo-problem-legacy-stack">
+                    {s.problem.length > 0 ? (
+                      <Problem problem={s.problem} />
+                    ) : null}
+                    {s.understanding ? (
+                      <CaseUnderstandingBlock
+                        slug={caseStudy.slug}
+                        understanding={s.understanding}
+                        externalAfterDivider={Boolean(
+                          s.understanding.afterDivider?.images?.length,
+                        )}
+                      />
+                    ) : null}
+                    {s.problemProcessVisual ? (
+                      <CaseProblemProcessVisual
+                        src={s.problemProcessVisual.src}
+                        alt={s.problemProcessVisual.alt}
+                        caption={s.problemProcessVisual.caption}
+                      />
+                    ) : null}
+                    <CaseConstraintsBlock constraints={s.constraints} />
+                  </div>
                 </div>
               </div>
-            </div>
+              {s.understanding?.afterDivider?.images?.length ? (
+                <CaseUnderstandingFlowSection
+                  afterDivider={s.understanding.afterDivider}
+                />
+              ) : null}
+            </>
           ) : null}
         </MotionSection>
       ) : null}
@@ -152,6 +163,7 @@ export function CaseJournalMap({ caseStudy }: CaseJournalMapProps) {
             highlights={s.outcomeHighlights}
             images={s.outcomeImages}
             reflection={s.reflection}
+            reflectionBullets={s.reflectionBullets}
             reflectionClosing={s.reflectionClosing}
             outcomeNarrative={s.outcome}
             outcomePill={s.outcomePill}

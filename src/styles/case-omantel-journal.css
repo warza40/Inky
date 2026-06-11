@@ -751,6 +751,74 @@
   margin-top: clamp(44px, 6.5vw, 80px);
 }
 
+/* Problem · user-flow mapping — carousel + cream copy (matches Key Decisions) */
+.ojo-user-flow-section {
+  margin-top: clamp(28px, 4vw, 40px);
+}
+
+.ojo-user-flow-content {
+  margin: 0 max(var(--fluid-gutter), 32px);
+  position: relative;
+  z-index: 6;
+  margin-top: -12px;
+}
+
+.ojo-user-flow-inner {
+  padding: 44px 48px 44px var(--ojo-sheet-content-start, 64px);
+  box-sizing: border-box;
+}
+
+/* Problem · user-flow carousel — full-width black field incl. caption */
+.ojo-understanding-flow-stage {
+  width: 100%;
+  background: #000;
+  box-sizing: border-box;
+  padding: 36px max(var(--fluid-gutter), 24px) clamp(32px, 4vw, 52px);
+  overflow: hidden;
+}
+
+.ojo-understanding-flow-stage .ojo-decision-carousel {
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  z-index: 1;
+}
+
+.ojo-understanding-flow-stage .ojo-decision-carousel-row,
+.ojo-understanding-flow-stage .ojo-decision-carousel-stage {
+  width: 100%;
+  max-width: min(880px, 100%);
+  margin-inline: auto;
+}
+
+.ojo-understanding-flow-stage .ojo-decision-carousel-slides {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: min(58vh, 580px);
+}
+
+.ojo-understanding-flow-stage .ojo-decision-slide-img,
+.ojo-understanding-flow-stage .ojo-decision-mi,
+.ojo-understanding-flow-stage .ojo-decision-mi .relative {
+  overflow: hidden;
+}
+
+.ojo-understanding-flow-stage .ojo-decision-carousel-footer {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-understanding-flow-stage
+  .ojo-decision-slide-caption {
+  color: rgba(255, 255, 255, 0.78) !important;
+}
+
+.case-main .ojo-understanding-flow-stage .ojo-decision-slide-caption {
+  color: rgba(255, 255, 255, 0.78) !important;
+}
+
 .ojo-decision-stage {
   width: 100%;
   height: clamp(520px, 72vh, 760px);
@@ -1238,6 +1306,28 @@
   white-space: pre-line;
 }
 
+.ojo-reflection-list {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--ojo-ink);
+  list-style: disc;
+  margin: var(--space-4) 0 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.ojo-reflection-list--lead {
+  margin-top: 28px;
+}
+
+.ojo-reflection-list li::marker {
+  color: rgba(120, 95, 55, 0.55);
+}
+
 .cs-page--journal-omantel .ojo-noteworthy-wrap {
   margin-top: clamp(var(--space-12), 4vw, var(--space-16));
 }
@@ -1423,6 +1513,9 @@
 /* Problem · in-paper eyebrows — match Overview / Current scenario (`ojo-p-label`) */
 .cs-page.cs-page--journal-omantel
   .ojo-problem-legacy-insert
+  .cs-context-section-title,
+.cs-page.cs-page--journal-omantel
+  .ojo-user-flow-inner
   .cs-context-section-title,
 .cs-page.cs-page--journal-omantel
   .ojo-context-ecosystem-inner
@@ -1629,6 +1722,9 @@
 
 .cs-page.cs-page--journal-omantel
   .ojo-problem-legacy-insert
+  .cs-understanding-subsection,
+.cs-page.cs-page--journal-omantel
+  .ojo-user-flow-inner
   .cs-understanding-subsection {
   display: flex;
   flex-direction: column;
@@ -1638,12 +1734,31 @@
 .cs-page.cs-page--journal-omantel
   .ojo-problem-legacy-insert
   .cs-understanding-subsection
+  .cs-context-section-title,
+.cs-page.cs-page--journal-omantel
+  .ojo-user-flow-inner
+  .cs-understanding-subsection
   .cs-context-section-title {
   margin-bottom: 0;
 }
 
 .cs-page.cs-page--journal-omantel
   .ojo-problem-legacy-insert
+  .cs-understanding-subsection
+  p,
+.cs-page.cs-page--journal-omantel
+  .ojo-user-flow-inner
+  .cs-understanding-subsection
+  p {
+  color: var(--ojo-ink-mid);
+  margin: 0;
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-understanding-goal-label,
+.cs-page.cs-page--journal-omantel
+  .ojo-user-flow-inner
   .cs-understanding-goal-label {
   font-weight: 600;
   color: var(--ojo-ink);
@@ -1651,7 +1766,8 @@
 
 .cs-page.cs-page--journal-omantel
   .ojo-problem-legacy-insert
-  .cs-understanding-list {
+  .cs-understanding-list,
+.cs-page.cs-page--journal-omantel .ojo-user-flow-inner .cs-understanding-list {
   list-style: disc;
   margin: 0;
   padding-left: 1.25rem;
@@ -1663,6 +1779,10 @@
 
 .cs-page.cs-page--journal-omantel
   .ojo-problem-legacy-insert
+  .cs-understanding-list
+  li::marker,
+.cs-page.cs-page--journal-omantel
+  .ojo-user-flow-inner
   .cs-understanding-list
   li::marker {
   color: rgba(120, 95, 55, 0.55);
@@ -1972,7 +2092,8 @@
   }
 
   .cs-page.cs-page--journal-omantel .ojo-decision-content,
-  .cs-page.cs-page--journal-omantel .ojo-outcome-text-wrap {
+  .cs-page.cs-page--journal-omantel .ojo-outcome-text-wrap,
+  .cs-page.cs-page--journal-omantel .ojo-user-flow-content {
     margin-left: max(24px, var(--fluid-gutter));
     margin-right: max(24px, var(--fluid-gutter));
   }
@@ -2137,6 +2258,34 @@
   .cs-page.cs-page--journal-omantel .ojo-decision-carousel {
     padding-left: 16px;
     padding-right: 16px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-user-flow-content {
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: -8px;
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-user-flow-inner {
+    padding: 32px 20px 32px var(--ojo-sheet-content-start, 64px);
+  }
+
+  .cs-page.cs-page--journal-omantel .ojo-understanding-flow-stage {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .cs-page.cs-page--journal-omantel
+    .ojo-understanding-flow-stage
+    .ojo-decision-carousel {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .cs-page.cs-page--journal-omantel
+    .ojo-understanding-flow-stage
+    .ojo-decision-carousel-slides {
+    max-height: min(52vh, 420px);
   }
 
   .cs-page.cs-page--journal-omantel .ojo-outcome-paper {
