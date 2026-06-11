@@ -64,6 +64,13 @@ export const disasterRecoveryCase: CaseStudy = {
             "Standardised inputs and structured data flows through the Disposal Monitor and Time App reduced inconsistencies in operational reporting.",
           metaDetailPlain: true,
         },
+        {
+          value: "",
+          labelItalic: "",
+          metaDetail:
+            "The dual-mode visualisation approach (graph and tabular) meant that different user types — from field supervisors to invoice reconcilers — could consume the same data in their preferred format.",
+          metaDetailPlain: true,
+        },
       ],
     },
     contextEcosystem: {
@@ -272,6 +279,31 @@ export const disasterRecoveryCase: CaseStudy = {
               "Content-heavy layouts designed around information hierarchy, not aesthetics",
           },
         ],
+      },
+    ],
+    reportCategories: [
+      {
+        num: "01",
+        title: "Haul Out Reports",
+        description:
+          "Volume and weight of debris hauled by site, day, and debris type",
+      },
+      {
+        num: "02",
+        title: "ROW Collection Reports",
+        description:
+          "Right-of-way debris collection tracking by zone and contractor",
+      },
+      {
+        num: "03",
+        title: "Unit Rate Reports",
+        description: "Per-unit cost tracking and crew productivity metrics",
+      },
+      {
+        num: "04",
+        title: "Budget Summary Reports",
+        description:
+          "Fund allocation, invoicing, and budget reconciliation overview",
       },
     ],
     outcomeImages: [
