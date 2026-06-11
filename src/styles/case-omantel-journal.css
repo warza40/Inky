@@ -1658,6 +1658,60 @@
   color: rgba(74, 61, 46, 0.45);
 }
 
+/* Key decision · report boxes under rationale */
+.cs-decision-rationale-reports {
+  margin-top: var(--space-4);
+}
+
+.cs-report-grid--in-rationale {
+  margin-top: 0;
+}
+
+.cs-ri-rationale-lead {
+  font-family: var(--font-body);
+  font-size: inherit;
+  line-height: 1.65;
+  color: inherit;
+  margin: 0;
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-decision-inner
+  .cs-decision-rationale-reports
+  .cs-report-card {
+  background: color-mix(in srgb, var(--ojo-cream) 88%, #fff);
+  border-color: rgba(120, 95, 55, 0.2);
+  box-shadow: 0 2px 8px rgba(45, 38, 28, 0.08);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-decision-inner
+  .cs-decision-rationale-reports
+  .cs-report-title {
+  color: var(--ojo-ink);
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-decision-inner
+  .cs-decision-rationale-reports
+  .cs-report-desc {
+  color: var(--ojo-ink-mid);
+  font-style: normal;
+}
+
+.cs-page.cs-page--journal-omantel
+  .ojo-decision-inner
+  .cs-decision-rationale-reports
+  .cs-report-num {
+  color: rgba(74, 61, 46, 0.4);
+}
+
+@media (max-width: 640px) {
+  .cs-report-grid--in-rationale {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Disaster recovery · understanding personas on journal canvas */
 .cs-page.cs-page--journal-omantel
   .ojo-problem-legacy-insert

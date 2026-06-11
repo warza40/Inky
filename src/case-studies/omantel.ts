@@ -181,6 +181,11 @@ export interface CaseStudy {
         label: string;
         variant: "mega" | "ribbon" | "panel";
       }>;
+      /** Optional report-type boxes below rationale (e.g. four report categories) */
+      rationaleReports?: Array<{
+        title: string;
+        description: string;
+      }>;
     }>;
     outcome?: string;
     /** Before / after contrast block in Outcome */

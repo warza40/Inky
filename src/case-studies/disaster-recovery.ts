@@ -208,18 +208,43 @@ export const disasterRecoveryCase: CaseStudy = {
     ],
     decisions: [
       {
-        title: "Reports as a first-class priority, not an afterthought",
+        title: "Finding the right visualisation for the data",
         description:
           "Every required dataset had to be visible within minutes of opening a report — not buried behind navigation, filters, or secondary screens.",
         rationale:
-          "Reports are typically the most mundane or most time-consuming task in a data-heavy enterprise product. The client had very high expectations from the reporting section. Every required parameter needed to be upfront — not buried. The ask was to surface every single required dataset within a couple of minutes of opening the report.",
+          "There were different stakeholders that needed different parameters — four different reports for different purposes.",
+        rationaleReports: [
+          {
+            title: "Haul Out",
+            description: "Debris volume/weight by site, day, type",
+          },
+          {
+            title: "ROW Collection",
+            description: "By zone and contractor",
+          },
+          {
+            title: "Unit Rate",
+            description: "Per-unit cost, crew productivity",
+          },
+          {
+            title: "Budget Summary",
+            description: "Allocation, invoicing, reconciliation",
+          },
+        ],
         impact:
-          "Dashboards structured so essential details are findable within minutes for quicker decisions.\n\nFilters for major categories added to increase efficiency.\n\nFour categories of reports designed: Haul Out, ROW Collection, Unit Rate, Budget Summary.\n\nDual-mode view — tabular and graph — catered to both analytical styles.",
+          "Dashboards structured so essential details are findable within minutes for quicker decisions.\n\nFilters for major categories added to increase efficiency.",
         images: [
           {
-            src: "/DM%20assets/DM-KD2.png",
-            alt: "Reporting dashboards with key parameters surfaced upfront",
-            caption: "Reports as a first-class priority, not an afterthought",
+            src: "/DM%20assets/DM-KD1.png",
+            alt: "Disaster recovery reporting dashboard — hauling costs, monitoring costs, budget by vendor, and reconciliation charts",
+            caption:
+              "Finding the right visualisation for each metric — donut, bubble, bar, and treemap views on one screen.",
+          },
+          {
+            src: "/DM%20assets/DM-KD1-2.png",
+            alt: "Haul Out, ROW Collection, and truck productivity reports — debris by site and type, map by zone, and contractor productivity",
+            caption:
+              "Four report types mapped to stakeholder needs — volume by site and day, collection by zone, and crew productivity.",
           },
         ],
       },
@@ -229,9 +254,9 @@ export const disasterRecoveryCase: CaseStudy = {
         description:
           "Each metric needed the right chart for its data type, screen space, and the persona reading it — often as tabular and graph views on the same screen.",
         rationale:
-          "The biggest challenge was finding the appropriate data visualisation for each metric and fitting them within limited screen real estate. Personas consumed data differently — some were graph-oriented, others needed tabular detail for audit trails and reconciliation. It was challenging to think beyond regular visualisation types and even come up with nameless data visualisation combinations.",
+          "Supervisors needed status at a glance; reconcilers needed exact, auditable numbers.",
         impact:
-          "Same screen presented in both tabular and graph format — catering to both styles of information consumption.\n\nData depicted: categorisation of debris by type, site, weight/volume, and contractor.\n\nEvery data visualisation chosen on basis of requirement, colour distribution, and easy interpretation.",
+          "Same screen presented in both tabular and graph format — catering to both styles of information consumption.",
         images: [
           {
             src: "/DM%20assets/DM-KD3.png",
@@ -272,13 +297,6 @@ export const disasterRecoveryCase: CaseStudy = {
               "Content-heavy layouts designed around information hierarchy, not aesthetics",
           },
         ],
-      },
-    ],
-    outcomeImages: [
-      {
-        src: "/DM%20assets/DM-outcome.png",
-        alt: "Disaster recovery platform — outcome and reporting visibility",
-        caption: "Outcome — centralised dashboard and reporting",
       },
     ],
     reflection:
