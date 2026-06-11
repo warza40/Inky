@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { CaseStudy } from "@/case-studies/omantel";
 import { MotionImage } from "./MotionImage";
+import { CasePainPointGroups } from "./CasePainPointGroups";
 import { DisasterRecoveryUnderstanding } from "./DisasterRecoveryUnderstanding";
 
 type Understanding = NonNullable<CaseStudy["sections"]["understanding"]>;
@@ -102,6 +103,9 @@ export function CaseUnderstandingBlock({
                       aria-label="Visuals placeholder"
                     />
                   )}
+                  {u.painPointGroups && u.painPointGroups.length > 0 ? (
+                    <CasePainPointGroups groups={u.painPointGroups} />
+                  ) : null}
                 </div>
               )}
               {showDividerAfterVisuals &&

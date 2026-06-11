@@ -97,6 +97,11 @@ export interface CaseStudy {
         /** Tooltip shown when hovering over the image (for lightbox thumbnails) */
         hoverTooltip?: string;
       }>;
+      /** Optional post-it pain point groups shown after visuals (titles only) */
+      painPointGroups?: Array<{
+        title: string;
+        items: string[];
+      }>;
       /** Optional subsection after the divider (e.g. Approach): title, goal, content, bullets */
       afterDivider?: {
         title: string;
@@ -291,6 +296,30 @@ export const omantelCase: CaseStudy = {
           alt: "Conceptual map of B2B telco bulk activation — credit limits, enterprise process flow, and user guard rails",
           caption:
             "Conceptual understanding — credit limits, bulk activation process, and stakeholder guard rails.",
+        },
+      ],
+      painPointGroups: [
+        {
+          title: "Pain Points of the Business Customer",
+          items: [
+            "High Error Rate",
+            "Long Turn Around Time (TAT)",
+            "Inefficiency in Handling Bulk Requests",
+            "Lack of Automation",
+            "Difficulty in Managing Multiple Numbers",
+            "Limited Flexibility",
+          ],
+        },
+        {
+          title: "Pain Points of Omantel",
+          items: [
+            "Operational Risk",
+            "Resource Intensive",
+            "Reduced Work Efficiency",
+            "Increased Human Errors",
+            "Lower Productivity",
+            "Inability to Scale",
+          ],
         },
       ],
       afterDivider: {

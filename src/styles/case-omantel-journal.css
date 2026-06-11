@@ -1868,6 +1868,14 @@
   padding-top: 14px;
 }
 
+.cs-page.cs-page--journal-omantel
+  .ojo-problem-legacy-insert
+  .cs-pain-points-grid {
+  gap: clamp(14px, 2.4vw, 22px);
+  padding-top: 14px;
+  margin-top: var(--space-5);
+}
+
 .cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-persona-card {
   background: #fff;
   border-color: rgba(120, 95, 55, 0.18);
