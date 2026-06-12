@@ -267,7 +267,7 @@ export const disasterRecoveryCase: CaseStudy = {
         ],
       },
       {
-        title: "Simplified navigation despite 9 personas and large menu depth",
+        title: "Simplified navigation for a wide range of stakeholders",
         description:
           "Three navigation schemas were explored — Mega Menu, Ribbon, and Panel — before landing on a pattern learnable in minutes for field workers.",
         rationale:
