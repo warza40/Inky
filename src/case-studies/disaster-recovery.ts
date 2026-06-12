@@ -271,7 +271,7 @@ export const disasterRecoveryCase: CaseStudy = {
         description:
           "Three navigation schemas were explored — Mega Menu, Ribbon, and Panel — before landing on a pattern learnable in minutes for field workers.",
         rationale:
-          "We explored three navigation schemas: Mega Menu, Ribbon, and Panel. Each represented a different tradeoff between discoverability and simplicity. Users were working on critical, time-bound tasks. Navigation had to be learnable in minutes, not hours. Many pages and segments identified during IA work were redundant — elimination reduced navigation complexity significantly.",
+          "We explored three navigation schemas: Mega Menu, Ribbon, and Panel. Each represented a different tradeoff between discoverability and simplicity. Users were working on critical, time-bound tasks.",
         impact:
           "Final navigation pattern kept straightforward and simple despite the underlying complexity.\n\nLearning curve minimised — a key client requirement for field workers who weren't power users.\n\nNavigation exploration also identified redundant features that were eliminated before build.",
         navExploration: [
