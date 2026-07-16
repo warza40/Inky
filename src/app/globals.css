@@ -4701,7 +4701,7 @@ body:has(.cs-page) {
   bottom: -1px;
   left: 0;
   height: 3px;
-  background: var(--cs-accent-bar);
+  background: var(--color-ink-900);
   pointer-events: none;
   z-index: 2;
   border-radius: 1px;
@@ -4750,19 +4750,11 @@ body:has(.cs-page) {
   font-variation-settings:
     "wdth" 100,
     "wght" var(--weight-semibold);
-  color: var(--cs-accent);
+  color: var(--color-ink-900);
   letter-spacing: var(--tracking-wider);
 }
 
-/* Case nav — madder active state (portfolio primary; strong contrast on parchment) */
-.cs-page .cs-tab.active {
-  color: var(--color-madder-700);
-}
-.cs-page .cs-tab-indicator {
-  background: var(--color-madder-700);
-}
-
-/* Scale-reveal indicator — theme accent (fallback when no sliding bar) */
+/* Scale-reveal indicator — ink, matching the DS underline-tab active state */
 .cs-tab::after {
   content: "";
   position: absolute;
@@ -4770,16 +4762,13 @@ body:has(.cs-page) {
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--cs-accent-bar);
+  background: var(--color-ink-900);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .cs-tab.active::after {
   transform: scaleX(1);
-}
-.cs-page .cs-tab::after {
-  background: var(--color-madder-700);
 }
 
 /* Case study — fluid column: min(cap, viewport − gutters); caps step at DS breakpoints */
