@@ -2260,6 +2260,10 @@
     --jl-name-tape-pad-x: clamp(14px, 3.8vw, 20px);
   }
 
+  .home-layout--journal .jl-hero-top {
+    padding-top: calc(var(--space-16) + var(--space-2));
+  }
+
   .home-layout--journal .jl-hero-name-tape {
     transform: none;
     letter-spacing: -0.02em;
