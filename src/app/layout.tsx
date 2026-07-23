@@ -1,6 +1,6 @@
 import "./globals.css";
 import "@/styles/case-omantel-journal.css";
-import type { Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 import ThinkingTopography from "@/components/ThinkingTopography";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import {
@@ -67,6 +67,12 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   themeColor: "#faf7f2",
+};
+
+export const metadata: Metadata = {
+  title: "Rachana Mandal — Senior Product Designer",
+  description:
+    "Senior Product Designer with 6+ years of experience designing complex product systems across UX, behavioural design, and AI-driven workflows.",
 };
 
 export default function RootLayout({
