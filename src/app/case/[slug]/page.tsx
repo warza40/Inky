@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getCaseStudy } from "@/case-studies";
+import { caseStudies, getCaseStudy } from "@/case-studies";
 import { CaseLayout } from "@/components/case/CaseLayout";
 import { CaseMap } from "@/components/case/CaseMap";
 
@@ -8,13 +8,7 @@ interface CasePageProps {
 }
 
 export async function generateStaticParams() {
-  // This would be dynamic in a real app
-  return [
-    { slug: "omantel-bulk-activation" },
-    { slug: "another-case" },
-    { slug: "warehouse-operations" },
-    { slug: "disaster-recovery" },
-  ];
+  return caseStudies.map((study) => ({ slug: study.slug }));
 }
 
 export default async function Page({ params }: CasePageProps) {
