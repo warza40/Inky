@@ -1,14 +1,13 @@
 import { omantelCase } from "./omantel";
-import { anotherCase } from "./another-case";
 import { warehouseOperationsCase } from "./warehouse-operations";
 import { disasterRecoveryCase } from "./disaster-recovery";
 import type { CaseStudy, CaseStudyWarmthTheme } from "./omantel";
 
 export type { CaseStudy, CaseStudyWarmthTheme };
 
+/** Published case studies only — never include placeholder/draft entries. */
 export const caseStudies: CaseStudy[] = [
   omantelCase,
-  anotherCase,
   warehouseOperationsCase,
   disasterRecoveryCase,
 ];
