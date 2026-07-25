@@ -793,8 +793,15 @@
   background: rgba(196, 168, 130, 0.12);
 }
 
+/* Inactive tabs use solid kraft on leather (8.33:1 AAA). The prior 0.4
+   alpha kraft washed to ~2.32:1 and failed WCAG 1.4.3 AA for normal text.
+   Hover must not inherit light-theme ink-900 (≈1.07:1 on leather). */
 .home-layout--journal .jl-work-section .work-tab {
-  color: rgba(196, 168, 130, 0.4);
+  color: var(--jl-kraft);
+}
+
+.home-layout--journal .jl-work-section .work-tab:hover {
+  color: rgba(237, 220, 180, 0.95);
 }
 
 .home-layout--journal .jl-work-section .work-tab.active {
@@ -1408,8 +1415,14 @@
   color: rgba(246, 236, 220, 0.92);
 }
 
+/* Solid kraft on leather (8.33:1 AAA). Prior 0.55 alpha kraft was ~3.32:1.
+   Hover uses madder.500 — Warmth DS V2 dark-ground accent (AA on void). */
 .home-layout--journal .jl-writing-patch .writing-section-link {
-  color: rgba(196, 168, 130, 0.55);
+  color: var(--jl-kraft);
+}
+
+.home-layout--journal .jl-writing-patch .writing-section-link:hover {
+  color: var(--color-madder-500);
 }
 
 .home-layout--journal .jl-writing-patch .writing-divider {
