@@ -2091,7 +2091,7 @@
   letter-spacing: var(--ojo-eyebrow-track, 0.16em);
   font-weight: var(--ojo-eyebrow-weight, 600);
   text-transform: uppercase;
-  color: rgba(245, 239, 228, 0.35);
+  color: rgba(245, 239, 228, 0.72);
 }
 
 .cs-page.cs-page--journal-omantel .ojo-journal-footer-next-title {
