@@ -1301,7 +1301,7 @@ html.dark .home-page-main,
   transition: color var(--duration-fast) var(--ease-default);
 }
 .home-header-nav-link:hover {
-  color: var(--color-ink-900);
+  color: var(--color-ink-700);
 }
 
 /* 3-column grid: name | nav | spacer (balances center nav) */
