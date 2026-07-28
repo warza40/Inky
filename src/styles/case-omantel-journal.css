@@ -912,7 +912,8 @@
   flex-shrink: 1;
 }
 
-/* Flank the 16:9 frame — matches case footer / ghost control ink on dark */
+/* Flank the 16:9 frame — paper chip controls (Warmth DS) so WCAG 1.4.11
+   holds when ≤520px overlays light slide regions (~1.0–1.1:1 before). */
 .ojo-decision-carousel-row {
   display: flex;
   align-items: center;
@@ -937,20 +938,27 @@
   padding: 0;
   box-sizing: border-box;
   border-radius: var(--radius-sm, 2px);
-  border: 1px solid rgba(245, 239, 228, 0.22);
-  background: rgba(255, 255, 255, 0.07);
-  color: rgba(245, 239, 228, 0.92);
+  border: 1px solid rgba(120, 95, 55, 0.35);
+  background: color-mix(in srgb, var(--ojo-cream) 92%, #fff);
+  color: var(--ojo-ink-mid);
+  box-shadow:
+    0 1px 2px rgba(28, 24, 18, 0.28),
+    0 4px 12px rgba(28, 24, 18, 0.18);
   cursor: pointer;
   transition:
     background 0.2s ease,
     border-color 0.2s ease,
-    color 0.2s ease;
+    color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .ojo-decision-carousel-chev:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(245, 239, 228, 0.38);
-  color: var(--parchment);
+  background: var(--ojo-cream);
+  border-color: rgba(120, 95, 55, 0.5);
+  color: var(--ojo-ink);
+  box-shadow:
+    0 1px 3px rgba(28, 24, 18, 0.32),
+    0 6px 16px rgba(28, 24, 18, 0.22);
 }
 
 .ojo-decision-carousel-chev:focus-visible {
@@ -1085,7 +1093,8 @@
   border-radius: 50%;
   border: none;
   padding: 0;
-  background: rgba(255, 255, 255, 0.25);
+  /* Inactive white@0.25 on ink stage ~2.27:1; @0.55 clears 1.4.11 (3:1) */
+  background: rgba(255, 255, 255, 0.55);
   cursor: pointer;
   transition:
     background 0.25s,
@@ -1093,7 +1102,7 @@
 }
 
 .ojo-decision-dot.is-active {
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.92);
   transform: scale(1.3);
 }
 
