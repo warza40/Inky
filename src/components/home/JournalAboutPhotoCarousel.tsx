@@ -29,29 +29,64 @@ export function JournalAboutPhotoCarousel({
 }: JournalAboutPhotoCarouselProps) {
   const n = Math.max(1, slides.length);
   const [index, setIndex] = useState(0);
+  /** Stops autoplay after chevron/dot use (WCAG 2.2.2). */
+  const [userPaused, setUserPaused] = useState(false);
+  /** Temporary pause while hovered or focused inside the carousel. */
+  const [interactionPaused, setInteractionPaused] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
   const safe = ((index % n) + n) % n;
   const slide = slides[safe]!;
 
   useEffect(() => {
-    if (n < 2 || autoAdvanceIntervalMs <= 0) return;
-    const mq =
-      typeof window !== "undefined"
-        ? window.matchMedia("(prefers-reduced-motion: reduce)")
-        : null;
-    if (mq?.matches) return;
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduceMotion(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    if (
+      n < 2 ||
+      autoAdvanceIntervalMs <= 0 ||
+      userPaused ||
+      interactionPaused ||
+      reduceMotion
+    ) {
+      return;
+    }
     const id = window.setInterval(() => {
       setIndex((i) => (i + 1) % n);
     }, autoAdvanceIntervalMs);
     return () => window.clearInterval(id);
-  }, [n, autoAdvanceIntervalMs]);
+  }, [n, autoAdvanceIntervalMs, userPaused, interactionPaused, reduceMotion]);
+
+  const stopAutoplay = () => setUserPaused(true);
 
   const go = (delta: number) => {
     if (n < 2) return;
+    stopAutoplay();
     setIndex((i) => (((i + delta) % n) + n) % n);
   };
 
+  const selectSlide = (i: number) => {
+    stopAutoplay();
+    setIndex(i);
+  };
+
   return (
-    <div className="jl-about-carousel">
+    <div
+      className="jl-about-carousel"
+      onMouseEnter={() => setInteractionPaused(true)}
+      onMouseLeave={() => setInteractionPaused(false)}
+      onFocusCapture={() => setInteractionPaused(true)}
+      onBlurCapture={(e) => {
+        const next = e.relatedTarget;
+        if (next instanceof Node && e.currentTarget.contains(next)) return;
+        setInteractionPaused(false);
+      }}
+    >
       <div className="jl-about-carousel-viewport">
         {n > 1 ? (
           <>
@@ -100,7 +135,7 @@ export function JournalAboutPhotoCarousel({
               aria-selected={i === safe}
               aria-label={`Slide ${i + 1}`}
               className={`jl-about-carousel-dot${i === safe ? " is-active" : ""}`}
-              onClick={() => setIndex(i)}
+              onClick={() => selectSlide(i)}
             />
           ))}
         </div>
