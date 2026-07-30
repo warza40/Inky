@@ -1439,12 +1439,21 @@
   min-width: 0;
 }
 
+/* Warmth DS: category/accent on cream paper uses madder.900 (AAA).
+   Prior rgba(120,70,55,0.65) measured ~2.92:1 on --jl-cream — fails WCAG 1.4.3. */
 .home-layout--journal .jl-writing-patch .wr-type {
-  color: rgba(120, 70, 55, 0.65);
+  color: var(--color-madder-900);
 }
 
+.home-layout--journal .jl-writing-patch .wr-type-sep {
+  color: var(--color-madder-900);
+  opacity: 1;
+}
+
+/* Secondary spot label: ink.500 is the DS AA secondary token on light grounds
+   (~5.01:1 on cream). jl-ink-faded was ~4.16:1 — short of AA for 12.8px text. */
 .home-layout--journal .jl-writing-patch .wr-type-muted {
-  color: var(--jl-ink-faded);
+  color: var(--color-ink-500);
 }
 
 .home-layout--journal .jl-writing-patch .wr-title {
