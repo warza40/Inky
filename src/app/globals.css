@@ -5137,7 +5137,8 @@ h3.cs-impact-postits-eyebrow {
 }
 
 .cs-impact-postit .ojo-impact-caps {
-  color: color-mix(in srgb, var(--color-moss-700) 82%, transparent);
+  /* Solid moss-700 on moss-100 ≈ 5.12:1 AA; diluted 82% mix failed 1.4.3 (~3.58:1). */
+  color: var(--color-moss-700);
 }
 
 .cs-impact-postit .ojo-impact-detail {
