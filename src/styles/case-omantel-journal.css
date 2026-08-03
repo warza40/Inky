@@ -503,7 +503,8 @@
 }
 
 .cs-page--journal-omantel .ojo-impact-postits--on-leather .ojo-impact-caps {
-  color: color-mix(in srgb, var(--color-moss-700) 82%, transparent);
+  /* Match base post-it caps — solid moss-700 AA on moss-100. */
+  color: var(--color-moss-700);
 }
 
 .cs-page--journal-omantel
@@ -1752,7 +1753,8 @@
   .ojo-overview-insert
   .cs-context-text--flow
   .cs-context-aim {
-  color: rgba(185, 60, 46, 0.88);
+  /* Restore Warmth DS Technical accent — 0.88 madder wash was ~3.76:1 on cream. */
+  color: var(--color-madder-900);
 }
 
 /* Problem · understanding + constraints nested typography */
@@ -1912,7 +1914,7 @@
 }
 
 .cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-context-aim {
-  color: rgba(185, 60, 46, 0.88);
+  color: var(--color-madder-900);
   margin: 0;
 }
 
@@ -2003,7 +2005,7 @@
 .cs-page.cs-page--journal-omantel
   .ojo-problem-legacy-insert
   .cs-persona-section-label {
-  color: rgba(185, 60, 46, 0.88);
+  color: var(--color-madder-900);
 }
 
 .cs-page.cs-page--journal-omantel
