@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { scrollRevealPresence } from "@/lib/scroll-reveal-presence";
 import { cn } from "@/lib/utils";
 
 const sectionVariants = {
@@ -28,13 +29,20 @@ export function MotionSection({
   className,
 }: MotionSectionProps) {
   const reduceMotion = useReducedMotion();
+  const presence = scrollRevealPresence(reduceMotion ?? null);
 
   return (
     <motion.section
       id={id}
       variants={sectionVariants}
-      initial={reduceMotion ? "visible" : "hidden"}
-      whileInView={reduceMotion ? undefined : "visible"}
+      initial={presence.initial}
+      animate={presence.animate}
+      whileInView={presence.whileInView}
+      transition={
+        reduceMotion !== false
+          ? { duration: 0 }
+          : { duration: 0.3, ease: "easeOut" }
+      }
       viewport={{ once: true, margin: "-80px" }}
       className={cn("cs-section", className)}
     >
