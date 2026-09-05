@@ -1,6 +1,4 @@
-import Link from "next/link";
 import { CaseMain } from "./CaseMain";
-import { CaseNavigation } from "./CaseNavigation";
 import { CaseStudyFooter } from "./CaseStudyFooter";
 import type { CaseStudy } from "@/case-studies/omantel";
 import { caseStudyHasVisualsSection } from "@/case-studies/case-visuals";
@@ -11,6 +9,8 @@ import { JournalCaseFooterNext } from "@/components/case/journal/JournalCaseFoot
 import { JournalFooterSeam } from "@/components/case/journal/JournalFooterSeam";
 import { OmantelJournalHero } from "@/components/case/journal/OmantelJournalHero";
 import { OmantelJournalTitlePaper } from "@/components/case/journal/OmantelJournalTitlePaper";
+import { CaseStudyLayout } from "@/components/sheets/CaseStudyLayout";
+import { FloatingNav } from "@/components/layout/FloatingNav";
 
 interface CaseLayoutProps {
   children: React.ReactNode;
@@ -50,10 +50,10 @@ function buildCaseNavSections(
     caseStudyHasVisualsSection(caseStudy);
 
   const sections: Array<{ id: string; label: string }> = [];
-  if (hasContext) sections.push({ id: "context", label: "Context" });
+  if (hasContext) sections.push({ id: "context", label: "Overview" });
   if (hasProblem) sections.push({ id: "problem", label: "Problem" });
-  if (hasDecisions) sections.push({ id: "decisions", label: "Decisions" });
-  if (hasOutcome) sections.push({ id: "outcome", label: "Outcome" });
+  if (hasDecisions) sections.push({ id: "decisions", label: "Key Decisions" });
+  if (hasOutcome) sections.push({ id: "outcome", label: "Reflection" });
   return sections;
 }
 
@@ -88,93 +88,97 @@ function heroCopyFromCaseStudy(caseStudy: CaseStudy): {
 export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
   const sections = caseStudy ? buildCaseNavSections(caseStudy) : [];
   const hero = caseStudy ? heroCopyFromCaseStudy(caseStudy) : {};
-  const isJournalCase = Boolean(caseStudy);
+  const isOmantelJournal = caseStudy?.slug === "omantel-bulk-activation";
+  const themeClassName = [
+    caseStudy?.warmthTheme ? `cs-theme-${caseStudy.warmthTheme}` : "",
+    isOmantelJournal ? "cs-page--journal-omantel" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const siteHeader = <FloatingNav />;
+
+  const heroBlock = (
+    <div className="case-study-intro-sheet paper-content-sheet">
+      {caseStudy?.heroImage ? (
+        isOmantelJournal ? (
+          <OmantelJournalHero
+            src={caseStudy.heroImage.src}
+            alt={caseStudy.heroImage.alt}
+          />
+        ) : (
+          <CaseHeroMedia
+            src={caseStudy.heroImage.src}
+            alt={caseStudy.heroImage.alt}
+          />
+        )
+      ) : null}
+      {isOmantelJournal && caseStudy ? (
+        <OmantelJournalTitlePaper
+          slug={caseStudy.slug}
+          metaLine={hero.metaLine}
+          title={formatLabel(title)}
+          problemStatement={hero.problemStatement}
+          heroPills={caseStudy.heroPills}
+          overview={caseStudy.overview}
+        />
+      ) : caseStudy ? (
+        <div className="case-study-intro-copy">
+          {hero.metaLine ? (
+            <p className="case-study-intro-meta">{hero.metaLine}</p>
+          ) : null}
+          <h1 className="case-study-intro-title">{formatLabel(title)}</h1>
+          {hero.problemStatement ? (
+            <p className="case-study-intro-lede">{hero.problemStatement}</p>
+          ) : null}
+        </div>
+      ) : null}
+      <CaseStudyDirection
+        title={formatLabel(title)}
+        metaLine={hero.metaLine}
+        problemStatement={hero.problemStatement}
+        role={hero.role}
+        warmthTheme={caseStudy?.warmthTheme ?? "madder"}
+        showHeroBand={!isOmantelJournal && !caseStudy?.heroImage}
+      />
+    </div>
+  );
+
+  const footerBlock = (
+    <>
+      {isOmantelJournal ? <JournalFooterSeam /> : null}
+      <CaseStudyFooter
+        journalLayout={isOmantelJournal}
+        nextProject={
+          caseStudy ? (
+            isOmantelJournal ? (
+              <JournalCaseFooterNext
+                currentSlug={caseStudy.slug}
+                nextSlugOverride={caseStudy.nextProjectSlug}
+              />
+            ) : (
+              <CaseNextProject
+                currentSlug={caseStudy.slug}
+                nextSlugOverride={caseStudy.nextProjectSlug}
+              />
+            )
+          ) : undefined
+        }
+      />
+    </>
+  );
 
   return (
     <CaseMain>
-      <div
-        className={`cs-page${caseStudy?.warmthTheme ? ` cs-theme-${caseStudy.warmthTheme}` : ""}${isJournalCase ? " cs-page--journal-omantel" : ""}`}
+      <CaseStudyLayout
+        sections={sections}
+        themeClassName={themeClassName}
+        header={siteHeader}
+        hero={heroBlock}
+        footer={footerBlock}
       >
-        <div className="home-bg-grid" aria-hidden />
-        <div className="cs-page-inner">
-          <div className="case-top-bar">
-            <header className="case-site-header" aria-label="Site header">
-              <Link
-                href="/"
-                className="home-header-name"
-                aria-label="Rachana Mandal home"
-              >
-                Rachana Mandal
-                <em className="home-header-name-accent">.</em>
-              </Link>
-            </header>
-            {sections.length > 0 && (
-              <div className="cs-nav-wrap cs-nav-wrap--blur">
-                <div
-                  className="cs-tabs"
-                  id="cs-tabs"
-                  aria-label="Case sections"
-                >
-                  <CaseNavigation sections={sections} variant="cs" />
-                </div>
-              </div>
-            )}
-          </div>
-          {caseStudy?.heroImage ? (
-            isJournalCase ? (
-              <OmantelJournalHero
-                src={caseStudy.heroImage.src}
-                alt={caseStudy.heroImage.alt}
-              />
-            ) : (
-              <CaseHeroMedia
-                src={caseStudy.heroImage.src}
-                alt={caseStudy.heroImage.alt}
-              />
-            )
-          ) : null}
-          {isJournalCase && caseStudy ? (
-            <OmantelJournalTitlePaper
-              slug={caseStudy.slug}
-              metaLine={hero.metaLine}
-              title={formatLabel(title)}
-              problemStatement={hero.problemStatement}
-              heroPills={caseStudy.heroPills}
-              overview={caseStudy.overview}
-            />
-          ) : null}
-          <CaseStudyDirection
-            title={formatLabel(title)}
-            metaLine={hero.metaLine}
-            problemStatement={hero.problemStatement}
-            role={hero.role}
-            warmthTheme={caseStudy?.warmthTheme ?? "madder"}
-            showHeroBand={!isJournalCase}
-          />
-          <main className="cs-main">
-            <div className="cs-content">{children}</div>
-          </main>
-          {isJournalCase ? <JournalFooterSeam /> : null}
-          <CaseStudyFooter
-            journalLayout={isJournalCase}
-            nextProject={
-              caseStudy ? (
-                isJournalCase ? (
-                  <JournalCaseFooterNext
-                    currentSlug={caseStudy.slug}
-                    nextSlugOverride={caseStudy.nextProjectSlug}
-                  />
-                ) : (
-                  <CaseNextProject
-                    currentSlug={caseStudy.slug}
-                    nextSlugOverride={caseStudy.nextProjectSlug}
-                  />
-                )
-              ) : undefined
-            }
-          />
-        </div>
-      </div>
+        {children}
+      </CaseStudyLayout>
     </CaseMain>
   );
 }

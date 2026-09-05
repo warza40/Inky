@@ -1,0 +1,313 @@
+/* ============================================================
+   Paper material system — canonical tokens + surface classes
+   Base canvas · Content sheet · Elevated sheet
+   ============================================================ */
+
+:root {
+  /* ── Canvas (body) — warm-humanist / cursor ── */
+  --paper-bg: #f7f7f4;
+  --paper-line: rgba(38, 37, 30, 0.055);
+  --paper-line-strong: rgba(38, 37, 30, 0.075);
+  --paper-dot: rgba(38, 37, 30, 0.1);
+  --paper-fibre: rgba(38, 37, 30, 0.035);
+
+  /* ── Canonical palette ── */
+  --paper-base: #f2f1ed;
+  --paper-canvas: var(--paper-bg);
+  --paper-sheet: #fafaf7;
+  --paper-elevated: #ffffff;
+
+  --ink: #26251e;
+  --ink-soft: rgba(38, 37, 30, 0.68);
+
+  /* ── Accent — ember orange, links and emphasis only ── */
+  --accent: #f54e00;
+  --accent-hover: #cf2d56;
+  --accent-press: #d04200;
+
+  --line-soft: rgba(31, 29, 26, 0.08);
+  --line-mid: rgba(31, 29, 26, 0.12);
+
+  --shadow-sm:
+    0 1px 2px rgba(32, 24, 16, 0.04), 0 4px 12px rgba(32, 24, 16, 0.05);
+  --shadow-md:
+    0 2px 6px rgba(32, 24, 16, 0.05), 0 10px 24px rgba(32, 24, 16, 0.07);
+
+  --radius-card: 4px;
+
+  /* ── Derived (lighting / depth only — same material family) ── */
+  --paper-base-deep: color-mix(in srgb, var(--paper-base) 88%, #e8e0d4);
+  --paper-elevated-hover: color-mix(in srgb, var(--paper-elevated) 92%, white);
+  --line-subtle: rgba(31, 29, 26, 0.05);
+  --shadow-lg:
+    0 3px 8px rgba(32, 24, 16, 0.055), 0 14px 32px rgba(32, 24, 16, 0.075);
+
+  /* ── Texture (shared grain · opacity varies by level) ── */
+  --paper-grain-svg: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  --paper-grain-coarse-size: 220px;
+  --paper-grain-fine-size: 110px;
+  --paper-grain-canvas-opacity: 0.2;
+  --paper-grain-content-opacity: 0.11;
+  --paper-grain-elevated-opacity: 0.085;
+
+  /* ── Sheet lift (soft top-left light · visible but restrained) ── */
+  --paper-sheet-highlight: inset 0 1px 0 rgba(255, 253, 248, 0.72);
+  --paper-sheet-shade: 0 1px 1px rgba(32, 24, 16, 0.028);
+
+  /* ── Canvas grid — 24px minor · 96px major (aligns with layout grid) ── */
+  --grid-unit: 24px;
+  --grid-major: 96px;
+  --paper-canvas-grid-minor: radial-gradient(
+    circle,
+    var(--paper-dot) 0.7px,
+    transparent 0.7px
+  );
+  --paper-canvas-grid-minor-size: var(--grid-unit) var(--grid-unit);
+  --paper-canvas-grid-major:
+    linear-gradient(var(--paper-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+  --paper-canvas-grid-major-size: var(--grid-major) var(--grid-major);
+  /* Site-wide canvas uses major grid; minor available for surfaces */
+  --paper-canvas-grid: var(--paper-canvas-grid-major);
+  --paper-canvas-grid-size: var(--paper-canvas-grid-major-size);
+  --paper-grid-line: var(--paper-line);
+  --paper-grid-major: var(--paper-line-strong);
+  --paper-grid-size: var(--grid-major);
+  --paper-grid-major-size: var(--grid-major);
+  --paper-dot-color: var(--paper-dot);
+  --paper-dot-size: var(--grid-unit);
+
+  /* ── Body grain (fixed canvas layer) ── */
+  --paper-body-grain-svg: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.22'/%3E%3C/svg%3E");
+
+  /* ── Soft lighting washes ── */
+  --paper-lit-wash: radial-gradient(
+    ellipse 115% 75% at 24% -6%,
+    rgba(255, 252, 246, 0.75) 0%,
+    rgba(255, 252, 246, 0.18) 40%,
+    transparent 68%
+  );
+  --paper-shade-wash: radial-gradient(
+    ellipse 90% 55% at 50% 108%,
+    rgba(31, 29, 26, 0.025) 0%,
+    transparent 58%
+  );
+
+  /* ── Aliases (components + Warmth DS) ── */
+  --paper-content: var(--paper-sheet);
+  --paper-content-bright: var(--paper-elevated);
+  --paper-border: var(--line-soft);
+  --paper-border-hover: var(--line-mid);
+  --paper-border-subtle: var(--line-subtle);
+  --paper-shadow-sm: var(--shadow-sm);
+  --paper-shadow-md: var(--shadow-md);
+  --paper-shadow-lg: var(--shadow-lg);
+
+  --sheet-canvas: var(--paper-canvas);
+  --sheet-surface: var(--paper-sheet);
+  --sheet-surface-raised: var(--paper-elevated);
+  --sheet-border: var(--line-soft);
+  --sheet-border-hover: var(--line-mid);
+  --sheet-shadow: var(--shadow-md);
+  --sheet-shadow-active: var(--shadow-lg);
+  --sheet-radius: var(--radius-card);
+  --sheet-ink: var(--ink);
+  --sheet-ink-muted: var(--ink-soft);
+  --sheet-ink-soft: rgba(31, 29, 26, 0.48);
+
+  --color-ground-primary: var(--paper-bg);
+  --color-ground-secondary: var(--paper-base-deep);
+  --color-paper: var(--paper-sheet);
+  --color-ink-900: var(--ink);
+}
+
+/* ── Base page background (canvas) ── */
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background-color: var(--paper-bg);
+  color: var(--ink);
+}
+
+body {
+  background-image: var(--paper-canvas-grid);
+  background-size: var(--paper-canvas-grid-size);
+  background-position: 0 0;
+  background-attachment: fixed;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.14;
+  mix-blend-mode: multiply;
+  background-image: var(--paper-body-grain-svg);
+}
+
+/* ── Page shell (content sits above body canvas) ── */
+
+.paper-canvas {
+  position: relative;
+  min-height: 100vh;
+  background-color: transparent;
+  color: var(--ink);
+}
+
+.paper-canvas-content {
+  position: relative;
+  z-index: 0;
+}
+
+/* ── Level 2: Content sheet ── */
+
+.paper-content-sheet {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--paper-sheet);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-card);
+  box-shadow: var(--paper-sheet-highlight), var(--shadow-sm);
+}
+
+.paper-content-sheet::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: var(--paper-grain-content-opacity);
+  background-image: var(--paper-grain-svg);
+  background-size: var(--paper-grain-fine-size) var(--paper-grain-fine-size);
+}
+
+.paper-content-sheet::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    168deg,
+    rgba(255, 253, 248, 0.38) 0%,
+    transparent 38%,
+    transparent 72%,
+    rgba(31, 29, 26, 0.01) 100%
+  );
+}
+
+.paper-content-sheet > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Level 3: Elevated sheet / card ── */
+
+.paper-elevated-sheet {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--paper-elevated);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-card);
+  box-shadow: var(--paper-sheet-highlight), var(--shadow-md);
+  transition:
+    background-color 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.paper-elevated-sheet::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: var(--paper-grain-elevated-opacity);
+  background-image: var(--paper-grain-svg);
+  background-size: var(--paper-grain-fine-size) var(--paper-grain-fine-size);
+}
+
+.paper-elevated-sheet::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    165deg,
+    rgba(255, 254, 250, 0.45) 0%,
+    transparent 42%,
+    transparent 78%,
+    rgba(31, 29, 26, 0.014) 100%
+  );
+}
+
+.paper-elevated-sheet > * {
+  position: relative;
+  z-index: 1;
+}
+
+.paper-elevated-sheet:hover,
+.paper-elevated-sheet--hover {
+  background-color: var(--paper-elevated-hover);
+  border-color: var(--line-mid);
+  box-shadow: var(--paper-sheet-highlight), var(--shadow-lg);
+}
+
+.paper-elevated-sheet--active {
+  background-color: var(--paper-elevated-hover);
+  border-color: var(--line-mid);
+  box-shadow: var(--paper-sheet-highlight), var(--shadow-lg);
+}
+
+/* ── Major sections on canvas ── */
+
+.paper-section-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--paper-section-gap, var(--space-6));
+}
+
+.paper-major-section {
+  padding-inline: var(--sheet-gutter);
+}
+
+.paper-major-section__inner {
+  max-width: var(--sheet-max-width);
+  margin-inline: auto;
+}
+
+.paper-major-section__sheet {
+  width: 100%;
+}
+
+/* ── Chrome (header / nav) ── */
+
+.paper-chrome {
+  background-color: var(--paper-sheet);
+  border-bottom: 1px solid var(--line-subtle);
+  box-shadow: 0 1px 0 rgba(255, 253, 248, 0.35);
+}
+
+.paper-chrome-bar {
+  background-color: color-mix(
+    in srgb,
+    var(--paper-sheet) 96%,
+    var(--paper-canvas)
+  );
+  border-bottom: 1px solid var(--line-subtle);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paper-elevated-sheet {
+    transition: none;
+  }
+}

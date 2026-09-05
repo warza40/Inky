@@ -136,10 +136,10 @@ export function DecisionBlock({ decision, index }: DecisionBlockProps) {
   return (
     <motion.article
       className="cs-decision cs-decision--editorial"
-      initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+      initial={reduceMotion ? { opacity: 1 } : { opacity: 0 }}
+      whileInView={reduceMotion ? undefined : { opacity: 1 }}
       viewport={{ once: true, amount: 0.1, margin: "0px 0px -32px 0px" }}
-      transition={{ duration: 0.4, ease: [0, 0, 0.2, 1] }}
+      transition={{ duration: 0.2, ease: [0, 0, 0.2, 1] }}
     >
       <header className="cs-decision-editorial-head">
         <span className="cs-decision-num">

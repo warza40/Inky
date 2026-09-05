@@ -1,0 +1,462 @@
+/* ============================================================
+   Sheet system — layout + interaction on paper material tokens
+   Canvas / grain / dots live in paper-material.css
+   ============================================================ */
+
+:root {
+  --sheet-max-width: var(--layout-content-max);
+  --sheet-gutter: var(--layout-page-padding);
+}
+
+body:has(.page-shell--no-topography) #thinking-topography {
+  opacity: 0 !important;
+  visibility: hidden;
+}
+
+.page-shell-grid-layout {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-6);
+  width: min(100%, var(--sheet-max-width));
+  margin-inline: auto;
+  padding-inline: var(--sheet-gutter);
+}
+
+/* ── Sheet section (case study panels) ── */
+
+.sheet-section {
+  position: relative;
+  margin-bottom: 0;
+  padding: clamp(24px, 4vw, 40px);
+  transition:
+    box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sheet-section-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line-subtle);
+}
+
+.sheet-section-number {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--weight-ui);
+  line-height: var(--type-label-line);
+  letter-spacing: var(--type-label-tracking);
+  color: var(--sheet-ink-soft);
+}
+
+.sheet-section-title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--type-section-title);
+  font-weight: var(--weight-heading);
+  line-height: var(--type-section-title-line);
+  letter-spacing: var(--type-section-title-tracking);
+  color: var(--sheet-ink);
+}
+
+.sheet-section-body {
+  color: var(--sheet-ink-muted);
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+  line-height: var(--type-body-line);
+}
+
+/* ── In-page section nav ── */
+
+.sheet-nav-wrap {
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 15;
+  margin-bottom: var(--space-component);
+}
+
+.sheet-nav {
+  border-bottom: 1px solid var(--line-subtle);
+  background-color: color-mix(
+    in srgb,
+    var(--paper-sheet) 96%,
+    var(--paper-canvas)
+  );
+  box-shadow: none;
+}
+
+.sheet-nav-inner {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 0;
+}
+
+.layout-rail .sheet-nav-inner {
+  padding-inline: 0;
+}
+
+.sheet-nav-row {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.sheet-nav-row::-webkit-scrollbar {
+  display: none;
+}
+
+.sheet-nav-tab {
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: -1px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: var(--type-body-sm);
+  font-weight: 400;
+  line-height: var(--type-body-sm-line);
+  letter-spacing: var(--type-body-tracking);
+  text-transform: none;
+  color: var(--sheet-ink-soft);
+  cursor: pointer;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+.sheet-nav-tab:hover {
+  color: var(--sheet-ink-muted);
+}
+
+.sheet-nav-tab--active {
+  color: var(--sheet-ink);
+  font-weight: 500;
+  border-bottom-color: var(--accent);
+}
+
+/* ── Case study cards (homepage) ── */
+
+.sheet-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+}
+
+.sheet-card--tile {
+  background-color: var(--paper-sheet);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-card);
+  box-shadow: var(--paper-sheet-highlight), var(--shadow-sm);
+  transition:
+    border-color var(--motion-standard) ease,
+    box-shadow var(--motion-standard) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .sheet-card--tile:hover {
+    border-color: var(--line-mid);
+    box-shadow:
+      var(--paper-sheet-highlight),
+      0 2px 8px rgba(32, 24, 16, 0.06);
+  }
+}
+
+.sheet-card-visual {
+  position: relative;
+  flex: 0 0 auto;
+  aspect-ratio: var(--card-visual-ratio);
+  overflow: hidden;
+  background: var(--paper-base-deep);
+  border-bottom: 1px solid var(--line-subtle);
+}
+
+.sheet-card-image-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+.sheet-card-image {
+  object-fit: cover;
+  object-position: center top;
+}
+
+.sheet-card-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--space-meta);
+  min-height: var(--card-body-min-height);
+  padding: var(--space-control) var(--space-component) var(--space-component);
+  background: transparent;
+}
+
+.sheet-card-title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--type-card-title);
+  font-weight: var(--weight-heading);
+  line-height: var(--type-card-title-line);
+  letter-spacing: var(--type-card-title-tracking);
+  color: var(--ink);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--card-title-lines);
+  overflow: hidden;
+}
+
+.sheet-card-desc {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--type-caption);
+  font-weight: var(--weight-body);
+  line-height: var(--type-caption-line);
+  letter-spacing: var(--type-body-tracking);
+  color: var(--ink-soft);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--card-desc-lines);
+  overflow: hidden;
+}
+
+.sheet-card--writing .sheet-card-desc {
+  font-family: var(--font-serif);
+}
+
+/* ── Case study layout integration ── */
+
+.case-study-layout-page {
+  background: transparent;
+}
+
+.cs-page--sheets.cs-page--journal-omantel {
+  background: transparent;
+}
+
+.cs-page--sheets.cs-page--journal-omantel::before {
+  display: none;
+}
+
+.cs-page--sheets.cs-page--journal-omantel > .home-bg-grid {
+  display: none;
+}
+
+.case-study-layout-inner {
+  position: relative;
+  z-index: 2;
+  padding-top: var(--nav-height);
+}
+
+.case-study-layout-page > .home-bg-grid {
+  display: none;
+}
+
+.case-study-layout-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-section-gap);
+  width: 100%;
+  padding-inline: 0;
+  max-width: none;
+  margin-inline: 0;
+}
+
+.case-study-layout-main {
+  padding-bottom: var(--layout-section-pad);
+}
+
+.case-study-intro-sheet {
+  width: 100%;
+  max-width: none;
+  margin: 0 0 var(--space-component);
+  padding-inline: 0;
+  overflow: hidden;
+}
+
+.case-study-intro-sheet.paper-content-sheet {
+  padding: 0;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.case-study-intro-copy {
+  padding: var(--space-component) 0 var(--space-separation);
+}
+
+.case-study-intro-meta {
+  margin: 0 0 var(--space-meta);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--weight-body);
+  line-height: var(--type-label-line);
+  letter-spacing: var(--type-label-tracking);
+  color: var(--ink-soft);
+}
+
+.case-study-intro-title {
+  margin: 0 0 var(--space-component);
+  font-family: var(--font-sans);
+  font-size: clamp(2rem, 5vw, var(--type-major-heading));
+  font-weight: var(--weight-display);
+  line-height: var(--type-major-heading-line);
+  letter-spacing: var(--type-major-heading-tracking);
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.case-study-intro-lede {
+  margin: 0;
+  max-width: var(--layout-copy-max);
+  font-family: var(--font-serif);
+  font-size: var(--type-body-lg);
+  font-weight: var(--weight-body);
+  line-height: var(--type-body-lg-line);
+  color: var(--ink-soft);
+}
+
+.cs-page--sheets .cs-case-hero-media {
+  width: 100%;
+  margin-top: 0;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.cs-page--sheets .cs-case-hero-media-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.case-study-intro-sheet .ojo-title-section,
+.case-study-intro-sheet .ojo-hero {
+  margin-bottom: 0;
+}
+
+.cs-page--sheets .case-study-intro-sheet .ojo-title-insert,
+.cs-page--sheets .case-study-intro-sheet .ojo-hero-stage {
+  border: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.cs-page--sheets .case-study-intro-sheet .ojo-tape-wave,
+.cs-page--sheets .case-study-intro-sheet .ojo-tape-seigaiha,
+.cs-page--sheets .case-study-intro-sheet .ojo-punch-holes {
+  display: none;
+}
+
+/* Case study typography — sheet layout */
+.cs-page--sheets .ojo-main-title.cs-hero-title,
+.cs-page--sheets .ojo-title-insert .ojo-main-title.cs-hero-title {
+  font-family: var(--font-sans);
+  font-size: clamp(2.25rem, 7vw, var(--type-page-title));
+  font-weight: var(--weight-display);
+  line-height: var(--type-page-title-line);
+  letter-spacing: var(--type-page-title-tracking);
+  text-wrap: balance;
+}
+
+.cs-page--sheets .ojo-sub-title {
+  font-family: var(--font-sans);
+  font-size: var(--type-body-lg);
+  font-weight: var(--weight-body);
+  line-height: var(--type-body-lg-line);
+  letter-spacing: var(--type-body-tracking);
+}
+
+.cs-page--sheets .ojo-title-pill {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--type-label-tracking);
+}
+
+.cs-page--sheets .case-body,
+.cs-page--sheets .sheet-section-body .case-body {
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+  line-height: var(--type-body-line);
+}
+
+/* Flatten journal decorations inside sheet sections */
+.cs-page--sheets .sheet-section .ojo-punch-holes,
+.cs-page--sheets .sheet-section .ojo-tape-wave,
+.cs-page--sheets .sheet-section .ojo-tape-seigaiha {
+  display: none;
+}
+
+.cs-page--sheets .sheet-section .ojo-problem-legacy-insert,
+.cs-page--sheets .sheet-section .ojo-overview-insert,
+.cs-page--sheets .sheet-section .ojo-decision-inner {
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  padding: 0;
+}
+
+.cs-page--sheets .sheet-section .ojo-overview-impact-rail {
+  margin-bottom: var(--space-6);
+  padding: 0;
+  background: transparent;
+}
+
+.cs-page--sheets .sheet-section .cs-section-head {
+  display: none;
+}
+
+.cs-page--sheets .cs-section {
+  margin-bottom: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.cs-page--sheets .cs-section-body {
+  padding: 0;
+}
+
+.cs-page--sheets .ojo-case-map {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* Case hero / title on content sheet */
+.case-study-hero-sheet {
+  max-width: var(--sheet-max-width);
+  margin: 0 auto var(--space-component);
+  padding-inline: var(--sheet-gutter);
+}
+
+.case-study-hero-sheet-inner {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet-section,
+  .sheet-nav-tab {
+    transition: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .sheet-nav-wrap {
+    top: var(--nav-height);
+  }
+}

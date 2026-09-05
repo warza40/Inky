@@ -5,11 +5,11 @@ import { PixelGrid } from "@/components/home/PixelGrid";
 
 export default function ExperimentsPage() {
   return (
-    <main className="min-h-screen bg-white flex flex-row">
-      <div className="relative w-1/2 min-w-0 shrink-0 h-screen bg-[#f6f5f2] overflow-hidden">
+    <main className="min-h-screen bg-white flex flex-col md:flex-row">
+      <div className="relative w-full md:w-1/2 min-w-0 shrink-0 min-h-[40vh] md:min-h-0 md:h-screen bg-[#f6f5f2] overflow-hidden">
         <PixelGrid />
       </div>
-      <div className="w-1/2 min-w-0 shrink-0 p-20 flex flex-col justify-center">
+      <div className="w-full md:w-1/2 min-w-0 shrink-0 p-8 md:p-20 flex flex-col justify-center">
         <Link
           href="/"
           className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors mb-8"

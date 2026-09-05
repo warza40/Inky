@@ -47,26 +47,16 @@ export function CaseJournalMap({ caseStudy }: CaseJournalMapProps) {
     Boolean(s.reflection) ||
     visualsPresentation.mode !== "none";
 
-  const decisionsRailTitle =
-    nDecisions > 0 ? (
-      <>
-        <span className="cs-section-label-prefix">{`[${String(nDecisions).padStart(2, "0")}]`}</span>
-        Key Decisions
-      </>
-    ) : (
-      <>Key Decisions</>
-    );
-
   return (
     <div className="ojo-case-map">
       {caseJournalOverviewHasContent(caseStudy) ? (
-        <MotionSection id="context" title="Context">
+        <MotionSection id="context" title="Overview" number="01">
           <CaseJournalOverview caseStudy={caseStudy} />
         </MotionSection>
       ) : null}
 
       {hasProblemSection ? (
-        <MotionSection id="problem" title="Problem">
+        <MotionSection id="problem" title="Problem" number="02">
           {s.outcomeBeforeAfter ? (
             <OmantelJournalProblem beforeAfter={s.outcomeBeforeAfter} />
           ) : null}
@@ -124,7 +114,8 @@ export function CaseJournalMap({ caseStudy }: CaseJournalMapProps) {
       {hasDecisionsSection ? (
         <MotionSection
           id="decisions"
-          title={decisionsRailTitle}
+          title="Key Decisions"
+          number="03"
           className="ojo-decisions-wrap"
         >
           {hasReportCategories && s.reportCategories ? (
@@ -158,7 +149,7 @@ export function CaseJournalMap({ caseStudy }: CaseJournalMapProps) {
       ) : null}
 
       {showOutcomeSection ? (
-        <MotionSection id="outcome" title="Outcome">
+        <MotionSection id="outcome" title="Reflection" number="04">
           <OmantelJournalOutcome
             highlights={s.outcomeHighlights}
             images={s.outcomeImages}

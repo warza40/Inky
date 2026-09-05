@@ -1,5 +1,4 @@
 import { ImageResponse } from "next/og";
-import { loadAnybody700 } from "@/lib/anybody-font";
 
 export const size = {
   width: 180,
@@ -8,9 +7,7 @@ export const size = {
 
 export const contentType = "image/png";
 
-export default async function AppleIcon() {
-  const fontData = await loadAnybody700();
-
+export default function AppleIcon() {
   return new ImageResponse(
     <div
       style={{
@@ -19,27 +16,17 @@ export default async function AppleIcon() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "#000000",
+        background: "#1c1b18",
         borderRadius: "22%",
-        color: "#ffffff",
-        fontSize: 73,
-        fontFamily: '"Anybody", system-ui, sans-serif',
-        fontWeight: 700,
-        letterSpacing: "-0.035em",
+        color: "#f7f3ea",
+        fontSize: 68,
+        fontFamily: "system-ui, sans-serif",
+        fontWeight: 600,
+        letterSpacing: "-0.02em",
       }}
     >
       RM
     </div>,
-    {
-      ...size,
-      fonts: [
-        {
-          name: "Anybody",
-          data: fontData,
-          style: "normal",
-          weight: 700,
-        },
-      ],
-    },
+    size,
   );
 }

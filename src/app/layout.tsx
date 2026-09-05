@@ -1,72 +1,23 @@
+import "@/styles/typography.css";
 import "./globals.css";
+import "@/styles/layout-tokens.css";
+import "@/styles/paper-material.css";
+import "@/styles/layout-system.css";
+import "@/styles/sheet-system.css";
 import "@/styles/case-omantel-journal.css";
 import type { Viewport } from "next";
 import ThinkingTopography from "@/components/ThinkingTopography";
-import { ThemeProvider } from "@/contexts/ThemeContext";
-import {
-  Lora,
-  Instrument_Serif,
-  DM_Mono,
-  Noto_Serif_JP,
-  Bricolage_Grotesque,
-  Anybody,
-  Plus_Jakarta_Sans,
-} from "next/font/google";
+import { fontClassNames } from "@/lib/fonts";
+import { defaultMetadata } from "@/lib/site-metadata";
 
-const lora = Lora({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-lora",
-  display: "swap",
-});
-
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-instrument",
-  display: "swap",
-});
-
-const dmMono = DM_Mono({
-  subsets: ["latin"],
-  weight: ["300", "400"],
-  variable: "--font-dm-mono",
-  display: "swap",
-});
-
-const notoSerifJP = Noto_Serif_JP({
-  subsets: ["latin"],
-  weight: ["200", "300"],
-  variable: "--font-noto-jp",
-  display: "swap",
-});
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-plus-jakarta",
-  display: "swap",
-});
-
-const bricolageGrotesque = Bricolage_Grotesque({
-  subsets: ["latin"],
-  variable: "--font-bricolage-grotesque",
-  display: "swap",
-});
-
-const anybody = Anybody({
-  subsets: ["latin"],
-  variable: "--font-anybody-family",
-  display: "swap",
-});
+export const metadata = defaultMetadata;
 
 /** Mobile + tablet: correct initial scale, notches, safe areas */
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#faf7f2",
+  themeColor: "#f7f7f4",
 };
 
 export default function RootLayout({
@@ -75,11 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${lora.variable} ${instrumentSerif.variable} ${dmMono.variable} ${notoSerifJP.variable} ${plusJakartaSans.variable} ${bricolageGrotesque.variable} ${anybody.variable}`}
-    >
+    <html lang="en" suppressHydrationWarning className={fontClassNames}>
       <head>
         <script
           type="text/javascript"
@@ -93,12 +40,10 @@ export default function RootLayout({
         />
       </head>
       <body className="nebula-body text-neutral-900">
-        <ThemeProvider>
-          <div className="app-root">
-            <ThinkingTopography />
-            <div className="main-content">{children}</div>
-          </div>
-        </ThemeProvider>
+        <div className="app-root">
+          <ThinkingTopography />
+          <div className="main-content">{children}</div>
+        </div>
       </body>
     </html>
   );

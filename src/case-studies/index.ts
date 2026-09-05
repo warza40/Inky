@@ -2,9 +2,9 @@ import { omantelCase } from "./omantel";
 import { anotherCase } from "./another-case";
 import { warehouseOperationsCase } from "./warehouse-operations";
 import { disasterRecoveryCase } from "./disaster-recovery";
-import type { CaseStudy, CaseStudyWarmthTheme } from "./omantel";
+import type { CaseStudy } from "./omantel";
 
-export type { CaseStudy, CaseStudyWarmthTheme };
+export type { CaseStudy };
 
 export const caseStudies: CaseStudy[] = [
   omantelCase,
@@ -21,14 +21,4 @@ export function getNextCaseStudy(slug: string): CaseStudy | undefined {
   const i = caseStudies.findIndex((c) => c.slug === slug);
   if (i === -1 || i >= caseStudies.length - 1) return undefined;
   return caseStudies[i + 1];
-}
-
-export function getPreviousCaseStudy(slug: string): CaseStudy | undefined {
-  const i = caseStudies.findIndex((c) => c.slug === slug);
-  if (i <= 0) return undefined;
-  return caseStudies[i - 1];
-}
-
-export function getAllCaseStudies(): CaseStudy[] {
-  return caseStudies;
 }

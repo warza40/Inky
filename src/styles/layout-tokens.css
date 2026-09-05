@@ -1,0 +1,91 @@
+/* ============================================================
+   Layout tokens — 1440 reference · 1280 content · responsive grid
+   ============================================================ */
+
+:root {
+  /* Spacing scale */
+  --space-micro: 4px;
+  --space-tight: 8px;
+  --space-meta: 12px;
+  --space-control: 16px;
+  --space-component: 24px;
+  --space-separation: 32px;
+  --space-heading: 48px;
+  --space-group: 64px;
+  --space-section-sm: 96px;
+  --space-section: clamp(112px, 10vw, 128px);
+  --space-chapter: 160px;
+  --space-exceptional: 192px;
+
+  /* Frame */
+  --frame-reference: 1440px;
+  --layout-content-max: 1280px;
+  --layout-wrapper-max: 1328px;
+  --layout-page-padding: 24px;
+
+  /* Grid — desktop default */
+  --layout-grid-cols: 12;
+  --layout-grid-gutter: 24px;
+  --layout-grid-sub-gutter: 16px;
+  --layout-grid-sub-cols: 8;
+
+  /* Typography widths */
+  --layout-copy-max: clamp(640px, 55vw, 720px);
+  --layout-hero-headline-max: 630px;
+
+  /* Section rhythm — single-edge padding avoids doubled gaps between sections */
+  --layout-section-pad: var(--space-group);
+  --layout-section-gap: var(--space-group);
+  --layout-hero-top: clamp(112px, 9vw, 128px);
+  --layout-hero-to-work: var(--space-heading);
+  --layout-gap-section-group: var(--space-heading);
+  --layout-gap-sm: var(--space-meta);
+  --layout-gap-component: var(--space-component);
+
+  /* Homepage cards — shared sizing across work + writing */
+  --card-visual-ratio: 16 / 10;
+  --card-body-min-height: 6.75rem;
+  --card-title-lines: 2;
+  --card-desc-lines: 2;
+
+  /* Motion */
+  --motion-standard: 180ms;
+  --motion-sheet: 240ms;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Header */
+  --nav-height: 48px;
+  --nav-offset-top: 0px;
+  --nav-radius: 9px;
+  --nav-item-height: 40px;
+  --nav-item-padding-x: 12px;
+}
+
+/* Tablet: 768–1199px */
+@media (max-width: 1199px) and (min-width: 768px) {
+  :root {
+    --layout-grid-cols: 8;
+    --layout-grid-gutter: 20px;
+    --layout-page-padding: 32px;
+    --layout-wrapper-max: min(1328px, calc(100vw - 64px));
+  }
+}
+
+/* Mobile: below 768px */
+@media (max-width: 767px) {
+  :root {
+    --layout-grid-cols: 4;
+    --layout-grid-gutter: 16px;
+    --layout-page-padding: 24px;
+    --layout-wrapper-max: 100%;
+    --layout-hero-top: 88px;
+    --layout-hero-to-work: var(--space-component);
+    --layout-section-pad: var(--space-heading);
+    --layout-section-gap: var(--space-heading);
+    --layout-gap-section-group: var(--space-component);
+    --layout-gap-component: clamp(20px, 5vw, 24px);
+    --layout-copy-max: 100%;
+    --layout-hero-headline-max: 100%;
+    --space-chapter: clamp(96px, 14vw, 112px);
+  }
+}

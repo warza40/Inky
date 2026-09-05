@@ -59,17 +59,17 @@
   --color-feedback-warning-light: #dba85a;
 
   /* ── COLOUR: Semantic (Technical register) ── */
-  --color-accent: var(--color-madder-900);
+  --color-accent: var(--accent, #f54e00);
   --color-text-tertiary: var(--color-ink-300);
-  --color-focus: var(--color-madder-900);
+  --color-focus: var(--accent, #f54e00);
   --color-success: var(--color-feedback-success-dark);
   --color-warning: var(--color-feedback-warning-dark);
   --color-error: var(--color-feedback-error-dark);
   --color-info: var(--color-slate-700);
 
   /* ── COLOUR: Interactive (Technical) ── */
-  --color-link: var(--color-madder-900);
-  --color-link-hover: var(--color-madder-700);
+  --color-link: var(--accent, #f54e00);
+  --color-link-hover: var(--accent-hover, #cf2d56);
   --color-interactive-default: var(--color-ink-900);
   --color-interactive-hover: var(--color-ink-700);
   --color-interactive-active: var(--color-ink-900);
@@ -77,17 +77,21 @@
   --color-border-strong: var(--color-ink-100);
   --color-border-focus: var(--color-madder-900);
 
-  /* ── TYPOGRAPHY: Font families ── */
-  --font-body: var(--font-plus-jakarta), system-ui, sans-serif;
-  --font-bricolage: var(--font-bricolage-grotesque), sans-serif;
-  --font-anybody: var(--font-anybody-family), sans-serif;
-  --font-serif-stack: "Lora", Georgia, serif;
-  --font-serif: var(--font-serif-stack);
-  --font-display: var(--font-anybody);
-  --font-accent: "Instrument Serif", Georgia, serif;
-  --font-mono-stack: "DM Mono", "Courier New", monospace;
-  --font-mono: var(--font-mono-stack);
-  --font-jp: "Noto Serif JP", serif;
+  /* ── TYPOGRAPHY: Font families ──
+   * Instrument Sans (primary) · IBM Plex Mono (metadata only)
+   * Scale tokens live in typography.css
+   * ── */
+  --font-body: var(--font-sans);
+  --font-heading: var(--font-sans);
+  --font-label: var(--font-mono);
+  --font-accent: var(--font-sans);
+  --font-serif-stack: var(--font-sans);
+  --font-serif: var(--font-sans);
+  --font-mono-stack: var(--font-mono);
+  /* Legacy aliases → Instrument Sans */
+  --font-bricolage: var(--font-mono);
+  --font-anybody: var(--font-sans);
+  --font-jp: var(--font-sans);
 
   /* ── TYPOGRAPHY: Scale (Major Third · 1.25) ── */
   --text-xs: 0.64rem;
@@ -240,14 +244,14 @@
   --surface: var(--color-ground-secondary);
 
   /* ── FONT ALIASES ── */
-  --font-heading: var(--font-anybody);
-  --font-label: var(--font-bricolage);
-  --font-lora: var(--font-serif);
+  --font-heading: var(--font-sans);
+  --font-label: var(--font-mono);
+  --font-lora: var(--font-display);
   --font-cabinet: var(--font-display);
-  --font-instrument: var(--font-accent);
+  --font-instrument: var(--font-sans);
   --font-dm-mono: var(--font-mono);
-  --font-noto-jp: var(--font-jp);
-  --font-poppins: var(--font-display);
+  --font-noto-jp: var(--font-heading);
+  --font-poppins: var(--font-heading);
   --font-inter: var(--font-body);
   --font-dm-sans: var(--font-body);
   --font-questrial: var(--font-heading);
@@ -257,15 +261,15 @@
   --home-cta-hover: rgba(28, 24, 18, 0.04);
 
   /* Homepage WORK row + case MotionSection rails (shared typography) */
-  --section-rail-title-font: var(--font-heading);
-  --section-rail-title-size: clamp(18px, 2.2vw, 26px);
-  --section-rail-title-weight: 600;
-  --section-rail-title-tracking: 0.12em;
-  --section-rail-title-transform: uppercase;
-  --section-rail-prefix-font: var(--font-body);
-  --section-rail-prefix-size: 11px;
-  --section-rail-prefix-weight: 600;
-  --section-rail-prefix-tracking: 0.2em;
+  --section-rail-title-font: var(--font-sans);
+  --section-rail-title-size: clamp(1.625rem, 4vw, var(--type-section-title));
+  --section-rail-title-weight: 500;
+  --section-rail-title-tracking: var(--type-section-title-tracking);
+  --section-rail-title-transform: none;
+  --section-rail-prefix-font: var(--font-mono);
+  --section-rail-prefix-size: var(--type-label);
+  --section-rail-prefix-weight: 400;
+  --section-rail-prefix-tracking: var(--type-label-tracking);
   --section-rail-prefix-transform: uppercase;
 
   /* Case study — vertical rhythm (major sections share one stack measure) */
@@ -295,10 +299,10 @@
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --font-sans: var(--font-body);
-  --font-serif: var(--font-serif-stack);
+  --font-serif: var(--font-body);
   --font-mono: var(--font-mono-stack);
-  --font-display: var(--font-anybody);
-  --font-heading: var(--font-anybody);
+  --font-display: var(--font-body);
+  --font-heading: var(--font-body);
 }
 
 html {
@@ -318,12 +322,13 @@ body {
   min-height: 100%;
   max-width: 100%;
   overflow-x: clip;
-  background-color: var(--color-ground-primary);
   color: var(--color-ink-900);
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+  line-height: var(--type-body-line);
+  letter-spacing: var(--type-body-tracking);
   font-optical-sizing: auto;
-  font-size: var(--text-base);
-  line-height: var(--leading-relaxed);
+  font-weight: var(--weight-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -1183,8 +1188,8 @@ html.dark .home-page-main,
   margin-bottom: 0;
 }
 
-/* Role line — Instrument Serif italic, accent voice — Madder like the pull-quote colour */
-.hero-subtitle {
+/* Role line — legacy journal hero; minimal home uses typography.css .hero-subtitle */
+.home-layout .hero-subtitle {
   font-family: var(--font-accent);
   font-size: 17px;
   font-weight: 400;
@@ -1197,7 +1202,7 @@ html.dark .home-page-main,
   text-wrap: balance;
   white-space: nowrap;
 }
-.dark .hero-subtitle {
+.dark .home-layout .hero-subtitle {
   color: rgba(255, 255, 255, 0.85);
 }
 

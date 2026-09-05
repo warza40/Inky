@@ -157,10 +157,3 @@ export function CaseJournalOverview({ caseStudy }: CaseJournalOverviewProps) {
     </div>
   );
 }
-
-/** @deprecated Use caseJournalOverviewHasContent */
-export const omantelJournalOverviewHasContent = caseJournalOverviewHasContent;
-/** @deprecated Use CaseJournalOverview */
-export function OmantelJournalOverview(props: CaseJournalOverviewProps) {
-  return <CaseJournalOverview {...props} />;
-}

@@ -1,0 +1,186 @@
+/* ============================================================
+   Typography — Instrument Sans · Source Serif 4 · IBM Plex Mono
+   Aesthetic: warm-humanist / cursor
+   ============================================================ */
+
+:root {
+  /* Families */
+  --font-sans:
+    var(--font-instrument-sans), "Instrument Sans", system-ui, sans-serif;
+  --font-serif: var(--font-source-serif), "Source Serif 4", Georgia, serif;
+  --font-mono: var(--font-ibm-plex-mono), "IBM Plex Mono", monospace;
+  --font-display: var(--font-sans);
+
+  /* Weights — authority from tracking, not boldness */
+  --weight-body: 400;
+  --weight-ui: 500;
+  --weight-heading: 400;
+  --weight-display: 400;
+
+  /* Hero headline */
+  --type-hero: clamp(3.5rem, 5vw, 4.25rem);
+  --type-hero-line: 0.98;
+  --type-hero-tracking: -0.03em;
+  --type-hero-weight: var(--weight-display);
+
+  /* Major section heading */
+  --type-major-heading: clamp(2rem, 3.2vw, 3rem);
+  --type-major-heading-line: 1.08;
+  --type-major-heading-tracking: -0.025em;
+
+  /* Standard section heading */
+  --type-section-title: clamp(1.625rem, 2.4vw, 2rem);
+  --type-section-title-line: 1.15;
+  --type-section-title-tracking: -0.015em;
+
+  /* Case-study card title */
+  --type-card-title: clamp(0.9375rem, 1.1vw, 1rem);
+  --type-card-title-line: 1.35;
+  --type-card-title-tracking: -0.01em;
+
+  /* Body — editorial reading rhythm */
+  --type-body-lg: clamp(1.0625rem, 0.25vw + 1rem, 1.125rem);
+  --type-body-lg-line: 1.65;
+  --type-body: clamp(1rem, 0.2vw + 0.95rem, 1.0625rem);
+  --type-body-line: 1.65;
+  --type-body-tracking: -0.005em;
+
+  /* Small UI */
+  --type-body-sm: 0.875rem;
+  --type-body-sm-line: 1.5;
+  --type-caption: 0.875rem;
+  --type-caption-line: 1.45;
+  --type-nav: 0.875rem;
+  --type-button: 0.875rem;
+
+  /* Mono metadata */
+  --type-label: clamp(0.75rem, 0.1vw + 0.72rem, 0.8125rem);
+  --type-label-line: 1.45;
+  --type-label-tracking: 0.04em;
+
+  /* Legacy aliases */
+  --type-page-title: var(--type-major-heading);
+  --type-page-title-line: var(--type-major-heading-line);
+  --type-page-title-tracking: var(--type-major-heading-tracking);
+}
+
+/* ── Semantic roles ── */
+
+.type-hero {
+  font-family: var(--font-sans);
+  font-size: var(--type-hero);
+  font-weight: var(--type-hero-weight);
+  line-height: var(--type-hero-line);
+  letter-spacing: var(--type-hero-tracking);
+  text-wrap: balance;
+}
+
+.type-major-heading {
+  font-family: var(--font-sans);
+  font-size: var(--type-major-heading);
+  font-weight: var(--weight-heading);
+  line-height: var(--type-major-heading-line);
+  letter-spacing: var(--type-major-heading-tracking);
+  text-wrap: balance;
+}
+
+.type-section-title {
+  font-family: var(--font-sans);
+  font-size: var(--type-section-title);
+  font-weight: var(--weight-heading);
+  line-height: var(--type-section-title-line);
+  letter-spacing: var(--type-section-title-tracking);
+  text-wrap: balance;
+}
+
+.type-card-title {
+  font-family: var(--font-sans);
+  font-size: var(--type-card-title);
+  font-weight: var(--weight-heading);
+  line-height: var(--type-card-title-line);
+  letter-spacing: var(--type-card-title-tracking);
+}
+
+.type-body-lg {
+  font-family: var(--font-sans);
+  font-size: var(--type-body-lg);
+  font-weight: var(--weight-body);
+  line-height: var(--type-body-lg-line);
+  letter-spacing: var(--type-body-tracking);
+}
+
+.type-body {
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+  font-weight: var(--weight-body);
+  line-height: var(--type-body-line);
+  letter-spacing: var(--type-body-tracking);
+}
+
+.type-body-sm {
+  font-family: var(--font-sans);
+  font-size: var(--type-body-sm);
+  font-weight: var(--weight-body);
+  line-height: var(--type-body-sm-line);
+  letter-spacing: var(--type-body-tracking);
+}
+
+.type-caption {
+  font-family: var(--font-sans);
+  font-size: var(--type-caption);
+  font-weight: var(--weight-body);
+  line-height: var(--type-caption-line);
+  letter-spacing: var(--type-body-tracking);
+}
+
+.type-label,
+.type-mono {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--weight-body);
+  line-height: var(--type-label-line);
+  letter-spacing: var(--type-label-tracking);
+}
+
+.type-nav {
+  font-family: var(--font-sans);
+  font-size: var(--type-nav);
+  font-weight: var(--weight-ui);
+  line-height: var(--type-body-sm-line);
+  letter-spacing: var(--type-body-tracking);
+}
+
+.type-button {
+  font-family: var(--font-sans);
+  font-size: var(--type-button);
+  font-weight: var(--weight-ui);
+  line-height: var(--type-body-sm-line);
+  letter-spacing: var(--type-body-tracking);
+}
+
+.hero-subtitle {
+  font-family: var(--font-sans);
+  font-size: var(--type-body-lg);
+  line-height: var(--type-body-lg-line);
+  font-weight: var(--weight-body);
+  letter-spacing: var(--type-body-tracking);
+}
+
+.type-page-title {
+  font-family: var(--font-sans);
+  font-size: var(--type-page-title);
+  font-weight: var(--weight-heading);
+  line-height: var(--type-page-title-line);
+  letter-spacing: var(--type-page-title-tracking);
+  text-wrap: balance;
+}
+
+.prose-width {
+  max-width: var(--layout-copy-max, clamp(620px, 55vw, 720px));
+}
+
+@media (max-width: 767px) {
+  :root {
+    --type-hero: clamp(2.625rem, 8vw, 3rem);
+  }
+}

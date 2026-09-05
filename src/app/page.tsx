@@ -1,12 +1,10 @@
-import { HomePageClient } from "./HomePageClient";
+import { PageShell } from "@/components/sheets/PageShell";
+import { MinimalHomepage } from "@/components/home/MinimalHomepage";
 
 export default function Home() {
   return (
-    <main className="home-page-main layout-main">
-      <div className="home-bg-grid" aria-hidden />
-      <div className="content-wrap">
-        <HomePageClient />
-      </div>
-    </main>
+    <PageShell as="main" className="layout-main">
+      <MinimalHomepage />
+    </PageShell>
   );
 }
