@@ -62,6 +62,13 @@ export function MotionImage({
     setHoverTooltip(null);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!lightbox) return;
+    if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
+    e.preventDefault();
+    setLightboxOpen(true);
+  };
+
   useEffect(() => {
     if (!lightboxOpen) return;
     const handleEscape = (e: KeyboardEvent) => {
@@ -122,9 +129,11 @@ export function MotionImage({
           whileHover={intrinsic ? undefined : { scale: 1.02 }}
           transition={{ duration: 0.2 }}
           onClick={lightbox ? () => setLightboxOpen(true) : undefined}
+          onKeyDown={handleKeyDown}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           role={lightbox ? "button" : undefined}
+          tabIndex={lightbox ? 0 : undefined}
           aria-label={lightbox ? "View full size" : undefined}
         >
           {imageContent}
