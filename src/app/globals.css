@@ -59,17 +59,17 @@
   --color-feedback-warning-light: #dba85a;
 
   /* ── COLOUR: Semantic (Technical register) ── */
-  --color-accent: var(--accent, #f54e00);
+  --color-accent: var(--color-madder-900);
   --color-text-tertiary: var(--color-ink-300);
-  --color-focus: var(--accent, #f54e00);
+  --color-focus: var(--color-madder-900);
   --color-success: var(--color-feedback-success-dark);
   --color-warning: var(--color-feedback-warning-dark);
   --color-error: var(--color-feedback-error-dark);
   --color-info: var(--color-slate-700);
 
   /* ── COLOUR: Interactive (Technical) ── */
-  --color-link: var(--accent, #f54e00);
-  --color-link-hover: var(--accent-hover, #cf2d56);
+  --color-link: var(--color-madder-900);
+  --color-link-hover: var(--color-ink-700);
   --color-interactive-default: var(--color-ink-900);
   --color-interactive-hover: var(--color-ink-700);
   --color-interactive-active: var(--color-ink-900);
