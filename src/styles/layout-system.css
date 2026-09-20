@@ -154,7 +154,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .floating-nav__link:hover {
-    color: var(--accent);
+    color: var(--color-ink-700);
   }
 }
 
@@ -175,7 +175,7 @@
 }
 
 .floating-nav__resume:hover {
-  color: var(--accent);
+  color: var(--color-ink-700);
 }
 
 .floating-nav__menu-toggle {
@@ -435,13 +435,13 @@
   font-size: var(--type-body-lg);
   font-weight: var(--weight-ui);
   line-height: 1.4;
-  color: var(--accent);
+  color: var(--color-madder-900);
   text-decoration: none;
   transition: color var(--motion-standard) var(--motion-ease);
 }
 
 .contact-section__email:hover {
-  color: var(--accent-hover);
+  color: var(--color-ink-700);
 }
 
 .floating-nav__link:focus-visible,
