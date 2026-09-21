@@ -21,6 +21,9 @@
 
 .page-shell--sparkles {
   isolation: isolate;
+  /* 1 wireframe px = this fraction of viewport width (capped at 1920). */
+  --sparkle-unit: calc(min(100vw, 1920px) / 1920);
+  min-height: calc(var(--sparkle-wireframe-height, 4615) * var(--sparkle-unit));
 }
 
 .page-sparkle-marks {
@@ -28,33 +31,15 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  overflow: hidden;
-  /* Keep marks in side margins; fade through the reading column */
-  -webkit-mask-image: linear-gradient(
-    to right,
-    #000 0%,
-    #000 10%,
-    transparent 22%,
-    transparent 78%,
-    #000 90%,
-    #000 100%
-  );
-  mask-image: linear-gradient(
-    to right,
-    #000 0%,
-    #000 10%,
-    transparent 22%,
-    transparent 78%,
-    #000 90%,
-    #000 100%
-  );
+  overflow: visible;
+  min-height: calc(var(--sparkle-wireframe-height, 4615) * var(--sparkle-unit));
 }
 
 .page-sparkle-marks__mark {
   position: absolute;
   display: block;
   line-height: 0;
-  opacity: 0.34;
+  opacity: 0.62;
   transform: translateZ(0);
 }
 
@@ -69,34 +54,13 @@
     display: none;
   }
 
-  .page-sparkle-marks {
-    -webkit-mask-image: linear-gradient(
-      to right,
-      #000 0%,
-      #000 4%,
-      transparent 16%,
-      transparent 84%,
-      #000 96%,
-      #000 100%
-    );
-    mask-image: linear-gradient(
-      to right,
-      #000 0%,
-      #000 4%,
-      transparent 16%,
-      transparent 84%,
-      #000 96%,
-      #000 100%
-    );
-  }
-
   .page-sparkle-marks__mark {
-    opacity: 0.26;
+    opacity: 0.48;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .page-sparkle-marks__mark {
-    opacity: 0.2;
+    opacity: 0.38;
   }
 }

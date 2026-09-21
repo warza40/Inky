@@ -1,6 +1,8 @@
 import { Sparkle } from "@/components/ui/Sparkle";
 import {
   PAGE_SPARKLE_MARKS,
+  WIREFRAME_HEIGHT,
+  WIREFRAME_WIDTH,
   type PageSparkleVariant,
 } from "@/components/ui/page-sparkle-marks";
 
@@ -8,10 +10,8 @@ interface PageSparkleMarksProps {
   variant: PageSparkleVariant;
 }
 
-function markWidthCss(size: number): string {
-  const min = Math.round(size * 0.4);
-  const vw = ((size / 1920) * 100).toFixed(3);
-  return `clamp(${min}px, ${vw}vw, ${size}px)`;
+function wireframeCss(value: number): string {
+  return `calc(${value} * var(--sparkle-unit))`;
 }
 
 /** Figma 52:406 — decorative sparkle marks as a non-interactive page background. */
@@ -23,6 +23,11 @@ export function PageSparkleMarks({ variant }: PageSparkleMarksProps) {
       className="page-sparkle-marks"
       aria-hidden
       data-sparkle-variant={variant}
+      style={{
+        // Expose wireframe dimensions for CSS min-height on the shell.
+        ["--sparkle-wireframe-width" as string]: `${WIREFRAME_WIDTH}`,
+        ["--sparkle-wireframe-height" as string]: `${WIREFRAME_HEIGHT}`,
+      }}
     >
       {marks.map((mark) => (
         <span
@@ -31,9 +36,9 @@ export function PageSparkleMarks({ variant }: PageSparkleMarksProps) {
           data-sparkle-id={mark.id}
           data-hide-below={mark.hideBelow ?? undefined}
           style={{
-            left: `${mark.left * 100}%`,
-            top: `${mark.top * 100}%`,
-            width: markWidthCss(mark.size),
+            left: wireframeCss(mark.x),
+            top: wireframeCss(mark.y),
+            width: wireframeCss(mark.size),
           }}
         >
           <Sparkle

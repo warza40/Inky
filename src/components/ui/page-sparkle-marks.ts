@@ -1,17 +1,17 @@
 import type { SparkleStyle } from "@/components/ui/sparkle-styles";
 
-/** Figma 52:406 wireframe artboard — positions converted to fractions. */
-const WIREFRAME_WIDTH = 1920;
-const WIREFRAME_HEIGHT = 4615;
+/** Figma 52:406 wireframe artboard — fixed coordinate space. */
+export const WIREFRAME_WIDTH = 1920;
+export const WIREFRAME_HEIGHT = 4615;
 
 export interface PageSparkleMark {
   id: string;
   style: SparkleStyle;
-  /** Horizontal position as fraction of artboard width (may be negative for bleed). */
-  left: number;
-  /** Vertical position as fraction of artboard height. */
-  top: number;
-  /** Reference size in px at 1920px viewport width. */
+  /** X position in wireframe px (may be negative for bleed). */
+  x: number;
+  /** Y position in wireframe px. */
+  y: number;
+  /** Size in wireframe px at 1920px artboard width. */
   size: number;
   /** Hide below this viewport width when set. */
   hideBelow?: number;
@@ -20,19 +20,12 @@ export interface PageSparkleMark {
 function fromWireframe(
   id: string,
   style: SparkleStyle,
-  leftPx: number,
-  topPx: number,
-  sizePx: number,
+  x: number,
+  y: number,
+  size: number,
   hideBelow?: number,
 ): PageSparkleMark {
-  return {
-    id,
-    style,
-    left: leftPx / WIREFRAME_WIDTH,
-    top: topPx / WIREFRAME_HEIGHT,
-    size: sizePx,
-    hideBelow,
-  };
+  return { id, style, x, y, size, hideBelow };
 }
 
 /**
