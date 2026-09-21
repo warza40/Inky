@@ -26,7 +26,11 @@ export function CaseStudyLayout({
   className,
 }: CaseStudyLayoutProps) {
   return (
-    <PageShell as="div" className={cn("case-study-layout", className)}>
+    <PageShell
+      as="div"
+      className={cn("case-study-layout", className)}
+      sparkleMarks="case-study"
+    >
       <div
         className={cn(
           "case-study-layout-page cs-page cs-page--sheets",

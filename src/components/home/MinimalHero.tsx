@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Section } from "@/components/layout/Section";
 import { LayoutGrid, GridCell } from "@/components/layout/LayoutGrid";
-import { TamagotchiWebsiteThumbnail } from "@/components/ui/TamagotchiWebsiteThumbnail";
 
 const PLOTTER_AI_URL = "https://plotter.ai";
 
@@ -37,19 +36,6 @@ export function MinimalHero() {
               is making AI useful inside systems with real permissions, real
               stakes and users who don&apos;t trust it yet.
             </p>
-
-            <div className="home-hero__annotation">
-              <TamagotchiWebsiteThumbnail />
-              <div className="home-hero__annotation-copy">
-                <p className="home-hero__annotation-lede">
-                  Interactive cursor companion shifts expressions based on hover
-                  state!
-                </p>
-                <p className="home-hero__annotation-meta">
-                  [COMPANION_OS: IDLE / PLAY / WRITE]
-                </p>
-              </div>
-            </div>
           </div>
         </GridCell>
       </LayoutGrid>

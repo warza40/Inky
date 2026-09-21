@@ -3,7 +3,7 @@ import { MinimalHomepage } from "@/components/home/MinimalHomepage";
 
 export default function Home() {
   return (
-    <PageShell as="main" className="layout-main">
+    <PageShell as="main" className="layout-main" sparkleMarks="home">
       <MinimalHomepage />
     </PageShell>
   );

@@ -1,0 +1,44 @@
+/* ============================================================
+   Sparkle marks — Figma 6:2 / 6:39 (12 variants)
+   ============================================================ */
+
+.sparkle-mark {
+  display: inline-block;
+  flex-shrink: 0;
+  line-height: 0;
+  vertical-align: middle;
+}
+
+/* ── Page background layer — Figma 52:406 ── */
+
+.page-sparkle-marks {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.page-sparkle-marks__mark {
+  position: absolute;
+  display: block;
+  line-height: 0;
+  opacity: 0.92;
+  transform: translateZ(0);
+}
+
+.page-sparkle-marks__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  .page-sparkle-marks__mark[data-hide-below="768"] {
+    display: none;
+  }
+
+  .page-sparkle-marks__mark {
+    opacity: 0.78;
+  }
+}
