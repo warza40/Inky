@@ -81,9 +81,9 @@
   margin: 0;
   max-width: 36rem;
   font-family: var(--font-sans);
-  font-size: 0.9375rem;
+  font-size: var(--type-body);
   font-weight: 400;
-  line-height: 1.5;
+  line-height: var(--type-body-line);
   color: #55545a;
 }
 
@@ -132,9 +132,9 @@
 
 .social-contact__label {
   font-family: var(--font-expressive);
-  font-size: var(--type-annotation-xs);
+  font-size: var(--type-annotation-sm);
   font-weight: 400;
-  line-height: 1;
+  line-height: 1.15;
   color: var(--badge-ink, #1c1c1e);
   transition: color var(--motion-standard) var(--motion-ease);
 }
@@ -206,18 +206,18 @@
 .social-contact__composer-title {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: 1.25rem;
-  font-weight: 800;
-  line-height: 1.2;
+  font-size: var(--type-title-card-sm);
+  font-weight: var(--type-title-card-sm-weight);
+  line-height: var(--type-title-card-sm-line);
   color: var(--badge-ink, #1c1c1e);
 }
 
 .social-contact__composer-subtitle {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: 0.8125rem;
+  font-size: var(--type-body-sm);
   font-weight: 400;
-  line-height: 1.35;
+  line-height: var(--type-body-sm-line);
   color: #55545a;
 }
 
@@ -247,9 +247,9 @@
 
 .social-contact__field-label {
   font-family: var(--font-expressive);
-  font-size: 1.1875rem;
+  font-size: var(--type-annotation-md);
   font-weight: 400;
-  line-height: 1;
+  line-height: 1.15;
   color: var(--badge-ink, #1c1c1e);
 }
 
@@ -261,22 +261,22 @@
   background: var(--badge-surface, #f0efea);
   color: var(--badge-ink, #1c1c1e);
   font-family: var(--font-sans);
-  font-size: 0.875rem;
+  font-size: var(--type-body);
   font-weight: 400;
-  line-height: 1.4;
+  line-height: var(--type-body-line);
   transition:
     border-color var(--motion-standard) var(--motion-ease),
     box-shadow var(--motion-standard) var(--motion-ease);
 }
 
 .social-contact__input {
-  min-height: 48px;
-  padding: 12px 14px;
+  min-height: 52px;
+  padding: 14px 16px;
 }
 
 .social-contact__textarea {
-  min-height: 82px;
-  padding: 12px 14px;
+  min-height: 88px;
+  padding: 14px 16px;
   resize: vertical;
 }
 
@@ -302,9 +302,9 @@
 .social-contact__composer-note {
   margin: 0;
   font-family: var(--font-expressive);
-  font-size: 1.0625rem;
+  font-size: var(--type-annotation-sm);
   font-weight: 400;
-  line-height: 1;
+  line-height: 1.15;
   color: #286451;
 }
 
@@ -314,16 +314,16 @@
   justify-content: center;
   gap: 8px;
   min-width: 128px;
-  min-height: 44px;
-  padding: 0 16px;
+  min-height: 48px;
+  padding: 0 18px;
   border: none;
   border-radius: 7px;
   background: #14141a;
   color: #fff;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: var(--type-body-sm);
   font-weight: 500;
-  line-height: 1.5;
+  line-height: var(--type-body-sm-line);
   letter-spacing: 0.01em;
   cursor: pointer;
   transition: background-color var(--motion-standard) var(--motion-ease);
