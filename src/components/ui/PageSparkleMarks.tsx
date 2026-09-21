@@ -8,6 +8,12 @@ interface PageSparkleMarksProps {
   variant: PageSparkleVariant;
 }
 
+function markWidthCss(size: number): string {
+  const min = Math.round(size * 0.4);
+  const vw = ((size / 1920) * 100).toFixed(3);
+  return `clamp(${min}px, ${vw}vw, ${size}px)`;
+}
+
 /** Figma 52:406 — decorative sparkle marks as a non-interactive page background. */
 export function PageSparkleMarks({ variant }: PageSparkleMarksProps) {
   const marks = PAGE_SPARKLE_MARKS[variant];
@@ -27,12 +33,12 @@ export function PageSparkleMarks({ variant }: PageSparkleMarksProps) {
           style={{
             left: `${mark.left * 100}%`,
             top: `${mark.top * 100}%`,
-            width: `clamp(${Math.round(mark.size * 0.45)}px, ${((mark.size / 1920) * 100).toFixed(3)}vw, ${mark.size}px)`,
+            width: markWidthCss(mark.size),
           }}
         >
           <Sparkle
             style={mark.style}
-            size={mark.size}
+            decorative
             className="page-sparkle-marks__img"
           />
         </span>

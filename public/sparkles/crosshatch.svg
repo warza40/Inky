@@ -1,0 +1,41 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <clipPath id="sparkle-crosshatch-shape">
+      <path
+        d="M11.29 0C13.5567 15.3133 17.6767 24.0633 23.65 26.25C17.4367 28.1767 12.4233 35.12 8.61 47.08C8.13 34.56 5.26 27.24 0 25.12C5.53333 23.34 9.29667 14.9667 11.29 0Z"
+        transform="translate(36.78 22.56)"
+      />
+    </clipPath>
+  </defs>
+  <g clip-path="url(#sparkle-crosshatch-shape)">
+    <g transform="translate(44.55 2.16)">
+      <path d="M0.388909 0.388909L55.5889 55.5889" stroke="#1C1C1E" stroke-opacity="0.85" stroke-width="1.1" />
+      <path d="M3.84891 0.388909L59.0489 55.5889" stroke="#1C1C1E" stroke-opacity="0.85" stroke-width="1.1" />
+      <path d="M7.40891 0.388909L62.6089 55.5889" stroke="#1C1C1E" stroke-opacity="0.85" stroke-width="1.1" />
+      <path d="M10.5089 0.388909L65.7089 55.5889" stroke="#1C1C1E" stroke-opacity="0.85" stroke-width="1.1" />
+      <path d="M12.4689 0.388909L67.6689 55.5889" stroke="#1C1C1E" stroke-opacity="0.85" stroke-width="1.1" />
+      <path d="M15.7689 0.388909L70.9689 55.5889" stroke="#1C1C1E" stroke-opacity="0.85" stroke-width="1.1" />
+      <path d="M19.7189 0.388909L74.9189 55.5889" stroke="#1C1C1E" stroke-opacity="0.85" stroke-width="1.1" />
+      <path d="M21.7889 0.388909L76.9889 55.5889" stroke="#1C1C1E" stroke-opacity="0.85" stroke-width="1.1" />
+      <path d="M25.4089 0.388909L80.6089 55.5889" stroke="#1C1C1E" stroke-opacity="0.85" stroke-width="1.1" />
+      <path d="M27.4489 0.388909L82.6489 55.5889" stroke="#1C1C1E" stroke-opacity="0.85" stroke-width="1.1" />
+      <path d="M31.3789 0.388909L86.5789 55.5889" stroke="#1C1C1E" stroke-opacity="0.85" stroke-width="1.1" />
+      <path d="M34.4789 0.388909L89.6789 55.5889" stroke="#1C1C1E" stroke-opacity="0.85" stroke-width="1.1" />
+      <path d="M37.2489 0.388909L92.4489 55.5889" stroke="#1C1C1E" stroke-opacity="0.85" stroke-width="1.1" />
+      <path d="M39.1289 0.388909L94.3289 55.5889" stroke="#1C1C1E" stroke-opacity="0.85" stroke-width="1.1" />
+      <path d="M43.5389 0.388909L98.7389 55.5889" stroke="#1C1C1E" stroke-opacity="0.85" stroke-width="1.1" />
+      <path d="M46.0189 0.388909L101.219 55.5889" stroke="#1C1C1E" stroke-opacity="0.85" stroke-width="1.1" />
+      <path d="M49.5289 0.388909L104.729 55.5889" stroke="#1C1C1E" stroke-opacity="0.85" stroke-width="1.1" />
+      <path d="M52.1289 0.388909L107.329 55.5889" stroke="#1C1C1E" stroke-opacity="0.85" stroke-width="1.1" />
+      <path d="M54.5789 0.388909L109.779 55.5889" stroke="#1C1C1E" stroke-opacity="0.85" stroke-width="1.1" />
+    </g>
+  </g>
+  <path
+    d="M12.39 1.1C14.6567 16.4133 18.7767 25.1633 24.75 27.35C18.5367 29.2767 13.5233 36.22 9.71001 48.18C9.23001 35.66 6.36001 28.34 1.10001 26.22C6.63334 24.44 10.3967 16.0667 12.39 1.1Z"
+    transform="translate(35.68 21.46)"
+    stroke="#1C1C1E"
+    stroke-width="2.2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

@@ -26,7 +26,7 @@ export const SPARKLE_ASSETS: Record<SparkleStyle, string> = {
   shooting: "/sparkles/shooting.svg",
   accent: "/sparkles/accent.svg",
   solid: "/sparkles/solid.svg",
-  crosshatch: "/sparkles/crosshatch.png",
-  scribble: "/sparkles/scribble.png",
+  crosshatch: "/sparkles/crosshatch.svg",
+  scribble: "/sparkles/scribble.svg",
   loose: "/sparkles/loose.svg",
 };

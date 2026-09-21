@@ -9,7 +9,19 @@
   vertical-align: middle;
 }
 
+.sparkle-mark--decorative {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
+
 /* ── Page background layer — Figma 52:406 ── */
+
+.page-shell--sparkles {
+  isolation: isolate;
+}
 
 .page-sparkle-marks {
   position: absolute;
@@ -17,13 +29,32 @@
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
+  /* Keep marks in side margins; fade through the reading column */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    #000 0%,
+    #000 10%,
+    transparent 22%,
+    transparent 78%,
+    #000 90%,
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    #000 0%,
+    #000 10%,
+    transparent 22%,
+    transparent 78%,
+    #000 90%,
+    #000 100%
+  );
 }
 
 .page-sparkle-marks__mark {
   position: absolute;
   display: block;
   line-height: 0;
-  opacity: 0.92;
+  opacity: 0.34;
   transform: translateZ(0);
 }
 
@@ -38,7 +69,34 @@
     display: none;
   }
 
+  .page-sparkle-marks {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      #000 0%,
+      #000 4%,
+      transparent 16%,
+      transparent 84%,
+      #000 96%,
+      #000 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      #000 0%,
+      #000 4%,
+      transparent 16%,
+      transparent 84%,
+      #000 96%,
+      #000 100%
+    );
+  }
+
   .page-sparkle-marks__mark {
-    opacity: 0.78;
+    opacity: 0.26;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-sparkle-marks__mark {
+    opacity: 0.2;
   }
 }
