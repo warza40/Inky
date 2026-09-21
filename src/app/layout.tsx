@@ -11,6 +11,7 @@ import "@/styles/article-card.css";
 import "@/styles/social-contact.css";
 import "@/styles/site-footer.css";
 import "@/styles/sparkle.css";
+import "@/styles/hero-console.css";
 import "@/styles/cta-button.css";
 import "@/styles/tamagotchi-character.css";
 import "@/styles/expanding-cursor.css";

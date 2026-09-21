@@ -1,0 +1,281 @@
+/* ============================================================
+   Hero console — Figma 125:1993 (Hero / Responsive)
+   ============================================================ */
+
+.hero-console {
+  width: 100%;
+}
+
+.hero-console__shell {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 14px;
+  border: 3px solid var(--ink, #1c1c1e);
+  border-radius: 24px;
+  background: #63aa92;
+  box-shadow: 7px 7px 0 0 var(--ink, #1c1c1e);
+}
+
+.hero-console__screen {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 14px 18px 20px;
+  border: 3px solid var(--ink, #1c1c1e);
+  border-radius: 14px;
+  background: var(--paper-bg, #f8f7f4);
+}
+
+.hero-console__status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.12px;
+}
+
+.hero-console__status-level {
+  color: var(--badge-teal-hover, #3f7d68);
+}
+
+.hero-console__status-battery {
+  color: var(--ink, #1c1c1e);
+}
+
+.hero-console__identity {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.hero-console__name {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(2.75rem, 8vw, 4.75rem);
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: var(--ink, #1c1c1e);
+}
+
+.hero-console__intro-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.hero-console__intro {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(1.3125rem, 2.4vw, 2.125rem);
+  font-weight: 500;
+  line-height: 1.18;
+  color: #55545a;
+  text-wrap: pretty;
+}
+
+.hero-console__intro strong {
+  font-weight: 700;
+}
+
+.hero-console__project-link {
+  font-weight: 700;
+  color: var(--badge-teal-hover, #3f7d68);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.14em;
+  transition: color var(--motion-standard) var(--motion-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-console__project-link:hover {
+    color: var(--badge-teal, #5da78d);
+  }
+}
+
+.hero-console__experience {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+
+.hero-console__tags {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.hero-console__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border: 2px solid var(--ink, #1c1c1e);
+  border-radius: 20px;
+  background: var(--badge-teal, #5da78d);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: normal;
+  color: var(--ink, #1c1c1e);
+  white-space: nowrap;
+}
+
+/* Sparkle marks — Figma 125:1858 / 125:1886 / 125:1891 */
+
+.hero-console__sparkle {
+  display: block;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.hero-console__sparkle-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hero-console__sparkle--identity {
+  width: 52px;
+  height: 45px;
+}
+
+.hero-console__sparkle--side {
+  display: none;
+}
+
+.hero-console__sparkle--experience {
+  width: 32px;
+  height: 32px;
+}
+
+.hero-console__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 42px;
+}
+
+.hero-console__control {
+  display: block;
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--ink, #1c1c1e);
+  border-radius: 50%;
+  background: var(--paper-bg, #f8f7f4);
+  box-shadow: 0 2px 0 0 var(--ink, #1c1c1e);
+}
+
+.home-hero__content-cell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-component);
+}
+
+/* Tablet — Figma 125:1991 */
+@media (min-width: 768px) {
+  .hero-console__shell {
+    padding: 18px;
+    border-width: 4px;
+    border-radius: 40px;
+    box-shadow: 12px 12px 0 0 var(--ink, #1c1c1e);
+  }
+
+  .hero-console__screen {
+    gap: 22px;
+    padding: 16px 24px 24px;
+    border-radius: 20px;
+  }
+
+  .hero-console__sparkle--identity {
+    width: 84px;
+    height: 71px;
+  }
+
+  .hero-console__sparkle--side {
+    display: block;
+    width: 48px;
+    height: 48px;
+  }
+
+  .hero-console__sparkle--experience {
+    width: 42px;
+    height: 42px;
+  }
+
+  .hero-console__tag {
+    padding: 6px 16px;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    background: #fff;
+  }
+
+  .hero-console__controls {
+    gap: 80px;
+  }
+
+  .hero-console__control {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* Desktop — Figma 125:1990 */
+@media (min-width: 1200px) {
+  .hero-console__shell {
+    padding: 24px;
+  }
+
+  .hero-console__screen {
+    padding: 16px 32px 24px;
+  }
+
+  .hero-console__identity {
+    gap: 12px;
+  }
+
+  .hero-console__sparkle--identity {
+    width: 114px;
+    height: 78px;
+  }
+
+  .hero-console__sparkle--side {
+    width: 58px;
+    height: 58px;
+  }
+
+  .hero-console__intro-row {
+    gap: 16px;
+  }
+
+  .hero-console__experience {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .hero-console__controls {
+    gap: 80px;
+  }
+
+  .hero-console__control {
+    width: 48px;
+    height: 48px;
+  }
+
+  .hero-console__tag {
+    background: var(--badge-teal, #5da78d);
+    font-family: var(--font-mono);
+  }
+}
