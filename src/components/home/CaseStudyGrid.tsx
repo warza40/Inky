@@ -2,7 +2,6 @@ import { HOME_CASE_STUDIES } from "@/data/home-case-studies";
 import type { HomeCaseStudy } from "@/data/home-case-studies";
 import { CaseStudyCard } from "@/components/layout/CaseStudyCard";
 import { Section } from "@/components/layout/Section";
-import { LayoutGrid, GridCell } from "@/components/layout/LayoutGrid";
 import { Badge } from "@/components/ui/Badge";
 import { ProjectsHeadingGroup } from "@/components/home/ProjectsHeadingGroup";
 
@@ -38,15 +37,12 @@ export function CaseStudyGrid() {
       padding="standard"
       ariaLabel="Selected work"
     >
-      <LayoutGrid className="layout-grid--align-start">
-        <GridCell col={{ start: 1, end: 7 }}>
-          <Badge variant="badge" className="work-section__badge">
-            Case studies &amp; demos
-          </Badge>
-        </GridCell>
-      </LayoutGrid>
-
-      <ProjectsHeadingGroup />
+      <div className="work-section__header">
+        <Badge variant="badge" className="work-section__badge">
+          Case studies &amp; demos
+        </Badge>
+        <ProjectsHeadingGroup />
+      </div>
 
       <ul className="home-bento-grid" role="list">
         {studies.map((study) => (

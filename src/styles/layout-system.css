@@ -346,6 +346,14 @@
 
 /* ── Selected work ── */
 
+.work-section__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-control);
+  width: 100%;
+}
+
 .work-section__badge {
   margin-bottom: 0;
 }
