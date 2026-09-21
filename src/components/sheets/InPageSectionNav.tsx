@@ -42,7 +42,12 @@ export function InPageSectionNav({
           if (entry.isIntersecting) setActiveSection(entry.target.id);
         });
       },
-      { rootMargin: "-140px 0px -50% 0px", threshold: 0 },
+      {
+        // Keep the active tab in sync with sections sitting below the
+        // floating nav (--nav-clearance) plus sticky in-page tabs.
+        rootMargin: "-180px 0px -50% 0px",
+        threshold: 0,
+      },
     );
 
     sections.forEach(({ id }) => {

@@ -59,6 +59,10 @@
   /* Header — Figma Navbar / Floating (88:1295) */
   --nav-height: 88px;
   --nav-offset-top: 16px;
+  /* Occupied viewport from top of screen through the floating bar. */
+  --nav-stack: calc(var(--nav-offset-top) + var(--nav-height));
+  /* Gap under the bar so sticky chrome and hash targets are not covered. */
+  --nav-clearance: calc(var(--nav-stack) + var(--space-control));
   --nav-bar-radius: 24px;
   --nav-bar-pad-x: 24px;
   --nav-bar-pad-y: 16px;

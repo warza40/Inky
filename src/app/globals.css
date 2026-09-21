@@ -308,6 +308,7 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-clearance);
   overflow-y: scroll;
   overflow-x: clip;
   -webkit-text-size-adjust: 100%;
@@ -4795,11 +4796,13 @@ body:has(.cs-page) {
   box-sizing: border-box;
   padding: clamp(var(--space-10), 4vw, var(--space-12)) 0
     clamp(var(--space-16), 6vw, var(--space-20));
-  scroll-padding-top: 108px; /* clear of sticky nav (progress + nav wrap) */
+  scroll-padding-top: calc(
+    var(--nav-clearance) + var(--nav-item-height)
+  ); /* clear of floating nav + sticky section tabs */
 }
 .cs-section,
 .cs-hero {
-  scroll-margin-top: 108px;
+  scroll-margin-top: calc(var(--nav-clearance) + var(--nav-item-height));
 }
 .cs-content {
   font-family: var(--font-body);
