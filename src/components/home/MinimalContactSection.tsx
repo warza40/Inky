@@ -4,7 +4,7 @@ import { SocialContact } from "@/components/layout/SocialContact";
 
 export function MinimalContactSection() {
   return (
-    <>
+    <div className="home-contact-footer">
       <Section
         id="contact"
         padding="standard"
@@ -14,6 +14,6 @@ export function MinimalContactSection() {
         <SocialContact format="section" state="compose" />
       </Section>
       <SiteFooter />
-    </>
+    </div>
   );
 }

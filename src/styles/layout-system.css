@@ -542,8 +542,13 @@
 
 /* ── Contact — sits on canvas grid, no filled band ── */
 
+.home-contact-footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-section-pad);
+}
+
 .contact-section {
-  padding-top: var(--layout-section-pad);
   padding-bottom: 0;
 }
 
