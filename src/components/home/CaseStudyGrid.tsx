@@ -42,7 +42,6 @@ export function CaseStudyGrid() {
           <Badge variant="badge" className="work-section__badge">
             Case studies &amp; demos
           </Badge>
-          <h2 className="work-section__heading">Selected work</h2>
         </GridCell>
         <GridCell col={{ start: 8, end: 13 }}>
           <p className="work-section__framing">

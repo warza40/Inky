@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { TamagotchiIconMark } from "@/lib/tamagotchi-icon-mark";
 
 export const size = {
   width: 32,
@@ -16,16 +17,11 @@ export default function Icon() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "#1c1b18",
-        borderRadius: "22%",
-        color: "#f7f3ea",
-        fontSize: 12,
-        fontFamily: "system-ui, sans-serif",
-        fontWeight: 600,
-        letterSpacing: "-0.02em",
+        background: "#63aa92",
+        borderRadius: 7,
       }}
     >
-      RM
+      <TamagotchiIconMark width={24} height={24} />
     </div>,
     size,
   );

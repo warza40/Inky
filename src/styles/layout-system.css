@@ -347,7 +347,16 @@
 /* ── Selected work ── */
 
 .work-section__badge {
-  margin-bottom: var(--space-meta);
+  margin-bottom: 0;
+}
+
+/* Tighter hero → work transition — Figma section scale, reduced first inset */
+.minimal-home .work-section.site-section--standard {
+  padding-top: var(--space-group);
+}
+
+.minimal-home .work-section .page-container__inner {
+  gap: var(--space-separation);
 }
 
 .work-section__heading {

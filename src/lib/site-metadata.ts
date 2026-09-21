@@ -15,5 +15,11 @@ export const defaultMetadata: Metadata = {
     title: `${siteName} — Product designer`,
     description: defaultDescription,
     type: "website",
+    siteName,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteName} — Product designer`,
+    description: defaultDescription,
   },
 };

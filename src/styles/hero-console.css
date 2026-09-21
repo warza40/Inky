@@ -48,7 +48,7 @@
 
 .hero-console__identity {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
 }
 
@@ -132,24 +132,27 @@
   white-space: nowrap;
 }
 
-/* Sparkle marks — Figma 125:1858 / 125:1886 / 125:1891 */
+/* Sparkle marks — Figma 125:1858 / 125:1886 / 125:1891 (square source assets) */
 
 .hero-console__sparkle {
-  display: block;
+  display: flex;
   flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--hero-sparkle-size);
+  aspect-ratio: 1;
   line-height: 0;
 }
 
 .hero-console__sparkle-img {
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: contain;
 }
 
 .hero-console__sparkle--identity {
-  width: 52px;
-  height: 45px;
+  --hero-sparkle-size: 45px;
 }
 
 .hero-console__sparkle--side {
@@ -157,8 +160,7 @@
 }
 
 .hero-console__sparkle--experience {
-  width: 32px;
-  height: 32px;
+  --hero-sparkle-size: 32px;
 }
 
 .hero-console__controls {
@@ -200,19 +202,16 @@
   }
 
   .hero-console__sparkle--identity {
-    width: 84px;
-    height: 71px;
+    --hero-sparkle-size: 71px;
   }
 
   .hero-console__sparkle--side {
-    display: block;
-    width: 48px;
-    height: 48px;
+    display: flex;
+    --hero-sparkle-size: 48px;
   }
 
   .hero-console__sparkle--experience {
-    width: 42px;
-    height: 42px;
+    --hero-sparkle-size: 42px;
   }
 
   .hero-console__tag {
@@ -247,13 +246,11 @@
   }
 
   .hero-console__sparkle--identity {
-    width: 114px;
-    height: 78px;
+    --hero-sparkle-size: 78px;
   }
 
   .hero-console__sparkle--side {
-    width: 58px;
-    height: 58px;
+    --hero-sparkle-size: 58px;
   }
 
   .hero-console__intro-row {
