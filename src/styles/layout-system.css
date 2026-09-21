@@ -381,6 +381,46 @@
   color: var(--ink-soft);
 }
 
+/* Figma 133:1786 — Projects heading + curly arrow above case study cards */
+.projects-heading-group {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+
+.projects-heading-group__title {
+  margin: 0;
+  font-family: var(--font-expressive);
+  font-size: var(--type-annotation-xl);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--accent-type);
+  white-space: nowrap;
+}
+
+.projects-heading-group__arrow {
+  flex-shrink: 0;
+  width: 146px;
+  height: auto;
+  aspect-ratio: 147.4 / 97.5404;
+}
+
+@media (max-width: 767px) {
+  .projects-heading-group {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .projects-heading-group__title {
+    white-space: normal;
+  }
+
+  .projects-heading-group__arrow {
+    width: min(146px, 40vw);
+  }
+}
+
 /* ── Homepage bento grid — Figma 67:1019 ── */
 
 .home-bento-grid {

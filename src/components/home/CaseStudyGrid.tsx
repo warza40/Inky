@@ -4,6 +4,7 @@ import { CaseStudyCard } from "@/components/layout/CaseStudyCard";
 import { Section } from "@/components/layout/Section";
 import { LayoutGrid, GridCell } from "@/components/layout/LayoutGrid";
 import { Badge } from "@/components/ui/Badge";
+import { ProjectsHeadingGroup } from "@/components/home/ProjectsHeadingGroup";
 
 /** Figma 67:1019 — row 1 narrow + wide, row 2 narrow left */
 const BENTO_SLOT: Record<string, string> = {
@@ -43,13 +44,9 @@ export function CaseStudyGrid() {
             Case studies &amp; demos
           </Badge>
         </GridCell>
-        <GridCell col={{ start: 8, end: 13 }}>
-          <p className="work-section__framing">
-            Internal tools and ops workflows. Case studies where one design call
-            changed what teams could ship under pressure.
-          </p>
-        </GridCell>
       </LayoutGrid>
+
+      <ProjectsHeadingGroup />
 
       <ul className="home-bento-grid" role="list">
         {studies.map((study) => (
