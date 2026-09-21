@@ -4,8 +4,7 @@
    · 88:1324 nav blink · 53:178 hero blink (3.5s, 4-frame)
    ============================================================ */
 
-.tamagotchi-character,
-.tamagotchi-face-cycle {
+.tamagotchi-character {
   display: inline-flex;
   flex-shrink: 0;
   line-height: 0;
