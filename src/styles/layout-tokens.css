@@ -32,6 +32,9 @@
   /* Typography widths */
   --layout-copy-max: clamp(640px, 55vw, 720px);
   --layout-hero-headline-max: 630px;
+  /* Figma 67:876 — hero text column */
+  --layout-hero-content-max: min(62.5rem, 100%);
+  --layout-hero-body-max: min(48.75rem, 100%);
 
   /* Section rhythm — single-edge padding avoids doubled gaps between sections */
   --layout-section-pad: var(--space-group);
@@ -93,6 +96,8 @@
     --layout-gap-component: clamp(20px, 5vw, 24px);
     --layout-copy-max: 100%;
     --layout-hero-headline-max: 100%;
+    --layout-hero-content-max: 100%;
+    --layout-hero-body-max: 100%;
     --space-chapter: clamp(96px, 14vw, 112px);
   }
 }

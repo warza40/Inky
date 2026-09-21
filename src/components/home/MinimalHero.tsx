@@ -1,27 +1,41 @@
-import { Badge } from "@/components/ui/Badge";
+import Link from "next/link";
 import { Section } from "@/components/layout/Section";
 import { LayoutGrid, GridCell } from "@/components/layout/LayoutGrid";
+
+const PLOTTER_AI_URL = "https://plotter.ai";
 
 export function MinimalHero() {
   return (
     <Section className="home-hero" padding="none" ariaLabel="Introduction">
       <LayoutGrid className="layout-grid--align-start">
-        <GridCell
-          col={{ start: 1, end: 7 }}
-          className="home-hero__headline-cell"
-        >
-          <Badge variant="eyebrow" className="home-hero__eyebrow">
-            Product | Systems | AI
-          </Badge>
-          <p className="home-hero__name">Rachana Mandal</p>
-          <h1 className="home-hero__headline" id="mh-hero-title">
-            Product designer studying behaviour, systems and AI.
-          </h1>
-        </GridCell>
-        <GridCell col={{ start: 9, end: 13 }} className="home-hero__meta-cell">
-          <div className="home-hero__meta">
-            <p>Bengaluru</p>
-            <p>Open to roles</p>
+        <GridCell className="home-hero__content-cell">
+          <div className="home-hero__content">
+            <div className="home-hero__title-block">
+              <h1 className="home-hero__name" id="mh-hero-title">
+                I&apos;m Rachana
+              </h1>
+              <p className="home-hero__intro">
+                <strong>
+                  Product designer studying behaviour, systems and AI.
+                </strong>{" "}
+                Designing, building, strategising and illustrating.{" "}
+                <Link
+                  href={PLOTTER_AI_URL}
+                  className="home-hero__project-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Currently working on building Plotter.ai
+                </Link>
+              </p>
+            </div>
+            <p className="home-hero__body">
+              6 years on enterprise and B2B platforms. I designed Copilot
+              workflows inside Microsoft 365 before they shipped, warehouse
+              operations for Amazon, and telecom commerce for Omantel. My work
+              is making AI useful inside systems with real permissions, real
+              stakes and users who don&apos;t trust it yet.
+            </p>
           </div>
         </GridCell>
       </LayoutGrid>

@@ -9,7 +9,7 @@ export function MinimalContactSection() {
       className="contact-section"
       ariaLabel="Contact"
     >
-      <SocialContact format="section" />
+      <SocialContact format="section" state="compose" />
     </Section>
   );
 }

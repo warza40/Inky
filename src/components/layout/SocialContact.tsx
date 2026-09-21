@@ -2,13 +2,16 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
 import { SOCIAL_LINKS, type SocialLink } from "@/data/social-links";
 import { expandingCursorAttrs } from "@/lib/expanding-cursor";
+import { SocialContactComposer } from "./SocialContactComposer";
 import { SubstackIcon } from "./SubstackIcon";
 import { cn } from "@/lib/utils";
 
 export type SocialContactFormat = "section" | "card";
+export type SocialContactState = "default" | "compose";
 
 interface SocialContactProps {
   format?: SocialContactFormat;
+  state?: SocialContactState;
   className?: string;
 }
 
@@ -67,15 +70,18 @@ function SocialDestination({ link }: { link: SocialLink }) {
 
 export function SocialContact({
   format = "section",
+  state = "default",
   className,
 }: SocialContactProps) {
   const isCard = format === "card";
+  const showComposer = !isCard && state === "compose";
 
   return (
     <div
       className={cn(
         "social-contact",
         isCard ? "social-contact--card" : "social-contact--section",
+        showComposer && "social-contact--compose",
         className,
       )}
     >
@@ -100,6 +106,8 @@ export function SocialContact({
           <SocialDestination key={link.id} link={link} />
         ))}
       </nav>
+
+      {showComposer ? <SocialContactComposer /> : null}
     </div>
   );
 }
