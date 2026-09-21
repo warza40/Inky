@@ -158,23 +158,28 @@
   align-items: center;
   justify-content: center;
   min-height: var(--nav-item-height);
-  padding: 10px var(--nav-item-padding-x);
+  padding: 10px 16px;
+  border: 1px solid transparent;
   border-radius: 24px;
+  background: transparent;
   font-family: var(--font-sans);
-  font-size: 1.125rem;
+  font-size: var(--type-nav);
   font-weight: 500;
-  line-height: 1.33;
+  line-height: calc(24 / 18);
   color: var(--badge-ink, #1c1c1e);
   text-decoration: none;
   white-space: nowrap;
   transition:
     color var(--motion-standard) var(--motion-ease),
-    background-color var(--motion-standard) var(--motion-ease);
+    background-color var(--motion-standard) var(--motion-ease),
+    border-color var(--motion-standard) var(--motion-ease),
+    border-radius var(--motion-standard) var(--motion-ease);
 }
 
 .floating-nav__link--active {
   min-width: 8.75rem;
   padding-block: 0;
+  border-color: transparent;
   border-radius: var(--nav-link-active-radius);
   background: var(--badge-ink, #1c1c1e);
   color: #f8f7f4;
@@ -185,7 +190,10 @@
 
 @media (hover: hover) and (pointer: fine) {
   .floating-nav__link:not(.floating-nav__link--active):hover {
-    background: color-mix(in srgb, var(--badge-surface, #f0efea) 80%, white);
+    border-radius: 12px;
+    border-color: var(--badge-teal, #5da78d);
+    background: var(--badge-surface, #f0efea);
+    color: var(--badge-teal-hover, #3f7d68);
   }
 }
 
@@ -255,23 +263,36 @@
   display: flex;
   align-items: center;
   min-height: var(--nav-item-height);
-  padding: 10px var(--nav-item-padding-x);
+  padding: 10px 16px;
+  border: 1px solid transparent;
+  border-radius: 24px;
+  background: transparent;
   font-family: var(--font-sans);
-  font-size: 1rem;
+  font-size: var(--type-nav);
   font-weight: 500;
+  line-height: calc(24 / 18);
   color: var(--badge-ink, #1c1c1e);
   text-decoration: none;
-  border-radius: var(--nav-link-active-radius);
+  transition:
+    color var(--motion-standard) var(--motion-ease),
+    background-color var(--motion-standard) var(--motion-ease),
+    border-color var(--motion-standard) var(--motion-ease),
+    border-radius var(--motion-standard) var(--motion-ease);
 }
 
 .floating-nav__mobile-link--active {
+  border-color: transparent;
+  border-radius: var(--nav-link-active-radius);
   background: var(--badge-ink, #1c1c1e);
   color: #f8f7f4;
   font-weight: 700;
 }
 
-.floating-nav__mobile-link:hover {
-  background: color-mix(in srgb, var(--badge-surface, #f0efea) 80%, white);
+.floating-nav__mobile-link:not(.floating-nav__mobile-link--active):hover {
+  border-radius: 12px;
+  border-color: var(--badge-teal, #5da78d);
+  background: var(--badge-surface, #f0efea);
+  color: var(--badge-teal-hover, #3f7d68);
 }
 
 .floating-nav__mobile-link--active:hover {

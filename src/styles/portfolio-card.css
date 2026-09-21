@@ -42,8 +42,8 @@
   color: inherit;
   overflow: hidden;
   transition:
-    transform var(--motion-standard) var(--motion-ease),
-    box-shadow var(--motion-standard) var(--motion-ease);
+    transform 0.42s cubic-bezier(0.34, 1.45, 0.64, 1),
+    box-shadow 0.42s cubic-bezier(0.34, 1.45, 0.64, 1);
 }
 
 .portfolio-card--feature {
@@ -52,12 +52,12 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .portfolio-card:not(.portfolio-card--cursor-only):hover {
-    transform: translate(-2px, -2px);
+  .portfolio-card:hover {
+    transform: translate(-2px, -4px);
     box-shadow: 10px 10px 0 var(--badge-ink, #1c1c1e);
   }
 
-  .portfolio-card--feature:not(.portfolio-card--cursor-only):hover {
+  .portfolio-card--feature:hover {
     box-shadow: 10px 10px 0 var(--badge-teal, #5da78d);
   }
 }
@@ -280,6 +280,20 @@
 @media (prefers-reduced-motion: reduce) {
   .portfolio-card {
     transition: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .portfolio-card:hover {
+      transform: none;
+    }
+
+    .portfolio-card--feature:hover {
+      box-shadow: 8px 8px 0 var(--badge-teal, #5da78d);
+    }
+
+    .portfolio-card:not(.portfolio-card--feature):hover {
+      box-shadow: 8px 8px 0 var(--badge-ink, #1c1c1e);
+    }
   }
 }
 
