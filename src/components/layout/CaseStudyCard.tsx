@@ -3,14 +3,12 @@ import Link from "next/link";
 import type { HomeCaseStudy } from "@/data/home-case-studies";
 import { Badge } from "@/components/ui/Badge";
 import { expandingCursorAttrs } from "@/lib/expanding-cursor";
-import { ProjectPreviewTooltip } from "./ProjectPreviewTooltip";
 
 interface CaseStudyCardProps {
   study: HomeCaseStudy;
 }
 
 export function CaseStudyCard({ study }: CaseStudyCardProps) {
-  const previewId = `case-preview-${study.slug}`;
   const isFeature = study.layout === "feature";
   const cursorPrompt = study.preview.cursor ?? {
     title: "View case study",
@@ -21,8 +19,7 @@ export function CaseStudyCard({ study }: CaseStudyCardProps) {
     <div className="case-study-card-wrap">
       <Link
         href={study.href}
-        className={`portfolio-card ${isFeature ? "portfolio-card--feature" : "portfolio-card--standard"} sheet-card--case`}
-        aria-describedby={previewId}
+        className={`portfolio-card portfolio-card--cursor-only ${isFeature ? "portfolio-card--feature" : "portfolio-card--standard"} sheet-card--case`}
         {...expandingCursorAttrs(cursorPrompt)}
       >
         <div className="portfolio-card__media">
@@ -72,7 +69,6 @@ export function CaseStudyCard({ study }: CaseStudyCardProps) {
           <span className="portfolio-card__meta">{study.preview.meta}</span>
         </div>
       </Link>
-      <ProjectPreviewTooltip study={study} id={previewId} />
     </div>
   );
 }

@@ -66,7 +66,7 @@ export function SocialContactComposer() {
                 type="text"
                 autoComplete="name"
                 className="social-contact__input"
-                placeholder="Riley Chen"
+                placeholder="Count Dracula"
                 value={name}
                 onChange={(event) => setName(event.target.value)}
               />
@@ -81,7 +81,7 @@ export function SocialContactComposer() {
                 autoComplete="email"
                 required
                 className="social-contact__input"
-                placeholder="riley@email.com"
+                placeholder="count.dracula@email.com"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
               />

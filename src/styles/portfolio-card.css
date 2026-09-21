@@ -52,12 +52,12 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .portfolio-card:hover {
+  .portfolio-card:not(.portfolio-card--cursor-only):hover {
     transform: translate(-2px, -2px);
     box-shadow: 10px 10px 0 var(--badge-ink, #1c1c1e);
   }
 
-  .portfolio-card--feature:hover {
+  .portfolio-card--feature:not(.portfolio-card--cursor-only):hover {
     box-shadow: 10px 10px 0 var(--badge-teal, #5da78d);
   }
 }

@@ -18,7 +18,7 @@
 .social-contact--compose {
   gap: var(--space-separation);
   width: 100%;
-  max-width: min(57.5rem, 100%);
+  max-width: none;
 }
 
 .social-contact__intro {
@@ -65,7 +65,7 @@
 
 .social-contact__title {
   margin: 0;
-  max-width: 16ch;
+  max-width: min(16ch, 100%);
   font-family: var(--font-sans);
   font-size: clamp(2rem, 3.2vw, 2.625rem);
   font-weight: 900;
@@ -86,11 +86,11 @@
 }
 
 .social-contact__destinations {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 28px;
-  width: min(100%, 40.625rem);
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: start;
+  gap: clamp(16px, 2.5vw, 28px);
+  width: 100%;
 }
 
 .social-contact--card .social-contact__destinations {
@@ -100,11 +100,10 @@
 
 .social-contact__item {
   display: flex;
-  flex: 1 1 0;
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  min-width: 4.5rem;
+  min-width: 0;
   color: inherit;
   text-decoration: none;
 }
@@ -345,11 +344,8 @@
   }
 
   .social-contact__destinations {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
-  }
-
-  .social-contact__item {
-    min-width: calc(33% - 12px);
   }
 
   .social-contact__composer-row {

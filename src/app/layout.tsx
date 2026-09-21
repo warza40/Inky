@@ -9,6 +9,7 @@ import "@/styles/project-preview-tooltip.css";
 import "@/styles/portfolio-card.css";
 import "@/styles/article-card.css";
 import "@/styles/social-contact.css";
+import "@/styles/site-footer.css";
 import "@/styles/cta-button.css";
 import "@/styles/tamagotchi-character.css";
 import "@/styles/expanding-cursor.css";

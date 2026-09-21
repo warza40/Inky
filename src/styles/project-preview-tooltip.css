@@ -156,20 +156,6 @@
   flex-shrink: 0;
 }
 
-@media (hover: hover) and (pointer: fine) and (min-width: 1200px) {
-  .case-study-card-wrap:hover .project-preview-tooltip,
-  .case-study-card-wrap:focus-within .project-preview-tooltip {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
-  }
-
-  .case-study-card-wrap:hover,
-  .case-study-card-wrap:focus-within {
-    z-index: 25;
-  }
-}
-
 @media (max-width: 1199px) {
   .project-preview-tooltip {
     display: none;
