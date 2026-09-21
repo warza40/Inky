@@ -545,11 +545,10 @@
 .home-contact-footer {
   display: flex;
   flex-direction: column;
-  gap: var(--layout-section-pad);
 }
 
-.contact-section {
-  padding-bottom: 0;
+.home-contact-footer .contact-section {
+  padding-bottom: var(--layout-section-pad);
 }
 
 .contact-section .page-container__inner {

@@ -19,6 +19,8 @@
   gap: var(--space-separation);
   width: 100%;
   max-width: none;
+  /* Figma 96:1173 — trailing space after compose actions */
+  padding-bottom: var(--space-heading);
 }
 
 .social-contact__intro {
