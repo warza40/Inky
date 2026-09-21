@@ -62,10 +62,6 @@
   padding-bottom: 0;
 }
 
-.site-section--standard:last-of-type {
-  padding-bottom: var(--layout-section-pad);
-}
-
 .site-section--chapter {
   padding-block: var(--space-chapter);
 }
@@ -329,14 +325,8 @@
 
 /* Reset legacy globals.css `.work-section` — minimal home uses layout-system only */
 .minimal-home .work-section {
-  padding: 0;
   background: transparent;
   border-top: none;
-}
-
-.minimal-home .work-section.site-section--standard {
-  padding-top: var(--layout-hero-to-work);
-  padding-bottom: 0;
 }
 
 /* Figma 67:876 — hero text stack */
@@ -436,40 +426,71 @@
   color: var(--ink-soft);
 }
 
-/* ── Homepage card grid — work + writing (3 → 2 → 1) ── */
+/* ── Homepage bento grid — Figma 67:1019 ── */
 
-.home-card-grid {
+.home-bento-grid {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(var(--layout-grid-cols), minmax(0, 1fr));
-  column-gap: var(--layout-grid-gutter);
-  row-gap: var(--layout-grid-gutter);
+  grid-template-columns:
+    minmax(0, var(--home-bento-narrow))
+    minmax(0, var(--home-bento-wide));
+  gap: var(--home-bento-gap);
   width: 100%;
   align-items: stretch;
 }
 
-.home-card-grid > li {
-  grid-column: span 4;
+.home-bento-grid > li {
   display: flex;
   min-width: 0;
   min-height: 0;
   overflow: visible;
 }
 
+.home-bento-grid > li > .case-study-card-wrap,
+.home-bento-grid .portfolio-card {
+  width: 100%;
+}
+
+.home-bento-grid__item--r1c1 {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.home-bento-grid__item--r1c2 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.home-bento-grid__item--r2c1 {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.home-bento-grid__item--r2c2 {
+  grid-column: 2;
+  grid-row: 2;
+}
+
 @media (min-width: 1200px) {
   .work-section {
     overflow: visible;
   }
-
-  .home-card-grid {
-    row-gap: calc(var(--layout-grid-gutter) + 12rem);
-  }
 }
 
-.home-card-grid .sheet-card {
-  width: 100%;
+@media (max-width: 1199px) {
+  .home-bento-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-bento-grid__item--r1c1,
+  .home-bento-grid__item--r1c2,
+  .home-bento-grid__item--r2c1,
+  .home-bento-grid__item--r2c2 {
+    grid-column: 1;
+    grid-row: auto;
+  }
 }
 
 /* ── About ── */
@@ -519,7 +540,12 @@
   color: var(--ink-soft);
 }
 
-/* ── Contact ── */
+/* ── Contact — sits on canvas grid, no filled band ── */
+
+.contact-section {
+  padding-top: var(--layout-section-pad);
+  padding-bottom: clamp(96px, 10vw, 128px);
+}
 
 .contact-section__content {
   display: flex;
@@ -607,10 +633,6 @@
     font-size: var(--type-body);
     line-height: var(--type-body-line);
   }
-}
-
-.minimal-home {
-  padding-bottom: var(--layout-section-pad);
 }
 
 .minimal-home .site-section {

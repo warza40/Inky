@@ -18,10 +18,10 @@ export function MinimalWritingSection() {
         </GridCell>
       </LayoutGrid>
 
-      <ul className="home-card-grid" role="list">
-        {HOME_WRITING.map((item) => (
+      <ul className="article-card-list" role="list">
+        {HOME_WRITING.map((item, index) => (
           <li key={item.id}>
-            <WritingCard item={item} />
+            <WritingCard item={item} index={index + 1} />
           </li>
         ))}
       </ul>

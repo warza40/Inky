@@ -85,27 +85,29 @@ export function SocialContact({
         className,
       )}
     >
-      <header className="social-contact__header">
-        {isCard ? (
-          <p className="social-contact__kicker">say hello — anytime</p>
-        ) : (
-          <Badge variant="eyebrow" className="social-contact__eyebrow">
-            Social contact
-          </Badge>
-        )}
-        <h2 className="social-contact__title">Reach out to me through.</h2>
-        {isCard ? (
-          <p className="social-contact__lede">
-            Find my work, notes, updates, or send a message directly.
-          </p>
-        ) : null}
-      </header>
+      <div className="social-contact__intro">
+        <header className="social-contact__header">
+          {isCard ? (
+            <p className="social-contact__kicker">say hello — anytime</p>
+          ) : (
+            <Badge variant="eyebrow" className="social-contact__eyebrow">
+              Social contact
+            </Badge>
+          )}
+          <h2 className="social-contact__title">Reach out to me through.</h2>
+          {isCard ? (
+            <p className="social-contact__lede">
+              Find my work, notes, updates, or send a message directly.
+            </p>
+          ) : null}
+        </header>
 
-      <nav className="social-contact__destinations" aria-label="Social links">
-        {SOCIAL_LINKS.map((link) => (
-          <SocialDestination key={link.id} link={link} />
-        ))}
-      </nav>
+        <nav className="social-contact__destinations" aria-label="Social links">
+          {SOCIAL_LINKS.map((link) => (
+            <SocialDestination key={link.id} link={link} />
+          ))}
+        </nav>
+      </div>
 
       {showComposer ? <SocialContactComposer /> : null}
     </div>

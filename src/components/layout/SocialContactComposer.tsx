@@ -30,7 +30,7 @@ export function SocialContactComposer() {
   };
 
   return (
-    <>
+    <div className="social-contact__composer-block">
       <div className="social-contact__composer-divider" aria-hidden />
 
       <form
@@ -119,6 +119,6 @@ export function SocialContactComposer() {
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 }

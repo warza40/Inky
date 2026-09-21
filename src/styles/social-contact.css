@@ -11,15 +11,21 @@
 
 .social-contact--section {
   gap: var(--space-separation);
-  padding: 44px 0 48px;
-  border-top: 2px solid var(--badge-ink, #1c1c1e);
-  border-bottom: 2px solid var(--badge-ink, #1c1c1e);
-  background: #f8f7f4;
+  padding: 0;
+  background: transparent;
 }
 
 .social-contact--compose {
   gap: var(--space-separation);
+  width: 100%;
   max-width: min(57.5rem, 100%);
+}
+
+.social-contact__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-separation);
+  width: 100%;
 }
 
 .social-contact--compose .social-contact__title {
@@ -156,6 +162,13 @@
 }
 
 /* ── Compose — Figma 96:1173 ── */
+
+.social-contact__composer-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-separation);
+  width: 100%;
+}
 
 .social-contact__composer-divider {
   width: 100%;

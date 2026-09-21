@@ -288,18 +288,7 @@
   outline-offset: 4px;
 }
 
-.home-card-grid__item--featured {
-  grid-column: span 8;
-}
-
-@media (max-width: 1199px) {
-  .home-card-grid__item--featured {
-    grid-column: span 8;
-  }
-}
-
-@media (max-width: 767px) {
-  .home-card-grid__item--featured {
-    grid-column: span 4;
-  }
+/* Bento grid — Figma 67:1019 uses 320px media in both narrow + wide slots */
+.home-bento-grid .portfolio-card--feature .portfolio-card__media {
+  min-height: var(--portfolio-media-height);
 }
