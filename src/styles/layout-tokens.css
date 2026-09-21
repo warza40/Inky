@@ -40,7 +40,7 @@
   /* Figma 67:876 — 120px section inset at 1440 reference */
   --layout-section-pad: clamp(96px, 8.33vw, 120px);
   --layout-section-gap: var(--layout-section-pad);
-  --layout-hero-top: clamp(112px, 9vw, 128px);
+  --layout-hero-top: clamp(40px, 4vw, 56px);
   --layout-gap-section-group: calc(var(--space-heading) + var(--space-tight));
   --layout-gap-sm: var(--space-meta);
   --layout-gap-component: var(--space-component);
@@ -93,7 +93,7 @@
     --nav-offset-top: 8px;
     --nav-bar-pad-x: 16px;
     --nav-bar-pad-y: 12px;
-    --layout-hero-top: 88px;
+    --layout-hero-top: 32px;
     --layout-section-pad: var(--space-heading);
     --layout-section-gap: var(--space-heading);
     --layout-gap-section-group: var(--space-component);

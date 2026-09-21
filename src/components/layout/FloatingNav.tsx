@@ -5,22 +5,18 @@ import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import {
-  expandingCursorAttrs,
-  type ExpandingCursorPrompt,
-} from "@/lib/expanding-cursor";
+import { expandingCursorAttrs } from "@/lib/expanding-cursor";
 import { TamagotchiNavIcon } from "./TamagotchiNavIcon";
 
 import { RESUME_URL } from "@/data/social-links";
 
-type NavMatch = "work" | "experiments" | "illustration" | "about";
+type NavMatch = "work" | "experiments" | "illustration";
 
 type NavItem = {
   label: string;
   href: string;
   external?: boolean;
   match?: NavMatch;
-  cursor: ExpandingCursorPrompt;
 };
 
 const NAV_ITEMS: NavItem[] = [
@@ -28,45 +24,30 @@ const NAV_ITEMS: NavItem[] = [
     label: "Case studies",
     href: "/#work",
     match: "work",
-    cursor: { title: "Browse case studies", hint: "Jump to work section" },
   },
   {
     label: "Experiments",
     href: "/experiments",
     match: "experiments",
-    cursor: { title: "Open experiments", hint: "Side projects & prototypes" },
   },
   {
     label: "Blog",
     href: "https://open.substack.com/pub/thelilyput",
     external: true,
-    cursor: { title: "Read the blog", hint: "Opens on Substack" },
   },
   {
     label: "Illustration",
     href: "/inky-lily",
     match: "illustration",
-    cursor: { title: "View illustration work", hint: "Inky Lily studio" },
-  },
-  {
-    label: "About me",
-    href: "/#about",
-    match: "about",
-    cursor: { title: "About Rachana", hint: "Jump to about section" },
   },
   {
     label: "Resume",
     href: RESUME_URL,
     external: true,
-    cursor: { title: "View resume", hint: "Opens PDF in new tab" },
   },
 ];
 
-function isNavItemActive(
-  item: NavItem,
-  pathname: string,
-  hash: string,
-): boolean {
+function isNavItemActive(item: NavItem, pathname: string): boolean {
   if (!item.match) return false;
 
   switch (item.match) {
@@ -76,8 +57,6 @@ function isNavItemActive(
       return pathname.startsWith("/experiments");
     case "illustration":
       return pathname.startsWith("/inky-lily");
-    case "about":
-      return pathname === "/" && hash === "#about";
     default:
       return false;
   }
@@ -85,20 +64,12 @@ function isNavItemActive(
 
 export function FloatingNav() {
   const pathname = usePathname();
-  const [hash, setHash] = useState("");
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const menuRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
   const closeMenu = useCallback(() => setOpen(false), []);
-
-  useEffect(() => {
-    const syncHash = () => setHash(window.location.hash);
-    syncHash();
-    window.addEventListener("hashchange", syncHash);
-    return () => window.removeEventListener("hashchange", syncHash);
-  }, [pathname]);
 
   useEffect(() => {
     if (!open) return;
@@ -165,7 +136,7 @@ export function FloatingNav() {
             aria-label="Primary navigation"
           >
             {NAV_ITEMS.map((item) => {
-              const active = isNavItemActive(item, pathname, hash);
+              const active = isNavItemActive(item, pathname);
 
               return (
                 <Link
@@ -176,7 +147,6 @@ export function FloatingNav() {
                     active && "floating-nav__link--active",
                   )}
                   aria-current={active ? "page" : undefined}
-                  {...expandingCursorAttrs(item.cursor)}
                   {...(item.external
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
@@ -218,7 +188,7 @@ export function FloatingNav() {
           <nav aria-label="Mobile navigation">
             <ul className="floating-nav__mobile-list" role="list">
               {NAV_ITEMS.map((item) => {
-                const active = isNavItemActive(item, pathname, hash);
+                const active = isNavItemActive(item, pathname);
 
                 return (
                   <li key={item.label}>
@@ -230,7 +200,6 @@ export function FloatingNav() {
                       )}
                       onClick={closeMenu}
                       aria-current={active ? "page" : undefined}
-                      {...expandingCursorAttrs(item.cursor)}
                       {...(item.external
                         ? { target: "_blank", rel: "noopener noreferrer" }
                         : {})}

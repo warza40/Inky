@@ -320,7 +320,7 @@
   padding-top: calc(
     var(--layout-hero-top) + var(--nav-offset-top) + var(--nav-height)
   );
-  padding-bottom: 0;
+  padding-bottom: var(--space-separation);
 }
 
 /* Reset legacy globals.css `.work-section` — minimal home uses layout-system only */
@@ -350,9 +350,9 @@
   margin-bottom: 0;
 }
 
-/* Tighter hero → work transition — Figma section scale, reduced first inset */
+/* Tighter hero → work transition — pull cards up under compact hero */
 .minimal-home .work-section.site-section--standard {
-  padding-top: var(--space-group);
+  padding-top: var(--space-separation);
 }
 
 .minimal-home .work-section .page-container__inner {
@@ -383,13 +383,6 @@
 
 /* Figma 133:1786 — Projects heading + curly arrow above case study cards */
 .projects-heading-group {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  width: 100%;
-}
-
-.projects-heading-group__title {
   margin: 0;
   font-family: var(--font-expressive);
   font-size: var(--type-annotation-xl);
@@ -400,19 +393,18 @@
 }
 
 .projects-heading-group__arrow {
-  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: top;
   width: 146px;
   height: auto;
   aspect-ratio: 147.4 / 97.5404;
+  margin-left: 0;
+  /* Figma: arrow y=0, text y=24 — tail starts at sentence end cap height */
+  margin-top: -0.6em;
 }
 
 @media (max-width: 767px) {
   .projects-heading-group {
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .projects-heading-group__title {
     white-space: normal;
   }
 
@@ -620,7 +612,7 @@
   }
 
   .home-hero {
-    padding-bottom: var(--space-component);
+    padding-bottom: var(--space-separation);
   }
 
   .home-hero__content {

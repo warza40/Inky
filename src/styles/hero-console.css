@@ -4,27 +4,31 @@
 
 .hero-console {
   width: 100%;
+  max-width: 52rem;
 }
 
 .hero-console__shell {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 14px;
+  gap: 14px;
+  padding: 12px;
   border: 3px solid var(--ink, #1c1c1e);
-  border-radius: 24px;
+  border-radius: 20px;
   background: #63aa92;
-  box-shadow: 7px 7px 0 0 var(--ink, #1c1c1e);
+  box-shadow: 6px 6px 0 0 var(--ink, #1c1c1e);
+  transform-origin: center center;
+  overflow: hidden;
 }
 
 .hero-console__screen {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  padding: 14px 18px 20px;
+  gap: 14px;
+  padding: 12px 14px 16px;
   border: 3px solid var(--ink, #1c1c1e);
-  border-radius: 14px;
+  border-radius: 12px;
   background: var(--paper-bg, #f8f7f4);
+  transform-origin: center center;
 }
 
 .hero-console__status {
@@ -57,7 +61,7 @@
   min-width: 0;
   margin: 0;
   font-family: var(--font-sans);
-  font-size: clamp(2.75rem, 8vw, 4.75rem);
+  font-size: clamp(2rem, 5.5vw, 3.25rem);
   font-weight: 900;
   line-height: 1.02;
   letter-spacing: -0.04em;
@@ -75,9 +79,9 @@
   min-width: 0;
   margin: 0;
   font-family: var(--font-sans);
-  font-size: clamp(1.3125rem, 2.4vw, 2.125rem);
+  font-size: clamp(1.0625rem, 1.8vw, 1.5rem);
   font-weight: 500;
-  line-height: 1.18;
+  line-height: 1.2;
   color: #55545a;
   text-wrap: pretty;
 }
@@ -152,7 +156,7 @@
 }
 
 .hero-console__sparkle--identity {
-  --hero-sparkle-size: 45px;
+  --hero-sparkle-size: 38px;
 }
 
 .hero-console__sparkle--side {
@@ -160,20 +164,30 @@
 }
 
 .hero-console__sparkle--experience {
-  --hero-sparkle-size: 32px;
+  --hero-sparkle-size: 28px;
 }
 
 .hero-console__controls {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 42px;
+  gap: 32px;
+  transform-origin: center center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-console__shell,
+  .hero-console__screen,
+  .hero-console__intro,
+  .hero-console__controls {
+    transform: none !important;
+  }
 }
 
 .hero-console__control {
   display: block;
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
   border: 2px solid var(--ink, #1c1c1e);
   border-radius: 50%;
   background: var(--paper-bg, #f8f7f4);
@@ -183,35 +197,36 @@
 .home-hero__content-cell {
   display: flex;
   flex-direction: column;
-  gap: var(--space-component);
+  gap: var(--space-control);
 }
 
 /* Tablet — Figma 125:1991 */
 @media (min-width: 768px) {
   .hero-console__shell {
-    padding: 18px;
-    border-width: 4px;
-    border-radius: 40px;
-    box-shadow: 12px 12px 0 0 var(--ink, #1c1c1e);
+    gap: 16px;
+    padding: 14px;
+    border-width: 3px;
+    border-radius: 32px;
+    box-shadow: 8px 8px 0 0 var(--ink, #1c1c1e);
   }
 
   .hero-console__screen {
-    gap: 22px;
-    padding: 16px 24px 24px;
-    border-radius: 20px;
+    gap: 16px;
+    padding: 14px 18px 18px;
+    border-radius: 16px;
   }
 
   .hero-console__sparkle--identity {
-    --hero-sparkle-size: 71px;
+    --hero-sparkle-size: 56px;
   }
 
   .hero-console__sparkle--side {
     display: flex;
-    --hero-sparkle-size: 48px;
+    --hero-sparkle-size: 40px;
   }
 
   .hero-console__sparkle--experience {
-    --hero-sparkle-size: 42px;
+    --hero-sparkle-size: 34px;
   }
 
   .hero-console__tag {
@@ -222,39 +237,45 @@
   }
 
   .hero-console__controls {
-    gap: 80px;
+    gap: 56px;
   }
 
   .hero-console__control {
-    width: 42px;
-    height: 42px;
+    width: 36px;
+    height: 36px;
   }
 }
 
 /* Desktop — Figma 125:1990 */
 @media (min-width: 1200px) {
+  .hero-console {
+    max-width: 56rem;
+  }
+
   .hero-console__shell {
-    padding: 24px;
+    gap: 18px;
+    padding: 18px;
   }
 
   .hero-console__screen {
-    padding: 16px 32px 24px;
+    gap: 18px;
+    padding: 14px 24px 20px;
   }
 
   .hero-console__identity {
-    gap: 12px;
+    gap: 10px;
   }
 
   .hero-console__sparkle--identity {
-    --hero-sparkle-size: 78px;
+    --hero-sparkle-size: 62px;
   }
 
   .hero-console__sparkle--side {
-    --hero-sparkle-size: 58px;
+    --hero-sparkle-size: 46px;
   }
 
   .hero-console__intro-row {
-    gap: 16px;
+    gap: 12px;
   }
 
   .hero-console__experience {
@@ -263,12 +284,12 @@
   }
 
   .hero-console__controls {
-    gap: 80px;
+    gap: 64px;
   }
 
   .hero-console__control {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
   }
 
   .hero-console__tag {
