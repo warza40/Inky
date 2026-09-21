@@ -15,7 +15,6 @@ import { FloatingNav } from "@/components/layout/FloatingNav";
 interface CaseLayoutProps {
   children: React.ReactNode;
   title: string;
-  subtitle?: string;
   caseStudy?: CaseStudy;
 }
 
