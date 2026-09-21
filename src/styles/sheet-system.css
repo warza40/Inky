@@ -182,6 +182,16 @@ body:has(.page-shell--no-topography) #thinking-topography {
   border-bottom: 1px solid var(--line-subtle);
 }
 
+.sheet-card-tag {
+  position: absolute;
+  top: var(--space-control);
+  left: var(--space-control);
+  z-index: 1;
+  max-width: calc(100% - var(--space-component));
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .sheet-card-image-wrap {
   position: absolute;
   inset: 0;

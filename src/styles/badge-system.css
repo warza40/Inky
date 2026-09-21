@@ -1,0 +1,118 @@
+/* ============================================================
+   Badge system — Eyebrow · Badge · Tag (Figma node 71:659)
+   ============================================================ */
+
+:root {
+  --badge-ink: #1c1c1e;
+  --badge-teal: #5da78d;
+  --badge-teal-hover: #4a947a;
+  --badge-teal-disabled: #b8c2bd;
+  --badge-surface: #f0efea;
+  --badge-surface-hover: #e5e1d2;
+
+  --badge-font-size: 0.75rem;
+  --badge-pad-y: 6px;
+  --badge-pad-x: 16px;
+  --badge-disabled-opacity: 0.55;
+}
+
+@media (max-width: 1199px) and (min-width: 768px) {
+  :root {
+    --badge-font-size: 0.6875rem;
+    --badge-pad-y: 5px;
+    --badge-pad-x: 14px;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --badge-font-size: 0.625rem;
+    --badge-pad-y: 4px;
+    --badge-pad-x: 12px;
+  }
+}
+
+.site-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  margin: 0;
+  padding: var(--badge-pad-y) var(--badge-pad-x);
+  border: solid var(--badge-ink);
+  font-family: var(--font-mono);
+  font-size: var(--badge-font-size);
+  line-height: 1;
+  color: var(--badge-ink);
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    background-color var(--motion-standard) var(--motion-ease),
+    box-shadow var(--motion-standard) var(--motion-ease),
+    opacity var(--motion-standard) var(--motion-ease);
+}
+
+.site-badge:disabled,
+.site-badge[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+/* Eyebrow — hero status, teal pill */
+.site-badge--eyebrow {
+  border-width: 2px;
+  border-radius: 20px;
+  background: var(--badge-teal);
+  font-weight: 700;
+  letter-spacing: var(--type-mono-eyebrow-tracking);
+  text-transform: uppercase;
+}
+
+.site-badge--eyebrow:is(button, a):not(:disabled):hover {
+  background: var(--badge-teal-hover);
+  box-shadow: 0 2px 2px rgba(28, 28, 30, 0.18);
+}
+
+.site-badge--eyebrow:disabled,
+.site-badge--eyebrow[aria-disabled="true"] {
+  background: var(--badge-teal-disabled);
+  opacity: var(--badge-disabled-opacity);
+}
+
+/* Badge — section taxonomy, outlined */
+.site-badge--badge {
+  border-width: 1.5px;
+  border-radius: 8px;
+  background: var(--badge-surface);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-badge--badge:is(button, a):not(:disabled):hover {
+  background: var(--badge-surface-hover);
+}
+
+.site-badge--badge:disabled,
+.site-badge--badge[aria-disabled="true"] {
+  opacity: 0.5;
+}
+
+/* Tag — card metadata, teal pill */
+.site-badge--tag {
+  border-width: 1px;
+  border-radius: 100px;
+  background: var(--badge-teal);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.site-badge--tag:is(button, a):not(:disabled):hover {
+  background: var(--badge-teal-hover);
+}
+
+.site-badge--tag:disabled,
+.site-badge--tag[aria-disabled="true"] {
+  background: var(--badge-teal-disabled);
+  opacity: var(--badge-disabled-opacity);
+}

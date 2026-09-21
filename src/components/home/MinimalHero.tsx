@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/Badge";
 import { Section } from "@/components/layout/Section";
 import { LayoutGrid, GridCell } from "@/components/layout/LayoutGrid";
 
@@ -9,6 +10,9 @@ export function MinimalHero() {
           col={{ start: 1, end: 7 }}
           className="home-hero__headline-cell"
         >
+          <Badge variant="eyebrow" className="home-hero__eyebrow">
+            Product | Systems | AI
+          </Badge>
           <p className="home-hero__name">Rachana Mandal</p>
           <h1 className="home-hero__headline" id="mh-hero-title">
             Product designer studying behaviour, systems and AI.

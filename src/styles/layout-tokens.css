@@ -53,12 +53,15 @@
   --motion-sheet: 240ms;
   --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* Header */
-  --nav-height: 48px;
-  --nav-offset-top: 0px;
-  --nav-radius: 9px;
-  --nav-item-height: 40px;
-  --nav-item-padding-x: 12px;
+  /* Header — Figma Navbar / Floating (88:1295) */
+  --nav-height: 88px;
+  --nav-offset-top: 16px;
+  --nav-bar-radius: 24px;
+  --nav-bar-pad-x: 24px;
+  --nav-bar-pad-y: 16px;
+  --nav-item-height: 44px;
+  --nav-item-padding-x: 16px;
+  --nav-link-active-radius: 8px;
 }
 
 /* Tablet: 768–1199px */
@@ -78,6 +81,10 @@
     --layout-grid-gutter: 16px;
     --layout-page-padding: 24px;
     --layout-wrapper-max: 100%;
+    --nav-height: 64px;
+    --nav-offset-top: 8px;
+    --nav-bar-pad-x: 16px;
+    --nav-bar-pad-y: 12px;
     --layout-hero-top: 88px;
     --layout-hero-to-work: var(--space-component);
     --layout-section-pad: var(--space-heading);

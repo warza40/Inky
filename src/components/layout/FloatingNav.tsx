@@ -2,29 +2,103 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  expandingCursorAttrs,
+  type ExpandingCursorPrompt,
+} from "@/lib/expanding-cursor";
+import { TamagotchiNavIcon } from "./TamagotchiNavIcon";
 
-const RESUME_URL =
-  "https://drive.google.com/file/d/11pRdPZdKTFnX9Q06PUfgj922_X8luZ9K/view?usp=drivesdk";
+import { RESUME_URL } from "@/data/social-links";
 
-const NAV_ITEMS = [
-  { label: "Work", href: "/#work" },
-  { label: "About", href: "/#about" },
+type NavMatch = "work" | "experiments" | "illustration" | "about";
+
+type NavItem = {
+  label: string;
+  href: string;
+  external?: boolean;
+  match?: NavMatch;
+  cursor: ExpandingCursorPrompt;
+};
+
+const NAV_ITEMS: NavItem[] = [
   {
-    label: "Writing",
+    label: "Case studies",
+    href: "/#work",
+    match: "work",
+    cursor: { title: "Browse case studies", hint: "Jump to work section" },
+  },
+  {
+    label: "Experiments",
+    href: "/experiments",
+    match: "experiments",
+    cursor: { title: "Open experiments", hint: "Side projects & prototypes" },
+  },
+  {
+    label: "Blog",
     href: "https://open.substack.com/pub/thelilyput",
     external: true,
+    cursor: { title: "Read the blog", hint: "Opens on Substack" },
   },
-] as const;
+  {
+    label: "Illustration",
+    href: "/inky-lily",
+    match: "illustration",
+    cursor: { title: "View illustration work", hint: "Inky Lily studio" },
+  },
+  {
+    label: "About me",
+    href: "/#about",
+    match: "about",
+    cursor: { title: "About Rachana", hint: "Jump to about section" },
+  },
+  {
+    label: "Resume",
+    href: RESUME_URL,
+    external: true,
+    cursor: { title: "View resume", hint: "Opens PDF in new tab" },
+  },
+];
+
+function isNavItemActive(
+  item: NavItem,
+  pathname: string,
+  hash: string,
+): boolean {
+  if (!item.match) return false;
+
+  switch (item.match) {
+    case "work":
+      return pathname === "/" || pathname.startsWith("/case/");
+    case "experiments":
+      return pathname.startsWith("/experiments");
+    case "illustration":
+      return pathname.startsWith("/inky-lily");
+    case "about":
+      return pathname === "/" && hash === "#about";
+    default:
+      return false;
+  }
+}
 
 export function FloatingNav() {
+  const pathname = usePathname();
+  const [hash, setHash] = useState("");
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const menuRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
   const closeMenu = useCallback(() => setOpen(false), []);
+
+  useEffect(() => {
+    const syncHash = () => setHash(window.location.hash);
+    syncHash();
+    window.addEventListener("hashchange", syncHash);
+    return () => window.removeEventListener("hashchange", syncHash);
+  }, [pathname]);
 
   useEffect(() => {
     if (!open) return;
@@ -73,36 +147,50 @@ export function FloatingNav() {
     <header className="floating-nav" aria-label="Site header">
       <div className="floating-nav__frame">
         <div className="floating-nav__bar">
-          <Link href="/" className="floating-nav__brand" aria-label="Home">
-            <span className="floating-nav__brand-text">Rachana Mandal</span>
+          <Link
+            href="/"
+            className="floating-nav__brand"
+            aria-label="Home"
+            {...expandingCursorAttrs({
+              title: "Back to home",
+              hint: "Portfolio homepage",
+            })}
+          >
+            <TamagotchiNavIcon />
+            <span className="floating-nav__brand-text">Rachana.m</span>
           </Link>
 
           <nav
             className="floating-nav__capsule"
             aria-label="Primary navigation"
           >
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="floating-nav__link"
-                {...("external" in item && item.external
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : {})}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const active = isNavItemActive(item, pathname, hash);
+
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={cn(
+                    "floating-nav__link",
+                    active && "floating-nav__link--active",
+                  )}
+                  aria-current={active ? "page" : undefined}
+                  {...expandingCursorAttrs(item.cursor)}
+                  {...(item.external
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
 
-          <a
-            href={RESUME_URL}
-            className="floating-nav__resume"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Resume
-          </a>
+          <p className="floating-nav__availability" aria-label="Open to work">
+            <span className="floating-nav__availability-dot" aria-hidden />
+            available for work
+          </p>
 
           <button
             ref={toggleRef}
@@ -129,32 +217,34 @@ export function FloatingNav() {
         >
           <nav aria-label="Mobile navigation">
             <ul className="floating-nav__mobile-list" role="list">
-              {NAV_ITEMS.map((item) => (
-                <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    className="floating-nav__mobile-link"
-                    onClick={closeMenu}
-                    {...("external" in item && item.external
-                      ? { target: "_blank", rel: "noopener noreferrer" }
-                      : {})}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <a
-                  href={RESUME_URL}
-                  className="floating-nav__mobile-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={closeMenu}
-                >
-                  Resume
-                </a>
-              </li>
+              {NAV_ITEMS.map((item) => {
+                const active = isNavItemActive(item, pathname, hash);
+
+                return (
+                  <li key={item.label}>
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        "floating-nav__mobile-link",
+                        active && "floating-nav__mobile-link--active",
+                      )}
+                      onClick={closeMenu}
+                      aria-current={active ? "page" : undefined}
+                      {...expandingCursorAttrs(item.cursor)}
+                      {...(item.external
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
+            <p className="floating-nav__mobile-availability">
+              <span className="floating-nav__availability-dot" aria-hidden />
+              available for work
+            </p>
           </nav>
         </div>
       </div>

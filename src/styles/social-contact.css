@@ -1,0 +1,168 @@
+/* ============================================================
+   Social contact — Figma 81:1313 (Section + Card)
+   ============================================================ */
+
+.social-contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-separation);
+  width: 100%;
+}
+
+.social-contact--section {
+  gap: var(--space-separation);
+  padding: 44px 0 48px;
+  border-top: 2px solid var(--badge-ink, #1c1c1e);
+  border-bottom: 2px solid var(--badge-ink, #1c1c1e);
+  background: #f8f7f4;
+}
+
+.social-contact--card {
+  gap: 28px;
+  padding: 32px;
+  border: 3px solid var(--badge-ink, #1c1c1e);
+  border-radius: 28px;
+  background: var(--badge-surface, #f0efea);
+  box-shadow: 8px 8px 0 var(--badge-ink, #1c1c1e);
+}
+
+.social-contact__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-meta);
+}
+
+.social-contact__eyebrow {
+  align-self: flex-start;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.social-contact__kicker {
+  margin: 0;
+  font-family: var(--font-expressive);
+  font-size: var(--type-annotation-md);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--badge-teal-hover, #3f7d68);
+}
+
+.social-contact__title {
+  margin: 0;
+  max-width: 16ch;
+  font-family: var(--font-sans);
+  font-size: clamp(2rem, 3.2vw, 2.625rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--badge-ink, #1c1c1e);
+  text-wrap: balance;
+}
+
+.social-contact__lede {
+  margin: 0;
+  max-width: 36rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #55545a;
+}
+
+.social-contact__destinations {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 28px;
+  width: min(100%, 40.625rem);
+}
+
+.social-contact--card .social-contact__destinations {
+  gap: 18px;
+  width: 100%;
+}
+
+.social-contact__item {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 4.5rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.social-contact__tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  border: 2px solid var(--badge-ink, #1c1c1e);
+  border-radius: 14px;
+  background: var(--badge-surface, #f0efea);
+  color: var(--badge-ink, #1c1c1e);
+  transition:
+    background-color var(--motion-standard) var(--motion-ease),
+    border-color var(--motion-standard) var(--motion-ease),
+    color var(--motion-standard) var(--motion-ease);
+}
+
+.social-contact__icon {
+  display: block;
+  flex-shrink: 0;
+}
+
+.social-contact__label {
+  font-family: var(--font-expressive);
+  font-size: var(--type-annotation-xs);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--badge-ink, #1c1c1e);
+  transition: color var(--motion-standard) var(--motion-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .social-contact__item:hover .social-contact__tile,
+  .social-contact__item:focus-visible .social-contact__tile {
+    background: var(--badge-teal-hover, #3f7d68);
+    border-color: var(--badge-teal-hover, #3f7d68);
+    color: #f8f7f4;
+  }
+
+  .social-contact__item:hover .social-contact__label,
+  .social-contact__item:focus-visible .social-contact__label {
+    color: var(--badge-teal-hover, #3f7d68);
+  }
+}
+
+.social-contact__item:focus-visible {
+  outline: none;
+}
+
+.social-contact__item:focus-visible .social-contact__tile {
+  outline: 2px solid var(--badge-ink, #1c1c1e);
+  outline-offset: 2px;
+}
+
+@media (max-width: 767px) {
+  .social-contact--section {
+    padding-inline: 0;
+  }
+
+  .social-contact__destinations {
+    gap: 16px;
+  }
+
+  .social-contact__item {
+    min-width: calc(33% - 12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social-contact__tile,
+  .social-contact__label {
+    transition: none;
+  }
+}

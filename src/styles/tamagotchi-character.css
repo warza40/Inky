@@ -1,0 +1,190 @@
+/* ============================================================
+   Tamagotchi — 61:1354 (xs) · 61:346 (sm) · 61:1690 (mobile-md)
+   · 61:682 (md/lg) · 53:178/57:178 (hero) · 61:1018 (xl) · 61:2026 (mobile-xl)
+   · 88:1324 nav blink · 53:178 hero blink (3.5s, 4-frame)
+   ============================================================ */
+
+.tamagotchi-character,
+.tamagotchi-face-cycle {
+  display: inline-flex;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.tamagotchi-character__svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* 28px slot — 20px device inset (Figma 61:1354 · 390px) */
+.tamagotchi-character--xs {
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+}
+
+.tamagotchi-character--xs .tamagotchi-character__svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* 40px slot — 29px device inset (Figma 61:346) */
+.tamagotchi-character--sm {
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+}
+
+.tamagotchi-character--sm .tamagotchi-character__svg {
+  width: 29px;
+  height: 29px;
+}
+
+/* 72px slot — 52px device inset (Figma 61:1690 · 390px) */
+.tamagotchi-character--mobile-md {
+  width: 72px;
+  height: 72px;
+  align-items: center;
+  justify-content: center;
+}
+
+.tamagotchi-character--mobile-md .tamagotchi-character__svg {
+  width: 52px;
+  height: 52px;
+}
+
+.tamagotchi-character--md {
+  width: 88px;
+  height: 88px;
+}
+
+/* 120px slot — 88px device inset (Figma 61:682) */
+.tamagotchi-character--lg {
+  width: 120px;
+  height: 120px;
+  align-items: center;
+  justify-content: center;
+}
+
+.tamagotchi-character--lg .tamagotchi-character__svg {
+  width: 88px;
+  height: 88px;
+}
+
+/* 494px slot — 360px device inset (Figma 57:178 · hero animation) */
+.tamagotchi-character--hero {
+  width: 494px;
+  height: 491px;
+  align-items: center;
+  justify-content: center;
+}
+
+.tamagotchi-character--hero .tamagotchi-character__svg {
+  width: 360px;
+  height: 360px;
+}
+
+@media (max-width: 767px) {
+  .tamagotchi-character--hero {
+    width: 160px;
+    height: 160px;
+  }
+
+  .tamagotchi-character--hero .tamagotchi-character__svg {
+    width: 117px;
+    height: 117px;
+  }
+}
+
+/* 160px slot — 117px device inset (Figma 61:2026 · 390px) */
+.tamagotchi-character--mobile-xl {
+  width: 160px;
+  height: 160px;
+  align-items: center;
+  justify-content: center;
+}
+
+.tamagotchi-character--mobile-xl .tamagotchi-character__svg {
+  width: 117px;
+  height: 117px;
+}
+
+/* 280px slot — 204px device inset (Figma 61:1018) */
+.tamagotchi-character--xl {
+  width: 280px;
+  height: 280px;
+  align-items: center;
+  justify-content: center;
+}
+
+.tamagotchi-character--xl .tamagotchi-character__svg {
+  width: 204px;
+  height: 204px;
+}
+
+.tamagotchi-character__eye--blink {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: tamagotchi-character-blink 3.5s ease-in-out infinite;
+}
+
+.tamagotchi-character__eye--right.tamagotchi-character__eye--blink {
+  animation-delay: 0.05s;
+}
+
+/* 88:1324 / 53:178 — open → half → mid → closed → open */
+@keyframes tamagotchi-character-blink {
+  0%,
+  42%,
+  47%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  43% {
+    transform: scaleY(0.377);
+  }
+
+  44% {
+    transform: scaleY(0.522);
+  }
+
+  45% {
+    transform: scaleY(0.174);
+  }
+}
+
+/* 53:178 — hero blink adds subtle vertical settle per frame */
+.tamagotchi-character__eye--blink-hero {
+  animation-name: tamagotchi-character-blink-hero;
+}
+
+@keyframes tamagotchi-character-blink-hero {
+  0%,
+  42%,
+  47%,
+  100% {
+    transform: scaleY(1) translateY(0);
+  }
+
+  43% {
+    transform: scaleY(0.377) translateY(0.45px);
+  }
+
+  44% {
+    transform: scaleY(0.522) translateY(0.35px);
+  }
+
+  45% {
+    transform: scaleY(0.174) translateY(0.85px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tamagotchi-character__eye--blink,
+  .tamagotchi-character__eye--blink-hero {
+    animation: none;
+  }
+}

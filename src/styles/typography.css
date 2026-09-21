@@ -1,104 +1,217 @@
 /* ============================================================
-   Typography — Instrument Sans · Source Serif 4 · IBM Plex Mono
-   Aesthetic: warm-humanist / cursor
+   Typography — Figma type scale 81:1095
+   Hanken Grotesk · Nanum Pen · JetBrains Mono
    ============================================================ */
 
 :root {
-  /* Families */
+  /* ── Families ── */
   --font-sans:
-    var(--font-instrument-sans), "Instrument Sans", system-ui, sans-serif;
-  --font-serif: var(--font-source-serif), "Source Serif 4", Georgia, serif;
-  --font-mono: var(--font-ibm-plex-mono), "IBM Plex Mono", monospace;
+    var(--font-hanken-grotesk), "Hanken Grotesk", system-ui, sans-serif;
+  --font-expressive:
+    var(--font-nanum-pen), "Nanum Pen Script", "Segoe Print", cursive;
+  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
   --font-display: var(--font-sans);
+  --font-serif: var(--font-expressive);
 
-  /* Weights — authority from tracking, not boldness */
+  /* Accent type color — semantic green */
+  --accent-type: #3f7d68;
+
+  /* Weights */
   --weight-body: 400;
   --weight-ui: 500;
-  --weight-heading: 400;
-  --weight-display: 400;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+  --weight-heading: 900;
+  --weight-display: 900;
 
-  /* Hero headline */
-  --type-hero: clamp(3.5rem, 5vw, 4.25rem);
-  --type-hero-line: 0.98;
-  --type-hero-tracking: -0.03em;
-  --type-hero-weight: var(--weight-display);
+  /* ── Primary / Hanken Grotesk ── */
 
-  /* Major section heading */
-  --type-major-heading: clamp(2rem, 3.2vw, 3rem);
-  --type-major-heading-line: 1.08;
-  --type-major-heading-tracking: -0.025em;
+  /* Display/Hero — 88 / 105% / -3px */
+  --type-display-hero: clamp(3rem, 7vw, 5.5rem);
+  --type-display-hero-line: 1.05;
+  --type-display-hero-tracking: -0.034em;
 
-  /* Standard section heading */
-  --type-section-title: clamp(1.625rem, 2.4vw, 2rem);
-  --type-section-title-line: 1.15;
-  --type-section-title-tracking: -0.015em;
+  /* Display/Title — 72 / 105% */
+  --type-display-title: clamp(2.5rem, 5.5vw, 4.5rem);
+  --type-display-title-line: 1.05;
+  --type-display-title-tracking: 0;
 
-  /* Case-study card title */
-  --type-card-title: clamp(0.9375rem, 1.1vw, 1rem);
-  --type-card-title-line: 1.35;
-  --type-card-title-tracking: -0.01em;
+  /* Heading/Section — 56 / 110% */
+  --type-heading-section: clamp(2.25rem, 4.5vw, 3.5rem);
+  --type-heading-section-line: 1.1;
+  --type-heading-section-tracking: 0;
 
-  /* Body — editorial reading rhythm */
-  --type-body-lg: clamp(1.0625rem, 0.25vw + 1rem, 1.125rem);
-  --type-body-lg-line: 1.65;
-  --type-body: clamp(1rem, 0.2vw + 0.95rem, 1.0625rem);
-  --type-body-line: 1.65;
-  --type-body-tracking: -0.005em;
+  /* Lead/L — 48 / 120% Medium */
+  --type-lead-lg: clamp(2rem, 3.5vw, 3rem);
+  --type-lead-lg-line: 1.2;
+  --type-lead-lg-weight: 500;
 
-  /* Small UI */
-  --type-body-sm: 0.875rem;
+  /* Lead/M — 42 / 120% Medium */
+  --type-lead-md: clamp(1.75rem, 3vw, 2.625rem);
+  --type-lead-md-line: 1.2;
+  --type-lead-md-weight: 500;
+
+  /* Title/Card/L — 32 ExtraBold */
+  --type-title-card-lg: clamp(1.5rem, 2vw, 2rem);
+  --type-title-card-lg-line: 1.15;
+  --type-title-card-lg-weight: 800;
+
+  /* Title/Card/M — 28 ExtraBold */
+  --type-title-card-md: clamp(1.375rem, 1.8vw, 1.75rem);
+  --type-title-card-md-line: 1.15;
+  --type-title-card-md-weight: 800;
+
+  /* Title/Card/S — 24 / 120% ExtraBold */
+  --type-title-card-sm: clamp(1.125rem, 1.4vw, 1.5rem);
+  --type-title-card-sm-line: 1.2;
+  --type-title-card-sm-weight: 800;
+
+  /* Body/L — 20 / 160% */
+  --type-body-lg: clamp(1.0625rem, 0.25vw + 1rem, 1.25rem);
+  --type-body-lg-line: 1.6;
+
+  /* Body/M — 16 / 150% */
+  --type-body: clamp(1rem, 0.2vw + 0.95rem, 1rem);
+  --type-body-line: 1.5;
+
+  /* Body/S — 15 / 150% */
+  --type-body-sm: 0.9375rem;
   --type-body-sm-line: 1.5;
+
+  /* Caption — 14 / 150% */
   --type-caption: 0.875rem;
-  --type-caption-line: 1.45;
-  --type-nav: 0.875rem;
-  --type-button: 0.875rem;
+  --type-caption-line: 1.5;
 
-  /* Mono metadata */
-  --type-label: clamp(0.75rem, 0.1vw + 0.72rem, 0.8125rem);
-  --type-label-line: 1.45;
-  --type-label-tracking: 0.04em;
+  /* Labels */
+  --type-label-lg: 1.375rem;
+  --type-label-md: 1rem;
+  --type-label-sm: 0.875rem;
 
-  /* Legacy aliases */
-  --type-page-title: var(--type-major-heading);
-  --type-page-title-line: var(--type-major-heading-line);
-  --type-page-title-tracking: var(--type-major-heading-tracking);
+  /* Link — 16 ExtraBold */
+  --type-link: 1rem;
+  --type-link-weight: 800;
+
+  /* Nav */
+  --type-nav: 1.125rem;
+  --type-button: 1rem;
+
+  /* ── Expressive / Nanum Pen ── */
+  --type-annotation-xl: clamp(1.75rem, 3vw, 2.5rem);
+  --type-annotation-lg: clamp(1.625rem, 2.6vw, 2.25rem);
+  --type-annotation-md: clamp(1.375rem, 2.2vw, 2rem);
+  --type-annotation-sm: clamp(1.25rem, 2vw, 1.75rem);
+  --type-annotation-xs: clamp(1.125rem, 1.6vw, 1.5rem);
+  --type-annotation-2xs: clamp(1rem, 1.4vw, 1.375rem);
+
+  /* ── Technical / JetBrains Mono ── */
+  --type-mono-index: 1.25rem;
+  --type-mono-section: 0.8125rem;
+  --type-mono-meta: 0.75rem;
+  --type-mono-status: 0.75rem;
+  --type-mono-eyebrow: 0.6875rem;
+  --type-mono-micro: 0.625rem;
+  --type-mono-line: 1.4;
+  --type-mono-meta-line: 1.5;
+  --type-mono-eyebrow-tracking: 0.08em;
+  --type-mono-status-tracking: 0.08em;
+
+  /* ── Accent type ── */
+  --type-accent-work: clamp(1.75rem, 3vw, 2.625rem);
+  --type-accent-work-line: 1.2;
+  --type-accent-writing: clamp(1.375rem, 2.2vw, 2rem);
+  --type-accent-writing-line: 1.25;
+
+  /* Legacy aliases (existing components) */
+  --type-hero: var(--type-display-hero);
+  --type-hero-line: var(--type-display-hero-line);
+  --type-hero-tracking: var(--type-display-hero-tracking);
+  --type-hero-weight: var(--weight-display);
+  --type-major-heading: var(--type-heading-section);
+  --type-major-heading-line: var(--type-heading-section-line);
+  --type-major-heading-tracking: var(--type-heading-section-tracking);
+  --type-section-title: var(--type-lead-md);
+  --type-section-title-line: var(--type-lead-md-line);
+  --type-section-title-tracking: 0;
+  --type-card-title: var(--type-title-card-md);
+  --type-card-title-line: var(--type-title-card-md-line);
+  --type-card-title-tracking: 0;
+  --type-body-tracking: 0;
+  --type-label: var(--type-mono-meta);
+  --type-label-line: var(--type-mono-meta-line);
+  --type-label-tracking: 0;
+  --type-page-title: var(--type-display-title);
+  --type-page-title-line: var(--type-display-title-line);
+  --type-page-title-tracking: var(--type-display-title-tracking);
 }
 
-/* ── Semantic roles ── */
+/* ── Semantic utility classes ── */
 
+.type-display-hero,
 .type-hero {
   font-family: var(--font-sans);
-  font-size: var(--type-hero);
-  font-weight: var(--type-hero-weight);
-  line-height: var(--type-hero-line);
-  letter-spacing: var(--type-hero-tracking);
+  font-size: var(--type-display-hero);
+  font-weight: var(--weight-display);
+  line-height: var(--type-display-hero-line);
+  letter-spacing: var(--type-display-hero-tracking);
   text-wrap: balance;
 }
 
+.type-display-title,
+.type-page-title {
+  font-family: var(--font-sans);
+  font-size: var(--type-display-title);
+  font-weight: var(--weight-display);
+  line-height: var(--type-display-title-line);
+  letter-spacing: var(--type-display-title-tracking);
+  text-wrap: balance;
+}
+
+.type-heading-section,
 .type-major-heading {
   font-family: var(--font-sans);
-  font-size: var(--type-major-heading);
+  font-size: var(--type-heading-section);
   font-weight: var(--weight-heading);
-  line-height: var(--type-major-heading-line);
-  letter-spacing: var(--type-major-heading-tracking);
+  line-height: var(--type-heading-section-line);
+  letter-spacing: var(--type-heading-section-tracking);
   text-wrap: balance;
 }
 
+.type-lead-lg {
+  font-family: var(--font-sans);
+  font-size: var(--type-lead-lg);
+  font-weight: var(--type-lead-lg-weight);
+  line-height: var(--type-lead-lg-line);
+}
+
+.type-lead-md,
 .type-section-title {
   font-family: var(--font-sans);
-  font-size: var(--type-section-title);
-  font-weight: var(--weight-heading);
-  line-height: var(--type-section-title-line);
-  letter-spacing: var(--type-section-title-tracking);
-  text-wrap: balance;
+  font-size: var(--type-lead-md);
+  font-weight: var(--type-lead-md-weight);
+  line-height: var(--type-lead-md-line);
 }
 
+.type-title-card-lg {
+  font-family: var(--font-sans);
+  font-size: var(--type-title-card-lg);
+  font-weight: var(--type-title-card-lg-weight);
+  line-height: var(--type-title-card-lg-line);
+}
+
+.type-title-card-md,
 .type-card-title {
   font-family: var(--font-sans);
-  font-size: var(--type-card-title);
-  font-weight: var(--weight-heading);
-  line-height: var(--type-card-title-line);
-  letter-spacing: var(--type-card-title-tracking);
+  font-size: var(--type-title-card-md);
+  font-weight: var(--type-title-card-md-weight);
+  line-height: var(--type-title-card-md-line);
+}
+
+.type-title-card-sm {
+  font-family: var(--font-sans);
+  font-size: var(--type-title-card-sm);
+  font-weight: var(--type-title-card-sm-weight);
+  line-height: var(--type-title-card-sm-line);
 }
 
 .type-body-lg {
@@ -106,7 +219,6 @@
   font-size: var(--type-body-lg);
   font-weight: var(--weight-body);
   line-height: var(--type-body-lg-line);
-  letter-spacing: var(--type-body-tracking);
 }
 
 .type-body {
@@ -114,7 +226,6 @@
   font-size: var(--type-body);
   font-weight: var(--weight-body);
   line-height: var(--type-body-line);
-  letter-spacing: var(--type-body-tracking);
 }
 
 .type-body-sm {
@@ -122,7 +233,6 @@
   font-size: var(--type-body-sm);
   font-weight: var(--weight-body);
   line-height: var(--type-body-sm-line);
-  letter-spacing: var(--type-body-tracking);
 }
 
 .type-caption {
@@ -130,16 +240,40 @@
   font-size: var(--type-caption);
   font-weight: var(--weight-body);
   line-height: var(--type-caption-line);
-  letter-spacing: var(--type-body-tracking);
 }
 
+.type-annotation-md,
+.type-expressive-md {
+  font-family: var(--font-expressive);
+  font-size: var(--type-annotation-md);
+  font-weight: var(--weight-body);
+  line-height: 1.25;
+}
+
+.type-annotation-xs,
+.type-expressive-xs {
+  font-family: var(--font-expressive);
+  font-size: var(--type-annotation-xs);
+  font-weight: var(--weight-body);
+  line-height: 1.3;
+}
+
+.type-mono-eyebrow,
 .type-label,
 .type-mono {
   font-family: var(--font-mono);
-  font-size: var(--type-label);
+  font-size: var(--type-mono-eyebrow);
+  font-weight: 700;
+  line-height: var(--type-mono-line);
+  letter-spacing: var(--type-mono-eyebrow-tracking);
+  text-transform: uppercase;
+}
+
+.type-mono-meta {
+  font-family: var(--font-mono);
+  font-size: var(--type-mono-meta);
   font-weight: var(--weight-body);
-  line-height: var(--type-label-line);
-  letter-spacing: var(--type-label-tracking);
+  line-height: var(--type-mono-meta-line);
 }
 
 .type-nav {
@@ -147,15 +281,29 @@
   font-size: var(--type-nav);
   font-weight: var(--weight-ui);
   line-height: var(--type-body-sm-line);
-  letter-spacing: var(--type-body-tracking);
 }
 
-.type-button {
+.type-link {
   font-family: var(--font-sans);
-  font-size: var(--type-button);
-  font-weight: var(--weight-ui);
-  line-height: var(--type-body-sm-line);
-  letter-spacing: var(--type-body-tracking);
+  font-size: var(--type-link);
+  font-weight: var(--type-link-weight);
+  line-height: 1.2;
+}
+
+.type-accent-work {
+  font-family: var(--font-sans);
+  font-size: var(--type-accent-work);
+  font-weight: var(--weight-bold);
+  line-height: var(--type-accent-work-line);
+  color: var(--accent-type);
+}
+
+.type-accent-writing {
+  font-family: var(--font-expressive);
+  font-size: var(--type-accent-writing);
+  font-weight: var(--weight-body);
+  line-height: var(--type-accent-writing-line);
+  color: var(--accent-type);
 }
 
 .hero-subtitle {
@@ -163,16 +311,6 @@
   font-size: var(--type-body-lg);
   line-height: var(--type-body-lg-line);
   font-weight: var(--weight-body);
-  letter-spacing: var(--type-body-tracking);
-}
-
-.type-page-title {
-  font-family: var(--font-sans);
-  font-size: var(--type-page-title);
-  font-weight: var(--weight-heading);
-  line-height: var(--type-page-title-line);
-  letter-spacing: var(--type-page-title-tracking);
-  text-wrap: balance;
 }
 
 .prose-width {
@@ -181,6 +319,7 @@
 
 @media (max-width: 767px) {
   :root {
-    --type-hero: clamp(2.625rem, 8vw, 3rem);
+    --type-display-hero: clamp(2.625rem, 10vw, 3.5rem);
+    --type-heading-section: clamp(1.875rem, 7vw, 2.5rem);
   }
 }

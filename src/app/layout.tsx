@@ -4,7 +4,15 @@ import "@/styles/layout-tokens.css";
 import "@/styles/paper-material.css";
 import "@/styles/layout-system.css";
 import "@/styles/sheet-system.css";
+import "@/styles/badge-system.css";
+import "@/styles/project-preview-tooltip.css";
+import "@/styles/portfolio-card.css";
+import "@/styles/social-contact.css";
+import "@/styles/cta-button.css";
+import "@/styles/tamagotchi-character.css";
+import "@/styles/expanding-cursor.css";
 import "@/styles/case-omantel-journal.css";
+import { ExpandingCursorProvider } from "@/components/layout/ExpandingCursorProvider";
 import type { Viewport } from "next";
 import ThinkingTopography from "@/components/ThinkingTopography";
 import { fontClassNames } from "@/lib/fonts";
@@ -40,10 +48,12 @@ export default function RootLayout({
         />
       </head>
       <body className="nebula-body text-neutral-900">
-        <div className="app-root">
-          <ThinkingTopography />
-          <div className="main-content">{children}</div>
-        </div>
+        <ExpandingCursorProvider>
+          <div className="app-root">
+            <ThinkingTopography />
+            <div className="main-content">{children}</div>
+          </div>
+        </ExpandingCursorProvider>
       </body>
     </html>
   );

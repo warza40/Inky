@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getCaseStudy, getNextCaseStudy } from "@/case-studies";
+import { expandingCursorAttrs } from "@/lib/expanding-cursor";
 
 interface CaseNextProjectProps {
   currentSlug: string;
@@ -24,7 +25,14 @@ export function CaseNextProject({
       <h2 id="cs-next-project-heading" className="cs-next-project-label">
         Next project
       </h2>
-      <Link href={`/case/${next.slug}`} className="cs-next-project-link">
+      <Link
+        href={`/case/${next.slug}`}
+        className="cs-next-project-link"
+        {...expandingCursorAttrs({
+          title: "View next project",
+          hint: next.title,
+        })}
+      >
         {next.title}
       </Link>
     </section>

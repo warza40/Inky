@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { HomeWriting } from "@/data/home-writing";
+import { expandingCursorAttrs } from "@/lib/expanding-cursor";
 
 interface WritingCardProps {
   item: HomeWriting;
@@ -13,6 +14,7 @@ export function WritingCard({ item }: WritingCardProps) {
       className="sheet-card sheet-card--tile sheet-card--writing"
       target="_blank"
       rel="noopener noreferrer"
+      {...expandingCursorAttrs(item.cursor)}
     >
       <div className="sheet-card-visual">
         <div className="sheet-card-image-wrap">

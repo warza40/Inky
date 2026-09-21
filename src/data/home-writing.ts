@@ -1,3 +1,5 @@
+import type { ExpandingCursorPrompt } from "@/lib/expanding-cursor";
+
 export interface HomeWriting {
   id: string;
   title: string;
@@ -6,6 +8,7 @@ export interface HomeWriting {
   imageSrc: string;
   imageAlt: string;
   imageObjectPosition?: string;
+  cursor: ExpandingCursorPrompt;
 }
 
 export const HOME_WRITING: HomeWriting[] = [
@@ -18,6 +21,10 @@ export const HOME_WRITING: HomeWriting[] = [
     imageAlt: "Crumpled paper in a library waste bin",
     imageObjectPosition: "center 52%",
     href: "https://open.substack.com/pub/thelilyput/p/the-quiet-devaluation-of-effort?utm_campaign=post-expanded-share&utm_medium=web",
+    cursor: {
+      title: "Read essay",
+      hint: "Opens on Substack",
+    },
   },
   {
     id: "entry-exit-digital-lending",
@@ -27,6 +34,10 @@ export const HOME_WRITING: HomeWriting[] = [
     imageAlt: "Abstract illustration for digital lending essay",
     imageObjectPosition: "center 48%",
     href: "https://open.substack.com/pub/thelilyput/p/entry-and-exit-in-digital-lending?r=g3nqv&utm_campaign=post&utm_medium=web",
+    cursor: {
+      title: "Read essay",
+      hint: "Opens on Substack",
+    },
   },
   {
     id: "gate-kept-degrees",
@@ -35,5 +46,9 @@ export const HOME_WRITING: HomeWriting[] = [
     imageSrc: "/images/writing/gate-kept-degrees.png",
     imageAlt: "Abstract illustration for gate-kept degrees essay",
     href: "https://open.substack.com/pub/thelilyput/p/the-system-behind-gate-kept-degrees?r=g3nqv&utm_campaign=post&utm_medium=web",
+    cursor: {
+      title: "Read essay",
+      hint: "Opens on Substack",
+    },
   },
 ];

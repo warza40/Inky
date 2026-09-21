@@ -1,29 +1,31 @@
 import {
-  IBM_Plex_Mono,
-  Instrument_Sans,
-  Source_Serif_4,
+  Hanken_Grotesk,
+  JetBrains_Mono,
+  Nanum_Pen_Script,
 } from "next/font/google";
 
-export const instrumentSans = Instrument_Sans({
+export const hankenGrotesk = Hanken_Grotesk({
   subsets: ["latin"],
-  variable: "--font-instrument-sans",
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-hanken-grotesk",
   display: "swap",
   adjustFontFallback: true,
 });
 
-export const sourceSerif = Source_Serif_4({
+export const nanumPen = Nanum_Pen_Script({
   subsets: ["latin"],
-  variable: "--font-source-serif",
+  weight: ["400"],
+  variable: "--font-nanum-pen",
   display: "swap",
   adjustFontFallback: true,
 });
 
-export const ibmPlexMono = IBM_Plex_Mono({
+export const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-ibm-plex-mono",
+  weight: ["400", "500", "700"],
+  variable: "--font-jetbrains-mono",
   display: "swap",
   adjustFontFallback: true,
 });
 
-export const fontClassNames = `${instrumentSans.variable} ${sourceSerif.variable} ${ibmPlexMono.variable}`;
+export const fontClassNames = `${hankenGrotesk.variable} ${nanumPen.variable} ${jetbrainsMono.variable}`;
