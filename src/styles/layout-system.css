@@ -55,6 +55,7 @@
 
 .site-section {
   position: relative;
+  scroll-margin-top: var(--nav-clearance);
 }
 
 .site-section--standard {
@@ -317,9 +318,7 @@
 /* ── Homepage: hero ── */
 
 .home-hero {
-  padding-top: calc(
-    var(--layout-hero-top) + var(--nav-offset-top) + var(--nav-height)
-  );
+  padding-top: calc(var(--layout-hero-top) + var(--nav-stack));
   padding-bottom: 0;
 }
 
