@@ -1,5 +1,15 @@
 import { PaperClipSticky } from "@/components/home/PaperClipIcons";
 
+type TitleOverview = {
+  role: string;
+  context: string;
+  company: string;
+  problem: string;
+  focus: string;
+  /** When set, the first meta column is labelled “Tools” instead of “Company”. */
+  tools?: string;
+};
+
 interface OmantelJournalTitlePaperProps {
   /** Case slug — gates whether an Omantel domain pill appears */
   slug: string;
@@ -7,23 +17,23 @@ interface OmantelJournalTitlePaperProps {
   title: string;
   problemStatement?: string;
   heroPills?: string[];
-  overview: {
-    role: string;
-    context: string;
-    company: string;
-    problem: string;
-    focus: string;
-  };
+  overview: TitleOverview;
 }
 
-const META_ROWS: ReadonlyArray<{
-  label: string;
-  field: keyof OmantelJournalTitlePaperProps["overview"];
-}> = [
-  { label: "Company", field: "company" },
-  { label: "Problem", field: "problem" },
-  { label: "Focus", field: "focus" },
-];
+type MetaRow = { label: string; value: string };
+
+/** Company / Tools + Problem + Focus — matches case `overview` contract. */
+function metaRowsFromOverview(overview: TitleOverview): MetaRow[] {
+  const tools = overview.tools?.trim();
+  const first: MetaRow = tools
+    ? { label: "Tools", value: tools }
+    : { label: "Company", value: overview.company };
+  return [
+    first,
+    { label: "Problem", value: overview.problem },
+    { label: "Focus", value: overview.focus },
+  ];
+}
 
 const SLUGS_WITH_OMANTEL_PILL = new Set(["omantel-bulk-activation"]);
 
@@ -140,10 +150,10 @@ export function OmantelJournalTitlePaper({
         </div>
 
         <div className="ojo-meta-grid">
-          {META_ROWS.map((row) => (
-            <div key={row.field} className="ojo-meta-item">
+          {metaRowsFromOverview(overview).map((row) => (
+            <div key={row.label} className="ojo-meta-item">
               <div className="ojo-meta-label">{row.label}</div>
-              <div className="ojo-meta-val">{overview[row.field]}</div>
+              <div className="ojo-meta-val">{row.value}</div>
             </div>
           ))}
         </div>

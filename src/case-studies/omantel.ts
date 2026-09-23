@@ -27,7 +27,7 @@ export interface CaseStudy {
     company: string;
     problem: string;
     focus: string;
-    /** When set, the third meta column is labelled “Tools” instead of “Company”. */
+    /** When set, the title-paper Company column is labelled “Tools” instead. */
     tools?: string;
   };
   sections: {
