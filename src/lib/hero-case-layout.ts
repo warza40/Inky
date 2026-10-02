@@ -7,26 +7,30 @@ export interface HeroCardLayout {
   zIndex: number;
 }
 
-export const HERO_CARD_LAYOUT_STORAGE_KEY = "inky-hero-case-card-layout-v1";
+export const HERO_CARD_LAYOUT_STORAGE_KEY = "inky-hero-case-card-layout-v2";
 
-/** Positions are % of the desktop hero stage (content rail). */
+/**
+ * Positions are % of the 1280px content rail.
+ * Tuned from live container widths at 1440:
+ * console column 628px, 24px gutter, heading/feature column 628px.
+ */
 export const HERO_CARD_LAYOUT: Record<string, HeroCardLayout> = {
   "omantel-bulk-activation": {
-    left: 54.9,
-    top: 18.6,
-    width: 51.8,
+    left: 50.94,
+    top: 9,
+    width: 49.06,
     zIndex: 2,
   },
   "warehouse-operations": {
-    left: 3.9,
-    top: 35.1,
-    width: 55.8,
+    left: 1.1,
+    top: 48,
+    width: 54,
     zIndex: 3,
   },
   "disaster-recovery": {
-    left: 38,
-    top: 61.1,
-    width: 67.5,
+    left: 36,
+    top: 66,
+    width: 62,
     zIndex: 4,
   },
 };
