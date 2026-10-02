@@ -494,6 +494,7 @@
     column-gap: 6.25%;
     row-gap: 0;
     align-items: start;
+    pointer-events: none;
   }
 
   .home-hero-stage__console,
@@ -501,6 +502,7 @@
     width: auto;
     left: auto;
     top: auto;
+    pointer-events: auto;
   }
 
   .home-hero-stage__heading {
