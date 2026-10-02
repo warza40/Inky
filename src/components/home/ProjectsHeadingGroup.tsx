@@ -1,10 +1,17 @@
-/** Figma 133:1786 — handwritten work section callout above case study cards. */
+import { Badge } from "@/components/ui/Badge";
+
+/** Figma 133:1786 — handwritten work callout to the right of the hero console. */
 export function ProjectsHeadingGroup() {
   return (
     <div className="projects-heading-group">
-      <h2 className="projects-heading-group__title">
-        Projects I&apos;ve worked on
-      </h2>
+      <div className="projects-heading-group__copy">
+        <h2 className="projects-heading-group__title">
+          Projects I&apos;ve worked on
+        </h2>
+        <Badge variant="badge" className="projects-heading-group__badge">
+          Case studies &amp; demos
+        </Badge>
+      </div>
       <img
         src="/icons/curly-arrow.svg"
         alt=""

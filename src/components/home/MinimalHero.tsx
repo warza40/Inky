@@ -1,15 +1,20 @@
 import { Section } from "@/components/layout/Section";
-import { LayoutGrid, GridCell } from "@/components/layout/LayoutGrid";
 import { HeroConsole } from "@/components/home/HeroConsole";
+import { ProjectsHeadingGroup } from "@/components/home/ProjectsHeadingGroup";
+import { HeroCaseBoard } from "@/components/home/HeroCaseBoard";
 
 export function MinimalHero() {
   return (
     <Section className="home-hero" padding="none" ariaLabel="Introduction">
-      <LayoutGrid className="layout-grid--align-start">
-        <GridCell className="home-hero__content-cell">
+      <div className="home-hero-stage">
+        <div className="home-hero-stage__console">
           <HeroConsole />
-        </GridCell>
-      </LayoutGrid>
+        </div>
+        <div className="home-hero-stage__heading">
+          <ProjectsHeadingGroup />
+        </div>
+        <HeroCaseBoard />
+      </div>
     </Section>
   );
 }
