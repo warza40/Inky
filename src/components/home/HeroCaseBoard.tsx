@@ -57,6 +57,7 @@ function DraggableHeroCard({
   const itemRef = useRef<HTMLLIElement>(null);
   const suppressClickRef = useRef(false);
   const liveLayoutRef = useRef(layout);
+  const detachListenersRef = useRef<(() => void) | null>(null);
   const dragRef = useRef<{
     pointerId: number;
     startX: number;
@@ -71,6 +72,13 @@ function DraggableHeroCard({
     liveLayoutRef.current = layout;
   }, [layout]);
 
+  useEffect(() => {
+    return () => {
+      detachListenersRef.current?.();
+      detachListenersRef.current = null;
+    };
+  }, []);
+
   const onPointerDown = useCallback(
     (event: React.PointerEvent<HTMLLIElement>) => {
       if (event.button !== 0) return;
@@ -79,8 +87,9 @@ function DraggableHeroCard({
       const node = itemRef.current;
       if (!node) return;
 
+      const pointerId = event.pointerId;
       dragRef.current = {
-        pointerId: event.pointerId,
+        pointerId,
         startX: event.clientX,
         startY: event.clientY,
         origLeft: liveLayoutRef.current.left,
@@ -88,68 +97,78 @@ function DraggableHeroCard({
         moved: false,
         zIndex: liveLayoutRef.current.zIndex,
       };
-      node.setPointerCapture(event.pointerId);
-    },
-    [],
-  );
 
-  const onPointerMove = useCallback(
-    (event: React.PointerEvent<HTMLLIElement>) => {
-      const drag = dragRef.current;
-      const node = itemRef.current;
-      if (!drag || drag.pointerId !== event.pointerId || !node) return;
+      const onWindowMove = (moveEvent: PointerEvent) => {
+        const drag = dragRef.current;
+        if (!drag || drag.pointerId !== moveEvent.pointerId) return;
 
-      const board = node.offsetParent as HTMLElement | null;
-      if (!board) return;
-
-      const dx = event.clientX - drag.startX;
-      const dy = event.clientY - drag.startY;
-      if (!drag.moved) {
-        if (dx * dx + dy * dy < DRAG_THRESHOLD_PX * DRAG_THRESHOLD_PX) {
-          return;
+        const dx = moveEvent.clientX - drag.startX;
+        const dy = moveEvent.clientY - drag.startY;
+        if (!drag.moved) {
+          if (dx * dx + dy * dy < DRAG_THRESHOLD_PX * DRAG_THRESHOLD_PX) {
+            return;
+          }
+          drag.moved = true;
+          drag.zIndex = onDragStart();
+          node.classList.add("is-dragging");
+          node.style.zIndex = String(drag.zIndex);
         }
-        drag.moved = true;
-        drag.zIndex = onDragStart();
-        node.classList.add("is-dragging");
-        node.style.zIndex = String(drag.zIndex);
-      }
 
-      event.preventDefault();
-      const bounds = board.getBoundingClientRect();
-      const nextLeft = Math.min(
-        88,
-        Math.max(-8, drag.origLeft + (dx / bounds.width) * 100),
-      );
-      const nextTop = Math.min(
-        88,
-        Math.max(-4, drag.origTop + (dy / bounds.height) * 100),
-      );
+        moveEvent.preventDefault();
+        const board = node.offsetParent as HTMLElement | null;
+        if (!board) return;
 
-      node.style.left = `${nextLeft}%`;
-      node.style.top = `${nextTop}%`;
-      liveLayoutRef.current = {
-        ...liveLayoutRef.current,
-        left: nextLeft,
-        top: nextTop,
-        zIndex: drag.zIndex,
+        const bounds = board.getBoundingClientRect();
+        const nextLeft = Math.min(
+          88,
+          Math.max(-8, drag.origLeft + (dx / bounds.width) * 100),
+        );
+        const nextTop = Math.min(
+          88,
+          Math.max(-4, drag.origTop + (dy / bounds.height) * 100),
+        );
+
+        node.style.left = `${nextLeft}%`;
+        node.style.top = `${nextTop}%`;
+        liveLayoutRef.current = {
+          ...liveLayoutRef.current,
+          left: nextLeft,
+          top: nextTop,
+          zIndex: drag.zIndex,
+        };
       };
-    },
-    [onDragStart],
-  );
 
-  const endDrag = useCallback(
-    (event: React.PointerEvent<HTMLLIElement>) => {
-      const drag = dragRef.current;
-      if (!drag || drag.pointerId !== event.pointerId) return;
+      const detach = () => {
+        window.removeEventListener("pointermove", onWindowMove);
+        window.removeEventListener("pointerup", onWindowUp);
+        window.removeEventListener("pointercancel", onWindowUp);
+        if (detachListenersRef.current === detach) {
+          detachListenersRef.current = null;
+        }
+      };
 
-      itemRef.current?.classList.remove("is-dragging");
-      if (drag.moved) {
-        suppressClickRef.current = true;
-        onCommit(study.slug, liveLayoutRef.current);
-      }
-      dragRef.current = null;
+      const onWindowUp = (upEvent: PointerEvent) => {
+        if (upEvent.pointerId !== pointerId) return;
+        detach();
+
+        const drag = dragRef.current;
+        if (!drag || drag.pointerId !== upEvent.pointerId) return;
+
+        node.classList.remove("is-dragging");
+        if (drag.moved) {
+          suppressClickRef.current = true;
+          onCommit(study.slug, liveLayoutRef.current);
+        }
+        dragRef.current = null;
+      };
+
+      detachListenersRef.current?.();
+      detachListenersRef.current = detach;
+      window.addEventListener("pointermove", onWindowMove);
+      window.addEventListener("pointerup", onWindowUp);
+      window.addEventListener("pointercancel", onWindowUp);
     },
-    [onCommit, study.slug],
+    [onCommit, onDragStart, study.slug],
   );
 
   useEffect(() => {
@@ -179,9 +198,7 @@ function DraggableHeroCard({
         zIndex: layout.zIndex,
       }}
       onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={endDrag}
-      onPointerCancel={endDrag}
+      onDragStart={(event) => event.preventDefault()}
     >
       <CaseStudyCard study={study} />
     </li>

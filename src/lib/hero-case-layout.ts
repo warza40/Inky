@@ -7,29 +7,38 @@ export interface HeroCardLayout {
   zIndex: number;
 }
 
-export const HERO_CARD_LAYOUT_STORAGE_KEY = "inky-hero-case-card-layout-v2";
+export const HERO_CARD_LAYOUT_STORAGE_KEY = "inky-hero-case-card-layout-v3";
 
 /**
- * Positions are % of the 1280px content rail.
- * Tuned from live container widths at 1440:
- * console column 628px, 24px gutter, heading/feature column 628px.
+ * Live container widths at 1440 / 1280 content rail:
+ *   nav 1280 · console 628 (49.06%) · heading content 559
+ *   Omantel 628 · warehouse 691 · disaster 794
+ *
+ * Reference (nav as rail) wants ~6.25% between console and the right cluster,
+ * not the previous 24px grid gutter. Card left/width % are of the 1280 stage.
+ * Omantel left = console column + gap = 55.31%, matching the heading start.
  */
+export const HERO_CONSOLE_COL_PCT = 49.06;
+export const HERO_INTRO_GAP_PCT = 6.25;
+export const HERO_HEADING_COL_PCT = 44.69;
+export const HERO_OMANTEL_LEFT_PCT = HERO_CONSOLE_COL_PCT + HERO_INTRO_GAP_PCT;
+
 export const HERO_CARD_LAYOUT: Record<string, HeroCardLayout> = {
   "omantel-bulk-activation": {
-    left: 50.94,
-    top: 9,
+    left: HERO_OMANTEL_LEFT_PCT,
+    top: 5.4,
     width: 49.06,
     zIndex: 2,
   },
   "warehouse-operations": {
-    left: 1.1,
-    top: 48,
+    left: 7.5,
+    top: 39,
     width: 54,
     zIndex: 3,
   },
   "disaster-recovery": {
-    left: 36,
-    top: 66,
+    left: 42.4,
+    top: 54.5,
     width: 62,
     zIndex: 4,
   },
@@ -52,6 +61,21 @@ export function layoutForSlug(slug: string): HeroCardLayout {
   );
 }
 
+function isFiniteNumber(value: unknown): value is number {
+  return typeof value === "number" && Number.isFinite(value);
+}
+
+function isHeroCardLayout(value: unknown): value is HeroCardLayout {
+  if (!value || typeof value !== "object") return false;
+  const layout = value as Partial<HeroCardLayout>;
+  return (
+    isFiniteNumber(layout.left) &&
+    isFiniteNumber(layout.top) &&
+    isFiniteNumber(layout.width) &&
+    isFiniteNumber(layout.zIndex)
+  );
+}
+
 export function readStoredHeroCardLayouts(): Record<
   string,
   HeroCardLayout
@@ -59,11 +83,25 @@ export function readStoredHeroCardLayouts(): Record<
   if (typeof window === "undefined") return null;
   try {
     const raw = window.localStorage.getItem(HERO_CARD_LAYOUT_STORAGE_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as Record<string, HeroCardLayout>;
-    if (!parsed || typeof parsed !== "object") return null;
-    return parsed;
+    if (!raw || raw.trim() === "") return null;
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      window.localStorage.removeItem(HERO_CARD_LAYOUT_STORAGE_KEY);
+      return null;
+    }
+    const next: Record<string, HeroCardLayout> = {};
+    for (const [slug, value] of Object.entries(
+      parsed as Record<string, unknown>,
+    )) {
+      if (isHeroCardLayout(value)) next[slug] = value;
+    }
+    return Object.keys(next).length > 0 ? next : null;
   } catch {
+    try {
+      window.localStorage.removeItem(HERO_CARD_LAYOUT_STORAGE_KEY);
+    } catch {
+      /* ignore */
+    }
     return null;
   }
 }

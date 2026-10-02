@@ -489,8 +489,9 @@
 
   .home-hero-stage__intro {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    column-gap: 24px;
+    /* Measured 628px console + 80px gutter + heading content (~559px) on the 1280 rail. */
+    grid-template-columns: 49.06% 44.69%;
+    column-gap: 6.25%;
     row-gap: 0;
     align-items: start;
   }
@@ -504,7 +505,15 @@
 
   .home-hero-stage__heading {
     z-index: 6;
+    width: max-content;
+    max-width: 100%;
     padding-top: 8px;
+  }
+
+  .home-hero-stage__heading .projects-heading-group {
+    width: max-content;
+    max-width: 100%;
+    grid-template-columns: auto auto;
   }
 
   .home-hero-board {
