@@ -315,15 +315,15 @@
 }
 
 /* ── Homepage: hero ── */
+/* Reset leftover globals.css `.home-hero` so the 8+4 rail is not double-padded. */
 
-.home-hero {
+.minimal-home .home-hero {
   display: block;
   padding-top: calc(
     var(--layout-hero-top) + var(--nav-offset-top) + var(--nav-height)
   );
   padding-bottom: 0;
-  padding-left: 0;
-  padding-right: 0;
+  padding-inline: 0;
   gap: 0;
   background: transparent;
   background-image: none;
@@ -334,21 +334,7 @@
 .minimal-home .work-section {
   background: transparent;
   border-top: none;
-}
-
-/* Hero copy + device sit on the 12-col grid (8 + 4). Tracks live in hero-console.css. */
-.home-hero .layout-grid {
-  overflow: visible;
-}
-
-.home-hero__body {
-  margin: 0;
-  max-width: var(--layout-hero-body-max);
-  font-family: var(--font-sans);
-  font-size: var(--type-body-lg);
-  font-weight: 400;
-  line-height: var(--type-body-lg-line);
-  color: #55545a;
+  padding-inline: 0;
 }
 
 /* ── Selected work ── */
@@ -635,13 +621,8 @@
     grid-column: span 4;
   }
 
-  .home-hero {
+  .minimal-home .home-hero {
     padding-bottom: var(--space-component);
-  }
-
-  .home-hero__body {
-    font-size: var(--type-body);
-    line-height: var(--type-body-line);
   }
 }
 

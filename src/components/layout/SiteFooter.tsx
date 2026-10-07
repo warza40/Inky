@@ -13,7 +13,7 @@ export function SiteFooter() {
     <footer id="footer" className="site-footer" aria-label="Footer">
       <div className="site-footer__inner">
         <div className="site-footer__rail">
-          <LayoutGrid className="layout-grid--align-start site-footer__grid">
+          <LayoutGrid className="layout-grid--align-start">
             <GridCell className="site-footer__copy-cell">
               <div className="site-footer__copy">
                 <p className="site-footer__eyebrow">[ LET&apos;S TALK ]</p>
