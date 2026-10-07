@@ -317,10 +317,17 @@
 /* ── Homepage: hero ── */
 
 .home-hero {
+  display: block;
   padding-top: calc(
     var(--layout-hero-top) + var(--nav-offset-top) + var(--nav-height)
   );
   padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+  gap: 0;
+  background: transparent;
+  background-image: none;
+  overflow: visible;
 }
 
 /* Reset legacy globals.css `.work-section` — minimal home uses layout-system only */
@@ -329,9 +336,9 @@
   border-top: none;
 }
 
-/* Figma 67:876 — hero text stack */
-.home-hero__content-cell {
-  grid-column: 1 / -1;
+/* Hero copy + device sit on the 12-col grid (8 + 4). Tracks live in hero-console.css. */
+.home-hero .layout-grid {
+  overflow: visible;
 }
 
 .home-hero__body {
@@ -621,15 +628,6 @@
 
   .home-hero {
     padding-bottom: var(--space-component);
-  }
-
-  .home-hero__content {
-    gap: var(--space-control);
-  }
-
-  .home-hero__intro {
-    font-size: clamp(1.375rem, 5.5vw, 1.75rem);
-    line-height: 1.25;
   }
 
   .home-hero__body {
