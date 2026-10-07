@@ -17,7 +17,9 @@ export function MinimalHero() {
             </h1>
             <p className="home-hero__lede">
               Product Designer detangling complex enterprise and systems level
-              problems. Also studying behaviour, systems and AI.
+              problems.
+              <br />
+              Also studying behaviour, systems and AI.
             </p>
             <HeroSocialLinks />
           </div>

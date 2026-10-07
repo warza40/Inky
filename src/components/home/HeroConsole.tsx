@@ -38,8 +38,10 @@ export function HeroConsole() {
               rel="noopener noreferrer"
             >
               Plotter.ai
-            </Link>{" "}
-            (an intelligent case study crafting tool)
+            </Link>
+            <span className="hero-console__building-note">
+              (an intelligent case study crafting tool)
+            </span>
           </p>
         </div>
 

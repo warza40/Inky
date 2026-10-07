@@ -34,8 +34,8 @@ function fromWireframe(
  */
 export const HOMEPAGE_SPARKLE_MARKS: PageSparkleMark[] = [
   fromWireframe("66:1885", "scribble", -119, 1273, 522),
-  fromWireframe("66:1617", "diamond", 192, 546, 522, 768),
-  fromWireframe("66:1619", "crosshatch", 499, 333, 269),
+  fromWireframe("66:1617", "diamond", 192, 1680, 522, 768),
+  fromWireframe("66:1619", "crosshatch", 499, 1620, 269),
   fromWireframe("66:1818", "solid", 424, 81, 59),
   fromWireframe("66:1836", "diamond", 1368, 834, 522, 768),
   fromWireframe("66:1851", "crosshatch", 1479, 483, 269),
