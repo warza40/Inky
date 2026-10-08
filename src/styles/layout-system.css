@@ -90,7 +90,7 @@
 .floating-nav__frame {
   width: min(
     var(--layout-content-max),
-    calc(100% - 2 * var(--layout-page-padding))
+    calc(min(var(--layout-wrapper-max), 100%) - 2 * var(--layout-page-padding))
   );
   margin-inline: auto;
   pointer-events: auto;
@@ -479,6 +479,12 @@
 @media (max-width: 1199px) {
   .home-bento-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 768px) {
+  .home-bento-grid {
+    gap: var(--space-separation);
   }
 
   .home-bento-grid__item--r1c1,

@@ -53,6 +53,12 @@
   object-fit: contain;
 }
 
+@media (max-width: 1199px) {
+  .page-sparkle-marks__mark[data-hide-below="1200"] {
+    display: none;
+  }
+}
+
 @media (max-width: 767px) {
   .page-sparkle-marks__mark[data-hide-below="768"] {
     display: none;
