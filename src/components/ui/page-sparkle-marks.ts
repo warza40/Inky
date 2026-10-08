@@ -33,13 +33,13 @@ function fromWireframe(
  * Variant resolved from each instance's main component (Sparkle 6:39).
  */
 export const HOMEPAGE_SPARKLE_MARKS: PageSparkleMark[] = [
-  fromWireframe("66:1885", "scribble", -119, 1273, 522),
+  fromWireframe("66:1885", "scribble", -119, 1273, 522, 1200),
   fromWireframe("66:1617", "diamond", 192, 1680, 522, 768),
-  fromWireframe("66:1619", "crosshatch", 499, 1620, 269),
+  fromWireframe("66:1619", "crosshatch", 499, 1620, 269, 1200),
   fromWireframe("66:1818", "solid", 424, 81, 59),
   fromWireframe("66:1836", "diamond", 1368, 834, 522, 768),
   fromWireframe("66:1851", "crosshatch", 1479, 483, 269),
-  fromWireframe("66:1898", "solid", 794, 927, 269),
+  fromWireframe("66:1898", "solid", 794, 927, 269, 1200),
   fromWireframe("66:1921", "solid", 1630, 1345, 400, 768),
   fromWireframe("66:1938", "crosshatch", 812, 2004, 392),
   fromWireframe("66:1969", "solid", 1458, 2241, 400, 768),

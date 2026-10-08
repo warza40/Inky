@@ -29,6 +29,7 @@
 .home-hero__badge {
   display: inline-flex;
   align-items: center;
+  max-width: 100%;
   margin: 0 0 var(--space-meta);
   padding: 5px 12px;
   border: 2px solid var(--ink, #1c1c1e);
@@ -348,7 +349,8 @@
   }
 
   .home-hero__socials {
-    gap: 16px 20px;
+    width: 100%;
+    gap: var(--space-meta);
   }
 
   .hero-console {
