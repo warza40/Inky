@@ -1,29 +1,172 @@
 /* ============================================================
-   Hero console — Figma 125:1993 (Hero / Responsive)
+   Hero — 12-col desktop: copy 1–8, device 9–12
+   Light ref rail: 8-col 845px + 24px gutter + 4-col 411px at 1280
    ============================================================ */
 
+.home-hero__grid {
+  overflow: visible;
+}
+
+.home-hero__copy-cell {
+  grid-column: 1 / 9;
+}
+
+.home-hero__device-cell {
+  grid-column: 9 / 13;
+  position: relative;
+  overflow: visible;
+}
+
+.home-hero__copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 100%;
+}
+
+.home-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 var(--space-meta);
+  padding: 5px 12px;
+  border: 2px solid var(--ink, #1c1c1e);
+  border-radius: 20px;
+  background: var(--badge-teal, #5da78d);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: var(--ink, #1c1c1e);
+  white-space: nowrap;
+}
+
+.home-hero__title {
+  margin: 0 0 var(--space-control);
+  max-width: 100%;
+  font-family: var(--font-sans);
+  font-size: clamp(2.5rem, 4.2vw, 3.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: var(--ink, #1c1c1e);
+}
+
+.home-hero__lede {
+  margin: 0 0 var(--space-heading);
+  max-width: min(20em, 100%);
+  font-family: var(--font-sans);
+  font-size: clamp(1.375rem, 2vw, 2rem);
+  font-weight: 500;
+  line-height: 1.2;
+  color: #55545a;
+  text-wrap: pretty;
+}
+
+.home-hero__socials {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 20px 24px;
+}
+
+.home-hero__social-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-hero__social-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--ink, #1c1c1e);
+  border-radius: 50%;
+  background: var(--paper-bg, #f8f7f4);
+  color: var(--ink, #1c1c1e);
+  transition:
+    background-color var(--motion-standard) var(--motion-ease),
+    border-color var(--motion-standard) var(--motion-ease),
+    color var(--motion-standard) var(--motion-ease);
+}
+
+.home-hero__social-icon {
+  display: block;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.home-hero__social-label {
+  font-family: var(--font-expressive);
+  font-size: var(--type-annotation-xs);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--ink, #1c1c1e);
+  transition: color var(--motion-standard) var(--motion-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .home-hero__social-item:hover .home-hero__social-tile,
+  .home-hero__social-item:focus-visible .home-hero__social-tile {
+    background: var(--badge-teal-hover, #3f7d68);
+    border-color: var(--badge-teal-hover, #3f7d68);
+    color: #f8f7f4;
+  }
+
+  .home-hero__social-item:hover .home-hero__social-label,
+  .home-hero__social-item:focus-visible .home-hero__social-label {
+    color: var(--badge-teal-hover, #3f7d68);
+  }
+}
+
+.home-hero__social-item:focus-visible {
+  outline: none;
+}
+
+.home-hero__social-item:focus-visible .home-hero__social-tile {
+  outline: 2px solid var(--ink, #1c1c1e);
+  outline-offset: 2px;
+}
+
+/* ── Compact Tamagotchi (4-col track) ── */
+
 .hero-console {
+  position: relative;
   width: 100%;
+  overflow: visible;
 }
 
 .hero-console__shell {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 14px;
+  gap: 16px;
+  width: 100%;
+  aspect-ratio: 411 / 340;
+  padding: 14px 14px 16px;
   border: 3px solid var(--ink, #1c1c1e);
-  border-radius: 24px;
+  border-radius: 28px;
   background: #63aa92;
   box-shadow: 7px 7px 0 0 var(--ink, #1c1c1e);
 }
 
 .hero-console__screen {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
-  gap: 18px;
-  padding: 14px 18px 20px;
+  gap: 20px;
+  min-height: 0;
+  padding: 14px 20px 20px;
   border: 3px solid var(--ink, #1c1c1e);
-  border-radius: 14px;
+  border-radius: 16px;
   background: var(--paper-bg, #f8f7f4);
 }
 
@@ -32,7 +175,7 @@
   align-items: center;
   justify-content: space-between;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 500;
   line-height: 1.5;
   letter-spacing: 0.12px;
@@ -46,49 +189,23 @@
   color: var(--ink, #1c1c1e);
 }
 
-.hero-console__identity {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.hero-console__name {
-  flex: 1 1 auto;
-  min-width: 0;
-  margin: 0;
+.hero-console__building {
+  margin: 12px 0 0;
   font-family: var(--font-sans);
-  font-size: clamp(2.75rem, 8vw, 4.75rem);
-  font-weight: 900;
-  line-height: 1.02;
-  letter-spacing: -0.04em;
-  color: var(--ink, #1c1c1e);
-}
-
-.hero-console__intro-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.hero-console__intro {
-  flex: 1 1 auto;
-  min-width: 0;
-  margin: 0;
-  font-family: var(--font-sans);
-  font-size: clamp(1.3125rem, 2.4vw, 2.125rem);
+  font-size: clamp(1.125rem, 1.5vw, 1.5rem);
   font-weight: 500;
-  line-height: 1.18;
-  color: #55545a;
+  line-height: 1.3;
+  color: var(--accent-type, #3f7d68);
   text-wrap: pretty;
 }
 
-.hero-console__intro strong {
-  font-weight: 700;
+.hero-console__building-note {
+  display: block;
 }
 
 .hero-console__project-link {
-  font-weight: 700;
-  color: var(--badge-teal-hover, #3f7d68);
+  font-weight: 600;
+  color: var(--accent-type, #3f7d68);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.14em;
@@ -101,47 +218,35 @@
   }
 }
 
-.hero-console__experience {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 12px;
-}
-
-.hero-console__tags {
-  display: flex;
-  flex: 1 1 auto;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-}
-
-.hero-console__tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 12px;
-  border: 2px solid var(--ink, #1c1c1e);
-  border-radius: 20px;
-  background: var(--badge-teal, #5da78d);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  line-height: normal;
-  color: var(--ink, #1c1c1e);
-  white-space: nowrap;
-}
-
-/* Sparkle marks — Figma 125:1858 / 125:1886 / 125:1891 (square source assets) */
-
-.hero-console__sparkle {
+.hero-console__controls {
   display: flex;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: var(--hero-sparkle-size);
+  gap: 36px;
+  padding-bottom: 4px;
+}
+
+.hero-console__control {
+  display: block;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--ink, #1c1c1e);
+  border-radius: 50%;
+  background: var(--paper-bg, #f8f7f4);
+  box-shadow: 0 2px 0 0 var(--ink, #1c1c1e);
+}
+
+.hero-console__sparkle {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--hero-sparkle-size, 28px);
   aspect-ratio: 1;
   line-height: 0;
+  pointer-events: none;
 }
 
 .hero-console__sparkle-img {
@@ -151,128 +256,106 @@
   object-fit: contain;
 }
 
-.hero-console__sparkle--identity {
-  --hero-sparkle-size: 45px;
+.hero-console__sparkle--left {
+  --hero-sparkle-size: 36px;
+  top: 14%;
+  left: -22px;
 }
 
-.hero-console__sparkle--side {
-  display: none;
+.hero-console__sparkle--top {
+  --hero-sparkle-size: 22px;
+  top: -10px;
+  right: 18%;
 }
 
-.hero-console__sparkle--experience {
-  --hero-sparkle-size: 32px;
-}
-
-.hero-console__controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 42px;
-}
-
-.hero-console__control {
-  display: block;
-  width: 36px;
-  height: 36px;
-  border: 2px solid var(--ink, #1c1c1e);
-  border-radius: 50%;
-  background: var(--paper-bg, #f8f7f4);
-  box-shadow: 0 2px 0 0 var(--ink, #1c1c1e);
-}
-
-.home-hero__content-cell {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-component);
-}
-
-/* Tablet — Figma 125:1991 */
 @media (min-width: 768px) {
   .hero-console__shell {
-    padding: 18px;
+    gap: 18px;
+    padding: 16px 16px 18px;
     border-width: 4px;
-    border-radius: 40px;
-    box-shadow: 12px 12px 0 0 var(--ink, #1c1c1e);
+    border-radius: 36px;
+    box-shadow: 8px 8px 0 0 var(--ink, #1c1c1e);
   }
 
   .hero-console__screen {
-    gap: 22px;
-    padding: 16px 24px 24px;
-    border-radius: 20px;
+    padding: 14px 18px 18px;
+    border-radius: 18px;
   }
 
-  .hero-console__sparkle--identity {
-    --hero-sparkle-size: 71px;
-  }
-
-  .hero-console__sparkle--side {
-    display: flex;
-    --hero-sparkle-size: 48px;
-  }
-
-  .hero-console__sparkle--experience {
-    --hero-sparkle-size: 42px;
-  }
-
-  .hero-console__tag {
-    padding: 6px 16px;
-    font-family: var(--font-sans);
-    font-size: 12px;
-    background: #fff;
+  .hero-console__status {
+    font-size: 11px;
   }
 
   .hero-console__controls {
-    gap: 80px;
+    gap: 48px;
   }
 
   .hero-console__control {
-    width: 42px;
-    height: 42px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .hero-console__sparkle--left {
+    --hero-sparkle-size: 42px;
+    left: -24px;
+  }
+
+  .hero-console__sparkle--top {
+    --hero-sparkle-size: 26px;
   }
 }
 
-/* Desktop — Figma 125:1990 */
 @media (min-width: 1200px) {
   .hero-console__shell {
-    padding: 24px;
+    padding: 16px 16px 20px;
   }
 
-  .hero-console__screen {
-    padding: 16px 32px 24px;
-  }
-
-  .hero-console__identity {
-    gap: 12px;
-  }
-
-  .hero-console__sparkle--identity {
-    --hero-sparkle-size: 78px;
-  }
-
-  .hero-console__sparkle--side {
-    --hero-sparkle-size: 58px;
-  }
-
-  .hero-console__intro-row {
-    gap: 16px;
-  }
-
-  .hero-console__experience {
-    flex-wrap: nowrap;
-    justify-content: space-between;
+  .hero-console__building {
+    font-size: 1.25rem;
   }
 
   .hero-console__controls {
-    gap: 80px;
+    gap: 52px;
   }
 
   .hero-console__control {
-    width: 48px;
-    height: 48px;
+    width: 34px;
+    height: 34px;
+  }
+}
+
+/* Tablet/mobile: 8-col and 4-col grids cannot host 9/13 — stack full rail */
+@media (max-width: 1199px) {
+  .home-hero__copy-cell,
+  .home-hero__device-cell {
+    grid-column: 1 / -1;
   }
 
-  .hero-console__tag {
-    background: var(--badge-teal, #5da78d);
-    font-family: var(--font-mono);
+  .home-hero__badge {
+    white-space: normal;
+    text-wrap: balance;
+  }
+
+  .hero-console {
+    width: min(100%, 26.25rem);
+  }
+}
+
+@media (max-width: 767px) {
+  .home-hero__lede {
+    max-width: none;
+    margin-bottom: var(--space-separation);
+  }
+
+  .home-hero__socials {
+    gap: 16px 20px;
+  }
+
+  .hero-console {
+    width: min(100%, 22rem);
+  }
+
+  .hero-console__sparkle--left {
+    left: -8px;
   }
 }
