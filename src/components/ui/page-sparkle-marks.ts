@@ -41,7 +41,7 @@ export const HOMEPAGE_SPARKLE_MARKS: PageSparkleMark[] = [
   fromWireframe("66:1851", "crosshatch", 1479, 483, 269),
   fromWireframe("66:1898", "solid", 794, 927, 269, 1200),
   fromWireframe("66:1921", "solid", 1630, 1345, 400, 768),
-  fromWireframe("66:1938", "crosshatch", 812, 2004, 392),
+  fromWireframe("66:1938", "crosshatch", 812, 2004, 392, 768),
   fromWireframe("66:1969", "solid", 1458, 2241, 400, 768),
   fromWireframe("66:1976", "crosshatch", -111, 2541, 400),
   fromWireframe("66:1990", "crosshatch", 1534, 3252, 344, 768),
