@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "anti-ai-slop-writing": {
+      "source": "jalaalrd/anti-ai-slop-writing",
+      "sourceType": "github",
+      "skillPath": "skills/anti-ai-slop-writing/SKILL.md",
+      "computedHash": "894339ca94325115c37cb7be1f703cee6fd2d840d3971b765e0db7f3613c4fa9"
+    },
+    "deslop": {
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "skillPath": "cursor-team-kit/skills/deslop/SKILL.md",
+      "computedHash": "8883a7d459c07a0b2ee06972e79baa634009aa3bab969a6650acbefac394ad41"
+    },
+    "no-slop-ui": {
+      "source": "leostehlik/no-slop-ui",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "172f31e26621d7ef7445578f0bba1c5a0db4f1e6654fad2c7ccd0a950253c8d6"
+    }
+  }
+}
