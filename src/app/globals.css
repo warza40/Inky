@@ -254,7 +254,6 @@
   --font-poppins: var(--font-heading);
   --font-inter: var(--font-body);
   --font-dm-sans: var(--font-body);
-  --font-questrial: var(--font-heading);
 
   --home-border: var(--color-border);
   --home-panel-bg: var(--color-ground-secondary);
@@ -1018,71 +1017,6 @@ html.dark .home-page-main,
 .pixel {
   background: #0e1c3d;
   transition: background 0.15s linear;
-}
-
-/* CursorFooterReact — canvas above footer bar */
-/* Fixed at bottom of viewport — visible without scrolling */
-.cursor-footer-react {
-  position: fixed;
-  bottom: 100px;
-  left: 0;
-  right: 0;
-  width: 100%;
-  overflow: hidden;
-  z-index: 20;
-}
-.cursor-footer-canvas {
-  display: block;
-}
-
-.footer-text {
-  color: #ffffff;
-  font-family: var(--font-label);
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
-  font-size: 14px;
-  letter-spacing: 0.12em;
-  white-space: nowrap;
-}
-
-/* glyph row: 4 glyphs per side */
-.footer-glyphs {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-/* single glyph: 24×24px, 9×9 grid */
-.footer .glyph {
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  grid-template-rows: repeat(9, 1fr);
-  gap: 0;
-  flex-shrink: 0;
-  width: 24px;
-  height: 24px;
-}
-
-.footer .glyph .pixel {
-  width: 100%;
-  height: 100%;
-  min-width: 0;
-  min-height: 0;
-  background: transparent;
-  transition: background 0.2s ease;
-}
-
-/* nebula colors — same specificity as .footer .glyph .pixel so they apply when added */
-.footer .glyph .pixel.coral {
-  background: #ef6a5f;
-}
-.footer .glyph .pixel.blue {
-  background: #7fa6e3;
-}
-.footer .glyph .pixel.indigo {
-  background: #5b53b3;
 }
 
 @media (max-width: 768px) {
@@ -3759,14 +3693,6 @@ button.home-cta-link {
   color: #fff;
 }
 /* Force typewriter text white in dark mode (sidebar + anywhere) */
-/* Questrial utility (use for typewriter or anywhere) */
-.questrial-regular {
-  font-family: var(--font-heading);
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
-  font-weight: 400;
-  font-style: normal;
-}
 html.dark .typewriter-name,
 html.dark .typewriter-name *,
 .dark .typewriter-name,

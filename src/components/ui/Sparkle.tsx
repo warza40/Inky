@@ -37,6 +37,3 @@ export function Sparkle({
     />
   );
 }
-
-export type { SparkleStyle } from "@/components/ui/sparkle-styles";
-export { SPARKLE_STYLES } from "@/components/ui/sparkle-styles";

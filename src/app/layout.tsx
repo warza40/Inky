@@ -5,7 +5,6 @@ import "@/styles/paper-material.css";
 import "@/styles/layout-system.css";
 import "@/styles/sheet-system.css";
 import "@/styles/badge-system.css";
-import "@/styles/project-preview-tooltip.css";
 import "@/styles/portfolio-card.css";
 import "@/styles/article-card.css";
 import "@/styles/social-contact.css";

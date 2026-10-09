@@ -206,18 +206,6 @@ function TamagotchiButtons({ size }: { size: TamagotchiSize }) {
   );
 }
 
-/** Hero-scale idle blink — Figma 53:178 (3.5s, 4-frame). */
-export function TamagotchiHeroBlink({ className }: { className?: string }) {
-  return (
-    <TamagotchiCharacter
-      size="hero"
-      expression="idle"
-      blink
-      className={className}
-    />
-  );
-}
-
 export function TamagotchiCharacter({
   expression = "idle",
   size = "md",

@@ -189,7 +189,6 @@ export default function ThinkingTopography({
         if (t <= 0) return;
 
         const revealProgress = Math.min(t / REVEAL_DURATION, 1);
-        console.log(core.word, revealProgress.toFixed(2), elapsed.toFixed(1));
 
         // Draw multiple rings for each core to create the topographic look
         const opacityScale = core.isSecondary ? 0.6 : 1.0;
