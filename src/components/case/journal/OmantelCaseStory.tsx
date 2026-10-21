@@ -178,7 +178,7 @@ export function OmantelCaseStory({ caseStudy }: OmantelCaseStoryProps) {
                 <span className="ojo-punch-hole" />
                 <span className="ojo-punch-hole" />
               </div>
-              <div className="ojo-p-label">Two sets of pain</div>
+              <h3 className="ojo-p-label">Two sets of pain</h3>
               <CasePainPointGroups groups={understanding.painPointGroups} />
             </div>
           </div>

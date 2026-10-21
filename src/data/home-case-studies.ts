@@ -5,7 +5,6 @@ export interface HomeCaseStudyPreview {
   displayTitle: string;
   description: string;
   meta: string;
-  statusLabel?: string;
   cursor?: ExpandingCursorPrompt;
 }
 

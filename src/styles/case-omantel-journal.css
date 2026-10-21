@@ -51,6 +51,10 @@
   gap: 10px;
 }
 
+h3.ojo-p-label {
+  margin-top: 0;
+}
+
 .ojo-p-label::after {
   content: "";
   flex: 1;
