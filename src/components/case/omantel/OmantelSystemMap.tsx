@@ -117,12 +117,15 @@ function StorySection({
 
 function ImpactStats({
   blocks,
+  showEyebrow = false,
 }: {
   blocks: NonNullable<CaseStudy["sections"]["journalImpact"]>["blocks"];
+  showEyebrow?: boolean;
 }) {
   if (!blocks.length) return null;
   return (
     <>
+      {showEyebrow ? <h3 className="om-eyebrow om-full">Impact</h3> : null}
       {blocks.map((block) => (
         <SystemCard key={block.value} span="third">
           <p className="om-stat-value">{block.value}</p>
@@ -199,18 +202,19 @@ function DecisionArticle({
             </div>
           </SystemCard>
         ) : null}
-        {decision.iteration?.trim() ? (
-          <SystemCard span="half" label="Iteration">
-            <div className="om-dense">
-              {paragraphsOf(decision.iteration).map((part, partIndex) => (
-                <p key={`${partIndex}-${part.slice(0, 16)}`}>
-                  {parseBoldSpans(part)}
-                </p>
-              ))}
-            </div>
-          </SystemCard>
-        ) : null}
       </div>
+      {decision.iteration?.trim() ? (
+        <blockquote className="om-quote om-callout">
+          <p className="om-subhead">Iteration</p>
+          <div className="om-dense">
+            {paragraphsOf(decision.iteration).map((part, partIndex) => (
+              <p key={`${partIndex}-${part.slice(0, 16)}`}>
+                {parseBoldSpans(part)}
+              </p>
+            ))}
+          </div>
+        </blockquote>
+      ) : null}
     </article>
   );
 }
@@ -254,7 +258,7 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
             PROTOTYPE_NDA_LINE
           )}
         </p>
-        <ImpactStats blocks={impact} />
+        <ImpactStats blocks={impact} showEyebrow />
       </StorySection>
 
       <StorySection
@@ -340,6 +344,11 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
             caption={image.caption}
           />
         ))}
+        {understanding?.afterDivider?.title ? (
+          <h3 className="om-subhead om-full">
+            {understanding.afterDivider.title}
+          </h3>
+        ) : null}
         {flowImages.map((image) =>
           image.src ? (
             <MediaFigure
@@ -359,18 +368,20 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
         title="Catch the error at entry, and the batch doesn't restart."
       >
         {hypothesis ? (
-          <div className="om-copy">
-            <p>
-              <span className="om-subhead">My hypothesis: </span>
-              {parseBoldSpans(hypothesis.quote)}
-            </p>
+          <>
+            <blockquote className="om-quote om-copy">
+              <p>
+                <span className="om-subhead">My hypothesis: </span>
+                {parseBoldSpans(hypothesis.quote)}
+              </p>
+            </blockquote>
             {hypothesis.signals.length > 0 ? (
               <>
-                <p className="om-subhead">How we’d know it worked</p>
+                <p className="om-subhead om-full">How we’d know it worked</p>
                 <BulletList items={hypothesis.signals} />
               </>
             ) : null}
-          </div>
+          </>
         ) : null}
       </StorySection>
 
@@ -414,13 +425,13 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
       >
         {collaboration?.intro ? <Copy text={collaboration.intro} /> : null}
         {collaboration ? (
-          <div className="om-copy">
+          <blockquote className="om-quote om-copy">
             {paragraphsOf(collaboration.quote).map((part, index) => (
               <p key={`${index}-${part.slice(0, 24)}`}>
                 {parseBoldSpans(part)}
               </p>
             ))}
-          </div>
+          </blockquote>
         ) : null}
         <BulletList items={collaboration?.bullets ?? []} />
       </StorySection>

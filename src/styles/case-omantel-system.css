@@ -64,6 +64,29 @@
   border: none;
 }
 
+.cs-page--omantel .om-subhead,
+.cs-page--omantel .om-eyebrow {
+  margin: 0;
+}
+
+.cs-page--omantel .om-callout {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin: 0;
+  padding: var(--space-component);
+  background: var(--paper-sheet);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-meta);
+}
+
+.cs-page--omantel .om-callout .om-dense {
+  max-width: var(--cs-copy-max);
+}
+
 .cs-page--omantel .om-list {
   margin: 0;
   padding-left: var(--space-component);

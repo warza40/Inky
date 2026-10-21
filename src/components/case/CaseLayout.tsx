@@ -135,7 +135,7 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
                 </ul>
               ) : null}
             </div>
-            {facts.length > 0 ? (
+            {!isOmantel && facts.length > 0 ? (
               <dl className="case-study-intro-facts">
                 {facts.map((fact) => (
                   <div key={fact.label} className="case-study-intro-fact">
