@@ -306,7 +306,11 @@ export function OmantelCaseStory({ caseStudy }: OmantelCaseStoryProps) {
       ) : null}
 
       {learnings ? (
-        <MotionSection id="learnings" title="What I learned" number="09">
+        <MotionSection
+          id="learnings"
+          title="Experts make mistakes too."
+          number="09"
+        >
           <div className="ojo-overview-section">
             <Paper>
               <SkimList items={learnings.learned} />

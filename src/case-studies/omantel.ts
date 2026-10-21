@@ -295,7 +295,7 @@ export const omantelImpactBlocks: NonNullable<
     metaDetailPlain: true,
   },
   {
-    value: "~50% faster",
+    value: "~50% less time",
     labelItalic: "",
     metaDetail: "batch creation & submission, per product team reporting",
     metaDetailPlain: true,
@@ -307,13 +307,13 @@ export const omantelImpactBlocks: NonNullable<
     metaDetailPlain: true,
   },
   {
-    value: "Pre-submission",
+    value: "Errors caught pre-submit",
     labelItalic: "",
     metaDetail: "errors caught at entry instead of fixed after the fact",
     metaDetailPlain: true,
   },
   {
-    value: "Zero manual ops",
+    value: "Zero manual operator work",
     labelItalic: "",
     metaDetail:
       "operator work removed from creation, submission and validation",
@@ -347,11 +347,11 @@ export const omantelCase: CaseStudy = {
     },
     {
       label: "Role",
-      value: "Senior UX Designer, one of two",
+      value: "Senior UX Designer, one of two senior designers",
     },
     {
       label: "Team",
-      value: "PMs, engineers, Omantel stakeholders",
+      value: "PMs, engineers, and Omantel's client-side stakeholders",
     },
     {
       label: "Time",
@@ -368,7 +368,7 @@ export const omantelCase: CaseStudy = {
     {
       label: "Outcome",
       value:
-        "Immediate confirmation. ~50% faster. Up to 500 SIMs. No manual ops.",
+        "Immediate confirmation. ~50% less time. Up to 500 SIMs. No manual ops.",
     },
   ],
   tldrNotes: [
@@ -405,7 +405,7 @@ export const omantelCase: CaseStudy = {
     understanding: {
       title: "No research phase. I learned it from the people doing the work.",
       content:
-        "The business side had already set the vision. There was no defined scope for research.\n\nWalkthroughs of the manual process with Omantel staff showed where errors entered. They juggled a **back office**, a **CRM**, and **customer email**.\n\nI mapped the B2B journey at a conceptual level: **credit limits**, the **bulk activation process**, and **stakeholder guardrails**. I mapped user flows against the proposed design so those flows could anchor stakeholder discussions.",
+        "The business side had already set the vision. There was no defined scope for research.\n\nWalkthroughs of the manual process with Omantel staff showed where errors entered. They juggled a **back office**, a **CRM**, and **customer email**.\n\nI mapped the B2B journey at a conceptual level: **credit limits**, the **bulk activation process**, and **stakeholder guardrails**. Then I turned those maps into user flows against the proposed design, so stakeholder discussions had something concrete to react to.",
       images: [
         {
           src: "/Omantel%20assets/Conceptual%20level%20understanding.png",
@@ -466,10 +466,10 @@ export const omantelCase: CaseStudy = {
     },
     hypothesis: {
       quote:
-        "if reps prepare batches in the spreadsheet they already use, and see **eligibility**, **credit limits**, and **outdated data** flagged before they submit, they will **submit valid batches on their own**, without Omantel staff, and fewer batches will restart.",
+        "If reps prepare batches in the spreadsheet they already use, and see **eligibility**, **credit limits**, and **outdated data** flagged before they submit, they will **submit valid batches on their own**, without Omantel staff, and fewer batches will restart.",
       signals: [
         "Confirmation time: **48–72 hrs → immediate**",
-        "Create and submit: **~50% faster**, per product team reporting",
+        "**~50% less time to create and submit**, per product team reporting",
         "Operator work **removed** from creation, submission and validation",
       ],
     },
@@ -477,14 +477,14 @@ export const omantelCase: CaseStudy = {
       {
         title: "Meet people in the spreadsheet they already use",
         description:
-          "**CSV templates** for large batches (up to 500 or more). **Search-and-modify** for a few lines (under 100).",
+          "**CSV templates** for large batches (up to 500 SIMs). **Search-and-modify** for smaller batches (under 100 lines).",
         rationale:
           "Two entry points are more to design and build. One path would fail one of the two groups.",
         why: "Enterprise users already work in spreadsheets. I met them there instead of inventing a new workflow.",
         impact:
           "**Self-service replaced manual entry.** A clean batch no longer depends on internal staff.",
         iteration:
-          "The first version put bulk actions straight on the lines table. Users had to work out which tool fit the job.\n\nWorking it through with stakeholders brought up use cases, edge cases, and accessibility needs that one shared surface couldn't handle.\n\nI added a short step at the start: what they're trying to do, and how many records. That sends them to search-and-modify or a CSV template, so they arrive knowing the goal. Each situation still has a clear, fixed path.",
+          "The first version put bulk actions straight on the lines table. Users had to work out which tool fit the job.\n\nWorking it through with stakeholders brought up use cases, edge cases, and accessibility needs that one shared surface couldn't handle.\n\nI added a short progressive-disclosure step at the start: what they're trying to do, and how many records. That sends them to search-and-modify or a CSV template, so they arrive knowing the goal. Users get more control, and each situation still gets a clear, fixed path.",
         images: [
           {
             src: "/Omantel%20assets/Om-Addbysearch.gif",
@@ -516,7 +516,7 @@ export const omantelCase: CaseStudy = {
           "One invalid entry failed the whole batch. Confirmation took **48–72 hours**.",
         rationale:
           "Surface errors at the **form** and at **file upload**, while a fix is still cheap.",
-        why: "Show each line's **current value next to the proposed value** — the credit limit is one case — with apply-to-all and per-row undo. That removes reliance on memory and blocks accidental overwrites.",
+        why: "Show each line's **current value next to the proposed value** (for example, the credit limit) with apply-to-all and per-row undo. That removes reliance on memory and blocks accidental overwrites.",
         impact:
           "Reps correct the row **before submit**, instead of finding the failure and starting over.",
         images: [
@@ -628,20 +628,18 @@ export const omantelCase: CaseStudy = {
       },
     ],
     collaboration: {
-      intro: "To me, this was what proactive collaboration should look like.",
       quote:
         "A key client stakeholder believed his enterprise customers were experts who already knew what they were doing. Templates and upload-stage checks felt unnecessary to him.\n\nThe process walkthroughs showed something else. Errors and edge cases were exactly what forced whole batches to restart.",
       bullets: [
         "I made the case for **expert and first-time reps**, and for **small and large-volume jobs**.",
         "I mapped the ops process and marked every **roadblock and dependency**.",
-        "I laid out the happy path for **each input method**, and kept the UI out of the room.",
-        "Once he could see where errors entered, the **two-path, validation-first** approach stopped being up for debate.",
+        "Instead of cycling through UI revisions, I laid out the happy path for each input method and kept the UI out of the room, so he judged the logic, not the pixels.",
       ],
     },
     learnings: {
       learned: [
         "**Experts still hit the edge cases** that restarted whole batches.",
-        "**One shared surface couldn't cover** the use cases, edge cases, and accessibility needs.",
+        "**A guided start beats a toolbox** when use cases, edge cases and accessibility needs pull in different directions.",
       ],
       moreTime: [
         "Run a lightweight usability study with **2–3 enterprise reps** before handoff.",

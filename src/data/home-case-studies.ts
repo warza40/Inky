@@ -33,7 +33,7 @@ export const HOME_CASE_STUDIES: HomeCaseStudy[] = [
     preview: {
       displayTitle: "Omantel bulk",
       description:
-        "Ops tooling for batch SIM activation — validation, recovery, and audit trails when thousands of rows move at once.",
+        "Self-service bulk SIM activation: errors caught at entry, batches of up to 500 confirmed immediately.",
       meta: "TELECOM · OPS UI",
       cursor: {
         title: "View case study",
