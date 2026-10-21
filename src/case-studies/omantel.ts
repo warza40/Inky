@@ -157,7 +157,13 @@ export interface CaseStudy {
         workflows?: Array<{ title: string; description: string }>;
         workflowsClosing?: string;
         /** Optional images shown one below the other (e.g. Flow 1, Flow 2) */
-        images?: Array<{ src: string; alt?: string; caption?: string }>;
+        images?: Array<{
+          src: string;
+          alt?: string;
+          caption?: string;
+          width?: number;
+          height?: number;
+        }>;
       };
     };
     constraints: Array<{
