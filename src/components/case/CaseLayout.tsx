@@ -5,10 +5,7 @@ import { caseStudyHasVisualsSection } from "@/case-studies/case-visuals";
 import { CaseStudyDirection } from "./CaseStudyDirection";
 import { CaseHeroMedia } from "./CaseHeroMedia";
 import { CaseNextProject } from "./CaseNextProject";
-import { JournalCaseFooterNext } from "@/components/case/journal/JournalCaseFooterNext";
-import { JournalFooterSeam } from "@/components/case/journal/JournalFooterSeam";
-import { OmantelJournalHero } from "@/components/case/journal/OmantelJournalHero";
-import { OmantelJournalTitlePaper } from "@/components/case/journal/OmantelJournalTitlePaper";
+import { OmantelSystemIntro } from "@/components/case/omantel/OmantelSystemIntro";
 import { CaseStudyLayout } from "@/components/sheets/CaseStudyLayout";
 import { FloatingNav } from "@/components/layout/FloatingNav";
 
@@ -88,10 +85,10 @@ function heroCopyFromCaseStudy(caseStudy: CaseStudy): {
 export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
   const sections = caseStudy ? buildCaseNavSections(caseStudy) : [];
   const hero = caseStudy ? heroCopyFromCaseStudy(caseStudy) : {};
-  const isOmantelJournal = caseStudy?.slug === "omantel-bulk-activation";
+  const isOmantelSystem = caseStudy?.slug === "omantel-bulk-activation";
   const themeClassName = [
     caseStudy?.warmthTheme ? `cs-theme-${caseStudy.warmthTheme}` : "",
-    isOmantelJournal ? "cs-page--journal-omantel" : "",
+    isOmantelSystem ? "cs-page--omantel" : "",
   ]
     .filter(Boolean)
     .join(" ");
@@ -101,28 +98,12 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
   const heroBlock = (
     <div className="case-study-intro-sheet paper-content-sheet">
       {caseStudy?.heroImage ? (
-        isOmantelJournal ? (
-          <OmantelJournalHero
-            src={caseStudy.heroImage.src}
-            alt={caseStudy.heroImage.alt}
-          />
-        ) : (
-          <CaseHeroMedia
-            src={caseStudy.heroImage.src}
-            alt={caseStudy.heroImage.alt}
-          />
-        )
-      ) : null}
-      {isOmantelJournal && caseStudy ? (
-        <OmantelJournalTitlePaper
-          slug={caseStudy.slug}
-          metaLine={hero.metaLine}
-          title={formatLabel(title)}
-          problemStatement={hero.problemStatement}
-          heroPills={caseStudy.heroPills}
-          overview={caseStudy.overview}
+        <CaseHeroMedia
+          src={caseStudy.heroImage.src}
+          alt={caseStudy.heroImage.alt}
         />
-      ) : caseStudy ? (
+      ) : null}
+      {caseStudy ? (
         <div className="case-study-intro-copy">
           {hero.metaLine ? (
             <p className="case-study-intro-meta">{hero.metaLine}</p>
@@ -130,6 +111,13 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
           <h1 className="case-study-intro-title">{formatLabel(title)}</h1>
           {hero.problemStatement ? (
             <p className="case-study-intro-lede">{hero.problemStatement}</p>
+          ) : null}
+          {isOmantelSystem ? (
+            <OmantelSystemIntro
+              slug={caseStudy.slug}
+              heroPills={caseStudy.heroPills}
+              overview={caseStudy.overview}
+            />
           ) : null}
         </div>
       ) : null}
@@ -139,29 +127,20 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
         problemStatement={hero.problemStatement}
         role={hero.role}
         warmthTheme={caseStudy?.warmthTheme ?? "madder"}
-        showHeroBand={!isOmantelJournal && !caseStudy?.heroImage}
+        showHeroBand={!caseStudy?.heroImage}
       />
     </div>
   );
 
   const footerBlock = (
     <>
-      {isOmantelJournal ? <JournalFooterSeam /> : null}
       <CaseStudyFooter
-        journalLayout={isOmantelJournal}
         nextProject={
           caseStudy ? (
-            isOmantelJournal ? (
-              <JournalCaseFooterNext
-                currentSlug={caseStudy.slug}
-                nextSlugOverride={caseStudy.nextProjectSlug}
-              />
-            ) : (
-              <CaseNextProject
-                currentSlug={caseStudy.slug}
-                nextSlugOverride={caseStudy.nextProjectSlug}
-              />
-            )
+            <CaseNextProject
+              currentSlug={caseStudy.slug}
+              nextSlugOverride={caseStudy.nextProjectSlug}
+            />
           ) : undefined
         }
       />

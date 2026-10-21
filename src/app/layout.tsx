@@ -16,6 +16,7 @@ import "@/styles/cta-button.css";
 import "@/styles/tamagotchi-character.css";
 import "@/styles/expanding-cursor.css";
 import "@/styles/case-omantel-journal.css";
+import "@/styles/case-omantel-system.css";
 import { ExpandingCursorProvider } from "@/components/layout/ExpandingCursorProvider";
 import type { Viewport } from "next";
 import ThinkingTopography from "@/components/ThinkingTopography";

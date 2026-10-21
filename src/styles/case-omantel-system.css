@@ -1,0 +1,348 @@
+/* ============================================================
+   Omantel case study — shared sheet template
+   Scoped to `.cs-page--omantel` so Disaster Recovery and
+   Warehouse keep their journal treatment.
+   ============================================================ */
+
+.cs-page--omantel {
+  /* Figma text/primary matches --badge-ink (#1c1c1e).
+     text/secondary #55545a has no Warmth token (--ink-soft differs). */
+  --omantel-text: var(--badge-ink);
+  --omantel-text-secondary: #55545a;
+  color: var(--omantel-text);
+}
+
+.cs-page--omantel .case-study-layout-content {
+  gap: var(--space-10);
+}
+
+.cs-page--omantel .sheet-section {
+  padding: var(--space-10);
+}
+
+.cs-page--omantel .case-study-intro-title {
+  font-size: var(--type-display-title);
+  font-weight: var(--weight-display);
+  line-height: var(--type-display-title-line);
+  letter-spacing: var(--type-display-title-tracking);
+  color: var(--omantel-text);
+}
+
+.cs-page--omantel .case-study-intro-lede,
+.cs-page--omantel .om-decision-lede,
+.cs-page--omantel .om-prose--secondary {
+  color: var(--omantel-text-secondary);
+}
+
+.cs-page--omantel .sheet-section-title,
+.cs-page--omantel .sheet-section-body,
+.cs-page--omantel .case-body {
+  color: var(--omantel-text);
+}
+
+.cs-page--omantel .sheet-section-number,
+.cs-page--omantel .om-eyebrow,
+.cs-page--omantel .cs-mc-slide-counter {
+  font-family: var(--font-mono);
+  font-size: var(--type-mono-eyebrow);
+  font-weight: var(--weight-bold);
+  line-height: 1.4;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--omantel-text-secondary);
+}
+
+.cs-page--omantel .om-subhead {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--type-mono-section);
+  font-weight: var(--weight-bold);
+  line-height: 1.4;
+  letter-spacing: 1px;
+  text-transform: none;
+  color: var(--omantel-text);
+}
+
+.cs-page--omantel .om-intro-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-component);
+  margin-top: var(--space-component);
+}
+
+.cs-page--omantel .om-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-tight);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cs-page--omantel .om-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-component);
+  margin: 0;
+}
+
+.cs-page--omantel .om-meta-item {
+  min-width: 0;
+}
+
+.cs-page--omantel .om-eyebrow {
+  margin: 0;
+}
+
+.cs-page--omantel .om-meta-value {
+  margin: var(--space-micro) 0 0;
+  font-family: var(--font-sans);
+  font-size: var(--type-body-sm);
+  font-weight: var(--weight-body);
+  line-height: var(--type-body-sm-line);
+  color: var(--omantel-text);
+}
+
+.cs-page--omantel .om-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-meta);
+  padding: var(--space-component);
+  background: var(--paper-base);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-card);
+  box-shadow: var(--paper-sheet-highlight), var(--shadow-sm);
+}
+
+.cs-page--omantel .om-split,
+.cs-page--omantel .om-impact-grid {
+  display: grid;
+  gap: var(--space-component);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cs-page--omantel .om-split {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.cs-page--omantel .om-impact-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.cs-page--omantel .om-block,
+.cs-page--omantel .om-decision,
+.cs-page--omantel .om-stack,
+.cs-page--omantel .om-stack-item,
+.cs-page--omantel .omantel-system {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cs-page--omantel .om-block,
+.cs-page--omantel .om-decision,
+.cs-page--omantel .om-stack-item {
+  gap: var(--space-component);
+}
+
+.cs-page--omantel .om-stack,
+.cs-page--omantel .om-decision-stack {
+  gap: var(--space-separation);
+}
+
+.cs-page--omantel .omantel-system {
+  gap: var(--space-10);
+}
+
+.cs-page--omantel .sheet-section-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-separation);
+}
+
+.cs-page--omantel .om-decision {
+  padding-top: var(--space-component);
+  border-top: 1px solid var(--line-subtle);
+}
+
+.cs-page--omantel .om-decision:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.cs-page--omantel .om-prose,
+.cs-page--omantel .om-decision-lede,
+.cs-page--omantel .om-aim,
+.cs-page--omantel .om-list li {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+  font-weight: var(--weight-body);
+  line-height: var(--type-body-line);
+  color: var(--omantel-text);
+}
+
+.cs-page--omantel .om-decision-lede,
+.cs-page--omantel .om-prose--secondary {
+  color: var(--omantel-text-secondary);
+}
+
+.cs-page--omantel .om-aim,
+.cs-page--omantel .cs-context-hl {
+  color: var(--accent-type);
+}
+
+.cs-page--omantel .om-preline {
+  white-space: pre-line;
+}
+
+.cs-page--omantel .om-list {
+  margin: 0;
+  padding-left: var(--space-component);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-tight);
+}
+
+.cs-page--omantel .om-list li::marker {
+  color: var(--badge-teal);
+}
+
+.cs-page--omantel .om-decision-title {
+  margin: 0;
+  font-family: var(--font-sans);
+  /* Shared decision-title size (37.6px at 1440). Not raised to Figma 42. */
+  font-size: clamp(1.65rem, 3.2vw, 2.35rem);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: 0;
+  color: var(--omantel-text);
+}
+
+.cs-page--omantel .om-pain-title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  font-weight: var(--type-title-card-sm-weight);
+  line-height: var(--type-title-card-sm-line);
+  color: var(--omantel-text);
+}
+
+.cs-page--omantel .om-impact-stat {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-tight);
+  margin: 0;
+}
+
+.cs-page--omantel .om-impact-value {
+  font-family: var(--font-sans);
+  font-size: var(--type-lead-md);
+  font-weight: var(--weight-bold);
+  line-height: var(--type-lead-md-line);
+  letter-spacing: 0;
+  color: var(--badge-teal);
+}
+
+.cs-page--omantel .om-impact-suffix {
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+  font-weight: var(--weight-body);
+  line-height: var(--type-body-line);
+  color: var(--omantel-text-secondary);
+}
+
+.cs-page--omantel .cs-visual-caption,
+.cs-page--omantel .cs-mc-caption {
+  font-family: var(--font-sans);
+  font-size: var(--type-caption);
+  font-weight: var(--weight-body);
+  line-height: var(--type-caption-line);
+  letter-spacing: 0;
+  color: var(--omantel-text-secondary);
+}
+
+.cs-page--omantel .cs-media-carousel--surface {
+  width: 100%;
+  max-width: 100%;
+  padding: var(--space-component) 0 0;
+}
+
+.cs-page--omantel .cs-mc-row,
+.cs-page--omantel .cs-mc-stage,
+.cs-page--omantel .cs-mc-footer {
+  max-width: 100%;
+}
+
+.cs-page--omantel .cs-mc-row {
+  gap: var(--space-tight);
+}
+
+.cs-page--omantel .cs-mc-footer {
+  margin-top: var(--space-meta);
+  padding-bottom: 0;
+}
+
+.cs-page--omantel .cs-mc-caption {
+  padding-inline: 0;
+}
+
+.cs-page--omantel .om-shot {
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-card);
+  background: var(--paper-sheet);
+  box-shadow: var(--shadow-sm);
+}
+
+.cs-page--omantel .om-video {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-card);
+}
+
+.cs-page--omantel .case-study-intro-sheet,
+.cs-page--omantel .cs-case-hero-media,
+.cs-page--omantel .sheet-section,
+.cs-page--omantel .om-card {
+  max-width: 100%;
+}
+
+@media (max-width: 1199px) {
+  .cs-page--omantel .case-study-layout-content,
+  .cs-page--omantel .omantel-system {
+    gap: var(--space-8);
+  }
+
+  .cs-page--omantel .sheet-section {
+    padding: var(--space-8);
+  }
+
+  .cs-page--omantel .om-split,
+  .cs-page--omantel .om-impact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .cs-page--omantel .case-study-layout-content,
+  .cs-page--omantel .omantel-system {
+    gap: var(--space-6);
+  }
+
+  .cs-page--omantel .sheet-section {
+    padding: var(--space-6);
+  }
+
+  .cs-page--omantel .om-meta-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cs-page--omantel .om-meta-value {
+    font-size: var(--type-caption);
+    line-height: var(--type-caption-line);
+  }
+}
