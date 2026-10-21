@@ -431,6 +431,16 @@
   }
 }
 
+/* Five static impact notes — one row on wide screens, wrap below that */
+@media (min-width: 1200px) {
+  .cs-page--journal-omantel
+    .ojo-impact-postits--on-leather:has(
+      .cs-impact-postit:nth-child(5):last-child
+    ) {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
 .cs-page--journal-omantel .ojo-impact-postits--on-leather .cs-impact-postit {
   position: relative;
   display: flex;
@@ -488,7 +498,12 @@
 }
 
 .cs-page--journal-omantel .ojo-impact-postits--on-leather .ojo-impact-value {
+  display: block;
   color: var(--color-moss-700);
+  font-size: clamp(1.25rem, 2vw, 1.7rem);
+  line-height: 1.15;
+  text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 .cs-page--journal-omantel .ojo-impact-postits--on-leather .ojo-impact-suffix,
@@ -2246,7 +2261,7 @@
   }
 
   .cs-page.cs-page--journal-omantel .ojo-impact-value {
-    font-size: 36px;
+    font-size: 1.35rem;
   }
 
   .cs-page.cs-page--journal-omantel .ojo-problem-section {
@@ -2375,6 +2390,166 @@
   }
 
   .cs-page.cs-page--journal-omantel .ojo-impact-value {
-    font-size: 32px;
+    font-size: 1.25rem;
   }
+}
+
+/* Title sheet without the side meta column — headline can use the width */
+.ojo-title-insert--no-meta {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.ojo-title-insert--no-meta .ojo-title-copy-wrap,
+.ojo-title-insert--no-meta .ojo-title-eyebrow {
+  max-width: min(100%, 46rem);
+}
+
+/* TL;DR recruiter card */
+.ojo-tldr-list {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.ojo-tldr-row {
+  display: grid;
+  grid-template-columns: minmax(6.5rem, 8.5rem) minmax(0, 1fr);
+  gap: 8px 24px;
+  padding: 12px 0;
+  border-top: 1px solid var(--ojo-rule);
+}
+
+.ojo-tldr-row:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.ojo-tldr-label {
+  margin: 0;
+  font-family: var(--ojo-eyebrow-font, var(--font-body));
+  font-size: var(--ojo-eyebrow-size, 8px);
+  letter-spacing: var(--ojo-eyebrow-track, 0.16em);
+  font-weight: var(--ojo-eyebrow-weight, 600);
+  text-transform: uppercase;
+  color: var(--ojo-eyebrow-paper);
+  line-height: 1.4;
+  padding-top: 3px;
+}
+
+.ojo-tldr-value {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--ojo-ink);
+}
+
+.ojo-tldr-prototype {
+  margin: 18px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--ojo-rule);
+  font-family: var(--font-serif);
+  font-size: 1.02rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--ojo-ink-mid);
+}
+
+.ojo-tldr-prototype-link {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .ojo-tldr-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+
+/* Pull quotes — hypothesis, goal, stakeholder story, iteration */
+.ojo-pull-quote {
+  margin: 0 0 8px;
+  padding: 4px 0 4px 18px;
+  border-left: 3px solid var(--color-madder-700);
+  font-family: var(--font-serif);
+  font-size: clamp(1.12rem, 2vw, 1.35rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--ojo-ink);
+}
+
+.ojo-pull-quote p {
+  margin: 0 0 0.75em;
+}
+
+.ojo-pull-quote p:last-child {
+  margin-bottom: 0;
+}
+
+.ojo-pull-quote strong,
+.ojo-skim-list strong,
+.ojo-tldr-value strong,
+.ojo-problem-text strong,
+.ojo-after-text strong,
+.cs-ri-item-text strong,
+.ojo-d-lede strong {
+  font-weight: 600;
+  font-style: normal;
+  color: var(--ojo-ink);
+}
+
+.ojo-beat-label {
+  display: block;
+  margin: 0 0 8px;
+  font-family: var(--ojo-eyebrow-font, var(--font-body));
+  font-size: var(--ojo-eyebrow-size, 8px);
+  font-style: normal;
+  font-weight: var(--ojo-eyebrow-weight, 600);
+  letter-spacing: var(--ojo-eyebrow-track, 0.16em);
+  text-transform: uppercase;
+  color: var(--ojo-eyebrow-paper);
+  line-height: 1.35;
+}
+
+.ojo-pull-quote p .ojo-beat-label {
+  display: inline;
+  margin: 0;
+  font-size: 0.72em;
+  letter-spacing: 0.12em;
+  vertical-align: 0.05em;
+}
+
+.ojo-beat-block {
+  margin-top: 22px;
+}
+
+.ojo-skim-list {
+  margin: 8px 0 0;
+  padding-left: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ojo-ink);
+}
+
+.ojo-skim-list li::marker {
+  color: rgba(120, 95, 55, 0.55);
+}
+
+.ojo-collab-intro {
+  margin: 0 0 16px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ojo-ink-mid);
+}
+
+.ojo-decision-inner .ojo-pull-quote {
+  margin-top: 8px;
 }

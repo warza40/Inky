@@ -35,7 +35,6 @@ export const HOME_CASE_STUDIES: HomeCaseStudy[] = [
       description:
         "Ops tooling for batch SIM activation — validation, recovery, and audit trails when thousands of rows move at once.",
       meta: "TELECOM · OPS UI",
-      statusLabel: "LIVE BUILD",
       cursor: {
         title: "View case study",
         hint: "TELECOM · OPS UI · Click to explore",

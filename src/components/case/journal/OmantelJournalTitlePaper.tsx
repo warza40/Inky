@@ -7,6 +7,8 @@ interface OmantelJournalTitlePaperProps {
   title: string;
   problemStatement?: string;
   heroPills?: string[];
+  /** Recruiter card replaces this grid when the story has a TL;DR. */
+  hideMeta?: boolean;
   overview: {
     role: string;
     context: string;
@@ -100,6 +102,7 @@ export function OmantelJournalTitlePaper({
   title,
   problemStatement,
   heroPills,
+  hideMeta = false,
   overview,
 }: OmantelJournalTitlePaperProps) {
   const chips = titlePillsFromCase(slug, overview, heroPills);
@@ -109,7 +112,13 @@ export function OmantelJournalTitlePaper({
       <div className="ojo-tape ojo-tape-wave ojo-tape-a" aria-hidden />
       <div className="ojo-tape ojo-tape-seigaiha ojo-tape-b" aria-hidden />
 
-      <div className="ojo-paper ojo-paper-shadow ojo-title-insert">
+      <div
+        className={
+          hideMeta
+            ? "ojo-paper ojo-paper-shadow ojo-title-insert ojo-title-insert--no-meta"
+            : "ojo-paper ojo-paper-shadow ojo-title-insert"
+        }
+      >
         <div className="ojo-punch-holes ojo-punch-holes--title" aria-hidden>
           <span className="ojo-punch-hole" />
           <span className="ojo-punch-hole" />
@@ -139,14 +148,16 @@ export function OmantelJournalTitlePaper({
           </div>
         </div>
 
-        <div className="ojo-meta-grid">
-          {META_ROWS.map((row) => (
-            <div key={row.field} className="ojo-meta-item">
-              <div className="ojo-meta-label">{row.label}</div>
-              <div className="ojo-meta-val">{overview[row.field]}</div>
-            </div>
-          ))}
-        </div>
+        {hideMeta ? null : (
+          <div className="ojo-meta-grid">
+            {META_ROWS.map((row) => (
+              <div key={row.field} className="ojo-meta-item">
+                <div className="ojo-meta-label">{row.label}</div>
+                <div className="ojo-meta-val">{overview[row.field]}</div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
