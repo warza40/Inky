@@ -318,10 +318,6 @@ export function OmantelCaseStory({ caseStudy }: OmantelCaseStoryProps) {
                 <div className="ojo-beat-label">With more time I’d…</div>
                 <SkimList items={learnings.moreTime} />
               </div>
-              <div className="ojo-beat-block">
-                <div className="ojo-beat-label">With less time I’d…</div>
-                <SkimList items={learnings.lessTime} />
-              </div>
             </Paper>
           </div>
         </MotionSection>

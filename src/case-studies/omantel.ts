@@ -222,7 +222,6 @@ export interface CaseStudy {
     learnings?: {
       learned: string[];
       moreTime: string[];
-      lessTime: string[];
     };
     outcome?: string;
     /** Before / after contrast block in Outcome */
@@ -327,7 +326,7 @@ export const omantelCase: CaseStudy = {
   /** Deliberately empty: suppresses eyebrow above title and `context · company` fallback */
   heroMetaLine: "",
   heroProblemStatement:
-    "Thousands of activations ran through email, a back office, and a portal. One invalid record restarted the batch. Confirmation took 48–72 hours.",
+    "Hundreds of activations per batch ran through email, a back office, and a portal. One invalid record restarted the batch. Confirmation took 48–72 hours.",
   heroPills: ["Omantel", "B2B", "Telecom"],
   /**
    * PROTOTYPE LINK SLOT
@@ -645,10 +644,6 @@ export const omantelCase: CaseStudy = {
         "Run a lightweight usability study with **2–3 enterprise reps** before handoff.",
         "Add **batch-level progress** for large uploads, where the wait becomes noticeable.",
         "Use AI to **track business rules and surface them** to the rep.",
-      ],
-      lessTime: [
-        "Ship **CSV upload with upload-stage validation** first.",
-        "Then search-and-modify, mobile, and history.",
       ],
     },
   },
