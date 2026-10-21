@@ -46,20 +46,21 @@ body:has(.page-shell--no-topography) #thinking-topography {
 .sheet-section-number {
   flex-shrink: 0;
   font-family: var(--font-mono);
-  font-size: var(--type-label);
-  font-weight: var(--weight-ui);
-  line-height: var(--type-label-line);
-  letter-spacing: var(--type-label-tracking);
+  font-size: var(--case-type-eyebrow);
+  font-weight: var(--case-type-eyebrow-weight);
+  line-height: var(--case-type-eyebrow-line);
+  letter-spacing: var(--case-type-eyebrow-track);
+  text-transform: uppercase;
   color: var(--sheet-ink-soft);
 }
 
 .sheet-section-title {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: var(--type-section-title);
-  font-weight: var(--weight-heading);
-  line-height: var(--type-section-title-line);
-  letter-spacing: var(--type-section-title-tracking);
+  font-size: var(--case-type-section);
+  font-weight: var(--case-type-section-weight);
+  line-height: var(--case-type-section-line);
+  letter-spacing: var(--case-type-section-track);
   color: var(--sheet-ink);
 }
 
@@ -309,31 +310,35 @@ body:has(.page-shell--no-topography) #thinking-topography {
 .case-study-intro-meta {
   margin: 0 0 var(--space-meta);
   font-family: var(--font-mono);
-  font-size: var(--type-label);
-  font-weight: var(--weight-body);
-  line-height: var(--type-label-line);
-  letter-spacing: var(--type-label-tracking);
+  font-size: var(--case-type-eyebrow);
+  font-weight: var(--case-type-eyebrow-weight);
+  line-height: var(--case-type-eyebrow-line);
+  letter-spacing: var(--case-type-eyebrow-track);
+  text-transform: uppercase;
   color: var(--ink-soft);
 }
 
 .case-study-intro-title {
   margin: 0 0 var(--space-component);
   font-family: var(--font-sans);
-  font-size: clamp(2rem, 5vw, var(--type-major-heading));
-  font-weight: var(--weight-display);
-  line-height: var(--type-major-heading-line);
-  letter-spacing: var(--type-major-heading-tracking);
+  font-size: var(--case-type-page);
+  font-weight: var(--case-type-page-weight);
+  line-height: var(--case-type-page-line);
+  letter-spacing: var(--case-type-page-track);
   color: var(--ink);
   text-wrap: balance;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
 .case-study-intro-lede {
   margin: 0;
   max-width: var(--layout-copy-max);
-  font-family: var(--font-serif);
-  font-size: var(--type-body-lg);
+  font-family: var(--font-sans);
+  font-size: var(--case-type-body-lg);
   font-weight: var(--weight-body);
-  line-height: var(--type-body-lg-line);
+  font-style: normal;
+  line-height: var(--case-type-body-lg-line);
   color: var(--ink-soft);
 }
 
@@ -375,18 +380,21 @@ body:has(.page-shell--no-topography) #thinking-topography {
 .cs-page--sheets .ojo-main-title.cs-hero-title,
 .cs-page--sheets .ojo-title-insert .ojo-main-title.cs-hero-title {
   font-family: var(--font-sans);
-  font-size: clamp(2.25rem, 7vw, var(--type-page-title));
-  font-weight: var(--weight-display);
-  line-height: var(--type-page-title-line);
-  letter-spacing: var(--type-page-title-tracking);
+  font-size: var(--case-type-page);
+  font-weight: var(--case-type-page-weight);
+  line-height: var(--case-type-page-line);
+  letter-spacing: var(--case-type-page-track);
   text-wrap: balance;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
 .cs-page--sheets .ojo-sub-title {
   font-family: var(--font-sans);
-  font-size: var(--type-body-lg);
+  font-size: var(--case-type-body-lg);
   font-weight: var(--weight-body);
-  line-height: var(--type-body-lg-line);
+  font-style: normal;
+  line-height: var(--case-type-body-lg-line);
   letter-spacing: var(--type-body-tracking);
 }
 
@@ -399,8 +407,8 @@ body:has(.page-shell--no-topography) #thinking-topography {
 .cs-page--sheets .case-body,
 .cs-page--sheets .sheet-section-body .case-body {
   font-family: var(--font-sans);
-  font-size: var(--type-body);
-  line-height: var(--type-body-line);
+  font-size: var(--case-type-body);
+  line-height: var(--case-type-body-line);
 }
 
 /* Flatten journal decorations inside sheet sections */
@@ -469,4 +477,184 @@ body:has(.page-shell--no-topography) #thinking-topography {
   .sheet-nav-wrap {
     top: var(--nav-height);
   }
+}
+
+/* ============================================================
+   Case study type scale
+   Tokens: typography.css --case-type-*
+   !important is limited to font metrics. case-omantel-journal.css
+   loads later and hardcodes the old sizes; this file does not
+   edit that sheet, and colour is left untouched.
+   ============================================================ */
+
+.cs-page.cs-page--sheets {
+  --ojo-eyebrow-font: var(--font-mono);
+  --ojo-eyebrow-size: var(--case-type-eyebrow);
+  --ojo-eyebrow-weight: var(--case-type-eyebrow-weight);
+  --ojo-eyebrow-track: var(--case-type-eyebrow-track);
+  --cs-milestone-font: var(--font-mono);
+  --cs-milestone-size: var(--case-type-eyebrow);
+  --cs-milestone-weight: var(--case-type-eyebrow-weight);
+  --cs-milestone-tracking: var(--case-type-eyebrow-track);
+  --cs-milestone-transform: uppercase;
+}
+
+.cs-page--sheets .case-study-intro-title,
+.cs-page--sheets .ojo-main-title.cs-hero-title {
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-page) !important;
+  font-weight: var(--case-type-page-weight) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-page-line) !important;
+  letter-spacing: var(--case-type-page-track) !important;
+  font-variation-settings: normal !important;
+}
+
+.cs-page--sheets .sheet-section-title {
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-section) !important;
+  font-weight: var(--case-type-section-weight) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-section-line) !important;
+  letter-spacing: var(--case-type-section-track) !important;
+  font-variation-settings: normal !important;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.cs-page--sheets .ojo-d-title,
+.cs-page--sheets .cs-decision-title {
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-lead) !important;
+  font-weight: var(--case-type-lead-weight) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-lead-line) !important;
+  letter-spacing: var(--case-type-lead-track) !important;
+  font-variation-settings: normal !important;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.cs-page--sheets .cs-dr-section-head,
+.cs-page--sheets .case-subsection-title {
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-card-lg) !important;
+  font-weight: var(--case-type-card-weight) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-card-line) !important;
+  letter-spacing: var(--case-type-card-track) !important;
+  font-variation-settings: normal !important;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.cs-page--sheets .cs-pain-points-title,
+.cs-page--sheets .cs-report-title,
+.cs-page--sheets .cs-persona-name {
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-card-sm) !important;
+  font-weight: var(--case-type-card-weight) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-card-line) !important;
+  letter-spacing: var(--case-type-card-track) !important;
+  font-variation-settings: normal !important;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.cs-page--sheets .case-study-intro-lede,
+.cs-page--sheets .ojo-sub-title,
+.cs-page--sheets .ojo-d-lede,
+.cs-page--sheets .cs-decision-lede,
+.cs-page--sheets .cs-decision-body {
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-body-lg) !important;
+  font-weight: var(--weight-body) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-body-lg-line) !important;
+  letter-spacing: 0 !important;
+  font-variation-settings: normal !important;
+}
+
+.cs-page--sheets .case-body,
+.cs-page--sheets .case-body p,
+.cs-page--sheets .case-body li,
+.cs-page--sheets .sheet-section-body,
+.cs-page--sheets .cs-context-text,
+.cs-page--sheets .cs-context-section-body,
+.cs-page--sheets .cs-ri-item,
+.cs-page--sheets .cs-ri-text,
+.cs-page--sheets .ojo-problem-text,
+.cs-page--sheets .ojo-after-text,
+.cs-page--sheets .cs-dr-ia-bullets,
+.cs-page--sheets .cs-ecosystem-intro,
+.cs-page--sheets .cs-body-text,
+.cs-page--sheets .cs-pain-points-list {
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-body) !important;
+  font-weight: var(--weight-body) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-body-line) !important;
+  letter-spacing: 0 !important;
+  font-variation-settings: normal !important;
+}
+
+.cs-page--sheets .ojo-meta-val {
+  font-family: var(--font-sans) !important;
+  font-size: var(--type-body-sm) !important;
+  font-weight: var(--weight-body) !important;
+  font-style: normal !important;
+  line-height: var(--type-body-sm-line) !important;
+  letter-spacing: 0 !important;
+  font-variation-settings: normal !important;
+}
+
+.cs-page--sheets .cs-visual-caption,
+.cs-page--sheets .ojo-decision-slide-caption,
+.cs-page--sheets .cs-problem-process-visual-caption,
+.cs-page--sheets .cs-mc-caption,
+.cs-page--sheets .noteworthy-lightbox-caption,
+.cs-page--sheets .cs-report-desc {
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-caption) !important;
+  font-weight: var(--weight-body) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-caption-line) !important;
+  letter-spacing: 0 !important;
+  font-variation-settings: normal !important;
+}
+
+.cs-page--sheets .cs-context-section-title {
+  font-family: var(--font-mono) !important;
+  font-size: var(--case-type-mono-section) !important;
+  font-weight: var(--case-type-mono-section-weight) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-mono-section-line) !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  font-variation-settings: normal !important;
+}
+
+.cs-page--sheets .ojo-p-label,
+.cs-page--sheets .cs-ri-label,
+.cs-page--sheets .cs-impact-postits-eyebrow,
+.cs-page--sheets .ojo-before-label,
+.cs-page--sheets .ojo-meta-label,
+.cs-page--sheets .ojo-impact-caps,
+.cs-page--sheets .ojo-d-num-text,
+.cs-page--sheets .cs-dr-section-label-text,
+.cs-page--sheets .cs-reflection-label,
+.cs-page--sheets .cs-ecosystem-eyebrow-text,
+.cs-page--sheets .cs-persona-section-label,
+.cs-page--sheets .case-study-intro-meta,
+.cs-page--sheets .sheet-section-number {
+  font-family: var(--font-mono) !important;
+  font-size: var(--case-type-eyebrow) !important;
+  font-weight: var(--case-type-eyebrow-weight) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-eyebrow-line) !important;
+  letter-spacing: var(--case-type-eyebrow-track) !important;
+  text-transform: uppercase !important;
+  font-variation-settings: normal !important;
 }
