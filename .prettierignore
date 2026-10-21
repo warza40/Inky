@@ -1,0 +1,7 @@
+.next
+node_modules
+package-lock.json
+public
+coverage
+*.html
+src/components/inky-lily/doorSvgString.ts

@@ -6,8 +6,8 @@ import { SocialContactComposer } from "./SocialContactComposer";
 import { SubstackIcon } from "./SubstackIcon";
 import { cn } from "@/lib/utils";
 
-export type SocialContactFormat = "section" | "card";
-export type SocialContactState = "default" | "compose";
+type SocialContactFormat = "section" | "card";
+type SocialContactState = "default" | "compose";
 
 interface SocialContactProps {
   format?: SocialContactFormat;

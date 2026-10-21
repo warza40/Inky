@@ -101,15 +101,15 @@ This document summarizes the implementation of **homepage-fixes.css** and **home
 
 ## Summary table
 
-| Fix | Reference | Status | Location |
-|-----|-----------|--------|----------|
-| Centred axis | homepage-fixes.css §1 | Done | globals.css (.hero, .hero-text) |
-| Tab bar solid bg | homepage-fixes.css §2 | Done | globals.css (.fs-tabs, .fs-tab.fs-active) |
-| Breathing room | homepage-fixes.css §3 | Done | globals.css (.hero-text, .hero-subtitle, .hero-headline) |
-| Arrow buttons | homepage-fixes.css §4, .js §3 | Done | HomePageLines.tsx, globals.css, hide .fs-carousel-prev/next |
-| Scroll cue | homepage-fixes.css §5, .js §1 | Done | HomePageLines.tsx, HomepageFixes.tsx, globals.css |
-| Bot scroll entry | homepage-fixes.js §2 | Done | HomePageLines.tsx, HomepageFixes.tsx, globals.css |
-| Responsive | homepage-fixes.css bottom | Done | globals.css @media 768px, 480px |
+| Fix              | Reference                     | Status | Location                                                    |
+| ---------------- | ----------------------------- | ------ | ----------------------------------------------------------- |
+| Centred axis     | homepage-fixes.css §1         | Done   | globals.css (.hero, .hero-text)                             |
+| Tab bar solid bg | homepage-fixes.css §2         | Done   | globals.css (.fs-tabs, .fs-tab.fs-active)                   |
+| Breathing room   | homepage-fixes.css §3         | Done   | globals.css (.hero-text, .hero-subtitle, .hero-headline)    |
+| Arrow buttons    | homepage-fixes.css §4, .js §3 | Done   | HomePageLines.tsx, globals.css, hide .fs-carousel-prev/next |
+| Scroll cue       | homepage-fixes.css §5, .js §1 | Done   | HomePageLines.tsx, HomepageFixes.tsx, globals.css           |
+| Bot scroll entry | homepage-fixes.js §2          | Done   | HomePageLines.tsx, HomepageFixes.tsx, globals.css           |
+| Responsive       | homepage-fixes.css bottom     | Done   | globals.css @media 768px, 480px                             |
 
 ---
 

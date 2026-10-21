@@ -78,8 +78,10 @@ function isNavItemActive(
       return pathname.startsWith("/inky-lily");
     case "about":
       return pathname === "/" && hash === "#about";
-    default:
-      return false;
+    default: {
+      const unhandled: never = item.match;
+      return unhandled;
+    }
   }
 }
 
@@ -103,6 +105,7 @@ export function FloatingNav() {
   useEffect(() => {
     if (!open) return;
 
+    const toggleButton = toggleRef.current;
     document.body.style.overflow = "hidden";
 
     const panel = menuRef.current;
@@ -139,7 +142,7 @@ export function FloatingNav() {
     return () => {
       document.body.style.overflow = "";
       document.removeEventListener("keydown", onKeyDown);
-      toggleRef.current?.focus();
+      toggleButton?.focus();
     };
   }, [open, closeMenu]);
 
@@ -150,7 +153,7 @@ export function FloatingNav() {
           <Link
             href="/"
             className="floating-nav__brand"
-            aria-label="Home"
+            aria-label="Rachana.m home"
             {...expandingCursorAttrs({
               title: "Back to home",
               hint: "Portfolio homepage",

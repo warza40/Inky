@@ -98,6 +98,7 @@ export function CaseStudyMediaCarousel({
                   key={`${image.src}-${i}`}
                   className={cn(slideClass, active && "is-active")}
                   aria-hidden={!active}
+                  inert={!active}
                 >
                   <div className={slideInnerClass}>
                     <div className={imgWrapClass}>
@@ -143,19 +144,14 @@ export function CaseStudyMediaCarousel({
         <div className={footerClass}>
           {slideCount > 1 ? (
             <div className="cs-mc-footer-meta">
-              <div
-                className={dotsClass}
-                role="tablist"
-                aria-label="Slide indicators"
-              >
+              <div className={dotsClass} role="group" aria-label="Slides">
                 {images.map((_, di) => (
                   <button
                     key={di}
                     type="button"
-                    role="tab"
-                    aria-selected={di === si}
                     className={cn(dotClass, di === si && "is-active")}
                     aria-label={`Slide ${di + 1}`}
+                    aria-current={di === si ? "true" : undefined}
                     onClick={() => setSlide(di)}
                   />
                 ))}

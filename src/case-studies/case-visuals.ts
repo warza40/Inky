@@ -1,13 +1,13 @@
 import type { CaseStudy } from "./omantel";
 
-export type NoteworthySlide = {
+type NoteworthySlide = {
   section: NonNullable<CaseStudy["visualsSections"]>[number];
   index: number;
 };
 
 /** Slides that can render (have image or video) — preserves original index for lightbox */
-export function getNoteworthySlidesWithIndices(
-  visualsSections: CaseStudy["visualsSections"]
+function getNoteworthySlidesWithIndices(
+  visualsSections: CaseStudy["visualsSections"],
 ): NoteworthySlide[] {
   if (!visualsSections?.length) return [];
   return visualsSections
@@ -25,7 +25,9 @@ export type CaseVisualsPresentation =
  * - noteworthy: at least one slide with image/video
  * - legacy: case `images` only when there is nothing noteworthy to show (including empty/junk `visualsSections` entries)
  */
-export function getCaseVisualsPresentation(caseStudy: CaseStudy): CaseVisualsPresentation {
+export function getCaseVisualsPresentation(
+  caseStudy: CaseStudy,
+): CaseVisualsPresentation {
   const slides = getNoteworthySlidesWithIndices(caseStudy.visualsSections);
   if (slides.length > 0) {
     return { mode: "noteworthy", slides };
@@ -38,10 +40,4 @@ export function getCaseVisualsPresentation(caseStudy: CaseStudy): CaseVisualsPre
 
 export function caseStudyHasVisualsSection(caseStudy: CaseStudy): boolean {
   return getCaseVisualsPresentation(caseStudy).mode !== "none";
-}
-
-export function caseStudyVisualsNavLabel(caseStudy: CaseStudy): string {
-  return getCaseVisualsPresentation(caseStudy).mode === "noteworthy"
-    ? "Noteworthy iterations"
-    : "Visuals";
 }

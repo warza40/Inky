@@ -1,14 +1,9 @@
 import { cn } from "@/lib/utils";
 
 /** Figma 61:1354 (xs) · 61:346 (sm) · 61:1690 (mobile-md) · 61:682 (md/lg) · 53:178/57:178 (hero) · 61:1018 (xl) · 61:2026 (mobile-xl). */
-export type TamagotchiExpression =
-  | "idle"
-  | "media"
-  | "write"
-  | "wink"
-  | "celebrate";
+type TamagotchiExpression = "idle" | "media" | "write" | "wink" | "celebrate";
 
-export type TamagotchiSize =
+type TamagotchiSize =
   | "xs"
   | "sm"
   | "mobile-md"
@@ -203,18 +198,6 @@ function TamagotchiButtons({ size }: { size: TamagotchiSize }) {
       <rect x="17.1" y="26.2" width="5.8" height="3.9" rx="2" fill="#6CC3A4" />
       <rect x="27.7" y="26.2" width="5.8" height="3.9" rx="2" fill="#6CC3A4" />
     </>
-  );
-}
-
-/** Hero-scale idle blink — Figma 53:178 (3.5s, 4-frame). */
-export function TamagotchiHeroBlink({ className }: { className?: string }) {
-  return (
-    <TamagotchiCharacter
-      size="hero"
-      expression="idle"
-      blink
-      className={className}
-    />
   );
 }
 

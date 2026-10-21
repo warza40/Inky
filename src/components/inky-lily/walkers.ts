@@ -24,8 +24,18 @@ function makeInky(sz: number, variant: number, eyeMode: EyeMode) {
   const eyeY = -(h * 0.57);
   const positions = {
     walk: { lx: -(sz * 0.13), ly: eyeY, rx: sz * 0.13, ry: eyeY },
-    look: { lx: -(sz * 0.115), ly: eyeY + sz * 0.02, rx: sz * 0.145, ry: eyeY - sz * 0.015 },
-    wide: { lx: -(sz * 0.13), ly: eyeY - sz * 0.01, rx: sz * 0.13, ry: eyeY - sz * 0.01 },
+    look: {
+      lx: -(sz * 0.115),
+      ly: eyeY + sz * 0.02,
+      rx: sz * 0.145,
+      ry: eyeY - sz * 0.015,
+    },
+    wide: {
+      lx: -(sz * 0.13),
+      ly: eyeY - sz * 0.01,
+      rx: sz * 0.13,
+      ry: eyeY - sz * 0.01,
+    },
   };
   const ep = positions[eyeMode] ?? positions.walk;
   const eR = eyeMode === "wide" ? er * 1.38 : er;
@@ -139,7 +149,8 @@ function schedule() {
   const d = useFirstSpawnDelay
     ? CONFIG.firstSpawnDelayMin +
       Math.random() * (CONFIG.firstSpawnDelayMax - CONFIG.firstSpawnDelayMin)
-    : CONFIG.minInterval + Math.random() * (CONFIG.maxInterval - CONFIG.minInterval);
+    : CONFIG.minInterval +
+      Math.random() * (CONFIG.maxInterval - CONFIG.minInterval);
   useFirstSpawnDelay = false;
   timer = setTimeout(spawn, d);
 }
@@ -179,8 +190,10 @@ function scatter(grp: HTMLElement) {
   }, 750);
 }
 
-export function openDoor() {
-  document.getElementById("veil")?.classList.add("open");
+function openDoor() {
+  const veil = document.getElementById("veil");
+  veil?.classList.add("open");
+  veil?.removeAttribute("inert");
   ST = "door";
 }
 
@@ -193,6 +206,7 @@ export function closeDoor() {
     v.classList.remove("open");
     v.style.opacity = "";
     v.style.transition = "";
+    v.setAttribute("inert", "");
     ST = "idle";
     schedule();
   }, 450);
@@ -282,10 +296,12 @@ function spawn() {
     const fd = (parseFloat(dur) * 0.72).toFixed(2) + "s";
     const bd = (parseFloat(dur) * 0.88).toFixed(2) + "s";
     inner.querySelectorAll(".lf,.rf").forEach((t) => {
-      (t as SVGPathElement).style.animation = `leg-f ${fd} ${del} ease-in-out infinite`;
+      (t as SVGPathElement).style.animation =
+        `leg-f ${fd} ${del} ease-in-out infinite`;
     });
     inner.querySelectorAll(".lb,.rb").forEach((t) => {
-      (t as SVGPathElement).style.animation = `leg-b ${bd} ${del} ease-in-out infinite`;
+      (t as SVGPathElement).style.animation =
+        `leg-b ${bd} ${del} ease-in-out infinite`;
     });
 
     const sh = document.createElement("div");
@@ -318,7 +334,8 @@ function spawn() {
 
     walkers.forEach((w, i) => {
       const str =
-        Math.sin(ts * 0.0019 + i * 1.7) * 3 + Math.cos(ts * 0.0014 + i * 0.9) * 1.8;
+        Math.sin(ts * 0.0019 + i * 1.7) * 3 +
+        Math.cos(ts * 0.0014 + i * 0.9) * 1.8;
       w.el.style.transform = `translateX(${str}px)`;
     });
 
@@ -353,19 +370,34 @@ export function initInkyWalkers(root: HTMLElement) {
 
   const onKey = (e: KeyboardEvent) => {
     const t = e.target as HTMLElement | null;
-    if (t && (t.closest("input, textarea, [contenteditable='true']") || t.isContentEditable)) {
+    if (
+      t &&
+      (t.closest("input, textarea, [contenteditable='true']") ||
+        t.isContentEditable)
+    ) {
       return;
     }
 
     // Use e.code (physical key), not e.key — Option/Alt combos often change e.key on macOS.
     // Avoid Cmd/Ctrl+Shift+G: Chrome uses Cmd+G / Cmd+Shift+G for Find and may not deliver the event to the page.
-    if (e.code === "KeyG" && e.shiftKey && e.altKey && !e.metaKey && !e.ctrlKey) {
+    if (
+      e.code === "KeyG" &&
+      e.shiftKey &&
+      e.altKey &&
+      !e.metaKey &&
+      !e.ctrlKey
+    ) {
       e.preventDefault();
       devSpawn();
       return;
     }
     // Fallback: Cmd+Shift+9 / Ctrl+Shift+9 (usually not bound by the browser).
-    if (e.code === "Digit9" && e.shiftKey && (e.metaKey || e.ctrlKey) && !e.altKey) {
+    if (
+      e.code === "Digit9" &&
+      e.shiftKey &&
+      (e.metaKey || e.ctrlKey) &&
+      !e.altKey
+    ) {
       e.preventDefault();
       devSpawn();
       return;
@@ -403,7 +435,7 @@ export function initInkyWalkers(root: HTMLElement) {
   document.head.appendChild(
     document.createComment(`
   you're the kind of person who reads source code. follow the small ones.
-`)
+`),
   );
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {

@@ -4,9 +4,9 @@ import { useEffect, useRef } from "react";
 import type { CaseStudyWarmthTheme } from "@/case-studies/omantel";
 
 /** Warmth DS vertical wash — color at top, soft fade to paper (wash rule; dominant / people, energy) */
-export type WarmthWashStop = readonly [number, string];
+type WarmthWashStop = readonly [number, string];
 
-export const WARMTH_DS_MADDER_WASH_STOPS: readonly WarmthWashStop[] = [
+const WARMTH_DS_MADDER_WASH_STOPS: readonly WarmthWashStop[] = [
   [0, "#d4705e"],
   [0.22, "#e8a598"],
   [0.45, "#f0dbd6"],
@@ -15,7 +15,7 @@ export const WARMTH_DS_MADDER_WASH_STOPS: readonly WarmthWashStop[] = [
 ] as const;
 
 /** Living · nature, growth, data */
-export const WARMTH_DS_MOSS_WASH_STOPS: readonly WarmthWashStop[] = [
+const WARMTH_DS_MOSS_WASH_STOPS: readonly WarmthWashStop[] = [
   [0, "#8a9e78"],
   [0.22, "#b5c4a8"],
   [0.45, "#dde6d4"],
@@ -24,7 +24,7 @@ export const WARMTH_DS_MOSS_WASH_STOPS: readonly WarmthWashStop[] = [
 ] as const;
 
 /** Warmth · skin, light, objects */
-export const WARMTH_DS_OCHRE_WASH_STOPS: readonly WarmthWashStop[] = [
+const WARMTH_DS_OCHRE_WASH_STOPS: readonly WarmthWashStop[] = [
   [0, "#dba85a"],
   [0.22, "#e8c890"],
   [0.45, "#f0e0c4"],
@@ -33,7 +33,7 @@ export const WARMTH_DS_OCHRE_WASH_STOPS: readonly WarmthWashStop[] = [
 ] as const;
 
 /** Receding · shadow, background */
-export const WARMTH_DS_SLATE_WASH_STOPS: readonly WarmthWashStop[] = [
+const WARMTH_DS_SLATE_WASH_STOPS: readonly WarmthWashStop[] = [
   [0, "#9ca090"],
   [0.22, "#c8ccc0"],
   [0.45, "#e2e4dc"],

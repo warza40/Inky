@@ -1,14 +1,16 @@
 import { omantelCase } from "./omantel";
-import { anotherCase } from "./another-case";
 import { warehouseOperationsCase } from "./warehouse-operations";
 import { disasterRecoveryCase } from "./disaster-recovery";
 import type { CaseStudy } from "./omantel";
 
 export type { CaseStudy };
 
+/**
+ * Published case studies. `another-case.ts` is an unpublished placeholder
+ * draft and is intentionally absent so `/case/another-case` 404s.
+ */
 export const caseStudies: CaseStudy[] = [
   omantelCase,
-  anotherCase,
   warehouseOperationsCase,
   disasterRecoveryCase,
 ];

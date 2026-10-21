@@ -1,7 +1,7 @@
 import { omantelCaseCardImageSrc } from "@/case-studies/omantel-card-preview";
 import type { ExpandingCursorPrompt } from "@/lib/expanding-cursor";
 
-export interface HomeCaseStudyPreview {
+interface HomeCaseStudyPreview {
   displayTitle: string;
   description: string;
   meta: string;
@@ -9,7 +9,7 @@ export interface HomeCaseStudyPreview {
   cursor?: ExpandingCursorPrompt;
 }
 
-export type PortfolioCardLayout = "standard" | "feature";
+type PortfolioCardLayout = "standard" | "feature";
 
 export interface HomeCaseStudy {
   slug: string;

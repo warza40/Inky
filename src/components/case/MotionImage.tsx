@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -47,6 +47,9 @@ export function MotionImage({
   hideFigcaption = false,
 }: MotionImageProps) {
   const hoverTooltipText = hoverTooltipProp ?? "Click to view better";
+  const reduceMotion = useReducedMotion();
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [hoverTooltip, setHoverTooltip] = useState<{
     x: number;
@@ -64,6 +67,8 @@ export function MotionImage({
 
   useEffect(() => {
     if (!lightboxOpen) return;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    closeRef.current?.focus();
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") setLightboxOpen(false);
     };
@@ -72,6 +77,7 @@ export function MotionImage({
     return () => {
       unlockScrollForOverlay();
       document.removeEventListener("keydown", handleEscape);
+      previouslyFocused?.focus();
     };
   }, [lightboxOpen]);
 
@@ -119,12 +125,30 @@ export function MotionImage({
             intrinsic && "min-h-0",
             lightbox && "cursor-zoom-in",
           )}
-          whileHover={intrinsic ? undefined : { scale: 1.02 }}
-          transition={{ duration: 0.2 }}
+          ref={triggerRef}
+          whileHover={
+            lightbox && !intrinsic && !reduceMotion
+              ? { scale: 1.02 }
+              : undefined
+          }
+          transition={{ duration: reduceMotion ? 0 : 0.2 }}
           onClick={lightbox ? () => setLightboxOpen(true) : undefined}
+          onKeyDown={
+            lightbox
+              ? (event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    setLightboxOpen(true);
+                  }
+                }
+              : undefined
+          }
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           role={lightbox ? "button" : undefined}
+          tabIndex={lightbox ? 0 : undefined}
+          aria-haspopup={lightbox ? "dialog" : undefined}
+          aria-expanded={lightbox ? lightboxOpen : undefined}
           aria-label={lightbox ? "View full size" : undefined}
         >
           {imageContent}
@@ -167,6 +191,7 @@ export function MotionImage({
                 onClick={() => setLightboxOpen(false)}
               >
                 <button
+                  ref={closeRef}
                   type="button"
                   className="noteworthy-lightbox-close"
                   onClick={(e) => {
