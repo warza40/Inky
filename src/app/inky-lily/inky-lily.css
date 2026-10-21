@@ -378,7 +378,9 @@
    moss grass at the base.
 ════════════════════════════════════ */
 
-/* Below stage when closed so ink walkers stay visible; raised when door opens */
+/* Below stage when closed so ink walkers stay visible; raised when door opens.
+   visibility:hidden (not only opacity:0) keeps the door controls out of tab order
+   until a walker opens the veil. Otherwise Enter on the invisible door leaves the site. */
 .veil {
   position: fixed;
   inset: 0;
@@ -387,12 +389,14 @@
   align-items: center;
   justify-content: center;
   pointer-events: none;
+  visibility: hidden;
   opacity: 0;
 }
 
 .veil.open {
   z-index: 600;
   pointer-events: all;
+  visibility: visible;
   animation: veil-appear 2.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
