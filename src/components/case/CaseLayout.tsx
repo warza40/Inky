@@ -1,6 +1,6 @@
 import { CaseMain } from "./CaseMain";
 import { CaseStudyFooter } from "./CaseStudyFooter";
-import type { CaseStudy } from "@/case-studies/omantel";
+import { omantelStoryNav, type CaseStudy } from "@/case-studies/omantel";
 import { caseStudyHasVisualsSection } from "@/case-studies/case-visuals";
 import { CaseStudyDirection } from "./CaseStudyDirection";
 import { CaseHeroMedia } from "./CaseHeroMedia";
@@ -26,6 +26,10 @@ function formatLabel(str: string): string {
 function buildCaseNavSections(
   caseStudy: CaseStudy,
 ): Array<{ id: string; label: string }> {
+  if (caseStudy.slug === "omantel-bulk-activation") {
+    return omantelStoryNav.map((item) => ({ id: item.id, label: item.label }));
+  }
+
   const s = caseStudy.sections;
   const hasContext =
     Boolean(s.context) ||
@@ -120,6 +124,7 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
           title={formatLabel(title)}
           problemStatement={hero.problemStatement}
           heroPills={caseStudy.heroPills}
+          hideMeta={Boolean(caseStudy.tldr?.length)}
           overview={caseStudy.overview}
         />
       ) : caseStudy ? (

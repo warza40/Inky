@@ -22,7 +22,7 @@ export function JournalCaseFooterNext({
       href={`/case/${nextStudy.slug}`}
       className="ojo-journal-footer-next-link"
     >
-      <span className="ojo-journal-footer-next-dir">Next →</span>
+      <span className="ojo-journal-footer-next-dir">Next case study →</span>
       <span className="ojo-journal-footer-next-title">{nextStudy.title}</span>
     </Link>
   );

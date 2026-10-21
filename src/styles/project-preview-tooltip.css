@@ -87,21 +87,6 @@
   color: var(--badge-ink, #1c1c1e);
 }
 
-.project-preview-tooltip__status {
-  flex-shrink: 0;
-  padding: 6px 10px;
-  border: 2px solid var(--badge-ink, #1c1c1e);
-  border-radius: 20px;
-  background: #cfe0d8;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: 0.06em;
-  color: var(--badge-teal-hover, #3f7d68);
-  white-space: nowrap;
-}
-
 .project-preview-tooltip__media {
   position: relative;
   height: 190px;

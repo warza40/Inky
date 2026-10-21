@@ -2,6 +2,7 @@
 
 import type { CaseStudy } from "@/case-studies/omantel";
 import { OmantelJournalImageCarousel } from "@/components/case/journal/OmantelJournalImageCarousel";
+import { parseBoldSpans } from "@/lib/case-rich-text";
 import { cn } from "@/lib/utils";
 
 type Decision = CaseStudy["sections"]["decisions"][0];
@@ -20,7 +21,7 @@ function RiPoints({ text }: { text: string | undefined }) {
     <ul className="cs-ri-list" role="list">
       {parts.map((part, i) => (
         <li key={i} className="cs-ri-item">
-          <span className="cs-ri-item-text">{part}</span>
+          <span className="cs-ri-item-text">{parseBoldSpans(part)}</span>
         </li>
       ))}
     </ul>
@@ -62,10 +63,13 @@ export function OmantelDecisionJournal({
 }: OmantelDecisionJournalProps) {
   const imgs = decision.images ?? [];
 
+  const hasWhy = Boolean(decision.why?.trim());
   const hasRi =
     Boolean(decision.rationale?.trim()) ||
     Boolean(decision.rationaleReports?.length) ||
     Boolean(decision.impact?.trim()) ||
+    hasWhy ||
+    Boolean(decision.iteration?.trim()) ||
     Boolean(decision.designResponse?.trim());
 
   return (
@@ -136,7 +140,7 @@ export function OmantelDecisionJournal({
             <h3 className="ojo-d-title cs-decision-title">{decision.title}</h3>
             {decision.description ? (
               <p className="ojo-d-lede cs-decision-body cs-decision-lede">
-                {decision.description}
+                {parseBoldSpans(decision.description)}
               </p>
             ) : null}
           </div>
@@ -150,12 +154,16 @@ export function OmantelDecisionJournal({
                   <div className="cs-decision-ri-panel">
                     <div className="cs-ri-grid cs-ri-grid--editorial-pair">
                       <div className="cs-ri-col">
-                        <div className="cs-ri-label">Rationale</div>
+                        <div className="cs-ri-label">
+                          {hasWhy
+                            ? (decision.rationaleLabel ?? "Trade-off")
+                            : (decision.rationaleLabel ?? "Rationale")}
+                        </div>
                         {decision.rationaleReports?.length ? (
                           <>
                             {decision.rationale?.trim() ? (
                               <p className="cs-ri-rationale-lead">
-                                {decision.rationale}
+                                {parseBoldSpans(decision.rationale)}
                               </p>
                             ) : null}
                             <RationaleReportBoxes
@@ -167,12 +175,39 @@ export function OmantelDecisionJournal({
                         )}
                       </div>
                       <div className="cs-ri-col">
-                        <div className="cs-ri-label">Impact</div>
-                        <RiPoints text={decision.impact} />
+                        <div className="cs-ri-label">
+                          {hasWhy ? "Why" : (decision.impactLabel ?? "Impact")}
+                        </div>
+                        <RiPoints
+                          text={hasWhy ? decision.why : decision.impact}
+                        />
                       </div>
                     </div>
                   </div>
                 )}
+                {hasWhy && decision.impact?.trim() ? (
+                  <div className="cs-decision-ri-panel">
+                    <div className="cs-ri-grid cs-ri-grid--solutioning">
+                      <div
+                        className="cs-ri-col"
+                        style={{ gridColumn: "1 / -1" }}
+                      >
+                        <div className="cs-ri-label">
+                          {decision.impactLabel ?? "Outcome"}
+                        </div>
+                        <RiPoints text={decision.impact} />
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+                {decision.iteration?.trim() ? (
+                  <blockquote className="ojo-pull-quote">
+                    <div className="ojo-beat-label">Iteration</div>
+                    {splitRiText(decision.iteration).map((part, i) => (
+                      <p key={i}>{parseBoldSpans(part)}</p>
+                    ))}
+                  </blockquote>
+                ) : null}
                 {decision.designResponse?.trim() ? (
                   <div className="cs-decision-ri-panel">
                     <div className="cs-ri-grid cs-ri-grid--solutioning">

@@ -19,11 +19,6 @@ export function ProjectPreviewTooltip({
 
       <header className="project-preview-tooltip__header">
         <p className="project-preview-tooltip__title">{preview.displayTitle}</p>
-        {preview.statusLabel ? (
-          <span className="project-preview-tooltip__status">
-            [ {preview.statusLabel} ]
-          </span>
-        ) : null}
       </header>
 
       <div className="project-preview-tooltip__media">
