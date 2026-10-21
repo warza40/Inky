@@ -25,7 +25,8 @@ export interface HomeCaseStudy {
 export const HOME_CASE_STUDIES: HomeCaseStudy[] = [
   {
     slug: "omantel-bulk-activation",
-    title: "Bulk SIM activation for Omantel",
+    title:
+      "Helping enterprise teams submit error-free SIM batches on their own",
     caption: "Scale bulk activation so one bad row doesn't kill the batch.",
     tag: "Telecom | Work project",
     layout: "feature",
