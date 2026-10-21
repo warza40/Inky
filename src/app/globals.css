@@ -4795,11 +4795,12 @@ body:has(.cs-page) {
   box-sizing: border-box;
   padding: clamp(var(--space-10), 4vw, var(--space-12)) 0
     clamp(var(--space-16), 6vw, var(--space-20));
-  scroll-padding-top: 108px; /* clear of sticky nav (progress + nav wrap) */
+  /* Floating nav plus the sticky section bar. 108px landed the section number under that bar. */
+  scroll-padding-top: calc(var(--nav-height) + 4.5rem);
 }
 .cs-section,
 .cs-hero {
-  scroll-margin-top: 108px;
+  scroll-margin-top: calc(var(--nav-height) + 4.5rem);
 }
 .cs-content {
   font-family: var(--font-body);
@@ -8709,7 +8710,7 @@ h3.cs-context-section-title {
 
 @media (max-width: 768px) {
   body {
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   img,
