@@ -143,6 +143,51 @@
   --type-page-title: var(--type-display-title);
   --type-page-title-line: var(--type-display-title-line);
   --type-page-title-tracking: var(--type-display-title-tracking);
+
+  /*
+   * Case-study roles — exact Figma steps (file Website, 81:1095).
+   * Applied only under .cs-page--sheets in sheet-system.css.
+   * Homepage keeps the fluid aliases above; do not point home rules here.
+   * Desktop is the default. 1024 and 767 match the existing breakpoints.
+   */
+  --case-type-page: 4.5rem; /* 72 */
+  --case-type-page-line: 1.05;
+  --case-type-page-track: 0;
+  --case-type-page-weight: 900;
+
+  --case-type-section: 3.5rem; /* 56 */
+  --case-type-section-line: 1.1;
+  --case-type-section-track: 0;
+  --case-type-section-weight: 900;
+
+  --case-type-lead: 2.625rem; /* 42 */
+  --case-type-lead-line: 1.2;
+  --case-type-lead-track: 0;
+  --case-type-lead-weight: 500;
+
+  --case-type-card-lg: 2rem; /* 32 */
+  --case-type-card-md: 1.75rem; /* 28 */
+  --case-type-card-sm: 1.5rem; /* 24 */
+  --case-type-card-line: 1.2;
+  --case-type-card-track: 0;
+  --case-type-card-weight: 800;
+
+  --case-type-body: 1rem; /* 16 */
+  --case-type-body-line: 1.5;
+  --case-type-body-lg: 1.25rem; /* 20 */
+  --case-type-body-lg-line: 1.6;
+
+  --case-type-caption: 0.875rem; /* 14 */
+  --case-type-caption-line: 1.5;
+
+  --case-type-eyebrow: 0.6875rem; /* 11 */
+  --case-type-eyebrow-line: 1.4;
+  --case-type-eyebrow-track: 1px;
+  --case-type-eyebrow-weight: 700;
+
+  --case-type-mono-section: 0.8125rem; /* 13 */
+  --case-type-mono-section-line: 1.4;
+  --case-type-mono-section-weight: 700;
 }
 
 /* ── Semantic utility classes ── */
@@ -321,5 +366,31 @@
   :root {
     --type-display-hero: clamp(2.625rem, 10vw, 3.5rem);
     --type-heading-section: clamp(1.875rem, 7vw, 2.5rem);
+  }
+}
+
+/* Case study type — tablet, including the 768px check. */
+@media (max-width: 1024px) {
+  :root {
+    --case-type-page: 3.5rem; /* 56 */
+    --case-type-section: 2.625rem; /* 42 */
+    --case-type-lead: 2rem; /* 32 */
+    --case-type-body-lg: 1.125rem; /* 18 */
+    --case-type-card-lg: 1.75rem; /* 28 */
+    --case-type-card-md: 1.5rem; /* 24 */
+    --case-type-card-sm: 1.375rem; /* 22 */
+  }
+}
+
+/* Case study type — mobile, holds from 767 down through 390. */
+@media (max-width: 767px) {
+  :root {
+    --case-type-page: 2rem; /* 32 */
+    --case-type-section: 2rem; /* 32 */
+    --case-type-lead: 1.625rem; /* 26 */
+    --case-type-body-lg: 1.0625rem; /* 17 */
+    --case-type-card-lg: 1.5rem; /* 24 */
+    --case-type-card-md: 1.375rem; /* 22 */
+    --case-type-card-sm: 1.25rem; /* 20 */
   }
 }
