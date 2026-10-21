@@ -43,24 +43,13 @@ body:has(.page-shell--no-topography) #thinking-topography {
   border-bottom: 1px solid var(--line-subtle);
 }
 
-.sheet-section-number {
+.cs-page--sheets .sheet-section-number {
   flex-shrink: 0;
-  font-family: var(--font-mono);
-  font-size: var(--case-type-eyebrow);
-  font-weight: var(--case-type-eyebrow-weight);
-  line-height: var(--case-type-eyebrow-line);
-  letter-spacing: var(--case-type-eyebrow-track);
-  text-transform: uppercase;
   color: var(--sheet-ink-soft);
 }
 
-.sheet-section-title {
+.cs-page--sheets .sheet-section-title {
   margin: 0;
-  font-family: var(--font-sans);
-  font-size: var(--case-type-section);
-  font-weight: var(--case-type-section-weight);
-  line-height: var(--case-type-section-line);
-  letter-spacing: var(--case-type-section-track);
   color: var(--sheet-ink);
 }
 
@@ -252,18 +241,6 @@ body:has(.page-shell--no-topography) #thinking-topography {
   background: transparent;
 }
 
-.cs-page--sheets.cs-page--journal-omantel {
-  background: transparent;
-}
-
-.cs-page--sheets.cs-page--journal-omantel::before {
-  display: none;
-}
-
-.cs-page--sheets.cs-page--journal-omantel > .home-bg-grid {
-  display: none;
-}
-
 .case-study-layout-inner {
   position: relative;
   z-index: 2;
@@ -291,7 +268,7 @@ body:has(.page-shell--no-topography) #thinking-topography {
 .case-study-intro-sheet {
   width: 100%;
   max-width: none;
-  margin: 0 0 var(--space-component);
+  margin: 0 0 var(--cs-section-gap, var(--space-section));
   padding-inline: 0;
   overflow: hidden;
 }
@@ -300,11 +277,12 @@ body:has(.page-shell--no-topography) #thinking-topography {
   padding: 0;
   border: none;
   box-shadow: none;
-  background: transparent;
+  border-radius: 0;
+  background: var(--cs-content-paper, #f8f7f4);
 }
 
 .case-study-intro-copy {
-  padding: var(--space-component) 0 var(--space-separation);
+  padding: 0 0 var(--cs-stack-gap, var(--space-component));
 }
 
 .case-study-intro-meta {
@@ -319,7 +297,7 @@ body:has(.page-shell--no-topography) #thinking-topography {
 }
 
 .case-study-intro-title {
-  margin: 0 0 var(--space-component);
+  margin: 0 0 var(--cs-heading-gap, var(--space-separation));
   font-family: var(--font-sans);
   font-size: var(--case-type-page);
   font-weight: var(--case-type-page-weight);
@@ -328,17 +306,61 @@ body:has(.page-shell--no-topography) #thinking-topography {
   color: var(--ink);
   text-wrap: balance;
   overflow-wrap: break-word;
-  max-width: 100%;
+  width: 100%;
+  max-width: none;
+}
+
+.case-study-intro-row {
+  align-items: start;
+  row-gap: var(--cs-stack-gap, var(--space-component));
+}
+
+.case-study-intro-main {
+  grid-column: 1 / span 7;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-control);
+}
+
+.case-study-intro-facts {
+  grid-column: 8 / -1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-meta);
+  margin: 0;
+}
+
+.case-study-intro-fact {
+  display: grid;
+  grid-template-columns: minmax(5.5rem, 7rem) minmax(0, 1fr);
+  gap: var(--space-tight);
+  align-items: baseline;
+}
+
+.case-study-intro-fact dt,
+.case-study-intro-fact dd {
+  margin: 0;
+}
+
+.case-study-intro-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-tight);
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .case-study-intro-lede {
   margin: 0;
-  max-width: var(--layout-copy-max);
+  max-width: var(--cs-copy-max, var(--layout-prose-max));
   font-family: var(--font-sans);
-  font-size: var(--case-type-body-lg);
+  font-size: var(--case-type-body);
   font-weight: var(--weight-body);
   font-style: normal;
-  line-height: var(--case-type-body-lg-line);
+  line-height: var(--case-type-body-line);
   color: var(--ink-soft);
 }
 
@@ -356,52 +378,6 @@ body:has(.page-shell--no-topography) #thinking-topography {
   height: 100%;
   object-fit: cover;
   object-position: center top;
-}
-
-.case-study-intro-sheet .ojo-title-section,
-.case-study-intro-sheet .ojo-hero {
-  margin-bottom: 0;
-}
-
-.cs-page--sheets .case-study-intro-sheet .ojo-title-insert,
-.cs-page--sheets .case-study-intro-sheet .ojo-hero-stage {
-  border: none;
-  box-shadow: none;
-  background: transparent;
-}
-
-.cs-page--sheets .case-study-intro-sheet .ojo-tape-wave,
-.cs-page--sheets .case-study-intro-sheet .ojo-tape-seigaiha,
-.cs-page--sheets .case-study-intro-sheet .ojo-punch-holes {
-  display: none;
-}
-
-/* Case study typography — sheet layout */
-.cs-page--sheets .ojo-main-title.cs-hero-title,
-.cs-page--sheets .ojo-title-insert .ojo-main-title.cs-hero-title {
-  font-family: var(--font-sans);
-  font-size: var(--case-type-page);
-  font-weight: var(--case-type-page-weight);
-  line-height: var(--case-type-page-line);
-  letter-spacing: var(--case-type-page-track);
-  text-wrap: balance;
-  overflow-wrap: break-word;
-  max-width: 100%;
-}
-
-.cs-page--sheets .ojo-sub-title {
-  font-family: var(--font-sans);
-  font-size: var(--case-type-body-lg);
-  font-weight: var(--weight-body);
-  font-style: normal;
-  line-height: var(--case-type-body-lg-line);
-  letter-spacing: var(--type-body-tracking);
-}
-
-.cs-page--sheets .ojo-title-pill {
-  font-family: var(--font-mono);
-  font-size: var(--type-label);
-  letter-spacing: var(--type-label-tracking);
 }
 
 .cs-page--sheets .case-body,
@@ -452,7 +428,7 @@ body:has(.page-shell--no-topography) #thinking-topography {
 .cs-page--sheets .ojo-case-map {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--cs-section-gap, var(--space-section));
 }
 
 /* Case hero / title on content sheet */
@@ -480,11 +456,115 @@ body:has(.page-shell--no-topography) #thinking-topography {
 }
 
 /* ============================================================
+   Case study rhythm, rail, and sparkle backing
+   ============================================================ */
+
+.cs-page--sheets {
+  --layout-page-padding: var(--space-component);
+  --cs-section-gap: clamp(112px, 8.9vw, 128px);
+  --cs-heading-gap: var(--space-separation);
+  --cs-stack-gap: var(--space-component);
+  --cs-copy-max: min(var(--layout-prose-max), 100%);
+  --cs-content-paper: #f8f7f4;
+  --layout-grid-gutter: var(--space-component);
+}
+
+.cs-page--sheets .layout-rail {
+  width: min(
+    var(--layout-content-max),
+    calc(100% - 2 * var(--layout-page-padding))
+  );
+  max-width: var(--layout-content-max);
+  padding-inline: 0;
+}
+
+.cs-page--sheets .cs-main {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cs-page--sheets .case-study-layout-inner {
+  padding-top: calc(
+    var(--nav-offset-top) + var(--nav-height) + var(--space-tight)
+  );
+}
+
+.cs-page--sheets .sheet-nav-wrap {
+  margin-bottom: var(--cs-stack-gap);
+}
+
+.cs-page--sheets .sheet-section {
+  padding: 0;
+  background-color: var(--cs-content-paper);
+}
+
+.cs-page--sheets .sheet-section-header {
+  margin-bottom: var(--cs-heading-gap);
+  padding-bottom: 0;
+}
+
+.cs-page--sheets .case-study-layout-content {
+  gap: var(--cs-section-gap);
+  width: min(
+    var(--layout-content-max),
+    calc(100% - 2 * var(--layout-page-padding))
+  );
+  max-width: var(--layout-content-max);
+  margin-inline: auto;
+}
+
+.cs-page--sheets .case-study-layout-main {
+  padding-bottom: var(--cs-section-gap);
+}
+
+.cs-page--sheets .sheet-nav,
+.cs-page--sheets .cs-case-footer,
+.cs-page--sheets .case-study-intro-sheet {
+  background-color: var(--cs-content-paper);
+}
+
+.case-study-layout.page-shell--sparkles {
+  min-height: 0;
+}
+
+.case-study-layout .page-sparkle-marks {
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+  .cs-page--sheets {
+    --cs-section-gap: var(--space-group);
+  }
+}
+
+@media (max-width: 767px) {
+  .cs-page--sheets {
+    --cs-section-gap: var(--space-heading);
+    --cs-heading-gap: var(--space-component);
+  }
+
+  .case-study-intro-main,
+  .case-study-intro-facts {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 1199px) {
+  .case-study-intro-main,
+  .case-study-intro-facts {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ============================================================
    Case study type scale
    Tokens: typography.css --case-type-*
-   !important is limited to font metrics. case-omantel-journal.css
-   loads later and hardcodes the old sizes; this file does not
-   edit that sheet, and colour is left untouched.
+   !important is limited to font metrics so later journal sheets
+   cannot put the old sizes back. Colour stays in the component CSS.
    ============================================================ */
 
 .cs-page.cs-page--sheets {
@@ -523,7 +603,8 @@ body:has(.page-shell--no-topography) #thinking-topography {
 }
 
 .cs-page--sheets .ojo-d-title,
-.cs-page--sheets .cs-decision-title {
+.cs-page--sheets .cs-decision-title,
+.cs-page--sheets .om-decision-title {
   font-family: var(--font-sans) !important;
   font-size: var(--case-type-lead) !important;
   font-weight: var(--case-type-lead-weight) !important;
@@ -550,6 +631,7 @@ body:has(.page-shell--no-topography) #thinking-topography {
 }
 
 .cs-page--sheets .cs-pain-points-title,
+.cs-page--sheets .om-pain-title,
 .cs-page--sheets .cs-report-title,
 .cs-page--sheets .cs-persona-name {
   font-family: var(--font-sans) !important;
@@ -583,14 +665,13 @@ body:has(.page-shell--no-topography) #thinking-topography {
 .cs-page--sheets .sheet-section-body,
 .cs-page--sheets .cs-context-text,
 .cs-page--sheets .cs-context-section-body,
-.cs-page--sheets .cs-ri-item,
-.cs-page--sheets .cs-ri-text,
 .cs-page--sheets .ojo-problem-text,
 .cs-page--sheets .ojo-after-text,
-.cs-page--sheets .cs-dr-ia-bullets,
 .cs-page--sheets .cs-ecosystem-intro,
 .cs-page--sheets .cs-body-text,
-.cs-page--sheets .cs-pain-points-list {
+.cs-page--sheets .om-copy,
+.cs-page--sheets .om-copy p,
+.cs-page--sheets .om-copy li {
   font-family: var(--font-sans) !important;
   font-size: var(--case-type-body) !important;
   font-weight: var(--weight-body) !important;
@@ -600,7 +681,25 @@ body:has(.page-shell--no-topography) #thinking-topography {
   font-variation-settings: normal !important;
 }
 
-.cs-page--sheets .ojo-meta-val {
+.cs-page--sheets .cs-ri-item,
+.cs-page--sheets .cs-ri-text,
+.cs-page--sheets .cs-dr-ia-bullets,
+.cs-page--sheets .cs-pain-points-list,
+.cs-page--sheets .om-dense,
+.cs-page--sheets .om-dense p,
+.cs-page--sheets .om-dense li {
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-body-dense) !important;
+  font-weight: var(--weight-body) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-body-dense-line) !important;
+  letter-spacing: 0 !important;
+  font-variation-settings: normal !important;
+}
+
+.cs-page--sheets .ojo-meta-val,
+.cs-page--sheets .om-meta-value,
+.cs-page--sheets .case-study-intro-fact dd {
   font-family: var(--font-sans) !important;
   font-size: var(--type-body-sm) !important;
   font-weight: var(--weight-body) !important;
@@ -615,7 +714,8 @@ body:has(.page-shell--no-topography) #thinking-topography {
 .cs-page--sheets .cs-problem-process-visual-caption,
 .cs-page--sheets .cs-mc-caption,
 .cs-page--sheets .noteworthy-lightbox-caption,
-.cs-page--sheets .cs-report-desc {
+.cs-page--sheets .cs-report-desc,
+.cs-page--sheets .om-caption {
   font-family: var(--font-sans) !important;
   font-size: var(--case-type-caption) !important;
   font-weight: var(--weight-body) !important;
@@ -625,7 +725,8 @@ body:has(.page-shell--no-topography) #thinking-topography {
   font-variation-settings: normal !important;
 }
 
-.cs-page--sheets .cs-context-section-title {
+.cs-page--sheets .cs-context-section-title,
+.cs-page--sheets .om-subhead {
   font-family: var(--font-mono) !important;
   font-size: var(--case-type-mono-section) !important;
   font-weight: var(--case-type-mono-section-weight) !important;
@@ -648,6 +749,8 @@ body:has(.page-shell--no-topography) #thinking-topography {
 .cs-page--sheets .cs-ecosystem-eyebrow-text,
 .cs-page--sheets .cs-persona-section-label,
 .cs-page--sheets .case-study-intro-meta,
+.cs-page--sheets .case-study-intro-fact dt,
+.cs-page--sheets .om-eyebrow,
 .cs-page--sheets .sheet-section-number {
   font-family: var(--font-mono) !important;
   font-size: var(--case-type-eyebrow) !important;

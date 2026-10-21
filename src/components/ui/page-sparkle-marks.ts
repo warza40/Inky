@@ -50,17 +50,20 @@ export const HOMEPAGE_SPARKLE_MARKS: PageSparkleMark[] = [
   fromWireframe("66:2013", "wide", 817, 3917, 522, 768),
 ];
 
-/** Case study pages — wireframe placements redistributed for long-form scroll. */
+/**
+ * Case study pages — same sparkle styles as the homepage, parked in the
+ * side gutters so they sit beside the 1280 content column instead of on it.
+ */
 export const CASE_STUDY_SPARKLE_MARKS: PageSparkleMark[] = [
-  fromWireframe("cs:solid-nav", "solid", 424, 81, 59),
-  fromWireframe("cs:crosshatch-hero", "crosshatch", 1479, 483, 269),
-  fromWireframe("cs:diamond-hero", "diamond", 192, 546, 522, 768),
-  fromWireframe("cs:scribble", "scribble", -119, 1273, 522),
-  fromWireframe("cs:solid-mid", "solid", 1630, 1345, 400, 768),
-  fromWireframe("cs:crosshatch-mid", "crosshatch", 812, 2004, 392),
-  fromWireframe("cs:solid-grid", "solid", 794, 927, 269),
-  fromWireframe("cs:fine", "fine", 158, 3037, 522, 768),
-  fromWireframe("cs:wide", "wide", 817, 3917, 522, 768),
+  fromWireframe("cs:solid-nav", "solid", 24, 140, 72),
+  fromWireframe("cs:crosshatch-hero", "crosshatch", 1700, 480, 180),
+  fromWireframe("cs:diamond-hero", "diamond", -180, 980, 260, 768),
+  fromWireframe("cs:scribble", "scribble", -200, 1900, 280),
+  fromWireframe("cs:solid-mid", "solid", 1720, 2300, 180, 768),
+  fromWireframe("cs:crosshatch-mid", "crosshatch", -140, 3000, 220),
+  fromWireframe("cs:solid-grid", "solid", 1760, 3400, 140),
+  fromWireframe("cs:fine", "fine", -160, 4100, 240, 768),
+  fromWireframe("cs:wide", "wide", 1640, 4500, 240, 768),
 ];
 
 export type PageSparkleVariant = "home" | "case-study";

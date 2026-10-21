@@ -2,7 +2,6 @@
    Omantel case study — journal layout shell (Warmth typography tokens)
    Loaded after `globals.css` from root layout — keeps tokens + `.cs-page` in globals first.
    ═══════════════════════════════════════════════════════════════ */
-
 /* ─── Paper (prototype .paper — grid + cream base) ─── */
 .ojo-paper {
   /* var(--cream) + line grid from pasted reference */
@@ -16,7 +15,6 @@
   border-radius: 2px;
   position: relative;
 }
-
 .ojo-paper::before {
   content: "";
   position: absolute;
@@ -27,14 +25,12 @@
   background: rgba(190, 65, 50, 0.16);
   pointer-events: none;
 }
-
 .ojo-paper-shadow {
   box-shadow:
     0 14px 52px rgba(0, 0, 0, 0.5),
     0 3px 10px rgba(0, 0, 0, 0.28),
     inset 0 0 0 1px rgba(160, 130, 80, 0.1);
 }
-
 /* ─── Shared labels (tokens on `.cs-page` — same metrics as MotionSection rails) ─── */
 .ojo-p-label {
   font-family: var(--cs-milestone-font);
@@ -50,18 +46,15 @@
   align-items: center;
   gap: 10px;
 }
-
 h3.ojo-p-label {
   margin-top: 0;
 }
-
 .ojo-p-label::after {
   content: "";
   flex: 1;
   height: 1px;
   background: var(--cs-milestone-rule-paper);
 }
-
 /* ─── Hero ─── */
 .ojo-hero {
   position: relative;
@@ -70,14 +63,12 @@ h3.ojo-p-label {
   display: flex;
   flex-direction: column;
 }
-
 .ojo-hero-gradient {
   position: absolute;
   inset: 0;
   background: #000000;
   z-index: 0;
 }
-
 .ojo-hero-stage {
   flex: 1;
   position: relative;
@@ -91,7 +82,6 @@ h3.ojo-p-label {
   padding-right: clamp(12px, 2vw, 24px);
   overflow: hidden;
 }
-
 .ojo-hero-img {
   width: min(1200px, 100%);
   height: auto;
@@ -101,7 +91,6 @@ h3.ojo-p-label {
     0 40px 100px rgba(0, 0, 0, 0.55),
     0 0 0 1px rgba(255, 255, 255, 0.06);
 }
-
 /* No hero glow — black field only */
 .ojo-hero-overlay-bottom {
   position: absolute;
@@ -113,7 +102,6 @@ h3.ojo-p-label {
   pointer-events: none;
   z-index: 3;
 }
-
 /* ─── Title insert ─── */
 .ojo-title-section {
   position: relative;
@@ -122,14 +110,12 @@ h3.ojo-p-label {
   margin-top: -20px;
   overflow: visible;
 }
-
 .ojo-tape {
   position: absolute;
   border-radius: 4px;
   pointer-events: none;
   z-index: 6;
 }
-
 .ojo-tape-wave {
   top: 0;
   left: 12%;
@@ -141,7 +127,6 @@ h3.ojo-p-label {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20'%3E%3Cpath d='M0 14 C5 8,10 5,15 8 C20 11,25 15,30 12 C35 9,40 6,45 9' stroke='rgba(255,255,255,0.3)' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");
   background-size: 42px 34px;
 }
-
 .ojo-tape-seigaiha {
   top: 0;
   right: 11%;
@@ -153,7 +138,6 @@ h3.ojo-p-label {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='16'%3E%3Cellipse cx='12' cy='16' rx='12' ry='9' stroke='rgba(255,255,255,0.25)' stroke-width='1' fill='none'/%3E%3C/svg%3E");
   background-size: 28px 22px;
 }
-
 .ojo-title-insert {
   padding: 52px 48px 48px var(--ojo-sheet-content-start, 64px);
   display: grid;
@@ -179,7 +163,6 @@ h3.ojo-p-label {
     border-top: 1px solid var(--ojo-rule);
   }
 }
-
 .ojo-punch-holes {
   position: absolute;
   left: 12px;
@@ -192,11 +175,9 @@ h3.ojo-p-label {
   pointer-events: none;
   z-index: 3;
 }
-
 .ojo-punch-holes--dual .ojo-punch-hole:nth-child(3) {
   display: none;
 }
-
 /* Title sheet: two holes toward lower edge (drops duplicate “upper” binder marks). */
 .ojo-punch-holes--title {
   justify-content: flex-end;
@@ -204,7 +185,6 @@ h3.ojo-p-label {
   padding-bottom: 52px;
   gap: clamp(26px, 6vw, 42px);
 }
-
 .ojo-punch-hole {
   width: 11px;
   height: 11px;
@@ -213,7 +193,6 @@ h3.ojo-p-label {
   border: 0.5px solid rgba(120, 95, 55, 0.18);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.55);
 }
-
 .ojo-clip-top {
   position: absolute;
   /* Horizontal frame tab — overlaps title sheet top edge */
@@ -222,33 +201,16 @@ h3.ojo-p-label {
   transform: translateX(-50%);
   z-index: 30;
 }
-
-/* Rose-gold index frame (outer rectangle + rectangular cutout) */
-.pc-index-clip-on-paper {
-  display: inline-block;
-  line-height: 0;
-  --pc-index-tilt: 11deg;
-  transform: rotate(var(--pc-index-tilt));
-  transform-origin: 50% 98%;
-}
-
-.pc-index-clip-svg {
-  display: block;
-  overflow: visible;
-}
-
 .ojo-clip-svg {
   display: block;
   overflow: visible;
 }
-
 .ojo-title-main {
   min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-
 /* Same family + tracking as metadata labels (ROLE, CONTEXT, …) — no rule line */
 .ojo-title-eyebrow {
   font-family: var(--ojo-eyebrow-font, var(--font-body));
@@ -264,7 +226,6 @@ h3.ojo-p-label {
   align-items: center;
   gap: 10px;
 }
-
 .ojo-title-eyebrow::after {
   content: "";
   flex: 1;
@@ -272,24 +233,20 @@ h3.ojo-p-label {
   height: 1px;
   background: var(--ojo-eyebrow-rule-paper);
 }
-
 .ojo-title-copy-wrap {
   width: 100%;
   max-width: min(72%, 44rem);
   box-sizing: border-box;
 }
-
 .ojo-title-copy-inner {
   min-width: 0;
 }
-
 .ojo-title-pills {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   margin-top: clamp(18px, 2.5vw, 24px);
 }
-
 .ojo-title-pill {
   font-family: var(--font-body);
   font-size: 11px;
@@ -302,7 +259,6 @@ h3.ojo-p-label {
   background: rgba(255, 255, 255, 0.5);
   line-height: 1.2;
 }
-
 .ojo-main-title {
   font-family: var(--font-heading);
   font-size: clamp(1.85rem, 4.2vw, 3.05rem);
@@ -313,7 +269,6 @@ h3.ojo-p-label {
   letter-spacing: -0.03em;
   max-width: 100%;
 }
-
 /* Hero utility sets width:100% / fluid size — tune for journal title band */
 .ojo-title-insert .ojo-main-title.cs-hero-title {
   font-size: clamp(1.85rem, 4.2vw, 3.05rem);
@@ -322,7 +277,6 @@ h3.ojo-p-label {
   max-width: 100%;
   color: var(--ojo-ink);
 }
-
 .ojo-sub-title {
   font-family: var(--font-serif);
   font-size: clamp(0.9375rem, 1.55vw, 1.0625rem);
@@ -333,7 +287,6 @@ h3.ojo-p-label {
   margin: clamp(12px, 1.8vw, 18px) 0 0;
   max-width: 100%;
 }
-
 .ojo-meta-grid {
   display: flex;
   flex-direction: column;
@@ -343,7 +296,6 @@ h3.ojo-p-label {
   min-width: 0;
   max-width: 100%;
 }
-
 .ojo-meta-label {
   font-family: var(--ojo-eyebrow-font, var(--font-body));
   font-size: var(--ojo-eyebrow-size, 8px);
@@ -353,7 +305,6 @@ h3.ojo-p-label {
   color: var(--ojo-eyebrow-paper);
   margin-bottom: 4px;
 }
-
 .ojo-meta-val {
   font-family: var(--font-body);
   font-size: clamp(14px, 1.35vw, 15px);
@@ -361,7 +312,6 @@ h3.ojo-p-label {
   color: var(--ojo-ink);
   line-height: 1.35;
 }
-
 /* ─── Overview ─── */
 .ojo-overview-section {
   position: relative;
@@ -372,173 +322,33 @@ h3.ojo-p-label {
   gap: clamp(28px, 4vw, 44px);
   box-sizing: border-box;
 }
-
 .ojo-overview-insert {
   padding: 48px 48px 48px var(--ojo-sheet-content-start, 64px);
 }
-
 .ojo-overview-inner {
   display: flex;
   flex-direction: column;
   gap: var(--space-10);
   align-items: stretch;
 }
-
 /* Impact metrics on leather — full-width rack above Overview paper */
 .ojo-overview-impact-rail {
   width: 100%;
   box-sizing: border-box;
 }
-
 .ojo-overview-narrative {
   width: 100%;
 }
-
 /* Overview body reuses `.cs-context-text`; strip extra top padding so label → copy matches other paper blocks. */
 .ojo-overview-narrative .cs-context-text {
   padding-top: 0;
 }
-
-/* Impact eyebrow sits on leather (not inside cream overview paper) */
-.cs-page--journal-omantel .ojo-overview-impact-rail .cs-impact-postits-eyebrow {
-  color: var(--ojo-eyebrow-dark);
-  margin-bottom: 10px;
-}
-
-.cs-page--journal-omantel
-  .ojo-overview-impact-rail
-  .cs-impact-postits-eyebrow::after {
-  background: var(--ojo-eyebrow-rule-dark);
-}
-
-/* Warmth moss sage post-its — equal row height, folded top-right corner */
-.cs-page--journal-omantel .ojo-impact-postits--on-leather {
-  align-items: stretch;
-  gap: clamp(14px, 2.4vw, 22px);
-  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
-}
-
-/* Four impact notes — uniform 2×2 grid (e.g. disaster recovery) */
-.cs-page--journal-omantel
-  .ojo-impact-postits--on-leather:has(
-    .cs-impact-postit:nth-child(4):last-child
-  ) {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-@media (min-width: 1024px) {
-  .cs-page--journal-omantel
-    .ojo-impact-postits--on-leather:has(
-      .cs-impact-postit:nth-child(4):last-child
-    ) {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
-/* Five static impact notes — one row on wide screens, wrap below that */
-@media (min-width: 1200px) {
-  .cs-page--journal-omantel
-    .ojo-impact-postits--on-leather:has(
-      .cs-impact-postit:nth-child(5):last-child
-    ) {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-}
-
-.cs-page--journal-omantel .ojo-impact-postits--on-leather .cs-impact-postit {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  height: 100%;
-  align-self: stretch;
-  overflow: hidden;
-  margin: 0;
-  padding: clamp(22px, 3vw, 28px) clamp(18px, 2.6vw, 24px);
-  padding-top: clamp(26px, 3.4vw, 32px);
-  background-color: var(--color-moss-100);
-  background-image: none;
-  border: 1px solid color-mix(in srgb, var(--color-moss-700) 22%, transparent);
-  border-radius: 2px;
-  border-top-right-radius: 0;
-  box-shadow:
-    2px 3px 0 rgba(62, 72, 52, 0.12),
-    5px 10px 24px rgba(45, 52, 38, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.55);
-  isolation: isolate;
-}
-
-/* Dog-ear flap only — sharp card corner avoids a moss arc behind the fold */
-.cs-page--journal-omantel
-  .ojo-impact-postits--on-leather
-  .cs-impact-postit::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 34px;
-  height: 34px;
-  z-index: 0;
-  pointer-events: none;
-  background-color: color-mix(in srgb, var(--color-moss-700) 52%, #243018);
-  clip-path: polygon(100% 0, 100% 50%, 50% 0);
-}
-
-.cs-page--journal-omantel
-  .ojo-impact-postits--on-leather
-  .cs-impact-postit
-  > * {
-  position: relative;
-  z-index: 1;
-}
-
-.cs-page--journal-omantel .ojo-impact-postits--on-leather .ojo-impact-detail {
-  flex-grow: 1;
-  color: color-mix(
-    in srgb,
-    var(--color-moss-700) 72%,
-    var(--color-ink-900) 28%
-  );
-}
-
-.cs-page--journal-omantel .ojo-impact-postits--on-leather .ojo-impact-value {
-  display: block;
-  color: var(--color-moss-700);
-  font-size: clamp(1.25rem, 2vw, 1.7rem);
-  line-height: 1.15;
-  text-wrap: balance;
-  overflow-wrap: break-word;
-}
-
-.cs-page--journal-omantel .ojo-impact-postits--on-leather .ojo-impact-suffix,
-.cs-page--journal-omantel
-  .ojo-impact-postits--on-leather
-  .ojo-impact-suffix--scale {
-  color: color-mix(
-    in srgb,
-    var(--color-moss-700) 76%,
-    var(--color-ink-900) 24%
-  );
-}
-
-.cs-page--journal-omantel .ojo-impact-postits--on-leather .ojo-impact-caps {
-  color: color-mix(in srgb, var(--color-moss-700) 82%, transparent);
-}
-
-.cs-page--journal-omantel
-  .ojo-impact-postits--on-leather
-  .ojo-impact-detail--plain {
-  color: var(--color-ink-900);
-}
-
 .ojo-overview-p {
   margin-bottom: 1em;
 }
-
 .ojo-overview-p:last-child {
   margin-bottom: 0;
 }
-
 .ojo-overview-text {
   font-family: var(--font-heading);
   font-size: 1.125rem;
@@ -546,7 +356,6 @@ h3.ojo-p-label {
   line-height: 1.7;
   color: var(--ojo-ink);
 }
-
 .ojo-impact-panel {
   font-family: var(--font-heading);
   font-size: 1.05rem;
@@ -555,7 +364,6 @@ h3.ojo-p-label {
   line-height: 1.65;
   color: var(--ojo-ink-mid);
 }
-
 .ojo-overview-aim {
   font-family: var(--font-heading);
   font-size: 1rem;
@@ -565,17 +373,14 @@ h3.ojo-p-label {
   color: var(--ojo-ink-mid);
   margin: 1.25rem 0 0;
 }
-
 .ojo-impact-stat {
   margin: 0 0 12px;
   font-family: var(--font-accent);
   line-height: 1.05;
 }
-
 .cs-impact-postit .ojo-impact-stat {
   margin-bottom: 10px;
 }
-
 .ojo-impact-value {
   font-family: var(--font-serif);
   font-size: clamp(2.125rem, 4.5vw, 2.75rem);
@@ -583,7 +388,6 @@ h3.ojo-p-label {
   letter-spacing: -0.03em;
   color: var(--ojo-ink);
 }
-
 .ojo-impact-suffix {
   font-family: var(--font-serif);
   font-size: 1.0625rem;
@@ -591,7 +395,6 @@ h3.ojo-p-label {
   font-style: italic;
   color: var(--ojo-ink-mid);
 }
-
 /** Denominator on rating stats (e.g. 4.5 /5) — upright, smaller than main numeral */
 .ojo-impact-suffix--scale {
   font-style: normal;
@@ -601,7 +404,6 @@ h3.ojo-p-label {
   vertical-align: baseline;
   letter-spacing: 0.02em;
 }
-
 .ojo-impact-caps {
   margin: 0 0 6px;
   font-family: var(--ojo-eyebrow-font, var(--font-body));
@@ -611,7 +413,6 @@ h3.ojo-p-label {
   text-transform: uppercase;
   color: var(--ojo-eyebrow-paper);
 }
-
 .ojo-impact-detail {
   margin: 0;
   font-family: var(--font-accent);
@@ -622,27 +423,23 @@ h3.ojo-p-label {
   color: var(--ojo-ink-mid);
   white-space: pre-line;
 }
-
 .ojo-impact-detail--plain {
   font-family: var(--font-heading);
   font-style: normal;
   font-weight: 400;
   line-height: 1.55;
 }
-
 .ojo-context-visuals {
   margin-top: 36px;
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
-
 .ojo-context-visual-img {
   width: 100%;
   height: auto;
   border-radius: 2px;
 }
-
 .ojo-context-caption {
   margin-top: 10px;
   font-family: var(--ojo-eyebrow-font, var(--font-body));
@@ -651,69 +448,17 @@ h3.ojo-p-label {
   letter-spacing: 0.08em;
   color: var(--ojo-eyebrow-paper);
 }
-
-/* MotionSection rails — same inset as Problem / Overview body so titles align row-to-row */
-.cs-page.cs-page--journal-omantel
-  .ojo-case-map
-  > section.cs-section
-  > .cs-section-head {
-  padding-inline: max(var(--fluid-gutter), 40px);
-  box-sizing: border-box;
-}
-
-/* Context: drop ghost [00] slot so “CONTEXT” lines up with Impact / Overview eyebrows */
-.cs-page.cs-page--journal-omantel
-  #context
-  > .cs-section-head
-  .cs-section-label::before {
-  content: none;
-  display: none;
-  width: 0;
-  min-inline-size: 0;
-  margin: 0;
-  padding: 0;
-  flex: 0 0 0;
-}
-
-/* Outcome › Noteworthy — secondary rail matches primary MotionSection header metrics */
-.cs-page.cs-page--journal-omantel #outcome .ojo-noteworthy-rail-head {
-  padding-inline: max(var(--fluid-gutter), 40px);
-  box-sizing: border-box;
-}
-
-.cs-page.cs-page--journal-omantel
-  #outcome
-  .ojo-noteworthy-rail-head
-  .cs-section-label::before {
-  content: none;
-  display: none;
-  width: 0;
-  min-inline-size: 0;
-  margin: 0;
-  padding: 0;
-  flex: 0 0 0;
-}
-
-.cs-page.cs-page--journal-omantel
-  section.cs-section.ojo-decisions-wrap
-  > .cs-section-head {
-  padding-bottom: 28px;
-}
-
 /* ─── Decisions ─── */
 .ojo-decisions-wrap {
   padding-top: 12px;
 }
-
 /* ─── Problem (before / after) ─── */
 .ojo-problem-section {
   padding: 8px max(var(--fluid-gutter), 40px) 0;
 }
-
 .ojo-problem-insert {
   padding: 48px 48px 48px var(--ojo-sheet-content-start, 64px);
 }
-
 .ojo-problem-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -726,7 +471,6 @@ h3.ojo-p-label {
     grid-template-columns: 1fr;
   }
 }
-
 .ojo-problem-text {
   font-family: var(--font-heading);
   font-size: 1.0625rem;
@@ -734,14 +478,12 @@ h3.ojo-p-label {
   line-height: 1.75;
   color: var(--ojo-ink);
 }
-
 .ojo-before-state {
   background: rgba(120, 95, 55, 0.06);
   border: 1px solid var(--ojo-rule);
   border-radius: 2px;
   padding: 24px;
 }
-
 .ojo-before-label {
   font-family: var(--ojo-eyebrow-font, var(--font-body));
   font-size: var(--ojo-eyebrow-size, 8px);
@@ -751,7 +493,6 @@ h3.ojo-p-label {
   color: var(--ojo-eyebrow-paper);
   margin-bottom: 16px;
 }
-
 .ojo-after-text {
   font-family: var(--font-heading);
   font-size: 1.0625rem;
@@ -759,34 +500,28 @@ h3.ojo-p-label {
   line-height: 1.75;
   color: var(--ojo-ink-mid);
 }
-
 /* ─── Decision stage + carousel ─── */
 .ojo-decision-block {
   margin-bottom: 0;
 }
-
 /* Space between decision articles (replaces gradient `hr.ojo-decision-sep`) */
 .ojo-decision-follow {
   margin-top: clamp(44px, 6.5vw, 80px);
 }
-
 /* Problem · user-flow mapping — carousel + cream copy (matches Key Decisions) */
 .ojo-user-flow-section {
   margin-top: clamp(28px, 4vw, 40px);
 }
-
 .ojo-user-flow-content {
   margin: 0 max(var(--fluid-gutter), 32px);
   position: relative;
   z-index: 6;
   margin-top: -12px;
 }
-
 .ojo-user-flow-inner {
   padding: 44px 48px 44px var(--ojo-sheet-content-start, 64px);
   box-sizing: border-box;
 }
-
 /* Problem · user-flow carousel — full-width black field incl. caption */
 .ojo-understanding-flow-stage {
   width: 100%;
@@ -795,7 +530,6 @@ h3.ojo-p-label {
   padding: 36px max(var(--fluid-gutter), 24px) clamp(32px, 4vw, 52px);
   overflow: hidden;
 }
-
 .ojo-understanding-flow-stage .ojo-decision-carousel {
   position: relative;
   width: 100%;
@@ -803,41 +537,29 @@ h3.ojo-p-label {
   padding: 0;
   z-index: 1;
 }
-
 .ojo-understanding-flow-stage .ojo-decision-carousel-row,
 .ojo-understanding-flow-stage .ojo-decision-carousel-stage {
   width: 100%;
   max-width: min(880px, 100%);
   margin-inline: auto;
 }
-
 .ojo-understanding-flow-stage .ojo-decision-carousel-slides {
   width: 100%;
   aspect-ratio: 16 / 9;
   max-height: min(58vh, 580px);
 }
-
 .ojo-understanding-flow-stage .ojo-decision-slide-img,
 .ojo-understanding-flow-stage .ojo-decision-mi,
 .ojo-understanding-flow-stage .ojo-decision-mi .relative {
   overflow: hidden;
 }
-
 .ojo-understanding-flow-stage .ojo-decision-carousel-footer {
   margin-bottom: 0;
   padding-bottom: 0;
 }
-
-.cs-page.cs-page--journal-omantel
-  .ojo-understanding-flow-stage
-  .ojo-decision-slide-caption {
-  color: rgba(255, 255, 255, 0.78) !important;
-}
-
 .case-main .ojo-understanding-flow-stage .ojo-decision-slide-caption {
   color: rgba(255, 255, 255, 0.78) !important;
 }
-
 .ojo-decision-stage {
   width: 100%;
   height: clamp(520px, 72vh, 760px);
@@ -848,12 +570,10 @@ h3.ojo-p-label {
   align-items: center;
   justify-content: center;
 }
-
 .ojo-decision-bg {
   position: absolute;
   inset: 0;
 }
-
 .ojo-decision-bg--solid,
 .ojo-decision-bg--1,
 .ojo-decision-bg--2,
@@ -861,7 +581,6 @@ h3.ojo-p-label {
 .ojo-decision-bg--4 {
   background: #000000;
 }
-
 .ojo-decision-badge {
   position: absolute;
   top: 28px;
@@ -875,7 +594,6 @@ h3.ojo-p-label {
   pointer-events: none;
   user-select: none;
 }
-
 .ojo-decision-fade-top {
   position: absolute;
   top: 0;
@@ -886,7 +604,6 @@ h3.ojo-p-label {
   pointer-events: none;
   z-index: 3;
 }
-
 .ojo-decision-fade-bottom {
   position: absolute;
   bottom: 0;
@@ -897,15 +614,6 @@ h3.ojo-p-label {
   pointer-events: none;
   z-index: 3;
 }
-
-.cs-page.cs-page--journal-omantel .ojo-decision-stage .cs-decision-nav-wrap {
-  position: relative;
-  z-index: 8;
-  width: min(100% - 2 * max(var(--fluid-gutter), 24px), 880px);
-  margin: 0 auto;
-  align-self: center;
-}
-
 .ojo-decision-carousel {
   position: relative;
   width: 100%;
@@ -921,7 +629,6 @@ h3.ojo-p-label {
   box-sizing: border-box;
   gap: 0;
 }
-
 .ojo-decision-carousel-stage {
   position: relative;
   width: 100%;
@@ -930,7 +637,6 @@ h3.ojo-p-label {
   min-width: 0;
   flex-shrink: 1;
 }
-
 /* Flank the 16:9 frame — matches case footer / ghost control ink on dark */
 .ojo-decision-carousel-row {
   display: flex;
@@ -939,12 +645,10 @@ h3.ojo-p-label {
   width: 100%;
   gap: clamp(10px, 2.2vw, 24px);
 }
-
 .ojo-decision-carousel-row--multi .ojo-decision-carousel-stage {
   flex: 1 1 auto;
   min-width: 0;
 }
-
 .ojo-decision-carousel-chev {
   flex-shrink: 0;
   display: flex;
@@ -965,13 +669,11 @@ h3.ojo-p-label {
     border-color 0.2s ease,
     color 0.2s ease;
 }
-
 .ojo-decision-carousel-chev:hover {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(245, 239, 228, 0.38);
   color: var(--parchment);
 }
-
 .ojo-decision-carousel-chev:focus-visible {
   outline: 2px solid var(--color-madder-500);
   outline-offset: 2px;
@@ -982,36 +684,30 @@ h3.ojo-p-label {
     position: relative;
     gap: 0;
   }
-
   .ojo-decision-carousel-row--multi .ojo-decision-carousel-stage {
     flex: none;
     width: 100%;
     max-width: 100%;
   }
-
   .ojo-decision-carousel-row--multi .ojo-decision-carousel-chev {
     position: absolute;
     top: 50%;
     z-index: 15;
     transform: translateY(-50%);
   }
-
   .ojo-decision-carousel-row--multi .ojo-decision-carousel-chev--prev {
     left: 4px;
   }
-
   .ojo-decision-carousel-row--multi .ojo-decision-carousel-chev--next {
     right: 4px;
   }
 }
-
 .ojo-decision-carousel-slides {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
   flex-shrink: 0;
 }
-
 .ojo-decision-slide {
   position: absolute;
   inset: 0;
@@ -1022,12 +718,10 @@ h3.ojo-p-label {
   opacity: 0;
   transition: opacity 0.45s ease;
 }
-
 .ojo-decision-slide.is-active {
   opacity: 1;
   z-index: 2;
 }
-
 .ojo-decision-slide-inner {
   width: 100%;
   height: 100%;
@@ -1035,13 +729,11 @@ h3.ojo-p-label {
   align-items: center;
   justify-content: center;
 }
-
 .ojo-decision-slide-img {
   position: relative;
   width: 100%;
   height: 100%;
 }
-
 /* Flat frame on dark stage (MotionImage figure) */
 .ojo-decision-mi {
   height: 100%;
@@ -1050,12 +742,10 @@ h3.ojo-p-label {
   background: transparent !important;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
 }
-
 .ojo-decision-mi .relative {
   background: rgba(0, 0, 0, 0.35) !important;
   border-radius: 4px;
 }
-
 .ojo-decision-carousel-footer {
   display: flex;
   flex-direction: column;
@@ -1071,7 +761,6 @@ h3.ojo-p-label {
   margin-bottom: 8px;
   padding-bottom: 4px;
 }
-
 .ojo-decision-slide-caption {
   margin: 0;
   width: 100%;
@@ -1090,14 +779,12 @@ h3.ojo-p-label {
   box-sizing: border-box;
   box-shadow: none;
 }
-
 .ojo-decision-dots {
   display: flex;
   gap: 8px;
   align-items: center;
   justify-content: center;
 }
-
 .ojo-decision-dot {
   width: 5px;
   height: 5px;
@@ -1110,12 +797,10 @@ h3.ojo-p-label {
     background 0.25s,
     transform 0.25s;
 }
-
 .ojo-decision-dot.is-active {
   background: rgba(255, 255, 255, 0.78);
   transform: scale(1.3);
 }
-
 .ojo-decision-content,
 .ojo-outcome-text-wrap {
   margin: 0 max(var(--fluid-gutter), 32px);
@@ -1124,7 +809,6 @@ h3.ojo-p-label {
   /* Pull card up slightly without covering carousel caption (carousel is z-index 8) */
   margin-top: -12px;
 }
-
 .ojo-decision-inner {
   padding: 44px 48px 44px var(--ojo-sheet-content-start, 64px);
   display: flex;
@@ -1132,81 +816,21 @@ h3.ojo-p-label {
   align-items: stretch;
   box-sizing: border-box;
 }
-
 .ojo-decision-head {
   min-width: 0;
 }
-
 .ojo-d-rule {
   height: 1px;
   background: linear-gradient(90deg, var(--ojo-rule), transparent);
   margin: 16px 0 28px;
   flex-shrink: 0;
 }
-
 .ojo-decision-ri {
   display: flex;
   flex-direction: column;
   gap: 20px;
   min-width: 0;
 }
-
-/* Key decision — Rationale / Impact pair (transparent on cream paper) */
-.cs-page.cs-page--journal-omantel .ojo-decision-inner .cs-decision-ri-panel {
-  margin-top: 0;
-  padding: 0;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-decision-inner
-  .cs-decision-ri-panel
-  .cs-ri-grid {
-  border: none;
-  border-radius: 0;
-  overflow: visible;
-  background: transparent;
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-decision-inner
-  .cs-decision-ri-panel
-  .cs-ri-col {
-  padding: clamp(18px, 2.8vw, 24px) clamp(20px, 3vw, 28px) !important;
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-decision-inner
-  .cs-decision-ri-panel
-  .cs-ri-col:first-child {
-  border-color: color-mix(in srgb, var(--ojo-rule) 40%, transparent);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-decision-inner
-  .cs-decision-ri-panel
-  .cs-ri-label {
-  font-family: var(--ojo-eyebrow-font, var(--font-body));
-  font-size: var(--ojo-eyebrow-size, 8px);
-  letter-spacing: var(--ojo-eyebrow-track, 0.16em);
-  font-weight: var(--ojo-eyebrow-weight, 600);
-  font-variation-settings: unset;
-  text-transform: none;
-  color: var(--ojo-eyebrow-paper);
-  margin-bottom: 14px;
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-decision-inner
-  .cs-decision-ri-panel
-  .cs-ri-grid--solutioning {
-  border-top: 1px solid color-mix(in srgb, var(--ojo-rule) 40%, transparent);
-  margin-top: var(--space-6);
-  padding-top: var(--space-6);
-}
-
 .ojo-decision-num-bg {
   font-family: var(--font-heading);
   font-size: clamp(38px, 6.5vw, 52px);
@@ -1216,7 +840,6 @@ h3.ojo-p-label {
   margin-bottom: -6px;
   letter-spacing: -0.02em;
 }
-
 .ojo-d-num-text {
   font-family: var(--ojo-eyebrow-font, var(--font-body));
   font-size: var(--ojo-eyebrow-size, 8px);
@@ -1227,7 +850,6 @@ h3.ojo-p-label {
   margin-bottom: 14px;
   display: block;
 }
-
 .ojo-d-title {
   font-family: var(--font-heading);
   font-size: clamp(1.65rem, 3.2vw, 2.35rem);
@@ -1236,31 +858,10 @@ h3.ojo-p-label {
   color: var(--ojo-ink);
   margin-bottom: 14px;
 }
-
 .ojo-d-lede {
   font-size: 1.05rem;
   line-height: 1.65;
 }
-
-.cs-page.cs-page--journal-omantel .ojo-decision-inner .ojo-d-lede {
-  color: var(--ojo-ink-mid);
-}
-
-/* Rationale / Impact / Solutioning — same body scale as `.ojo-d-lede` */
-.cs-page.cs-page--journal-omantel .ojo-decision-inner .cs-ri-item {
-  font-family: var(--font-body);
-  font-optical-sizing: auto;
-  font-size: 1.05rem;
-  line-height: 1.65;
-  color: var(--ojo-ink-mid);
-}
-
-.cs-page.cs-page--journal-omantel .ojo-decision-inner .cs-ri-item::before {
-  font-size: 0.92em;
-  line-height: 1.65;
-  margin-top: 0.12em;
-}
-
 .ojo-d-impact-label {
   font-family: var(--ojo-eyebrow-font, var(--font-body));
   font-size: var(--ojo-eyebrow-size, 8px);
@@ -1270,7 +871,6 @@ h3.ojo-p-label {
   color: var(--ojo-eyebrow-paper);
   margin-bottom: 8px;
 }
-
 .ojo-decision-placeholder-wrap {
   position: relative;
   z-index: 2;
@@ -1278,21 +878,17 @@ h3.ojo-p-label {
   margin: auto;
   padding: 40px max(var(--fluid-gutter), 24px);
 }
-
 /* ─── Outcome ─── */
 .ojo-outcome-paper {
   padding: 48px 48px 52px var(--ojo-sheet-content-start, 64px);
 }
-
 /* Outcome — spacing before subsection labels (no duplicate rules vs .ojo-p-label::after) */
 .ojo-outcome-label--after-highlights {
   margin-top: 28px;
 }
-
 .ojo-outcome-label--after-body {
   margin-top: 32px;
 }
-
 .ojo-highlight-list {
   list-style: none;
   padding: 0;
@@ -1301,7 +897,6 @@ h3.ojo-p-label {
   flex-direction: column;
   gap: 14px;
 }
-
 .ojo-highlight-item {
   font-family: var(--font-heading);
   font-size: 1.08rem;
@@ -1310,11 +905,9 @@ h3.ojo-p-label {
   padding-bottom: 14px;
   border-bottom: 1px solid var(--ojo-rule);
 }
-
 .ojo-highlight-item:last-child {
   border-bottom: none;
 }
-
 .ojo-reflection-p {
   font-family: var(--font-heading);
   font-size: 1.05rem;
@@ -1324,7 +917,6 @@ h3.ojo-p-label {
   margin-top: 28px;
   white-space: pre-line;
 }
-
 .ojo-reflection-list {
   font-family: var(--font-heading);
   font-size: 1.05rem;
@@ -1338,354 +930,19 @@ h3.ojo-p-label {
   flex-direction: column;
   gap: var(--space-3);
 }
-
 .ojo-reflection-list--lead {
   margin-top: 28px;
 }
-
 .ojo-reflection-list li::marker {
   color: rgba(120, 95, 55, 0.55);
 }
-
-.cs-page--journal-omantel .ojo-noteworthy-wrap {
-  margin-top: clamp(var(--space-12), 4vw, var(--space-16));
-}
-
-/* Context · ecosystem — same cream paper rhythm as Overview */
-.cs-page.cs-page--journal-omantel .ojo-context-ecosystem-inner .cs-ecosystem {
-  margin-bottom: 0;
-  padding-top: 4px;
-}
-
-/* Context · ecosystem table — white post-it (About me approach card pattern) */
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-paper
-  .cs-ecosystem-postit {
-  margin-top: 6px;
-  max-width: calc(100% - 12px);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-paper
-  .cs-ecosystem-box {
-  background: #fff;
-  border: none;
-  border-radius: 2px;
-  box-shadow:
-    0 8px 28px rgba(0, 0, 0, 0.14),
-    0 2px 6px rgba(45, 38, 28, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.95);
-  position: relative;
-  isolation: isolate;
-  transform: rotate(-0.65deg);
-  transform-origin: 12% 0%;
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-paper
-  .cs-ecosystem-box::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  border-style: solid;
-  border-width: 0 0 14px 14px;
-  border-color: transparent transparent rgba(210, 208, 200, 0.72) transparent;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-paper
-  .cs-ecosystem-box-title,
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-paper
-  .cs-ecosystem-rows {
-  position: relative;
-  z-index: 1;
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-paper
-  .cs-ecosystem-box-title {
-  border-bottom-color: rgba(120, 95, 55, 0.14);
-  padding: clamp(18px, 2.8vw, 22px) clamp(18px, 2.6vw, 24px)
-    clamp(12px, 2vw, 14px);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-paper
-  .cs-ecosystem-box-head {
-  border-bottom-color: rgba(120, 95, 55, 0.14);
-  color: var(--ojo-eyebrow-paper);
-  background: rgba(248, 246, 240, 0.65);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-paper
-  .cs-ecosystem-intro {
-  max-width: none;
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-paper
-  .cs-ecosystem-desc {
-  color: rgba(74, 61, 46, 0.72);
-  font-style: normal;
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-paper
-  .cs-ecosystem-row {
-  border-bottom-color: rgba(120, 95, 55, 0.14);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-paper
-  .cs-ecosystem-row:hover {
-  background: rgba(248, 246, 240, 0.9);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-paper
-  .cs-ecosystem-icon-cell {
-  border-right-color: rgba(120, 95, 55, 0.12);
-  color: rgba(74, 61, 46, 0.5);
-  background: rgba(248, 246, 240, 0.45);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-paper
-  .cs-ecosystem-eyebrow-text,
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-paper
-  .cs-ecosystem-intro {
-  color: var(--ojo-ink-mid);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-paper
-  .cs-ecosystem-eyebrow-text {
-  font-family: var(--cs-milestone-font);
-  font-size: var(--cs-milestone-size);
-  font-weight: var(--cs-milestone-weight);
-  letter-spacing: var(--cs-milestone-tracking);
-  text-transform: var(--cs-milestone-transform);
-  color: var(--cs-milestone-paper-fg);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-paper
-  .cs-ecosystem-eyebrow::before {
-  color: rgba(185, 60, 46, 0.75);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-paper
-  .cs-ecosystem-intro {
-  max-width: none;
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-paper
-  .cs-ecosystem-name {
-  color: var(--ojo-ink);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-paper
-  .cs-ecosystem-desc {
-  color: rgba(74, 61, 46, 0.72);
-}
-
-/* Problem · legacy narrative (warehouse, DR, etc.) — cream sheet like before/after */
-.cs-page.cs-page--journal-omantel .ojo-problem-section--legacy-follows-ba {
-  padding-top: clamp(24px, 3.8vw, 40px);
-}
-
-.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert {
-  position: relative;
-  padding: 48px 48px 48px var(--ojo-sheet-content-start, 64px);
-}
-
-.cs-page.cs-page--journal-omantel .ojo-problem-legacy-stack {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(28px, 4vw, 40px);
-}
-
-/* Problem · narrative block titles — headline scale (not eyebrow) */
-.cs-page.cs-page--journal-omantel
-  #problem
-  .ojo-problem-legacy-insert
-  .case-subsection-title {
-  font-family: var(--font-heading);
-  font-size: clamp(1.65rem, 3.2vw, 2.35rem);
-  font-weight: 500;
-  line-height: 1.12;
-  letter-spacing: -0.02em;
-  color: var(--ojo-ink);
-  margin: 0 0 14px;
-  display: block;
-}
-
-/* Problem · in-paper eyebrows — match Overview / Current scenario (`ojo-p-label`) */
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-context-section-title,
-.cs-page.cs-page--journal-omantel
-  .ojo-user-flow-inner
-  .cs-context-section-title,
-.cs-page.cs-page--journal-omantel
-  .ojo-context-ecosystem-inner
-  .cs-context-section-title {
-  font-family: var(--cs-milestone-font);
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
-  font-size: var(--cs-milestone-size);
-  font-weight: var(--cs-milestone-weight);
-  letter-spacing: var(--cs-milestone-tracking);
-  text-transform: var(--cs-milestone-transform);
-  color: var(--cs-milestone-paper-fg);
-  margin: 0 0 var(--space-3);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-dr-understanding
-  .ojo-d-title {
-  margin: 0 0 var(--space-6);
-  color: var(--ojo-ink);
-  font-weight: 500;
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-dr-ia-placeholder-label {
-  font-family: var(--ojo-eyebrow-font);
-  font-size: var(--ojo-eyebrow-size);
-  letter-spacing: var(--ojo-eyebrow-track);
-  font-weight: var(--ojo-eyebrow-weight);
-  text-transform: uppercase;
-  color: var(--ojo-ink-faded);
-}
-
-.cs-page.cs-page--journal-omantel
-  #problem
-  .ojo-problem-legacy-insert
-  .case-body {
-  color: var(--ojo-ink-mid);
-}
-
-.cs-page.cs-page--journal-omantel
-  #problem
-  .ojo-problem-legacy-insert
-  .case-divider {
-  border-color: var(--ojo-rule);
-}
-
-.cs-page.cs-page--journal-omantel
-  #problem
-  .ojo-problem-legacy-insert
-  .cs-constraint-list-item {
-  color: var(--ojo-ink-mid);
-  border-bottom-color: rgba(120, 95, 55, 0.2);
-}
-
-.cs-page.cs-page--journal-omantel
-  #problem
-  .ojo-problem-legacy-insert
-  .cs-cl-marker {
-  border-color: rgba(120, 95, 55, 0.35);
-  color: rgba(74, 61, 46, 0.65);
-}
-
-.cs-page.cs-page--journal-omantel
-  #problem
-  .ojo-problem-legacy-insert
-  .cs-problem-process-visual-caption {
-  color: var(--ojo-ink-mid);
-  font-family: var(--font-heading);
-  font-size: clamp(13px, 1.35vw, 15px);
-  font-weight: 400;
-  font-style: normal;
-  letter-spacing: normal;
-  line-height: 1.65;
-}
-
-/* Problem · inline visuals (DR IA / flows) — plain caption, same scale as decision carousel */
-.cs-page.cs-page--journal-omantel
-  #problem
-  .ojo-problem-legacy-insert
-  .cs-visual-caption,
-.cs-page.cs-page--journal-omantel .cs-dr-ia-image-stack .cs-visual-caption {
-  color: var(--ojo-ink-mid);
-  font-family: var(--font-heading);
-  font-size: clamp(13px, 1.35vw, 15px);
-  font-weight: 400;
-  font-style: normal;
-  letter-spacing: normal;
-  line-height: 1.65;
-  text-align: left;
-  padding: 8px 0 0;
-  margin: 0;
-  background: transparent;
-  border: none;
-}
-
-.cs-page.cs-page--journal-omantel .cs-dr-ia-image-stack figure {
-  border: none;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-}
-
-.cs-page.cs-page--journal-omantel
-  #problem
-  .ojo-problem-legacy-insert
-  .cs-problem-process-visual-img {
-  border-radius: 2px;
-  box-shadow:
-    0 10px 28px rgba(0, 0, 0, 0.2),
-    0 0 0 1px rgba(120, 95, 55, 0.12);
-}
-
-/* Decision rail · report categories */
-.cs-page.cs-page--journal-omantel
-  .ojo-journal-report-categories
-  .cs-report-card {
-  background: color-mix(in srgb, var(--ojo-cream) 92%, transparent);
-  border-color: rgba(120, 95, 55, 0.22);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-journal-report-categories
-  .cs-report-title {
-  color: var(--ojo-ink);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-journal-report-categories
-  .cs-report-desc {
-  color: var(--ojo-ink-mid);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-journal-report-categories
-  .cs-report-num {
-  color: rgba(74, 61, 46, 0.45);
-}
-
 /* Key decision · report boxes under rationale */
 .cs-decision-rationale-reports {
   margin-top: var(--space-4);
 }
-
 .cs-report-grid--in-rationale {
   margin-top: 0;
 }
-
 .cs-ri-rationale-lead {
   font-family: var(--font-body);
   font-size: inherit;
@@ -1694,269 +951,11 @@ h3.ojo-p-label {
   margin: 0;
 }
 
-.cs-page.cs-page--journal-omantel
-  .ojo-decision-inner
-  .cs-decision-rationale-reports
-  .cs-report-card {
-  background: color-mix(in srgb, var(--ojo-cream) 88%, #fff);
-  border-color: rgba(120, 95, 55, 0.2);
-  box-shadow: 0 2px 8px rgba(45, 38, 28, 0.08);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-decision-inner
-  .cs-decision-rationale-reports
-  .cs-report-title {
-  color: var(--ojo-ink);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-decision-inner
-  .cs-decision-rationale-reports
-  .cs-report-desc {
-  color: var(--ojo-ink-mid);
-  font-style: normal;
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-decision-inner
-  .cs-decision-rationale-reports
-  .cs-report-num {
-  color: rgba(74, 61, 46, 0.4);
-}
-
 @media (max-width: 640px) {
   .cs-report-grid--in-rationale {
     grid-template-columns: 1fr;
   }
 }
-
-/* Disaster recovery · understanding personas on journal canvas */
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-dr-understanding {
-  gap: clamp(56px, 8vw, 88px);
-  color: var(--ojo-ink-mid);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-dr-understanding-section {
-  gap: var(--space-4);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-dr-understanding-section--ia
-  .ojo-d-title {
-  margin-top: 0;
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-dr-ia-bullets
-  li::marker {
-  color: rgba(120, 95, 55, 0.55);
-}
-
-/* Context · overview flow on cream paper (warehouse, etc.) */
-.cs-page.cs-page--journal-omantel
-  .ojo-overview-insert
-  .cs-context-text--flow
-  .cs-context-flow-p {
-  color: var(--ojo-ink-mid);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-overview-insert
-  .cs-context-text--flow
-  .cs-context-aim {
-  color: rgba(185, 60, 46, 0.88);
-}
-
-/* Problem · understanding + constraints nested typography */
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-understanding-body,
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-understanding-body
-  p {
-  color: var(--ojo-ink-mid);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-understanding-body
-  > *
-  + * {
-  margin-top: var(--space-4);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-understanding-subsection,
-.cs-page.cs-page--journal-omantel
-  .ojo-user-flow-inner
-  .cs-understanding-subsection {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-understanding-subsection
-  .cs-context-section-title,
-.cs-page.cs-page--journal-omantel
-  .ojo-user-flow-inner
-  .cs-understanding-subsection
-  .cs-context-section-title {
-  margin-bottom: 0;
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-understanding-subsection
-  p,
-.cs-page.cs-page--journal-omantel
-  .ojo-user-flow-inner
-  .cs-understanding-subsection
-  p {
-  color: var(--ojo-ink-mid);
-  margin: 0;
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-understanding-goal-label,
-.cs-page.cs-page--journal-omantel
-  .ojo-user-flow-inner
-  .cs-understanding-goal-label {
-  font-weight: 600;
-  color: var(--ojo-ink);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-understanding-list,
-.cs-page.cs-page--journal-omantel .ojo-user-flow-inner .cs-understanding-list {
-  list-style: disc;
-  margin: 0;
-  padding-left: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  color: var(--ojo-ink-mid);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-understanding-list
-  li::marker,
-.cs-page.cs-page--journal-omantel
-  .ojo-user-flow-inner
-  .cs-understanding-list
-  li::marker {
-  color: rgba(120, 95, 55, 0.55);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-understanding-visuals {
-  margin-top: var(--space-6);
-  padding-top: var(--space-6);
-  border-top: 1px solid var(--ojo-rule);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-understanding-visual-placeholder {
-  width: 100%;
-  min-height: 120px;
-  border-radius: 2px;
-  border: 1px solid rgba(120, 95, 55, 0.18);
-  background: color-mix(in srgb, var(--ojo-cream) 88%, var(--ojo-cream-mid));
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-understanding-image-stack {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-understanding-workflows {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-understanding-workflows
-  strong {
-  display: block;
-  color: var(--ojo-ink);
-  font-weight: 600;
-  margin-bottom: 2px;
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-understanding-workflows
-  span {
-  color: var(--ojo-ink-mid);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-workflows-inline {
-  margin-top: var(--space-6);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-workflows-inline-title {
-  color: var(--ojo-ink);
-}
-
-.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-context-aim {
-  color: rgba(185, 60, 46, 0.88);
-  margin: 0;
-}
-
-/* Personas on cream paper — white cards + washi tapes */
-.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-persona-grid {
-  gap: 10px;
-  padding-top: 14px;
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-pain-points-grid {
-  gap: clamp(14px, 2.4vw, 22px);
-  padding-top: 14px;
-  margin-top: var(--space-5);
-}
-
-.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-persona-card {
-  background: #fff;
-  border-color: rgba(120, 95, 55, 0.18);
-  box-shadow:
-    0 3px 14px rgba(45, 38, 28, 0.1),
-    0 0 0 1px rgba(255, 255, 255, 0.65);
-}
-
 .cs-persona-tape {
   position: absolute;
   top: 0;
@@ -1967,20 +966,17 @@ h3.ojo-p-label {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
   pointer-events: none;
 }
-
 .cs-persona-tape--left {
   left: 14px;
   transform: translateY(-48%) rotate(-2.5deg);
   transform-origin: 18% 50%;
 }
-
 .cs-persona-tape--right {
   right: 14px;
   left: auto;
   transform: translateY(-48%) rotate(2.25deg);
   transform-origin: 82% 50%;
 }
-
 .cs-persona-tape--red {
   background: linear-gradient(165deg, #c25545 0%, #9a3a2f 100%);
   background-image:
@@ -1993,13 +989,11 @@ h3.ojo-p-label {
     ),
     linear-gradient(165deg, #c25545 0%, #9a3a2f 100%);
 }
-
 .cs-persona-tape--teal {
   background-color: rgba(45, 105, 103, 0.92);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='16'%3E%3Cellipse cx='12' cy='16' rx='12' ry='9' stroke='rgba(255,255,255,0.25)' stroke-width='1' fill='none'/%3E%3Cellipse cx='0' cy='16' rx='12' ry='9' stroke='rgba(255,255,255,0.25)' stroke-width='1' fill='none'/%3E%3Cellipse cx='24' cy='16' rx='12' ry='9' stroke='rgba(255,255,255,0.25)' stroke-width='1' fill='none'/%3E%3C/svg%3E");
   background-size: 28px 20px;
 }
-
 .cs-persona-tape--gold {
   background: linear-gradient(125deg, #c4933a 0%, #8a6618 100%);
   background-image:
@@ -2009,69 +1003,6 @@ h3.ojo-p-label {
     12px 12px,
     100% 100%;
 }
-
-.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-persona-name {
-  color: var(--ojo-ink);
-}
-
-.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-persona-age,
-.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-persona-works {
-  color: var(--ojo-ink-faded);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-persona-section-label {
-  color: rgba(185, 60, 46, 0.88);
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .ojo-d-impact-label {
-  margin-top: 12px;
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-problem-legacy-insert
-  .cs-persona-works
-  + .ojo-d-impact-label {
-  margin-top: 12px;
-}
-
-.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-persona-list {
-  color: var(--ojo-ink-mid);
-  font-style: normal;
-}
-
-.cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert .cs-persona-aside {
-  color: var(--ojo-ink-mid);
-  font-style: normal;
-  margin-top: var(--space-6);
-}
-
-/* Outcome · legacy stacked images */
-.cs-page.cs-page--journal-omantel .ojo-outcome-legacy-shell {
-  margin-top: clamp(28px, 4vw, 44px);
-  margin-inline: max(var(--fluid-gutter), 32px);
-}
-
-/* ─── Journal footer seam (washi tape straddles leather + dark footer) ─── */
-.cs-page.cs-page--journal-omantel .ojo-journal-footer-seam {
-  position: relative;
-  z-index: 6;
-  height: 0;
-  margin: 0;
-  padding: 0;
-  pointer-events: none;
-}
-
-.cs-page.cs-page--journal-omantel .ojo-journal-footer-seam .ojo-footer-tape {
-  top: 0;
-  left: clamp(24px, 8vw, 120px);
-  transform: translateY(-50%) rotate(-2deg);
-  transform-origin: 20% 50%;
-}
-
 .ojo-tape-koi {
   width: 100px;
   height: 34px;
@@ -2079,342 +1010,23 @@ h3.ojo-p-label {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='20'%3E%3Cpath d='M4 10 C8 5,13 5,15 10' stroke='rgba(255,255,255,0.25)' stroke-width='0.9' fill='none'/%3E%3C/svg%3E");
   background-size: 52px 34px;
 }
-
-/* Journal next project — inside dark case footer */
-.cs-page.cs-page--journal-omantel .cs-case-footer--journal .cs-case-footer-top {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
-  align-items: end;
-  gap: 24px 36px;
-  padding-bottom: 32px;
-}
-
-.cs-page.cs-page--journal-omantel
-  .cs-case-footer--journal
-  .cs-case-footer-inner {
-  padding-top: 36px;
-}
-
-.cs-page.cs-page--journal-omantel .ojo-journal-footer-next-link {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  text-decoration: none;
-  text-align: right;
-  justify-self: end;
-}
-
-.cs-page.cs-page--journal-omantel .ojo-journal-footer-next-dir {
-  font-family: var(--ojo-eyebrow-font, var(--font-body));
-  font-size: var(--ojo-eyebrow-size, 8px);
-  letter-spacing: var(--ojo-eyebrow-track, 0.16em);
-  font-weight: var(--ojo-eyebrow-weight, 600);
-  text-transform: uppercase;
-  color: rgba(245, 239, 228, 0.35);
-}
-
-.cs-page.cs-page--journal-omantel .ojo-journal-footer-next-title {
-  font-family: var(--font-heading);
-  font-size: clamp(1.125rem, 2vw + 0.5rem, 1.5rem);
-  font-weight: 500;
-  color: var(--parchment);
-  transition: color 0.2s ease;
-}
-
-.cs-page.cs-page--journal-omantel
-  .ojo-journal-footer-next-link:hover
-  .ojo-journal-footer-next-title {
-  color: var(--cs-footer-link-hover);
-}
-
-@media (max-width: 720px) {
-  .cs-page.cs-page--journal-omantel
-    .cs-case-footer--journal
-    .cs-case-footer-top {
-    grid-template-columns: 1fr;
-    align-items: start;
-    gap: 28px;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-journal-footer-next-link {
-    text-align: left;
-    justify-self: start;
-  }
-}
-
 .ojo-footer-spacer {
   min-height: 1px;
 }
-
-/* =====================================================================
- * Omantel journal case — mobile / tablet (append-only; 1024 / 768 / 390)
- * ===================================================================== */
-
-@media (max-width: 1024px) {
-  .cs-page.cs-page--journal-omantel .ojo-overview-section {
-    padding-left: max(24px, var(--fluid-gutter));
-    padding-right: max(24px, var(--fluid-gutter));
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-title-section {
-    padding-left: max(24px, var(--fluid-gutter));
-    padding-right: max(24px, var(--fluid-gutter));
-  }
-
-  .cs-page.cs-page--journal-omantel
-    .ojo-case-map
-    > section.cs-section
-    > .cs-section-head {
-    padding-inline: max(24px, var(--fluid-gutter));
-  }
-
-  .cs-page.cs-page--journal-omantel #outcome .ojo-noteworthy-rail-head {
-    padding-inline: max(24px, var(--fluid-gutter));
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-decision-content,
-  .cs-page.cs-page--journal-omantel .ojo-outcome-text-wrap,
-  .cs-page.cs-page--journal-omantel .ojo-user-flow-content {
-    margin-left: max(24px, var(--fluid-gutter));
-    margin-right: max(24px, var(--fluid-gutter));
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-outcome-legacy-shell {
-    margin-left: max(24px, var(--fluid-gutter));
-    margin-right: max(24px, var(--fluid-gutter));
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-problem-section {
-    padding-left: max(24px, var(--fluid-gutter));
-    padding-right: max(24px, var(--fluid-gutter));
-  }
-
-  .cs-page.cs-page--journal-omantel
-    .ojo-title-insert
-    .ojo-main-title.cs-hero-title {
-    font-size: clamp(42px, 8vw, 52px);
-  }
-}
-
-@media (max-width: 768px) {
-  .cs-page.cs-page--journal-omantel .ojo-hero {
-    min-height: min(62vh, 640px);
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-hero-stage {
-    min-height: min(62vh, 640px);
-    padding-left: clamp(10px, 3vw, 16px);
-    padding-right: clamp(10px, 3vw, 16px);
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-hero-img {
-    width: min(1200px, 100%);
-    max-height: min(720px, calc(100vw * 810 / 1440 + 32px));
-    object-fit: contain;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-tape-wave,
-  .cs-page.cs-page--journal-omantel .ojo-tape-seigaiha,
-  .cs-page.cs-page--journal-omantel .ojo-punch-holes {
-    display: none;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-title-insert {
-    padding: 40px 20px 32px var(--ojo-sheet-content-start, 64px);
-    grid-template-columns: 1fr;
-    gap: 0 0;
-  }
-
-  .cs-page.cs-page--journal-omantel
-    .ojo-title-insert
-    .ojo-main-title.cs-hero-title {
-    font-size: 38px;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-sub-title {
-    font-size: 16px;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-meta-grid {
-    border-left: none;
-    padding-left: 0;
-    border-top: 1px solid var(--ojo-rule);
-    padding-top: 20px;
-    margin-top: 20px;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 12px 24px;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-overview-section {
-    padding-left: max(16px, var(--fluid-gutter));
-    padding-right: max(16px, var(--fluid-gutter));
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-overview-insert {
-    padding: 32px 20px 32px var(--ojo-sheet-content-start, 64px);
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-overview-inner {
-    gap: var(--space-10);
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-overview-text,
-  .cs-page.cs-page--journal-omantel .ojo-overview-p {
-    font-size: 16px;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-impact-value {
-    font-size: 1.35rem;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-problem-section {
-    padding-left: max(16px, var(--fluid-gutter));
-    padding-right: max(16px, var(--fluid-gutter));
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-problem-insert {
-    padding: 32px 20px 32px var(--ojo-sheet-content-start, 64px);
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-problem-legacy-insert {
-    padding: 32px 20px 32px var(--ojo-sheet-content-start, 64px);
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-problem-text,
-  .cs-page.cs-page--journal-omantel .ojo-after-text {
-    font-size: 16px;
-  }
-
-  .cs-page.cs-page--journal-omantel
-    .ojo-case-map
-    > section.cs-section
-    > .cs-section-head {
-    padding-inline: max(16px, var(--fluid-gutter));
-  }
-
-  .cs-page.cs-page--journal-omantel #outcome .ojo-noteworthy-rail-head {
-    padding-inline: max(16px, var(--fluid-gutter));
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-decision-stage {
-    height: clamp(360px, 52vh, 420px);
-    min-height: unset;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-decision-content,
-  .cs-page.cs-page--journal-omantel .ojo-outcome-text-wrap {
-    margin-left: 16px;
-    margin-right: 16px;
-    margin-top: -8px;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-outcome-legacy-shell {
-    margin-left: 16px;
-    margin-right: 16px;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-decision-inner {
-    padding: 28px 20px 28px var(--ojo-sheet-content-start, 64px);
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-d-rule {
-    margin: 14px 0 22px;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-decision-badge {
-    font-size: clamp(48px, 16vw, 80px);
-    right: max(16px, var(--fluid-gutter));
-    top: 20px;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-d-title {
-    font-size: clamp(22px, 5.5vw, 28px);
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-d-rationale {
-    font-size: 15px;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-decision-carousel {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-user-flow-content {
-    margin-left: 16px;
-    margin-right: 16px;
-    margin-top: -8px;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-user-flow-inner {
-    padding: 32px 20px 32px var(--ojo-sheet-content-start, 64px);
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-understanding-flow-stage {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .cs-page.cs-page--journal-omantel
-    .ojo-understanding-flow-stage
-    .ojo-decision-carousel {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .cs-page.cs-page--journal-omantel
-    .ojo-understanding-flow-stage
-    .ojo-decision-carousel-slides {
-    max-height: min(52vh, 420px);
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-outcome-paper {
-    padding: 32px 20px 36px var(--ojo-sheet-content-start, 64px);
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-reflection-p {
-    font-size: 15px;
-  }
-}
-
-@media (max-width: 390px) {
-  .cs-page.cs-page--journal-omantel
-    .ojo-title-insert
-    .ojo-main-title.cs-hero-title {
-    font-size: 30px;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-decision-stage {
-    height: 320px;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-outcome-paper {
-    padding-inline: 18px;
-  }
-
-  .cs-page.cs-page--journal-omantel .ojo-impact-value {
-    font-size: 1.25rem;
-  }
-}
-
 /* Title sheet without the side meta column — headline can use the width */
 .ojo-title-insert--no-meta {
   grid-template-columns: minmax(0, 1fr);
 }
-
 .ojo-title-insert--no-meta .ojo-title-copy-wrap,
 .ojo-title-insert--no-meta .ojo-title-eyebrow {
   max-width: min(100%, 46rem);
 }
-
 /* TL;DR recruiter card */
 .ojo-tldr-list {
   margin: 0;
   display: flex;
   flex-direction: column;
 }
-
 .ojo-tldr-row {
   display: grid;
   grid-template-columns: minmax(6.5rem, 8.5rem) minmax(0, 1fr);
@@ -2422,12 +1034,10 @@ h3.ojo-p-label {
   padding: 12px 0;
   border-top: 1px solid var(--ojo-rule);
 }
-
 .ojo-tldr-row:first-child {
   border-top: none;
   padding-top: 0;
 }
-
 .ojo-tldr-label {
   margin: 0;
   font-family: var(--ojo-eyebrow-font, var(--font-body));
@@ -2439,7 +1049,6 @@ h3.ojo-p-label {
   line-height: 1.4;
   padding-top: 3px;
 }
-
 .ojo-tldr-value {
   margin: 0;
   font-family: var(--font-body);
@@ -2448,7 +1057,6 @@ h3.ojo-p-label {
   line-height: 1.45;
   color: var(--ojo-ink);
 }
-
 .ojo-tldr-prototype {
   margin: 18px 0 0;
   padding-top: 16px;
@@ -2459,7 +1067,6 @@ h3.ojo-p-label {
   line-height: 1.5;
   color: var(--ojo-ink-mid);
 }
-
 .ojo-tldr-prototype-link {
   color: inherit;
   text-underline-offset: 3px;
@@ -2471,7 +1078,6 @@ h3.ojo-p-label {
     gap: 4px;
   }
 }
-
 /* Pull quotes — hypothesis, goal, stakeholder story, iteration */
 .ojo-pull-quote {
   margin: 0 0 8px;
@@ -2484,15 +1090,12 @@ h3.ojo-p-label {
   line-height: 1.45;
   color: var(--ojo-ink);
 }
-
 .ojo-pull-quote p {
   margin: 0 0 0.75em;
 }
-
 .ojo-pull-quote p:last-child {
   margin-bottom: 0;
 }
-
 .ojo-pull-quote strong,
 .ojo-skim-list strong,
 .ojo-tldr-value strong,
@@ -2504,7 +1107,6 @@ h3.ojo-p-label {
   font-style: normal;
   color: var(--ojo-ink);
 }
-
 .ojo-beat-label {
   display: block;
   margin: 0 0 8px;
@@ -2517,7 +1119,6 @@ h3.ojo-p-label {
   color: var(--ojo-eyebrow-paper);
   line-height: 1.35;
 }
-
 .ojo-pull-quote p .ojo-beat-label {
   display: inline;
   margin: 0;
@@ -2525,11 +1126,9 @@ h3.ojo-p-label {
   letter-spacing: 0.12em;
   vertical-align: 0.05em;
 }
-
 .ojo-beat-block {
   margin-top: 22px;
 }
-
 .ojo-skim-list {
   margin: 8px 0 0;
   padding-left: 1.15rem;
@@ -2541,11 +1140,9 @@ h3.ojo-p-label {
   line-height: 1.5;
   color: var(--ojo-ink);
 }
-
 .ojo-skim-list li::marker {
   color: rgba(120, 95, 55, 0.55);
 }
-
 .ojo-collab-intro {
   margin: 0 0 16px;
   font-family: var(--font-body);
@@ -2553,7 +1150,6 @@ h3.ojo-p-label {
   line-height: 1.6;
   color: var(--ojo-ink-mid);
 }
-
 .ojo-decision-inner .ojo-pull-quote {
   margin-top: 8px;
 }

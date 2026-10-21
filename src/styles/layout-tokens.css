@@ -31,6 +31,7 @@
 
   /* Typography widths */
   --layout-copy-max: clamp(640px, 55vw, 720px);
+  --layout-prose-max: 720px;
   --layout-hero-headline-max: 630px;
   /* Figma 67:876 — hero text column */
   --layout-hero-content-max: min(62.5rem, 100%);
