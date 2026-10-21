@@ -251,6 +251,14 @@ body:has(.page-shell--no-topography) #thinking-topography {
   background: transparent;
 }
 
+/*
+ * These three rules are not a Warmth token remap. `--ojo-*` is assigned on
+ * `.cs-page.cs-page--journal-omantel` in globals.css (specificity 0,2,1),
+ * which beats `.cs-page--sheets` (0,1,0). `case-omantel-journal.css` is
+ * imported after this file and restyles the same nodes with
+ * `.cs-page.cs-page--journal-omantel …` (0,3,1). Nothing here reassigns
+ * the private palette; this pair only hides the cream grid.
+ */
 .cs-page--sheets.cs-page--journal-omantel {
   background: transparent;
 }
