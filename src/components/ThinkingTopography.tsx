@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 
@@ -36,12 +37,17 @@ export default function ThinkingTopography({
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!mounted || !enabled) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Home and case pages hide this canvas. Skip the frame loop while it is hidden.
+    if (window.getComputedStyle(canvas).visibility === "hidden") return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -284,7 +290,7 @@ export default function ThinkingTopography({
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [mounted, enabled]);
+  }, [mounted, enabled, pathname]);
 
   if (!mounted) return null;
 
@@ -294,6 +300,7 @@ export default function ThinkingTopography({
     <canvas
       id="thinking-topography"
       ref={canvasRef}
+      aria-hidden="true"
       className="pointer-events-none"
       style={{
         position: "fixed",

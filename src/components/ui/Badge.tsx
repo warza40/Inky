@@ -1,7 +1,7 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-export type BadgeVariant = "eyebrow" | "badge" | "tag";
+type BadgeVariant = "eyebrow" | "badge" | "tag";
 
 interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   variant: BadgeVariant;

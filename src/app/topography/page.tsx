@@ -34,6 +34,8 @@ export default function ThinkingTopography({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
@@ -283,7 +285,8 @@ export default function ThinkingTopography({
 
   return (
     <canvas
-      id="thinking-topography"
+      id="topography-experiment"
+      aria-hidden="true"
       ref={canvasRef}
       style={{
         position: "fixed",

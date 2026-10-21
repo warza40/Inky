@@ -1,5 +1,5 @@
 /** Figma 6:39 — Sparkle mark family (Sparkle Marks canvas 6:2). */
-export const SPARKLE_STYLES = [
+const SPARKLE_STYLES = [
   "classic",
   "elongated",
   "wide",
@@ -16,17 +16,6 @@ export const SPARKLE_STYLES = [
 
 export type SparkleStyle = (typeof SPARKLE_STYLES)[number];
 
-export const SPARKLE_ASSETS: Record<SparkleStyle, string> = {
-  classic: "/sparkles/classic.svg",
-  elongated: "/sparkles/elongated.svg",
-  wide: "/sparkles/wide.svg",
-  diamond: "/sparkles/diamond.svg",
-  compact: "/sparkles/compact.svg",
-  fine: "/sparkles/fine.svg",
-  shooting: "/sparkles/shooting.svg",
-  accent: "/sparkles/accent.svg",
-  solid: "/sparkles/solid.svg",
-  crosshatch: "/sparkles/crosshatch.svg",
-  scribble: "/sparkles/scribble.svg",
-  loose: "/sparkles/loose.svg",
-};
+export const SPARKLE_ASSETS: Record<SparkleStyle, string> = Object.fromEntries(
+  SPARKLE_STYLES.map((style) => [style, `/sparkles/${style}.svg`]),
+) as Record<SparkleStyle, string>;

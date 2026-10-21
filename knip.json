@@ -1,0 +1,14 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "ignore": [
+    "src/case-studies/another-case.ts",
+    "src/components/sheets/index.ts"
+  ],
+  "ignoreIssues": {
+    "src/components/sheets/**": ["exports", "types"],
+    "src/components/case/journal/**": ["exports", "types", "files"],
+    "src/components/case/CaseImpactPostIts.tsx": ["exports", "types"],
+    "src/case-studies/omantel.ts": ["exports", "types"]
+  },
+  "project": ["src/**/*.{ts,tsx,js,jsx}", "scripts/**/*.mjs", "*.{ts,mjs,js}"]
+}

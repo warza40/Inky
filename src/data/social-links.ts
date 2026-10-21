@@ -2,12 +2,7 @@ import type { LucideIcon } from "lucide-react";
 import { Download, Instagram, Linkedin, Mail } from "lucide-react";
 import type { ExpandingCursorPrompt } from "@/lib/expanding-cursor";
 
-export type SocialLinkId =
-  | "linkedin"
-  | "instagram"
-  | "substack"
-  | "mail"
-  | "resume";
+type SocialLinkId = "linkedin" | "instagram" | "substack" | "mail" | "resume";
 
 export interface SocialLink {
   id: SocialLinkId;
@@ -18,6 +13,7 @@ export interface SocialLink {
   cursor: ExpandingCursorPrompt;
 }
 
+/** Public resume. The Drive file returned 404 on 2026-10-21; replace this URL when a new file is published. */
 export const RESUME_URL =
   "https://drive.google.com/file/d/11pRdPZdKTFnX9Q06PUfgj922_X8luZ9K/view?usp=drivesdk";
 

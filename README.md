@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rachana Mandal — portfolio
 
-## Getting Started
+Personal design portfolio for [rachanamandal.space](https://rachanamandal.space). Next.js App Router, React, and Tailwind CSS.
 
-First, run the development server:
+## Develop
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://127.0.0.1:3000](http://127.0.0.1:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Quality checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+GitHub Actions (`.github/workflows/ci.yml`) runs these on every pull request and on pushes to `main`.
 
-## Learn More
+| Command                | What it does                                                       |
+| ---------------------- | ------------------------------------------------------------------ |
+| `npm run lint`         | ESLint (Next.js core web vitals + TypeScript)                      |
+| `npm run typecheck`    | `tsc --noEmit`                                                     |
+| `npm run knip`         | Unused files, exports, and dependencies                            |
+| `npm run format:check` | Prettier                                                           |
+| `npm run format`       | Write Prettier formatting                                          |
+| `npm run audit:deps`   | Production `npm audit` at high severity, plus a dev-only allowlist |
+| `npm run check:links`  | Internal routes, public assets, and external URLs                  |
+| `npm run build`        | Production build                                                   |
+| `npm run check:routes` | HTTP status of the main routes (needs `npm run start`)             |
+| `npm run check:a11y`   | axe WCAG 2.1 A/AA in Chromium (needs `npm run start`)              |
+| `npm run check`        | Lint, types, knip, format, audit, and links                        |
 
-To learn more about Next.js, take a look at the following resources:
+Route and accessibility checks expect the production server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run build
+npm run start -- --hostname 127.0.0.1 --port 3000
+npm run check:routes
+CHROME_PATH=/usr/bin/google-chrome npm run check:a11y
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`check:a11y` uses Playwright's Chromium unless `CHROME_PATH` points at a local Chrome. Color contrast is printed and does not fail the job, because those fixes change the palette.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`check:links` skips the network when `CHECK_LINKS_INTERNAL_ONLY=1`.

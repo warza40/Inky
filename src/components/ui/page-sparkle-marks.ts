@@ -32,7 +32,7 @@ function fromWireframe(
  * Homepage — all 15 sparkle instances from Figma 52:406 (Slide 16:9 - 2).
  * Variant resolved from each instance's main component (Sparkle 6:39).
  */
-export const HOMEPAGE_SPARKLE_MARKS: PageSparkleMark[] = [
+const HOMEPAGE_SPARKLE_MARKS: PageSparkleMark[] = [
   fromWireframe("66:1885", "scribble", -119, 1273, 522),
   fromWireframe("66:1617", "diamond", 192, 1680, 522, 768),
   fromWireframe("66:1619", "crosshatch", 499, 1620, 269),
@@ -51,7 +51,7 @@ export const HOMEPAGE_SPARKLE_MARKS: PageSparkleMark[] = [
 ];
 
 /** Case study pages — wireframe placements redistributed for long-form scroll. */
-export const CASE_STUDY_SPARKLE_MARKS: PageSparkleMark[] = [
+const CASE_STUDY_SPARKLE_MARKS: PageSparkleMark[] = [
   fromWireframe("cs:solid-nav", "solid", 424, 81, 59),
   fromWireframe("cs:crosshatch-hero", "crosshatch", 1479, 483, 269),
   fromWireframe("cs:diamond-hero", "diamond", 192, 546, 522, 768),
