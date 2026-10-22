@@ -8,6 +8,7 @@ import {
   sheetRevealVariants,
   sheetTransition,
 } from "@/components/sheets/sheet-motion";
+import { scrollRevealPresence } from "@/lib/scroll-reveal-presence";
 import { cn } from "@/lib/utils";
 
 interface SheetSectionProps {
@@ -31,6 +32,7 @@ export function SheetSection({
 }: SheetSectionProps) {
   const ref = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
+  const presence = scrollRevealPresence(reduceMotion ?? null);
   const isActive = useInView(ref, {
     margin: "-35% 0px -50% 0px",
     amount: 0.15,
@@ -46,10 +48,11 @@ export function SheetSection({
         className,
       )}
       variants={sheetRevealVariants}
-      initial={reduceMotion ? "visible" : "hidden"}
-      whileInView={reduceMotion ? undefined : "visible"}
+      initial={presence.initial}
+      animate={presence.animate}
+      whileInView={presence.whileInView}
       viewport={{ once: true, margin: "-10% 0px -6% 0px" }}
-      transition={sheetTransition}
+      transition={reduceMotion !== false ? { duration: 0 } : sheetTransition}
     >
       <SectionHeader title={title} number={number} />
       <div className={cn("sheet-section-body", bodyClassName)}>{children}</div>
