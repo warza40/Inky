@@ -333,7 +333,7 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
         id="ambiguity"
         label="Ambiguity"
         number="04"
-        title="I learned it from the people doing the work."
+        title="Ops walkthroughs showed errors starting across three disconnected tools"
       >
         <Copy text={understanding?.content ?? ""} />
         {conceptualImages.map((image) => (

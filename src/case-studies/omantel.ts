@@ -328,7 +328,8 @@ export const omantelImpactBlocks: NonNullable<
 
 export const omantelCase: CaseStudy = {
   slug: "omantel-bulk-activation",
-  title: "Helping enterprise teams submit error-free SIM batches on their own",
+  title:
+    "Designing bulk SIM activation enterprise teams can run without support",
   /** Deliberately empty: suppresses eyebrow above title and `context · company` fallback */
   heroMetaLine: "",
   heroProblemStatement:

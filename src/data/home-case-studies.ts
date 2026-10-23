@@ -26,7 +26,7 @@ export const HOME_CASE_STUDIES: HomeCaseStudy[] = [
   {
     slug: "omantel-bulk-activation",
     title:
-      "Helping enterprise teams submit error-free SIM batches on their own",
+      "Designing bulk SIM activation enterprise teams can run without support",
     caption: "Scale bulk activation so one bad row doesn't kill the batch.",
     tag: "Telecom | Work project",
     layout: "feature",
