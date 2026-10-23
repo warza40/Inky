@@ -1,4 +1,4 @@
-import { OMANTEL_BULK_HERO_SRC } from "./omantel-assets";
+import { OMANTEL_BULK_HERO_FRAME_SRC } from "./omantel-assets";
 
 export type CaseStudyWarmthTheme = "madder" | "moss" | "ochre" | "slate";
 
@@ -347,7 +347,7 @@ export const omantelCase: CaseStudy = {
   prototypeHref: "",
   nextProjectSlug: "warehouse-operations",
   heroImage: {
-    src: OMANTEL_BULK_HERO_SRC,
+    src: OMANTEL_BULK_HERO_FRAME_SRC,
     alt: "Bulk Actions landing: Change existing lines and Add new postpaid lines",
   },
   warmthTheme: "madder",

@@ -97,21 +97,40 @@ body:has(.cs-page--omantel)::before,
   min-width: 0;
 }
 
-/* Lead/M. Seven rail columns (737px at a 1280 rail), flush with the title. */
+/* Intro. 6 rail columns (628px), on the same left edge as the title. */
+.cs-page--omantel .case-study-intro-title {
+  margin-bottom: var(--space-3);
+}
+
+.cs-page--omantel .case-study-intro-row {
+  justify-items: start;
+}
+
+.cs-page--omantel .case-study-intro-main {
+  align-items: flex-start;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.cs-page--omantel .case-study-intro-pills {
+  justify-content: flex-start;
+  margin: 0;
+}
+
 .cs-page--omantel .case-study-intro-lede {
   width: 100%;
-  max-width: 737px;
+  max-width: min(100%, var(--measure-body));
   min-width: 0;
   margin-inline: 0;
   font-family: var(--font-sans) !important;
-  font-size: 42px !important;
+  font-size: 24px !important;
   font-weight: 500 !important;
   font-style: normal !important;
-  line-height: 1.2 !important;
+  line-height: 1.4 !important;
   letter-spacing: 0 !important;
   text-align: left;
   text-wrap: pretty;
-  color: var(--om-ink) !important;
+  color: #1c1c1e !important;
   font-variation-settings: normal !important;
 }
 
@@ -486,7 +505,8 @@ body:has(.cs-page--omantel)::before,
   }
 
   .cs-page--omantel .case-study-intro-lede {
-    font-size: 32px !important;
+    font-size: 20px !important;
+    line-height: 1.45 !important;
   }
 }
 
@@ -500,9 +520,8 @@ body:has(.cs-page--omantel)::before,
   }
 
   .cs-page--omantel .case-study-intro-lede {
-    font-size: 24px !important;
-    /* Full column ends on the single word "hours." 24ch keeps that word with 48–72. */
-    max-width: min(100%, 24ch);
+    font-size: 18px !important;
+    line-height: 1.5 !important;
   }
 
   .cs-page--omantel .om-card--half,
@@ -734,11 +753,12 @@ body:has(.cs-page--omantel)::before,
   }
 
   .cs-page--omantel .case-study-intro-main {
-    grid-column: 1 / span 7;
+    grid-column: 1 / -1;
   }
 
-  .cs-page--omantel .case-study-intro-lede {
-    max-width: none;
+  .cs-page--omantel .cs-case-hero-media {
+    width: 100%;
+    margin-inline: 0;
   }
 
   .cs-page--omantel .case-study-layout-content {
