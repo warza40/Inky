@@ -158,6 +158,21 @@ function MediaGroup({
   return <>{nodes}</>;
 }
 
+function StatementCard({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) {
+  return (
+    <blockquote className="om-statement">
+      <p className="om-statement-label">{label}</p>
+      <div className="om-statement-body">{children}</div>
+    </blockquote>
+  );
+}
+
 function SystemCard({
   span,
   label,
@@ -284,16 +299,13 @@ function DecisionArticle({
         ) : null}
       </div>
       {decision.iteration?.trim() ? (
-        <blockquote className="om-quote om-callout">
-          <p className="om-subhead">Iteration</p>
-          <div className="om-dense">
-            {paragraphsOf(decision.iteration).map((part, partIndex) => (
-              <p key={`${partIndex}-${part.slice(0, 16)}`}>
-                {parseBoldSpans(part)}
-              </p>
-            ))}
-          </div>
-        </blockquote>
+        <StatementCard label="Iteration">
+          {paragraphsOf(decision.iteration).map((part, partIndex) => (
+            <p key={`${partIndex}-${part.slice(0, 16)}`}>
+              {parseBoldSpans(part)}
+            </p>
+          ))}
+        </StatementCard>
       ) : null}
     </article>
   );
@@ -354,9 +366,9 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
         title="Self-service was the prerequisite for scaling B2B bulk requests"
       >
         {sections.goal ? (
-          <blockquote className="om-quote om-copy">
+          <StatementCard label="Goal">
             <p>{parseBoldSpans(sections.goal)}</p>
-          </blockquote>
+          </StatementCard>
         ) : null}
         {sections.contextFlow?.paragraphs?.length ? (
           <div className="om-copy">
@@ -444,12 +456,9 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
       >
         {hypothesis ? (
           <>
-            <blockquote className="om-quote om-copy">
-              <p>
-                <span className="om-subhead">My hypothesis: </span>
-                {parseBoldSpans(hypothesis.quote)}
-              </p>
-            </blockquote>
+            <StatementCard label="Hypothesis">
+              <p>{parseBoldSpans(hypothesis.quote)}</p>
+            </StatementCard>
             {hypothesis.signals.length > 0 ? (
               <>
                 <p className="om-subhead om-full">Success signals</p>
