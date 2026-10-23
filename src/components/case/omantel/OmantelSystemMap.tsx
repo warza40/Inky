@@ -321,7 +321,7 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
         title="Enterprise reps submit and track bulk SIM batches without Omantel staff"
       >
         {caseStudy.tldr?.length ? (
-          <dl className="om-tldr om-copy">
+          <dl className="om-tldr">
             {caseStudy.tldr.map((row) => (
               <div key={row.label} className="om-tldr-row">
                 <dt className="om-eyebrow">{row.label}</dt>
@@ -330,8 +330,14 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
             ))}
           </dl>
         ) : null}
-        <BulletList items={caseStudy.tldrNotes ?? []} />
-        <p className="om-copy om-dense" data-prototype-slot="omantel">
+        {caseStudy.tldrNotes?.length ? (
+          <ul className="om-list om-scope">
+            {caseStudy.tldrNotes.map((item) => (
+              <li key={item}>{parseBoldSpans(item)}</li>
+            ))}
+          </ul>
+        ) : null}
+        <p className="om-note" data-prototype-slot="omantel">
           {caseStudy.prototypeHref?.trim() ? (
             <a href={caseStudy.prototypeHref.trim()}>{PROTOTYPE_NDA_LINE}</a>
           ) : (

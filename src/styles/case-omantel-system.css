@@ -391,8 +391,7 @@ body:has(.cs-page--omantel)::before,
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.cs-page--omantel .om-caption,
-.cs-page--omantel [data-prototype-slot="omantel"] {
+.cs-page--omantel .om-caption {
   font-family: var(--font-sans) !important;
   font-size: 14px !important;
   font-weight: 400 !important;
@@ -405,9 +404,7 @@ body:has(.cs-page--omantel)::before,
   margin: var(--space-2) 0 0;
 }
 
-/* Body/M — meta values, the At a glance scope list, and card captions. */
-.cs-page--omantel .om-meta-value,
-.cs-page--omantel #tldr .om-list li,
+/* Card captions stay 16. At a glance meta and scope use the section body. */
 .cs-page--omantel .om-card .om-dense,
 .cs-page--omantel .om-card .om-dense li {
   font-family: var(--font-sans) !important;
@@ -809,6 +806,134 @@ body:has(.cs-page--omantel)::before,
 
   .cs-page--omantel .om-callout .om-dense {
     max-width: calc(200cqw / 3 - var(--space-component) / 3 - var(--space-4));
+  }
+}
+
+/*
+ * 01 At a glance. Five styles: eyebrow, 56 heading, 18 body, 32 card value, 16 caption.
+ * The label track is two columns of this section's grid. Values share one column.
+ */
+.cs-page--omantel #tldr .om-grid {
+  --om-cols: 4;
+  --om-gap: var(--space-3);
+  --om-label: calc(
+    2 * (100% - (var(--om-cols) - 1) * var(--om-gap)) / var(--om-cols) +
+      var(--om-gap)
+  );
+}
+
+.cs-page--omantel #tldr .sheet-section-header {
+  margin-bottom: var(--space-4);
+}
+
+.cs-page--omantel #tldr .sheet-section-number,
+.cs-page--omantel #tldr .om-eyebrow,
+.cs-page--omantel #tldr .om-stat-eyebrow {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  font-style: normal !important;
+  line-height: 1.4 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  color: var(--om-ink);
+}
+
+.cs-page--omantel #tldr .om-tldr {
+  gap: var(--space-1);
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.cs-page--omantel #tldr .om-tldr-row {
+  grid-template-columns: var(--om-label) minmax(0, 1fr);
+  column-gap: var(--space-2);
+  align-items: baseline;
+}
+
+.cs-page--omantel #tldr .om-meta-value,
+.cs-page--omantel #tldr .om-scope li {
+  font-family: var(--font-sans) !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0 !important;
+  color: #1c1c1e !important;
+}
+
+.cs-page--omantel #tldr .om-scope,
+.cs-page--omantel #tldr .om-note {
+  grid-column: 1 / -1;
+}
+
+.cs-page--omantel #tldr .om-scope {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 0 0 0 calc(var(--om-label) + var(--space-2));
+  list-style: none;
+}
+
+.cs-page--omantel #tldr .om-scope li {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.cs-page--omantel #tldr .om-scope li::before {
+  content: "";
+  position: absolute;
+  top: 0.55em;
+  left: -14px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #3f7d68;
+}
+
+.cs-page--omantel #tldr .om-note a {
+  color: inherit;
+  font: inherit;
+}
+
+.cs-page--omantel #tldr .om-note {
+  margin-top: calc(var(--space-2) - var(--space-3));
+  margin-bottom: calc(var(--space-5) - var(--space-3));
+  max-width: none;
+  font-family: var(--font-sans) !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0 !important;
+  text-align: left;
+  color: #55545a !important;
+}
+
+.cs-page--omantel #tldr .om-stat-eyebrow {
+  margin-bottom: calc(var(--space-2) - var(--space-3));
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cs-page--omantel #tldr .om-grid {
+    --om-cols: 8;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cs-page--omantel #tldr .om-grid {
+    --om-cols: 9;
+  }
+}
+
+@media (max-width: 767px) {
+  .cs-page--omantel #tldr .om-stat-grid > .om-card + .om-card {
+    margin-top: 0;
   }
 }
 
