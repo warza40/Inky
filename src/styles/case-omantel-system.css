@@ -28,10 +28,23 @@
 }
 
 .cs-page--omantel .om-copy,
+.cs-page--omantel .om-tldr,
+.cs-page--omantel .om-caption,
+.cs-page--omantel .case-study-intro-lede {
+  width: 100%;
+  max-width: var(--measure-body);
+  min-width: 0;
+}
+
+.cs-page--omantel .om-callout .om-dense {
+  width: 100%;
+  max-width: calc(var(--measure-body) - var(--space-component));
+  min-width: 0;
+}
+
+.cs-page--omantel .om-copy,
 .cs-page--omantel .om-tldr {
   grid-column: 1 / -1;
-  max-width: var(--cs-copy-max);
-  min-width: 0;
 }
 
 .cs-page--omantel .om-full,
@@ -83,14 +96,15 @@
   gap: var(--space-meta);
 }
 
-.cs-page--omantel .case-study-intro-lede,
-.cs-page--omantel .om-copy p,
-.cs-page--omantel .om-quote p,
-.cs-page--omantel .om-list li,
-.cs-page--omantel .om-quote .om-dense,
-.cs-page--omantel .om-card .om-dense {
-  max-width: var(--measure-body);
-  align-self: start;
+.cs-page--omantel .om-copy .om-subhead,
+.cs-page--omantel .om-quote .om-subhead {
+  font-family: var(--font-mono) !important;
+  font-size: var(--case-type-mono-section) !important;
+  font-weight: var(--case-type-mono-section-weight) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-mono-section-line) !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
 }
 
 .cs-page--omantel .om-list {
@@ -186,10 +200,14 @@
   color: var(--badge-ink);
 }
 
-@media (max-width: 1199px) and (min-width: 768px) {
+@media (max-width: 1023px) and (min-width: 768px) {
   .cs-page--omantel .om-card--half,
   .cs-page--omantel .om-card--third {
     grid-column: span 4;
+  }
+
+  .cs-page--omantel .om-card--third:nth-child(3 of .om-card) {
+    grid-column: 1 / -1;
   }
 }
 
@@ -201,5 +219,181 @@
 
   .cs-page--omantel .om-tldr-row {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Section tabs — mono eyebrow, Omantel only. DR/WH keep the Hanken row. */
+.cs-page--omantel .sheet-nav-tab {
+  font-family: var(--font-mono);
+  font-size: var(--case-type-eyebrow);
+  font-weight: var(--case-type-eyebrow-weight);
+  line-height: var(--case-type-eyebrow-line);
+  letter-spacing: var(--case-type-eyebrow-track);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.cs-page--omantel .sheet-nav-tab:hover,
+.cs-page--omantel .sheet-nav-tab--active {
+  color: var(--ink);
+  font-weight: var(--case-type-eyebrow-weight);
+}
+
+.cs-page--omantel .sheet-nav-tab--active {
+  border-bottom-color: var(--badge-teal);
+}
+
+/* Footer copy sits on the rail. DR/WH keep the inset. */
+.cs-page--omantel .cs-case-footer-inner {
+  width: 100%;
+  max-width: none;
+  padding-inline: 0;
+}
+
+.cs-page--omantel .cs-case-footer-copy {
+  max-width: none;
+}
+
+/*
+ * Desktop: sticky section nav in rail columns 1–3, content in 4–12.
+ * Title and hero stay on the full rail above that split.
+ * Body, captions, and half cards share the right edge of column 9
+ * (6 columns of this rail, 628px when the rail is 1280).
+ */
+@media (min-width: 1024px) {
+  .cs-page--omantel .case-study-layout-inner {
+    --om-rail: min(
+      var(--layout-content-max),
+      calc(100% - 2 * var(--layout-page-padding))
+    );
+    --om-col: calc((var(--om-rail) - 11 * var(--space-component)) / 12);
+    display: grid;
+    grid-template-columns:
+      minmax(var(--layout-page-padding), 1fr)
+      calc(3 * var(--om-col) + 2 * var(--space-component))
+      var(--space-component)
+      calc(9 * var(--om-col) + 8 * var(--space-component))
+      minmax(var(--layout-page-padding), 1fr);
+    align-items: start;
+  }
+
+  .cs-page--omantel .case-study-layout-inner > .layout-rail,
+  .cs-page--omantel .case-study-layout-main,
+  .cs-page--omantel .case-study-layout-content {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+
+  .cs-page--omantel .case-study-layout-inner > .sheet-nav-wrap {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: stretch;
+    position: static;
+    width: auto;
+    margin: 0;
+  }
+
+  .cs-page--omantel
+    .case-study-layout-inner
+    > .layout-rail:not(.sheet-nav-wrap):not(:last-child) {
+    grid-column: 2 / 5;
+    grid-row: 1;
+  }
+
+  .cs-page--omantel .case-study-layout-main {
+    grid-column: 4;
+    grid-row: 2;
+  }
+
+  .cs-page--omantel .case-study-layout-inner > .layout-rail:last-child {
+    grid-column: 2 / 5;
+    grid-row: 3;
+  }
+
+  .cs-page--omantel .sheet-nav {
+    position: sticky;
+    top: calc(
+      var(--nav-offset-top) + var(--nav-height) + var(--space-component)
+    );
+    z-index: 15;
+    border: none;
+    background: transparent;
+  }
+
+  .cs-page--omantel .sheet-nav-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    overflow: visible;
+  }
+
+  .cs-page--omantel .sheet-nav-tab {
+    min-height: 0;
+    margin: 0;
+    padding: 8px 12px;
+    border-bottom: none;
+    border-left: 2px solid transparent;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .cs-page--omantel .sheet-nav-tab--active {
+    border-left-color: var(--badge-teal);
+    border-bottom-color: transparent;
+  }
+
+  .cs-page--omantel .cs-section,
+  .cs-page--omantel .cs-hero {
+    scroll-margin-top: calc(
+      var(--nav-offset-top) + var(--nav-height) + var(--space-component)
+    );
+  }
+
+  .cs-page--omantel .cs-main {
+    scroll-padding-top: calc(
+      var(--nav-offset-top) + var(--nav-height) + var(--space-component)
+    );
+  }
+
+  .cs-page--omantel .case-study-intro-row {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--space-component);
+  }
+
+  .cs-page--omantel .case-study-intro-main {
+    grid-column: 4 / span 6;
+  }
+
+  .cs-page--omantel .case-study-layout-content {
+    container-type: inline-size;
+    container-name: om-content;
+  }
+
+  .cs-page--omantel .om-grid {
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    column-gap: var(--space-component);
+  }
+
+  .cs-page--omantel .om-card--half {
+    grid-column: span 6;
+  }
+
+  .cs-page--omantel .om-card--third {
+    grid-column: span 3;
+  }
+
+  /* 6 of the 9 content columns. Equals --measure-body (628px) at a 1280 rail. */
+  .cs-page--omantel .om-copy,
+  .cs-page--omantel .om-tldr,
+  .cs-page--omantel .om-caption {
+    max-width: calc(200cqw / 3 - var(--space-component) / 3);
+  }
+
+  .cs-page--omantel .om-callout .om-dense {
+    max-width: calc(
+      200cqw / 3 - var(--space-component) / 3 - var(--space-component)
+    );
   }
 }

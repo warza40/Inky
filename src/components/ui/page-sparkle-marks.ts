@@ -63,7 +63,7 @@ export const CASE_STUDY_SPARKLE_MARKS: PageSparkleMark[] = [
   fromWireframe("cs:crosshatch-mid", "crosshatch", -140, 3000, 220),
   fromWireframe("cs:solid-grid", "solid", 1760, 3400, 140),
   fromWireframe("cs:fine", "fine", -160, 4100, 240, 768),
-  fromWireframe("cs:wide", "wide", 1640, 4500, 240, 768),
+  fromWireframe("cs:wide", "wide", -160, 4500, 180, 768),
 ];
 
 export type PageSparkleVariant = "home" | "case-study";

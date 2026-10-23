@@ -32,8 +32,16 @@
   /* Typography widths */
   --layout-copy-max: clamp(640px, 55vw, 720px);
   --layout-prose-max: 720px;
-  /* Long-form body measure. 32em is 640px at the 20px body size (Figma 81:1137). */
-  --measure-body: 32em;
+  /*
+   * Body measure: 6 columns + 5 gutters of the 1280/12/24 grid.
+   * (1280 − 11×24) / 12 = 84.666…, then 6×84.666… + 5×24 = 628px.
+   * Uses the stable 24px component space, not the responsive gutter.
+   * Narrow viewports fill the column when 628px does not fit.
+   */
+  --measure-body: calc(
+    6 * ((var(--layout-content-max) - 11 * var(--space-component)) / 12) + 5 *
+      var(--space-component)
+  );
   --layout-hero-headline-max: 630px;
   /* Figma 67:876 — hero text column */
   --layout-hero-content-max: min(62.5rem, 100%);
