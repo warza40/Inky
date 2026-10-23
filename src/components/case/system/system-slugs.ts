@@ -2,6 +2,7 @@
 export const systemCaseSlugs = new Set<string>([
   "disaster-recovery",
   "warehouse-operations",
+  "another-case",
 ]);
 
 export function isSystemCase(slug: string): boolean {

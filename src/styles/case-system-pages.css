@@ -48,7 +48,8 @@
 }
 
 .cs-page--system .paper-content-sheet::before,
-.cs-page--system .paper-content-sheet::after {
+.cs-page--system .paper-content-sheet::after,
+.cs-page--system .cs-progress-track {
   display: none;
 }
 
