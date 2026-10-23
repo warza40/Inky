@@ -71,9 +71,11 @@ function BulletList({ items }: { items: string[] }) {
 
 type MediaFrame = "full" | "half" | "phone";
 
-function mediaFrame(src: string, alt = ""): MediaFrame {
-  const hay = `${decodeURIComponent(src)} ${alt}`.toLowerCase();
-  if (hay.includes("mobile") || hay.includes("phone")) return "phone";
+function mediaFrame(src: string): MediaFrame {
+  const name = decodeURIComponent(src.split("/").pop() ?? src).toLowerCase();
+  // Phone frames are only for portraits near 9:19.5. Current case files,
+  // including the warehouse captures described as mobile, are wide.
+  if (name.includes("portrait-phone")) return "phone";
   return "full";
 }
 
@@ -135,7 +137,7 @@ function MediaGroup({
 }) {
   const nodes: ReactNode[] = [];
   for (let index = 0; index < images.length; ) {
-    const frame = mediaFrame(images[index].src, images[index].alt);
+    const frame = mediaFrame(images[index].src);
     if (frame === "full") {
       const image = images[index];
       nodes.push(
@@ -153,10 +155,7 @@ function MediaGroup({
     }
     const group = [images[index]];
     let next = index + 1;
-    while (
-      next < images.length &&
-      mediaFrame(images[next].src, images[next].alt) === frame
-    ) {
+    while (next < images.length && mediaFrame(images[next].src) === frame) {
       group.push(images[next]);
       next += 1;
     }
