@@ -259,14 +259,61 @@ body:has(.cs-page--omantel)::before,
   grid-column: span 4;
 }
 
+/* Impact and Outcome stats. Own grid so a leftover pair can sit at half width. */
+.cs-page--omantel .om-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: var(--space-3);
+  row-gap: var(--space-3);
+  width: 100%;
+  min-width: 0;
+  align-items: stretch;
+}
+
+.cs-page--omantel .om-stat-grid > .om-card {
+  grid-column: 1 / -1;
+  height: 100%;
+  box-sizing: border-box;
+  padding: var(--space-3);
+  gap: var(--space-1);
+  justify-content: flex-start;
+}
+
+.cs-page--omantel .om-stat-eyebrow {
+  justify-self: start;
+  width: max-content;
+  max-width: 100%;
+  padding: 0;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  font-style: normal !important;
+  line-height: 1.4 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  text-align: left;
+  color: var(--om-ink);
+}
+
 .cs-page--omantel .om-stat-value {
   margin: 0;
+  min-height: 2.4em;
   font-family: var(--font-sans);
   font-size: 32px;
   font-weight: 800;
-  line-height: 1.15;
+  line-height: 1.2;
   letter-spacing: 0;
   color: #3f7d68;
+}
+
+.cs-page--omantel .om-stat-grid > .om-card .om-dense {
+  margin: 0;
+  font-family: var(--font-sans) !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0 !important;
+  color: #55545a !important;
 }
 
 .cs-page--omantel .om-media {
@@ -372,6 +419,7 @@ body:has(.cs-page--omantel)::before,
 
 /* Full-width block above a card row, so the extra 8px does not shift one card. */
 .cs-page--omantel .om-eyebrow:has(+ .om-card),
+.cs-page--omantel .om-eyebrow:has(+ .om-stat-grid),
 .cs-page--omantel .om-subhead:has(+ .om-card),
 .cs-page--omantel .om-copy:has(+ .om-card),
 .cs-page--omantel .om-list:has(+ .om-card),
@@ -412,6 +460,24 @@ body:has(.cs-page--omantel)::before,
   .cs-page--omantel .om-card--third:nth-child(3 of .om-card) {
     grid-column: 1 / -1;
   }
+
+  .cs-page--omantel .om-stat-value {
+    font-size: 28px;
+  }
+
+  .cs-page--omantel .om-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cs-page--omantel .om-stat-grid > .om-card {
+    grid-column: auto;
+  }
+
+  .cs-page--omantel
+    .om-stat-grid:has(> .om-card:last-child:nth-child(odd))
+    > .om-card:last-child {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 1023px) {
@@ -427,6 +493,10 @@ body:has(.cs-page--omantel)::before,
 @media (max-width: 767px) {
   .cs-page--omantel {
     --cs-section-gap: var(--space-6);
+  }
+
+  .cs-page--omantel .om-stat-value {
+    font-size: 24px;
   }
 
   .cs-page--omantel .case-study-intro-lede {
@@ -472,6 +542,7 @@ body:has(.cs-page--omantel)::before,
   }
 
   .cs-page--omantel .om-eyebrow:has(+ .om-card),
+  .cs-page--omantel .om-eyebrow:has(+ .om-stat-grid),
   .cs-page--omantel .om-subhead:has(+ .om-card),
   .cs-page--omantel .om-copy:has(+ .om-card),
   .cs-page--omantel .om-list:has(+ .om-card),
@@ -686,6 +757,27 @@ body:has(.cs-page--omantel)::before,
 
   .cs-page--omantel .om-card--third {
     grid-column: span 3;
+  }
+
+  .cs-page--omantel .om-stat-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .cs-page--omantel .om-stat-grid > .om-card {
+    grid-column: span 2;
+  }
+
+  /* Five stats: three across, then the leftover pair at half width. */
+  .cs-page--omantel
+    .om-stat-grid:has(> .om-card:last-child:nth-child(3n + 2))
+    > .om-card:nth-last-child(-n + 2) {
+    grid-column: span 3;
+  }
+
+  .cs-page--omantel
+    .om-stat-grid:has(> .om-card:last-child:nth-child(3n + 1))
+    > .om-card:last-child {
+    grid-column: 1 / -1;
   }
 
   /* 6 of the 9 content columns. Equals --measure-body (628px) at a 1280 rail. */

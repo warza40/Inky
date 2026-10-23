@@ -208,15 +208,19 @@ function ImpactStats({
   if (!blocks.length) return null;
   return (
     <>
-      {showEyebrow ? <h3 className="om-eyebrow om-full">Impact</h3> : null}
-      {blocks.map((block) => (
-        <SystemCard key={block.value} span="third">
-          <p className="om-stat-value">{block.value}</p>
-          {block.metaDetail ? (
-            <p className="om-dense">{block.metaDetail}</p>
-          ) : null}
-        </SystemCard>
-      ))}
+      {showEyebrow ? (
+        <h3 className="om-eyebrow om-stat-eyebrow om-full">Impact</h3>
+      ) : null}
+      <div className="om-stat-grid om-full">
+        {blocks.map((block) => (
+          <article key={block.value} className="om-card om-card--stat">
+            <p className="om-stat-value">{block.value}</p>
+            {block.metaDetail ? (
+              <p className="om-dense">{block.metaDetail}</p>
+            ) : null}
+          </article>
+        ))}
+      </div>
     </>
   );
 }
