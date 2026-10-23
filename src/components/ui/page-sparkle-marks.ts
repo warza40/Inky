@@ -66,10 +66,18 @@ export const CASE_STUDY_SPARKLE_MARKS: PageSparkleMark[] = [
   fromWireframe("cs:wide", "wide", -160, 4500, 180, 768),
 ];
 
-export type PageSparkleVariant = "home" | "case-study";
+/** Omantel only. Three solid marks; CSS pins them to 96px in the page margins. */
+export const OMANTEL_SPARKLE_MARKS: PageSparkleMark[] = [
+  fromWireframe("om:solid-1", "solid", 24, 400, 96),
+  fromWireframe("om:solid-2", "solid", 1800, 2200, 96),
+  fromWireframe("om:solid-3", "solid", 24, 4200, 96),
+];
+
+export type PageSparkleVariant = "home" | "case-study" | "omantel";
 
 export const PAGE_SPARKLE_MARKS: Record<PageSparkleVariant, PageSparkleMark[]> =
   {
     home: HOMEPAGE_SPARKLE_MARKS,
     "case-study": CASE_STUDY_SPARKLE_MARKS,
+    omantel: OMANTEL_SPARKLE_MARKS,
   };

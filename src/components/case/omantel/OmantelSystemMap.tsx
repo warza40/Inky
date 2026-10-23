@@ -45,25 +45,60 @@ function BulletList({ items }: { items: string[] }) {
   );
 }
 
+type MediaFrame = "full" | "half" | "phone";
+
+/**
+ * Natural width/height from the files in public/Omantel assets.
+ * Phone frames are only for portraits near 9:19.5. The mobile captures
+ * are wide composites (about 1.4 and 1.78), so they stay full-width.
+ */
+const IMAGE_RATIOS: Record<string, number> = {
+  "om mobile 1.gif": 1009 / 713,
+  "om-mobile.png": 3840 / 2160,
+  "noteworthy 1.png": 2154 / 1140,
+  "noteworthy 2.png": 1520 / 1346,
+};
+
+function mediaFrame(src: string): MediaFrame {
+  const name = decodeURIComponent(src.split("/").pop() ?? src).toLowerCase();
+  if (name.includes("noteworthy 1") || name.includes("noteworthy 2")) {
+    return "half";
+  }
+  const ratio = IMAGE_RATIOS[name];
+  if (ratio !== undefined && ratio < 0.75) return "phone";
+  return "full";
+}
+
 function MediaFigure({
   src,
   alt,
   caption,
+  frame = "full",
 }: {
   src: string;
   alt: string;
   caption?: string;
+  frame?: MediaFrame;
 }) {
   const gif = src.toLowerCase().includes(".gif");
+  const framed = frame !== "full";
   return (
-    <figure className="om-media om-full">
+    <figure
+      className={framed ? `om-media om-media--${frame}` : "om-media om-full"}
+    >
       <div className="om-media-frame">
         <Image
           src={src}
           alt={alt}
           width={1600}
           height={1000}
-          sizes="(max-width: 767px) 100vw, 1280px"
+          sizes={
+            frame === "phone"
+              ? "(max-width: 767px) 100vw, 320px"
+              : frame === "half"
+                ? "(max-width: 767px) 100vw, 640px"
+                : "(max-width: 767px) 100vw, 960px"
+          }
           className="om-media-img"
           unoptimized={gif}
         />
@@ -73,6 +108,54 @@ function MediaFigure({
       ) : null}
     </figure>
   );
+}
+
+function MediaGroup({
+  images,
+}: {
+  images: Array<{ src: string; alt?: string; caption?: string }>;
+}) {
+  const nodes: ReactNode[] = [];
+  for (let index = 0; index < images.length; ) {
+    const frame = mediaFrame(images[index].src);
+    if (frame === "full") {
+      const image = images[index];
+      nodes.push(
+        <MediaFigure
+          key={image.src}
+          src={image.src}
+          alt={image.alt ?? ""}
+          caption={image.caption}
+        />,
+      );
+      index += 1;
+      continue;
+    }
+    const group = [images[index]];
+    let next = index + 1;
+    while (next < images.length && mediaFrame(images[next].src) === frame) {
+      group.push(images[next]);
+      next += 1;
+    }
+    nodes.push(
+      <div
+        key={group[0].src}
+        className={`om-media-row om-media-row--${frame} om-full`}
+      >
+        {group.map((image) => (
+          <MediaFigure
+            key={image.src}
+            src={image.src}
+            alt={image.alt ?? ""}
+            caption={image.caption}
+            frame={frame}
+          />
+        ))}
+      </div>,
+    );
+    index = next;
+  }
+  return <>{nodes}</>;
 }
 
 function SystemCard({
@@ -160,14 +243,7 @@ function DecisionArticle({
       </p>
       <h3 className="om-decision-title">{decision.title}</h3>
       {decision.description ? <Copy text={decision.description} /> : null}
-      {images.map((image) => (
-        <MediaFigure
-          key={image.src}
-          src={image.src}
-          alt={image.alt}
-          caption={image.caption}
-        />
-      ))}
+      <MediaGroup images={images} />
       <div className="om-grid layout-grid om-full">
         {decision.rationale?.trim() ? (
           <SystemCard span="half" label={rationaleLabel}>
@@ -336,29 +412,18 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
         title="Ops walkthroughs showed errors starting across three disconnected tools"
       >
         <Copy text={understanding?.content ?? ""} />
-        {conceptualImages.map((image) => (
-          <MediaFigure
-            key={image.src}
-            src={image.src}
-            alt={image.alt ?? ""}
-            caption={image.caption}
-          />
-        ))}
+        <MediaGroup images={conceptualImages} />
         {understanding?.afterDivider?.title ? (
           <h3 className="om-subhead om-full">
             {understanding.afterDivider.title}
           </h3>
         ) : null}
-        {flowImages.map((image) =>
-          image.src ? (
-            <MediaFigure
-              key={image.src}
-              src={image.src}
-              alt={image.alt ?? ""}
-              caption={image.caption}
-            />
-          ) : null,
-        )}
+        <MediaGroup
+          images={flowImages.filter(
+            (image): image is { src: string; alt?: string; caption?: string } =>
+              Boolean(image.src),
+          )}
+        />
       </StorySection>
 
       <StorySection
@@ -407,14 +472,7 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
         title="Confirmation moved from 48–72 hours to immediate"
       >
         <ImpactStats blocks={impact} />
-        {(sections.outcomeImages ?? []).map((image) => (
-          <MediaFigure
-            key={image.src}
-            src={image.src}
-            alt={image.alt}
-            caption={image.caption}
-          />
-        ))}
+        <MediaGroup images={sections.outcomeImages ?? []} />
       </StorySection>
 
       <StorySection

@@ -186,6 +186,7 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
         header={siteHeader}
         hero={heroBlock}
         footer={footerBlock}
+        sparkleMarks={isOmantel ? "omantel" : "case-study"}
       >
         {children}
       </CaseStudyLayout>
