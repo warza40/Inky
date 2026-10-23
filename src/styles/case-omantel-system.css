@@ -83,8 +83,14 @@
   gap: var(--space-meta);
 }
 
-.cs-page--omantel .om-callout .om-dense {
-  max-width: var(--cs-copy-max);
+.cs-page--omantel .case-study-intro-lede,
+.cs-page--omantel .om-copy p,
+.cs-page--omantel .om-quote p,
+.cs-page--omantel .om-list li,
+.cs-page--omantel .om-quote .om-dense,
+.cs-page--omantel .om-card .om-dense {
+  max-width: var(--measure-body);
+  align-self: start;
 }
 
 .cs-page--omantel .om-list {

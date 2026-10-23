@@ -32,6 +32,8 @@
   /* Typography widths */
   --layout-copy-max: clamp(640px, 55vw, 720px);
   --layout-prose-max: 720px;
+  /* Long-form body measure. 32em is 640px at the 20px body size (Figma 81:1137). */
+  --measure-body: 32em;
   --layout-hero-headline-max: 630px;
   /* Figma 67:876 — hero text column */
   --layout-hero-content-max: min(62.5rem, 100%);
