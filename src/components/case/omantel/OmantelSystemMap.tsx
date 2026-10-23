@@ -238,7 +238,7 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
         id="tldr"
         label="At a glance"
         number="01"
-        title="A clean batch, with no staff in the loop."
+        title="Enterprise reps submit and track bulk SIM batches without Omantel staff"
       >
         {caseStudy.tldr?.length ? (
           <dl className="om-tldr om-copy">
@@ -265,7 +265,7 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
         id="context"
         label="Goal"
         number="02"
-        title="Staff out of the loop."
+        title="Self-service was the prerequisite for scaling B2B bulk requests"
       >
         {sections.goal ? (
           <blockquote className="om-quote om-copy">
@@ -285,7 +285,7 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
         id="problem"
         label="Problem"
         number="03"
-        title="One bad row restarted the batch."
+        title="Errors surfaced only after submission, forcing full-batch restarts"
       >
         {sections.outcomeBeforeAfter ? (
           <>
@@ -315,7 +315,7 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
         ) : null}
         {understanding?.painPointGroups?.length ? (
           <>
-            <h3 className="om-eyebrow om-full">Two sets of pain</h3>
+            <h3 className="om-eyebrow om-full">Pain points on both sides</h3>
             {understanding.painPointGroups.map((group) => (
               <SystemCard key={group.title} span="half" title={group.title}>
                 <ul className="om-list om-dense">
@@ -365,7 +365,7 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
         id="hypothesis"
         label="Hypothesis"
         number="05"
-        title="Catch the error at entry, and the batch doesn't restart."
+        title="Validating at entry would prevent full-batch restarts"
       >
         {hypothesis ? (
           <>
@@ -377,7 +377,7 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
             </blockquote>
             {hypothesis.signals.length > 0 ? (
               <>
-                <p className="om-subhead om-full">How we’d know it worked</p>
+                <p className="om-subhead om-full">Success signals</p>
                 <BulletList items={hypothesis.signals} />
               </>
             ) : null}
@@ -389,7 +389,7 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
         id="decisions"
         label="Decisions"
         number="06"
-        title="Five calls that let reps submit without staff."
+        title="Five decisions that enabled unassisted submission"
       >
         {sections.decisions.map((decision, index) => (
           <DecisionArticle
@@ -404,7 +404,7 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
         id="outcome"
         label="Outcome"
         number="07"
-        title="48–72 hours became immediate."
+        title="Confirmation moved from 48–72 hours to immediate"
       >
         <ImpactStats blocks={impact} />
         {(sections.outcomeImages ?? []).map((image) => (
@@ -421,31 +421,31 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
         id="collaboration"
         label="Collaboration"
         number="08"
-        title="He thought experts didn't need templates."
+        title="Aligning a key stakeholder on guardrails for expert users"
       >
         {collaboration?.intro ? <Copy text={collaboration.intro} /> : null}
-        {collaboration ? (
-          <blockquote className="om-quote om-copy">
-            {paragraphsOf(collaboration.quote).map((part, index) => (
-              <p key={`${index}-${part.slice(0, 24)}`}>
-                {parseBoldSpans(part)}
-              </p>
+        {collaboration?.points?.length ? (
+          <div className="om-stakeholder om-copy">
+            {collaboration.points.map((point) => (
+              <div key={point.label} className="om-stakeholder-row">
+                <p className="om-stakeholder-label">{point.label}</p>
+                <p>{point.text}</p>
+              </div>
             ))}
-          </blockquote>
+          </div>
         ) : null}
-        <BulletList items={collaboration?.bullets ?? []} />
       </StorySection>
 
       <StorySection
         id="learnings"
         label="Learnings"
         number="09"
-        title="Experts make mistakes too."
+        title="Expertise does not remove the need for guardrails"
       >
         <BulletList items={learnings?.learned ?? []} />
         {learnings?.moreTime?.length ? (
           <div className="om-copy">
-            <p className="om-subhead">With more time I’d…</p>
+            <p className="om-subhead">With more time, I would:</p>
             <BulletList items={learnings.moreTime} />
           </div>
         ) : null}

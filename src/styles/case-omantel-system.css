@@ -112,6 +112,16 @@
   padding-left: var(--space-component);
 }
 
+.cs-page--omantel .om-stakeholder-row {
+  display: grid;
+  gap: var(--space-tight);
+}
+
+.cs-page--omantel .om-copy .om-stakeholder-label {
+  margin: 0;
+  font-weight: var(--weight-bold) !important;
+}
+
 .cs-page--omantel .om-tldr {
   display: flex;
   flex-direction: column;
@@ -219,6 +229,10 @@
 
   .cs-page--omantel .om-tldr-row {
     grid-template-columns: 1fr;
+  }
+
+  .cs-page--omantel .om-stakeholder-row {
+    gap: 4px;
   }
 }
 
