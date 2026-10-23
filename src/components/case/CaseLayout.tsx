@@ -6,6 +6,7 @@ import { CaseStudyDirection } from "./CaseStudyDirection";
 import { CaseHeroMedia } from "./CaseHeroMedia";
 import { CaseStudyLayout } from "@/components/sheets/CaseStudyLayout";
 import { FloatingNav } from "@/components/layout/FloatingNav";
+import { isSystemCase } from "@/components/case/system/system-slugs";
 
 interface CaseLayoutProps {
   children: React.ReactNode;
@@ -100,9 +101,11 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
   const sections = caseStudy ? buildCaseNavSections(caseStudy) : [];
   const hero = caseStudy ? heroCopyFromCaseStudy(caseStudy) : {};
   const isOmantel = caseStudy?.slug === "omantel-bulk-activation";
+  const systemCase = caseStudy ? isSystemCase(caseStudy.slug) : false;
   const themeClassName = [
     caseStudy?.warmthTheme ? `cs-theme-${caseStudy.warmthTheme}` : "",
     isOmantel ? "cs-page--omantel" : "",
+    systemCase ? "cs-page--system" : "",
   ]
     .filter(Boolean)
     .join(" ");
@@ -133,8 +136,18 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
                   ))}
                 </ul>
               ) : null}
+              {systemCase && facts.length > 0 ? (
+                <dl className="sys-facts">
+                  {facts.map((fact) => (
+                    <div key={fact.label}>
+                      <dt>{fact.label}</dt>
+                      <dd>{fact.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              ) : null}
             </div>
-            {!isOmantel && facts.length > 0 ? (
+            {!isOmantel && !systemCase && facts.length > 0 ? (
               <dl className="case-study-intro-facts">
                 {facts.map((fact) => (
                   <div key={fact.label} className="case-study-intro-fact">
@@ -179,7 +192,7 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
         header={siteHeader}
         hero={heroBlock}
         footer={footerBlock}
-        sparkleMarks={isOmantel ? "omantel" : "case-study"}
+        sparkleMarks={isOmantel || systemCase ? "omantel" : "case-study"}
       >
         {children}
       </CaseStudyLayout>
