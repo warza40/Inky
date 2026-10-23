@@ -74,6 +74,8 @@ export function DisasterRecoveryUnderstanding({
                     src={img.src}
                     alt={img.alt ?? "IA or user flow visual"}
                     caption={img.caption}
+                    width={img.width}
+                    height={img.height}
                     intrinsic
                     lightbox
                   />

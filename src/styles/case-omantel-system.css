@@ -1,0 +1,1011 @@
+/* Omantel on the shared sheet rail. One section pattern, one card, one media frame. */
+
+/*
+ * Page-scoped spacing scale. :root already uses --space-1..8 as a 4px rem
+ * scale, so these values live on the Omantel page only.
+ * 8, 16, 24, 32, 48, 64, 96, 128.
+ */
+.cs-page--omantel {
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  --space-7: 96px;
+  --space-8: 128px;
+  --om-ink: #14141a;
+  --om-grey: #636370;
+  --om-paper: #f8f7f4;
+  --om-paper-deep: #f0efea;
+  --om-line: #b8bcc0;
+  --ink: var(--om-ink);
+  --ink-soft: var(--om-grey);
+  /* Figma type, pinned so the shared case scale cannot step body to 18. */
+  --case-type-body: 20px;
+  --case-type-body-line: 1.6;
+  --case-type-body-lg: 20px;
+  --case-type-body-lg-line: 1.6;
+  --case-type-body-dense: 16px;
+  --case-type-body-dense-line: 1.5;
+  --case-type-card-sm: 24px;
+  --case-type-card-line: 1.2;
+  --case-type-card-weight: 800;
+  --paper-sheet: var(--om-paper);
+  --cs-content-paper: var(--om-paper);
+  --cs-section-gap: var(--space-8);
+}
+
+/* Plain paper. The dot grid and body grain stay on every other page. */
+body:has(.cs-page--omantel) {
+  background-color: var(--om-paper, #f8f7f4);
+  background-image: none;
+}
+
+body:has(.cs-page--omantel)::before,
+.cs-page--omantel::before {
+  content: none;
+}
+
+/* Homepage tiles keep their shadow. This only wins if one is inside Omantel. */
+.cs-page--omantel .sheet-card--tile:hover {
+  box-shadow: none;
+}
+
+/* Nav padding stays on the old scale; the new tokens would otherwise inflate it. */
+.cs-page--omantel .sheet-nav-row {
+  gap: 8px;
+}
+
+.cs-page--omantel .sheet-nav-tab {
+  padding: 12px 16px;
+}
+
+.cs-page--omantel .sheet-section.paper-elevated-sheet,
+.cs-page--omantel .sheet-section.paper-elevated-sheet:hover,
+.cs-page--omantel
+  .sheet-section.paper-elevated-sheet.paper-elevated-sheet--active {
+  background: var(--cs-content-paper, #f8f7f4);
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.cs-page--omantel .sheet-section.paper-elevated-sheet::before,
+.cs-page--omantel .sheet-section.paper-elevated-sheet::after {
+  display: none;
+}
+
+.cs-page--omantel .sheet-section-header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-tight);
+  border-bottom: none;
+}
+
+.cs-page--omantel .om-grid {
+  column-gap: var(--space-3);
+  row-gap: var(--space-3);
+  width: 100%;
+}
+
+.cs-page--omantel .om-copy,
+.cs-page--omantel .om-tldr,
+.cs-page--omantel .om-caption {
+  width: 100%;
+  max-width: var(--measure-body);
+  min-width: 0;
+}
+
+/* Intro. 6 rail columns (628px), on the same left edge as the title. */
+.cs-page--omantel .case-study-intro-title {
+  margin-bottom: var(--space-3);
+}
+
+.cs-page--omantel .case-study-intro-row {
+  justify-items: start;
+}
+
+.cs-page--omantel .case-study-intro-main {
+  align-items: flex-start;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.cs-page--omantel .case-study-intro-pills {
+  justify-content: flex-start;
+  margin: 0;
+}
+
+.cs-page--omantel .case-study-intro-lede {
+  width: 100%;
+  max-width: min(100%, var(--measure-body));
+  min-width: 0;
+  margin-inline: 0;
+  font-family: var(--font-sans) !important;
+  font-size: 24px !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0 !important;
+  text-align: left;
+  text-wrap: pretty;
+  color: #1c1c1e !important;
+  font-variation-settings: normal !important;
+}
+
+.cs-page--omantel .om-copy,
+.cs-page--omantel .om-tldr {
+  grid-column: 1 / -1;
+}
+
+.cs-page--omantel .om-full,
+.cs-page--omantel .om-decision {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.cs-page--omantel .om-copy,
+.cs-page--omantel .om-dense {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-control);
+}
+
+.cs-page--omantel .om-decision {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.cs-page--omantel .om-copy p,
+.cs-page--omantel .om-dense p,
+.cs-page--omantel .om-statement,
+.cs-page--omantel .om-statement p {
+  margin: 0;
+}
+
+.cs-page--omantel .om-subhead,
+.cs-page--omantel .om-eyebrow {
+  margin: 0;
+}
+
+/* Statement cards. 7 content columns on desktop, full width below. */
+.cs-page--omantel .om-statement {
+  grid-column: 1 / -1;
+  align-self: start;
+  justify-self: start;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: var(--space-4);
+  background: var(--om-paper-deep);
+  border: 2px solid var(--om-ink);
+  border-radius: 24px;
+  box-shadow: 4px 4px 0 var(--om-ink);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.cs-page--omantel .om-statement-label {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #3f7d68;
+}
+
+.cs-page--omantel .om-statement-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.cs-page--omantel .om-statement-body,
+.cs-page--omantel .om-statement-body p {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: var(--weight-body);
+  font-style: normal;
+  line-height: 1.6;
+  letter-spacing: 0;
+  color: var(--om-ink);
+}
+
+/* Title/Card/S. Card labels stay Mono/Eyebrow. */
+.cs-page--omantel .om-subhead,
+.cs-page--omantel .om-copy > .om-subhead,
+.cs-page--omantel .om-decision-title,
+.cs-page--omantel .om-pain-title {
+  font-family: var(--font-sans) !important;
+  font-size: 24px !important;
+  font-weight: 800 !important;
+  font-style: normal !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: var(--om-ink);
+  font-variation-settings: normal !important;
+}
+
+.cs-page--omantel .om-card > .om-subhead,
+.cs-page--omantel .om-copy .om-stakeholder-label {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  font-style: normal !important;
+  line-height: 1.4 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  color: var(--om-ink);
+}
+
+.cs-page--omantel .om-list {
+  margin: 0;
+  padding-left: var(--space-component);
+}
+
+.cs-page--omantel .om-stakeholder-row {
+  display: grid;
+  gap: var(--space-tight);
+}
+
+.cs-page--omantel .om-copy .om-stakeholder-label {
+  margin: 0;
+}
+
+.cs-page--omantel .om-tldr {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-meta);
+  margin: 0;
+}
+
+.cs-page--omantel .om-tldr-row {
+  display: grid;
+  grid-template-columns: minmax(6rem, 8rem) minmax(0, 1fr);
+  gap: var(--space-tight);
+  align-items: baseline;
+}
+
+.cs-page--omantel .om-tldr-row dt,
+.cs-page--omantel .om-tldr-row dd {
+  margin: 0;
+}
+
+.cs-page--omantel .om-card {
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-4);
+  background: var(--om-paper);
+  border: 2px solid var(--om-ink);
+  border-radius: 24px;
+  box-shadow: 4px 4px 0 var(--om-ink);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-meta);
+}
+
+.cs-page--omantel .om-card--half {
+  grid-column: span 6;
+}
+
+.cs-page--omantel .om-card--third {
+  grid-column: span 4;
+}
+
+/* Impact and Outcome stats. Own grid so a leftover pair can sit at half width. */
+.cs-page--omantel .om-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: var(--space-3);
+  row-gap: var(--space-3);
+  width: 100%;
+  min-width: 0;
+  align-items: stretch;
+}
+
+.cs-page--omantel .om-stat-grid > .om-card {
+  grid-column: 1 / -1;
+  height: 100%;
+  box-sizing: border-box;
+  padding: var(--space-3);
+  gap: var(--space-1);
+  justify-content: flex-start;
+}
+
+.cs-page--omantel .om-stat-eyebrow {
+  justify-self: start;
+  width: max-content;
+  max-width: 100%;
+  padding: 0;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  font-style: normal !important;
+  line-height: 1.4 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  text-align: left;
+  color: var(--om-ink);
+}
+
+.cs-page--omantel .om-stat-value {
+  margin: 0;
+  min-height: 2.4em;
+  font-family: var(--font-sans);
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: #3f7d68;
+}
+
+.cs-page--omantel .om-stat-grid > .om-card .om-dense {
+  margin: 0;
+  font-family: var(--font-sans) !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0 !important;
+  color: #55545a !important;
+}
+
+.cs-page--omantel .om-media {
+  margin: 0;
+  min-width: 0;
+}
+
+.cs-page--omantel .om-media-frame,
+.cs-page--omantel .cs-case-hero-media {
+  box-sizing: border-box;
+  margin-top: 0;
+  padding: var(--space-4);
+  overflow: hidden;
+  border: 1px solid var(--om-line);
+  border-radius: 16px;
+  background: var(--om-paper-deep);
+  box-shadow: none;
+  aspect-ratio: auto;
+}
+
+.cs-page--omantel .om-media.om-full .om-media-img,
+.cs-page--omantel .cs-case-hero-media-img {
+  aspect-ratio: 16 / 9;
+}
+
+.cs-page--omantel .om-media--half .om-media-img {
+  aspect-ratio: 4 / 3;
+}
+
+.cs-page--omantel .om-media--phone .om-media-img {
+  aspect-ratio: 9 / 19.5;
+}
+
+.cs-page--omantel .om-media-img,
+.cs-page--omantel .cs-case-hero-media-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: var(--om-paper-deep);
+}
+
+.cs-page--omantel .om-media-row {
+  display: grid;
+  gap: var(--cs-stack-gap);
+  min-width: 0;
+}
+
+.cs-page--omantel .om-media-row--half {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.cs-page--omantel .om-media-row--phone {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.cs-page--omantel .om-caption {
+  font-family: var(--font-sans) !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0 !important;
+  color: var(--om-grey) !important;
+}
+
+.cs-page--omantel .om-caption {
+  margin: var(--space-2) 0 0;
+}
+
+/* Card captions stay 16. At a glance meta and scope use the section body. */
+.cs-page--omantel .om-card .om-dense,
+.cs-page--omantel .om-card .om-dense li {
+  font-family: var(--font-sans) !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0 !important;
+  color: var(--om-ink) !important;
+}
+
+/*
+ * Card spacing, on the 8px scale. Grid row and column gap stay 24.
+ * Adjacent text is 32 (8 more than the 24px stack). A card group to the
+ * next subheading or decision is 48. Inner padding is 32.
+ */
+.cs-page--omantel .om-card + .om-eyebrow,
+.cs-page--omantel .om-card + .om-subhead,
+.cs-page--omantel .om-decision + .om-decision {
+  margin-top: calc(var(--space-5) - var(--space-3));
+}
+
+.cs-page--omantel .om-media + .om-eyebrow,
+.cs-page--omantel .om-media + .om-subhead,
+.cs-page--omantel .om-media-row + .om-eyebrow,
+.cs-page--omantel .om-media-row + .om-subhead {
+  margin-top: calc(var(--space-5) - var(--space-3));
+}
+
+/* Full-width block above a card row, so the extra 8px does not shift one card. */
+.cs-page--omantel .om-eyebrow:has(+ .om-card),
+.cs-page--omantel .om-eyebrow:has(+ .om-stat-grid),
+.cs-page--omantel .om-subhead:has(+ .om-card),
+.cs-page--omantel .om-copy:has(+ .om-card),
+.cs-page--omantel .om-list:has(+ .om-card),
+.cs-page--omantel .om-tldr:has(+ .om-card) {
+  margin-bottom: calc(var(--space-4) - var(--space-3));
+}
+
+.cs-page--omantel .om-card + .om-copy,
+.cs-page--omantel .om-card + .om-list,
+.cs-page--omantel .om-decision > .om-copy + .om-grid,
+.cs-page--omantel .om-decision > .om-decision-title + .om-grid,
+.cs-page--omantel .om-decision > .om-eyebrow + .om-grid,
+.cs-page--omantel .om-decision > .om-statement {
+  margin-top: calc(var(--space-4) - var(--space-3));
+}
+
+.cs-page--omantel #decisions .om-decision:last-child {
+  margin-bottom: 0;
+}
+
+.cs-page--omantel .om-decision .om-copy,
+.cs-page--omantel .om-decision .om-media,
+.cs-page--omantel .om-decision .layout-grid {
+  margin: 0;
+}
+
+.cs-page--omantel .sheet-section-title,
+.cs-page--omantel .om-copy {
+  color: var(--om-ink);
+}
+
+@media (max-width: 1023px) and (min-width: 768px) {
+  .cs-page--omantel .om-card--half,
+  .cs-page--omantel .om-card--third {
+    grid-column: span 4;
+  }
+
+  .cs-page--omantel .om-card--third:nth-child(3 of .om-card) {
+    grid-column: 1 / -1;
+  }
+
+  .cs-page--omantel .om-stat-value {
+    font-size: 28px;
+  }
+
+  .cs-page--omantel .om-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cs-page--omantel .om-stat-grid > .om-card {
+    grid-column: auto;
+  }
+
+  .cs-page--omantel
+    .om-stat-grid:has(> .om-card:last-child:nth-child(odd))
+    > .om-card:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 1023px) {
+  .cs-page--omantel {
+    --cs-section-gap: var(--space-7);
+  }
+
+  .cs-page--omantel .case-study-intro-lede {
+    font-size: 20px !important;
+    line-height: 1.45 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .cs-page--omantel {
+    --cs-section-gap: var(--space-6);
+  }
+
+  .cs-page--omantel .om-stat-value {
+    font-size: 24px;
+  }
+
+  .cs-page--omantel .case-study-intro-lede {
+    font-size: 18px !important;
+    line-height: 1.5 !important;
+  }
+
+  .cs-page--omantel .om-statement {
+    padding: var(--space-3);
+  }
+
+  .cs-page--omantel .om-card--half,
+  .cs-page--omantel .om-card--third {
+    grid-column: 1 / -1;
+  }
+
+  .cs-page--omantel .om-tldr-row {
+    grid-template-columns: 1fr;
+  }
+
+  .cs-page--omantel .om-stakeholder-row {
+    gap: 4px;
+  }
+
+  .cs-page--omantel .om-media-frame,
+  .cs-page--omantel .cs-case-hero-media {
+    padding: var(--space-2);
+  }
+
+  .cs-page--omantel .om-media-row--half,
+  .cs-page--omantel .om-media-row--phone {
+    grid-template-columns: 1fr;
+  }
+
+  .cs-page--omantel .om-media + .om-eyebrow,
+  .cs-page--omantel .om-media + .om-subhead,
+  .cs-page--omantel .om-media-row + .om-eyebrow,
+  .cs-page--omantel .om-media-row + .om-subhead {
+    margin-top: calc(var(--space-4) - var(--space-3));
+  }
+
+  /* Stacked cards tighten to 16. Card-to-text stays the 24px stack gap. */
+  .cs-page--omantel .om-card + .om-card,
+  .cs-page--omantel .om-decision > .om-statement {
+    margin-top: calc(var(--space-2) - var(--space-3));
+  }
+
+  .cs-page--omantel .om-eyebrow:has(+ .om-card),
+  .cs-page--omantel .om-eyebrow:has(+ .om-stat-grid),
+  .cs-page--omantel .om-subhead:has(+ .om-card),
+  .cs-page--omantel .om-copy:has(+ .om-card),
+  .cs-page--omantel .om-list:has(+ .om-card),
+  .cs-page--omantel .om-tldr:has(+ .om-card) {
+    margin-bottom: 0;
+  }
+
+  .cs-page--omantel .om-card + .om-copy,
+  .cs-page--omantel .om-card + .om-list,
+  .cs-page--omantel .om-decision > .om-copy + .om-grid,
+  .cs-page--omantel .om-decision > .om-decision-title + .om-grid,
+  .cs-page--omantel .om-decision > .om-eyebrow + .om-grid {
+    margin-top: 0;
+  }
+}
+
+/* Section tabs and labels — Mono/Eyebrow. DR/WH keep the Hanken row. */
+.cs-page--omantel .cs-next-project-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Label/S */
+.cs-page--omantel .site-badge--tag {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Link */
+.cs-page--omantel .cs-next-project-link,
+.cs-page--omantel .cs-case-footer-back {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.cs-page--omantel .cs-case-footer-copy {
+  line-height: 1.5;
+}
+
+.cs-page--omantel .sheet-nav-tab {
+  font-family: var(--font-mono);
+  font-size: var(--case-type-eyebrow);
+  font-weight: var(--case-type-eyebrow-weight);
+  line-height: var(--case-type-eyebrow-line);
+  letter-spacing: var(--case-type-eyebrow-track);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.cs-page--omantel .sheet-nav-tab:hover,
+.cs-page--omantel .sheet-nav-tab--active {
+  color: var(--ink);
+  font-weight: var(--case-type-eyebrow-weight);
+}
+
+.cs-page--omantel .sheet-nav-tab--active {
+  border-bottom-color: var(--badge-teal);
+}
+
+/* Footer copy sits on the rail. DR/WH keep the inset. */
+.cs-page--omantel .cs-case-footer-inner {
+  width: 100%;
+  max-width: none;
+  padding-inline: 0;
+}
+
+.cs-page--omantel .cs-case-footer-copy {
+  max-width: none;
+}
+
+/*
+ * Desktop: sticky section nav in rail columns 1–3, content in 4–12.
+ * Title and hero stay on the full rail above that split.
+ * Body, captions, and half cards share the right edge of column 9
+ * (6 columns of this rail, 628px when the rail is 1280).
+ */
+@media (min-width: 1024px) {
+  .cs-page--omantel .case-study-layout-inner {
+    --om-rail: min(
+      var(--layout-content-max),
+      calc(100% - 2 * var(--layout-page-padding))
+    );
+    --om-col: calc((var(--om-rail) - 11 * var(--space-component)) / 12);
+    display: grid;
+    grid-template-columns:
+      minmax(var(--layout-page-padding), 1fr)
+      calc(3 * var(--om-col) + 2 * var(--space-component))
+      var(--space-component)
+      calc(9 * var(--om-col) + 8 * var(--space-component))
+      minmax(var(--layout-page-padding), 1fr);
+    align-items: start;
+  }
+
+  .cs-page--omantel .case-study-layout-inner > .layout-rail,
+  .cs-page--omantel .case-study-layout-main,
+  .cs-page--omantel .case-study-layout-content {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+
+  .cs-page--omantel .case-study-layout-inner > .sheet-nav-wrap {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: stretch;
+    position: static;
+    width: auto;
+    margin: 0;
+  }
+
+  .cs-page--omantel
+    .case-study-layout-inner
+    > .layout-rail:not(.sheet-nav-wrap):not(:last-child) {
+    grid-column: 2 / 5;
+    grid-row: 1;
+  }
+
+  .cs-page--omantel .case-study-layout-main {
+    grid-column: 4;
+    grid-row: 2;
+  }
+
+  .cs-page--omantel .case-study-layout-inner > .layout-rail:last-child {
+    grid-column: 2 / 5;
+    grid-row: 3;
+  }
+
+  .cs-page--omantel .sheet-nav {
+    position: sticky;
+    top: calc(
+      var(--nav-offset-top) + var(--nav-height) + var(--space-component)
+    );
+    z-index: 15;
+    border: none;
+    background: transparent;
+  }
+
+  .cs-page--omantel .sheet-nav-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    overflow: visible;
+  }
+
+  .cs-page--omantel .sheet-nav-tab {
+    min-height: 0;
+    margin: 0;
+    padding: 8px 12px;
+    border-bottom: none;
+    border-left: 2px solid transparent;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .cs-page--omantel .sheet-nav-tab--active {
+    border-left-color: var(--badge-teal);
+    border-bottom-color: transparent;
+  }
+
+  .cs-page--omantel .cs-section,
+  .cs-page--omantel .cs-hero {
+    scroll-margin-top: calc(
+      var(--nav-offset-top) + var(--nav-height) + var(--space-component)
+    );
+  }
+
+  .cs-page--omantel .cs-main {
+    scroll-padding-top: calc(
+      var(--nav-offset-top) + var(--nav-height) + var(--space-component)
+    );
+  }
+
+  .cs-page--omantel .case-study-intro-row {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--space-component);
+  }
+
+  .cs-page--omantel .case-study-intro-main {
+    grid-column: 1 / -1;
+  }
+
+  .cs-page--omantel .cs-case-hero-media {
+    width: 100%;
+    margin-inline: 0;
+  }
+
+  .cs-page--omantel .case-study-layout-content {
+    container-type: inline-size;
+    container-name: om-content;
+  }
+
+  .cs-page--omantel .om-grid {
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    column-gap: var(--space-3);
+  }
+
+  .cs-page--omantel .om-card--half {
+    grid-column: span 6;
+  }
+
+  .cs-page--omantel .om-card--third {
+    grid-column: span 3;
+  }
+
+  .cs-page--omantel .om-stat-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .cs-page--omantel .om-stat-grid > .om-card {
+    grid-column: span 2;
+  }
+
+  /* Five stats: three across, then the leftover pair at half width. */
+  .cs-page--omantel
+    .om-stat-grid:has(> .om-card:last-child:nth-child(3n + 2))
+    > .om-card:nth-last-child(-n + 2) {
+    grid-column: span 3;
+  }
+
+  .cs-page--omantel
+    .om-stat-grid:has(> .om-card:last-child:nth-child(3n + 1))
+    > .om-card:last-child {
+    grid-column: 1 / -1;
+  }
+
+  /* 6 of the 9 content columns. Equals --measure-body (628px) at a 1280 rail. */
+  .cs-page--omantel .om-copy,
+  .cs-page--omantel .om-tldr,
+  .cs-page--omantel .om-caption {
+    max-width: calc(200cqw / 3 - var(--space-component) / 3);
+  }
+
+  /* 7 of the 9 content columns. 737px when the rail is 1280. */
+  .cs-page--omantel .om-statement {
+    width: calc(7 * (100cqw - 8 * var(--space-3)) / 9 + 6 * var(--space-3));
+  }
+}
+
+/*
+ * 01 At a glance. Five styles: eyebrow, 56 heading, 18 body, 32 card value, 16 caption.
+ * The label track is two columns of this section's grid. Values share one column.
+ */
+.cs-page--omantel #tldr .om-grid {
+  --om-cols: 4;
+  --om-gap: var(--space-3);
+  --om-label: calc(
+    2 * (100% - (var(--om-cols) - 1) * var(--om-gap)) / var(--om-cols) +
+      var(--om-gap)
+  );
+}
+
+.cs-page--omantel #tldr .sheet-section-header {
+  margin-bottom: var(--space-4);
+}
+
+.cs-page--omantel #tldr .sheet-section-number,
+.cs-page--omantel #tldr .om-eyebrow,
+.cs-page--omantel #tldr .om-stat-eyebrow {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  font-style: normal !important;
+  line-height: 1.4 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  color: var(--om-ink);
+}
+
+.cs-page--omantel #tldr .om-tldr {
+  gap: var(--space-1);
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.cs-page--omantel #tldr .om-tldr-row {
+  grid-template-columns: var(--om-label) minmax(0, 1fr);
+  column-gap: var(--space-2);
+  align-items: baseline;
+}
+
+.cs-page--omantel #tldr .om-meta-value,
+.cs-page--omantel #tldr .om-scope li {
+  font-family: var(--font-sans) !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0 !important;
+  color: #1c1c1e !important;
+}
+
+.cs-page--omantel #tldr .om-scope,
+.cs-page--omantel #tldr .om-note {
+  grid-column: 1 / -1;
+}
+
+.cs-page--omantel #tldr .om-scope {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 0 0 0 calc(var(--om-label) + var(--space-2));
+  list-style: none;
+}
+
+.cs-page--omantel #tldr .om-scope li {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.cs-page--omantel #tldr .om-scope li::before {
+  content: "";
+  position: absolute;
+  top: 0.55em;
+  left: -14px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #3f7d68;
+}
+
+.cs-page--omantel #tldr .om-note a {
+  color: inherit;
+  font: inherit;
+}
+
+.cs-page--omantel #tldr .om-note {
+  margin-top: calc(var(--space-2) - var(--space-3));
+  margin-bottom: calc(var(--space-5) - var(--space-3));
+  max-width: none;
+  font-family: var(--font-sans) !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0 !important;
+  text-align: left;
+  color: #55545a !important;
+}
+
+.cs-page--omantel #tldr .om-stat-eyebrow {
+  margin-bottom: calc(var(--space-2) - var(--space-3));
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cs-page--omantel #tldr .om-grid {
+    --om-cols: 8;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cs-page--omantel #tldr .om-grid {
+    --om-cols: 9;
+  }
+}
+
+@media (max-width: 767px) {
+  .cs-page--omantel #tldr .om-stat-grid > .om-card + .om-card {
+    margin-top: 0;
+  }
+}
+
+/*
+ * Three solid 96px sparkles in the sticky-nav column (the only margin wide
+ * enough to hold them without covering the content). Hidden once that column
+ * goes away. Homepage and other case studies use a different variant.
+ */
+.case-study-layout:has(.cs-page--omantel) {
+  --om-spark-pad: 24px;
+  --om-spark-rail: min(
+    var(--layout-content-max),
+    calc(100% - 2 * var(--om-spark-pad))
+  );
+  --om-spark-side: calc((100% - var(--om-spark-rail)) / 2);
+  --om-spark-col: calc((var(--om-spark-rail) - 11 * var(--om-spark-pad)) / 12);
+  --om-spark-nav: calc(3 * var(--om-spark-col) + 2 * var(--om-spark-pad));
+}
+
+@media (min-width: 1024px) {
+  [data-sparkle-variant="omantel"] .page-sparkle-marks__mark {
+    width: 96px !important;
+    height: 96px !important;
+    right: auto !important;
+    left: calc(
+      var(--om-spark-side) + (var(--om-spark-nav) - 96px) / 2
+    ) !important;
+  }
+
+  [data-sparkle-variant="omantel"] .page-sparkle-marks__mark:nth-child(1) {
+    top: 2040px !important;
+  }
+
+  [data-sparkle-variant="omantel"] .page-sparkle-marks__mark:nth-child(2) {
+    top: 3600px !important;
+  }
+
+  [data-sparkle-variant="omantel"] .page-sparkle-marks__mark:nth-child(3) {
+    top: 5600px !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  [data-sparkle-variant="omantel"] .page-sparkle-marks__mark {
+    display: none;
+  }
+}

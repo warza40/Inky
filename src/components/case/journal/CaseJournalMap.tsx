@@ -17,7 +17,6 @@ import { CaseProblemProcessVisual } from "@/components/case/CaseProblemProcessVi
 import { CaseUnderstandingFlowSection } from "@/components/case/CaseUnderstandingFlowSection";
 import { CaseConstraintsBlock } from "@/components/case/CaseConstraintsBlock";
 import { CaseJournalOutcomeSupplement } from "./CaseJournalOutcomeSupplement";
-import { OmantelCaseStory } from "./OmantelCaseStory";
 import { cn } from "@/lib/utils";
 
 interface CaseJournalMapProps {
@@ -25,10 +24,6 @@ interface CaseJournalMapProps {
 }
 
 export function CaseJournalMap({ caseStudy }: CaseJournalMapProps) {
-  if (caseStudy.slug === "omantel-bulk-activation") {
-    return <OmantelCaseStory caseStudy={caseStudy} />;
-  }
-
   const s = caseStudy.sections;
   const visualsPresentation = getCaseVisualsPresentation(caseStudy);
   const nDecisions = s.decisions.length;

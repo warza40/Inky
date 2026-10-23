@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import type { PageSparkleVariant } from "@/components/ui/page-sparkle-marks";
 import { PageShell } from "@/components/sheets/PageShell";
 import {
   InPageSectionNav,
@@ -14,6 +15,7 @@ interface CaseStudyLayoutProps {
   sections?: InPageNavSection[];
   themeClassName?: string;
   className?: string;
+  sparkleMarks?: PageSparkleVariant;
 }
 
 export function CaseStudyLayout({
@@ -24,12 +26,13 @@ export function CaseStudyLayout({
   sections = [],
   themeClassName,
   className,
+  sparkleMarks = "case-study",
 }: CaseStudyLayoutProps) {
   return (
     <PageShell
       as="div"
       className={cn("case-study-layout", className)}
-      sparkleMarks="case-study"
+      sparkleMarks={sparkleMarks}
     >
       <div
         className={cn(

@@ -4795,11 +4795,12 @@ body:has(.cs-page) {
   box-sizing: border-box;
   padding: clamp(var(--space-10), 4vw, var(--space-12)) 0
     clamp(var(--space-16), 6vw, var(--space-20));
-  scroll-padding-top: 108px; /* clear of sticky nav (progress + nav wrap) */
+  /* Floating nav plus the sticky section bar. 108px landed the section number under that bar. */
+  scroll-padding-top: calc(var(--nav-height) + 4.5rem);
 }
 .cs-section,
 .cs-hero {
-  scroll-margin-top: 108px;
+  scroll-margin-top: calc(var(--nav-height) + 4.5rem);
 }
 .cs-content {
   font-family: var(--font-body);
@@ -8697,72 +8698,6 @@ h3.cs-context-section-title {
   color: #e5e5e5;
 }
 
-/* ── Omantel journal `.cs-page` skin (loads after `.cs-page` defaults in this file) ── */
-.cs-page.cs-page--journal-omantel {
-  --ojo-leather: #16100a;
-  --ojo-cream: #ede5d0;
-  --ojo-cream-mid: #e4d8be;
-  --ojo-ink: #1a140d;
-  --ojo-ink-mid: #4a3d2e;
-  --ojo-ink-faded: #7a6a54;
-  --ojo-grid: rgba(120, 95, 55, 0.09);
-  --ojo-rule: rgba(120, 95, 55, 0.15);
-  --ojo-sheet-margin-x: 52px;
-  --ojo-note-content-inset: 12px;
-  --ojo-sheet-content-start: calc(
-    var(--ojo-sheet-margin-x) + var(--ojo-note-content-inset)
-  );
-
-  /* Leather canvas — large rail matches homepage WORK strip; rails read at small caps sizes */
-  --section-rail-title-fg: rgba(252, 248, 238, 0.96);
-  --section-rail-prefix-fg: rgba(240, 232, 216, 0.78);
-  --ojo-eyebrow-font: var(--font-body);
-  --ojo-eyebrow-size: 9px;
-  --ojo-eyebrow-weight: 700;
-  --ojo-eyebrow-track: 0.16em;
-  --ojo-eyebrow-paper: rgba(44, 36, 26, 0.92);
-  --ojo-eyebrow-rule-paper: rgba(120, 95, 55, 0.28);
-  --ojo-eyebrow-dark: rgba(248, 242, 228, 0.94);
-  --ojo-eyebrow-rule-dark: rgba(210, 188, 150, 0.32);
-
-  --cs-milestone-font: var(--ojo-eyebrow-font);
-  --cs-milestone-size: var(--ojo-eyebrow-size);
-  --cs-milestone-weight: var(--ojo-eyebrow-weight);
-  --cs-milestone-tracking: var(--ojo-eyebrow-track);
-  --cs-milestone-transform: none;
-  --cs-milestone-optical-align: none;
-  --cs-milestone-rail-fg: var(--ojo-eyebrow-dark);
-  --cs-milestone-paper-fg: var(--ojo-eyebrow-paper);
-  --cs-milestone-rule-rail: var(--ojo-eyebrow-rule-dark);
-  --cs-milestone-rule-paper: var(--ojo-eyebrow-rule-paper);
-
-  background-color: var(--ojo-leather);
-}
-
-body:has(.cs-page.cs-page--journal-omantel) {
-  background: var(--ojo-leather);
-}
-
-.cs-page.cs-page--journal-omantel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image: radial-gradient(
-    rgba(196, 168, 130, 0.055) 1px,
-    transparent 1px
-  );
-  background-size: 28px 28px;
-  background-repeat: repeat;
-  background-position: 0 0;
-  background-attachment: scroll;
-}
-
-.cs-page.cs-page--journal-omantel > .home-bg-grid {
-  opacity: 0;
-}
-
 /* =====================================================================
  * Mobile responsiveness — global + shared case shell (append-only)
  * Breakpoints: 1024 / 768 / 390 per mobile spec
@@ -8775,7 +8710,7 @@ body:has(.cs-page.cs-page--journal-omantel) {
 
 @media (max-width: 768px) {
   body {
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   img,
