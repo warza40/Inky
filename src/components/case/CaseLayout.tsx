@@ -172,7 +172,7 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
         problemStatement={hero.problemStatement}
         role={hero.role}
         warmthTheme={caseStudy?.warmthTheme ?? "madder"}
-        showHeroBand={!caseStudy?.heroImage}
+        showHeroBand={!caseStudy?.heroImage && !systemCase}
       />
     </div>
   );
