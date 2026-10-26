@@ -4,6 +4,7 @@ import { omantelStoryNav, type CaseStudy } from "@/case-studies/omantel";
 import { caseStudyHasVisualsSection } from "@/case-studies/case-visuals";
 import { CaseStudyDirection } from "./CaseStudyDirection";
 import { CaseHeroMedia } from "./CaseHeroMedia";
+import { CaseStudyHero } from "./CaseStudyHero";
 import { CaseStudyLayout } from "@/components/sheets/CaseStudyLayout";
 import { FloatingNav } from "@/components/layout/FloatingNav";
 
@@ -111,7 +112,7 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
 
   const siteHeader = <FloatingNav />;
 
-  const heroBlock = (
+  const journalHero = (
     <div className="case-study-intro-sheet paper-content-sheet">
       {caseStudy ? (
         <div className="case-study-intro-copy">
@@ -134,7 +135,7 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
                 </ul>
               ) : null}
             </div>
-            {!isOmantel && facts.length > 0 ? (
+            {facts.length > 0 ? (
               <dl className="case-study-intro-facts">
                 {facts.map((fact) => (
                   <div key={fact.label} className="case-study-intro-fact">
@@ -163,6 +164,20 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
       />
     </div>
   );
+
+  const heroBlock =
+    isOmantel && caseStudy ? (
+      <CaseStudyHero
+        title={title}
+        metaLine={hero.metaLine}
+        lede={hero.problemStatement}
+        caseStudy={caseStudy}
+        facts={facts}
+        includeImpact
+      />
+    ) : (
+      journalHero
+    );
 
   const footerBlock = (
     <CaseStudyFooter
