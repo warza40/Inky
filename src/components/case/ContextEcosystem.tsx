@@ -70,7 +70,7 @@ export function ContextEcosystem({ data }: { data: Ecosystem }) {
       <h3 className="cs-context-section-title">{data.eyebrow}</h3>
       <p className="cs-ecosystem-intro">{data.intro}</p>
 
-      <div className="cs-ecosystem-postit">
+      <div className="cs-ecosystem-group">
         <div className="cs-ecosystem-box">
           {data.boxTitle ? (
             <h3 className="cs-context-section-title cs-ecosystem-box-title">

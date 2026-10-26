@@ -69,14 +69,7 @@ export function CaseJournalMap({ caseStudy }: CaseJournalMapProps) {
                     "ojo-problem-section--legacy-follows-ba",
                 )}
               >
-                <div className="ojo-problem-legacy-insert ojo-paper ojo-paper-shadow">
-                  <div
-                    className="ojo-punch-holes ojo-punch-holes--dual"
-                    aria-hidden
-                  >
-                    <span className="ojo-punch-hole" />
-                    <span className="ojo-punch-hole" />
-                  </div>
+                <div className="ojo-problem-legacy-insert om-sheet-panel">
                   <div className="ojo-problem-legacy-stack">
                     {s.problem.length > 0 ? (
                       <Problem problem={s.problem} />

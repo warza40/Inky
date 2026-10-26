@@ -131,7 +131,7 @@ export function OmantelDecisionJournal({
       </div>
 
       <div className="ojo-decision-content">
-        <div className="ojo-paper ojo-paper-shadow ojo-decision-inner">
+        <div className="om-sheet-panel ojo-decision-inner">
           <div className="ojo-decision-head">
             <div className="ojo-decision-num-bg" aria-hidden>
               {String(index + 1).padStart(2, "0")}

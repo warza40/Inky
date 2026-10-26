@@ -13,13 +13,6 @@ function PersonaFieldLabel({ children }: { children: string }) {
   return <div className="ojo-d-impact-label">{children}</div>;
 }
 
-const PERSONA_TAPES = [
-  { side: "left", variant: "red" },
-  { side: "right", variant: "teal" },
-  { side: "left", variant: "gold" },
-  { side: "right", variant: "red" },
-] as const;
-
 export function CasePersonaGrid({
   personas,
   quote,
@@ -31,13 +24,8 @@ export function CasePersonaGrid({
     <>
       <div className="cs-persona-grid">
         {personas.map((p, i) => {
-          const tape = PERSONA_TAPES[i % PERSONA_TAPES.length];
           return (
             <div key={i} className="cs-persona-card">
-              <span
-                className={`cs-persona-tape cs-persona-tape--${tape.side} cs-persona-tape--${tape.variant}`}
-                aria-hidden
-              />
               <div className="cs-persona-name">{p.name}</div>
               <div className="cs-persona-age">{p.ageLine}</div>
               <div className="cs-persona-works">{p.worksWith}</div>

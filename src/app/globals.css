@@ -4897,127 +4897,6 @@ body:has(.cs-page) {
   margin: 0;
 }
 
-/* Context — impact metrics as moss post-its (`sections.journalImpact`; all cases) */
-.cs-impact-postits-section {
-  /* Sibling gaps use `#context .cs-section-body > * + *` (same rhythm as `#problem`). */
-  margin: 0;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-h3.cs-impact-postits-eyebrow {
-  margin: 0;
-}
-
-.cs-impact-postits-eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  box-sizing: border-box;
-  margin: 0 0 var(--space-3);
-  font-family: var(--cs-milestone-font);
-  font-optical-sizing: auto;
-  font-variation-settings:
-    "wdth" 100,
-    "wght" var(--cs-milestone-weight);
-  font-size: var(--cs-milestone-size);
-  font-weight: var(--cs-milestone-weight);
-  letter-spacing: var(--cs-milestone-tracking);
-  text-transform: var(--cs-milestone-transform);
-  color: var(--cs-milestone-paper-fg);
-}
-
-.cs-impact-postits-eyebrow::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--cs-milestone-rule-paper);
-}
-
-.cs-impact-postits-grid {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
-  gap: var(--space-5);
-  align-items: start;
-}
-
-.cs-impact-postit {
-  margin: 0;
-  padding: clamp(20px, 3.2vw, 28px) clamp(18px, 2.8vw, 26px);
-  box-sizing: border-box;
-  background: var(--color-moss-100);
-  border: 1px solid color-mix(in srgb, var(--color-moss-700) 22%, transparent);
-  border-radius: 2px;
-  box-shadow:
-    2px 3px 0 rgba(62, 72, 52, 0.12),
-    5px 10px 24px rgba(45, 52, 38, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  transform-origin: 50% 0;
-}
-
-.cs-impact-postit--1 {
-  transform: rotate(-1.05deg);
-}
-.cs-impact-postit--2 {
-  transform: rotate(0.85deg);
-}
-.cs-impact-postit--3 {
-  transform: rotate(-0.65deg);
-}
-
-.cs-impact-postit .ojo-impact-stat:last-child {
-  margin-bottom: 0;
-}
-
-.cs-impact-postit .ojo-impact-value {
-  color: var(--color-moss-700);
-}
-
-.cs-impact-postit .ojo-impact-suffix {
-  color: color-mix(
-    in srgb,
-    var(--color-moss-700) 76%,
-    var(--color-ink-900) 24%
-  );
-}
-
-.cs-impact-postit .ojo-impact-suffix--scale {
-  color: color-mix(
-    in srgb,
-    var(--color-moss-700) 76%,
-    var(--color-ink-900) 24%
-  );
-}
-
-.cs-impact-postit .ojo-impact-caps {
-  color: color-mix(in srgb, var(--color-moss-700) 82%, transparent);
-}
-
-.cs-impact-postit .ojo-impact-detail {
-  color: color-mix(
-    in srgb,
-    var(--color-moss-700) 72%,
-    var(--color-ink-900) 28%
-  );
-  white-space: pre-line;
-}
-
-.cs-impact-postit .ojo-impact-detail--plain {
-  color: var(--color-ink-900);
-}
-
-@media (max-width: 640px) {
-  .cs-impact-postit--1,
-  .cs-impact-postit--2,
-  .cs-impact-postit--3 {
-    transform: none;
-  }
-}
-
 /* Case context — ecosystem (four products module; aligned with static HTML reference) */
 .cs-ecosystem {
   padding: var(--space-2) 0 0;
@@ -5258,9 +5137,9 @@ h3.cs-impact-postits-eyebrow {
 .cs-persona-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3px;
+  gap: 24px;
   margin: var(--space-6) 0;
-  padding-top: 10px;
+  padding-top: 0;
 }
 .cs-persona-card {
   position: relative;
@@ -7017,9 +6896,10 @@ h3.cs-context-section-title {
     border-bottom: none;
   }
 }
-@media (max-width: 480px) {
+@media (max-width: 767px) {
   .cs-persona-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 }
 
