@@ -1072,107 +1072,174 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 }
 
 /*
- * 01 At a glance. Eyebrow, section heading, Body/M meta.
- * Impact values are Title/Card/M inside the shared panel.
- * The label track is two columns of this section's grid. Values share one column.
+ * At a glance, and the hero fact list on the other case pages.
+ * One Paper Deep panel, then (on Omantel) the NDA caption, then the KPI panel.
+ * Each of those sits 24px apart. The label track is two columns of the
+ * block's grid: 9 of the content column on desktop, 5 on tablet, 12 of the
+ * hero rail on desktop and 8 on tablet.
  */
-:is(.cs-page--omantel, .cs-page--system) #tldr .om-grid {
-  --om-cols: 4;
-  --om-gap: var(--layout-grid-gutter);
-  --om-label: calc(
-    2 * (100% - (var(--om-cols) - 1) * var(--om-gap)) / var(--om-cols) +
-      var(--om-gap)
-  );
-}
-
-:is(.cs-page--omantel, .cs-page--system) #tldr .sheet-section-header {
-  margin-bottom: var(--space-4);
-}
-
-:is(.cs-page--omantel, .cs-page--system) #tldr .om-tldr {
-  gap: var(--space-1);
+:is(.cs-page--omantel, .cs-page--system) .om-glance {
+  box-sizing: border-box;
   width: 100%;
   max-width: none;
   margin: 0;
+  padding: var(--space-3);
+  background: var(--om-paper-deep);
+  border: 2px solid var(--om-ink);
+  border-radius: 24px;
+  box-shadow: 4px 4px 0 var(--om-ink);
 }
 
-:is(.cs-page--omantel, .cs-page--system) #tldr .om-tldr-row {
-  grid-template-columns: var(--om-label) minmax(0, 1fr);
-  column-gap: var(--layout-grid-gutter);
-  align-items: baseline;
+:is(.cs-page--omantel, .cs-page--system) .om-glance-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--space-1);
+  align-items: start;
+  margin: 0;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--om-line);
 }
 
-:is(.cs-page--omantel, .cs-page--system) #tldr .om-meta-value,
-:is(.cs-page--omantel, .cs-page--system) #tldr .om-scope li {
+:is(.cs-page--omantel, .cs-page--system) .om-glance-row:last-child {
+  border-bottom: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-glance dt,
+:is(.cs-page--omantel, .cs-page--system) .om-glance dd {
+  margin: 0;
+  min-width: 0;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-glance dt {
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-label-sm) !important;
+  font-weight: var(--case-type-label-sm-weight) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-label-sm-line) !important;
+  letter-spacing: var(--case-type-label-sm-track) !important;
+  text-transform: none !important;
+  color: var(--om-grey) !important;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-glance dd,
+:is(.cs-page--omantel, .cs-page--system) .om-glance-notes,
+:is(.cs-page--omantel, .cs-page--system) .om-glance-notes li {
   font-family: var(--font-sans) !important;
   font-size: var(--case-type-body-dense) !important;
   font-weight: var(--weight-body) !important;
   font-style: normal !important;
   line-height: var(--case-type-body-dense-line) !important;
   letter-spacing: var(--type-body-tracking) !important;
+  text-transform: none !important;
   color: var(--om-ink) !important;
 }
 
-:is(.cs-page--omantel, .cs-page--system) #tldr .om-scope,
-:is(.cs-page--omantel, .cs-page--system) #tldr .om-note {
-  grid-column: 1 / -1;
-}
-
-:is(.cs-page--omantel, .cs-page--system) #tldr .om-scope {
+:is(.cs-page--omantel, .cs-page--system) .om-glance-notes {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  width: auto;
-  max-width: none;
+  gap: var(--space-1);
   margin: 0;
-  padding: 0 0 0 calc(var(--om-label) + var(--layout-grid-gutter));
+  padding: 0;
   list-style: none;
 }
 
-:is(.cs-page--omantel, .cs-page--system) #tldr .om-scope li {
-  position: relative;
+:is(.cs-page--omantel, .cs-page--system) .om-glance-notes li {
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
-:is(.cs-page--omantel, .cs-page--system) #tldr .om-scope li::before {
-  content: "";
-  position: absolute;
-  top: 0.55em;
-  left: calc(var(--space-2) * -1);
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #3f7d68;
+:is(.cs-page--omantel, .cs-page--system) .om-glance-notes li::before,
+:is(.cs-page--omantel, .cs-page--system) .om-glance-notes li::marker {
+  content: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system) #tldr .om-grid {
+  row-gap: var(--space-3);
+}
+
+:is(.cs-page--omantel, .cs-page--system) #tldr .sheet-section-header {
+  margin-bottom: var(--space-4);
+  padding-bottom: 0;
+  border-bottom: none;
+  box-shadow: none;
+  background-image: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system) #tldr .sheet-section-header::before,
+:is(.cs-page--omantel, .cs-page--system) #tldr .sheet-section-header::after {
+  content: none;
+  display: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system) #tldr .om-note {
+  margin: 0;
+  max-width: none;
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-caption) !important;
+  font-weight: var(--weight-body) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-caption-line) !important;
+  letter-spacing: var(--type-body-tracking) !important;
+  text-align: left;
+  text-transform: none !important;
+  color: var(--om-grey) !important;
 }
 
 :is(.cs-page--omantel, .cs-page--system) #tldr .om-note a {
   color: inherit;
   font: inherit;
+  font-style: normal;
+  text-decoration: underline;
 }
 
-:is(.cs-page--omantel, .cs-page--system) #tldr .om-note {
-  margin-top: calc(var(--space-2) - var(--space-3));
-  margin-bottom: calc(var(--space-5) - var(--space-3));
-  max-width: none;
-  font-family: var(--font-sans) !important;
-  font-size: var(--case-type-body-dense) !important;
-  font-weight: var(--weight-body) !important;
-  font-style: normal !important;
-  line-height: var(--case-type-body-dense-line) !important;
-  letter-spacing: var(--type-body-tracking) !important;
-  text-align: left;
-  color: var(--om-grey) !important;
+/* The hero sheet clips overflow. The fact panel's hard shadow needs to paint. */
+.cs-page--system .case-study-intro-sheet {
+  overflow: visible;
 }
 
-@media (min-width: 768px) and (max-width: 1199px) {
+@media (min-width: 768px) {
+  :is(.cs-page--omantel, .cs-page--system) .om-glance {
+    padding: var(--space-4);
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) #tldr .om-grid,
+  .cs-page--system .case-study-intro-copy {
+    container-type: inline-size;
+  }
+
   :is(.cs-page--omantel, .cs-page--system) #tldr .om-grid {
-    --om-cols: 5;
+    --om-glance-cols: 5;
+  }
+
+  .cs-page--system .case-study-intro-copy {
+    --om-glance-cols: 8;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-glance-row {
+    --om-glance-label: calc(
+      2 * (100cqi - (var(--om-glance-cols) - 1) * var(--layout-grid-gutter)) /
+        var(--om-glance-cols) + var(--layout-grid-gutter)
+    );
+    grid-template-columns: var(--om-glance-label) minmax(0, 1fr);
+    column-gap: var(--layout-grid-gutter);
+    row-gap: 0;
   }
 }
 
 @media (min-width: 1200px) {
   :is(.cs-page--omantel, .cs-page--system) #tldr .om-grid {
-    --om-cols: 9;
+    --om-glance-cols: 9;
+  }
+
+  .cs-page--system .case-study-intro-copy {
+    --om-glance-cols: 12;
+  }
+
+  .cs-page--system .case-study-intro-copy .om-glance {
+    max-width: calc(
+      6 * (100cqi - 11 * var(--layout-grid-gutter)) / 12 + 5 *
+        var(--layout-grid-gutter)
+    );
   }
 }
