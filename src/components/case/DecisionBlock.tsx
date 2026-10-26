@@ -1,188 +1,265 @@
 "use client";
 
+import Image from "next/image";
+import type { ReactNode } from "react";
 import type { CaseStudy } from "@/case-studies/omantel";
-import { motion, useReducedMotion } from "framer-motion";
+import { parseBoldSpans } from "@/lib/case-rich-text";
 import { cn } from "@/lib/utils";
-import { MotionImage } from "./MotionImage";
 
-interface DecisionBlockProps {
-  decision: CaseStudy["sections"]["decisions"][0];
-  index: number;
-}
+type Decision = CaseStudy["sections"]["decisions"][number];
+type DecisionImage = NonNullable<Decision["images"]>[number];
+type NavVariant = NonNullable<Decision["navExploration"]>[number]["variant"];
+type MediaFrame = "full" | "half" | "phone";
 
-/** Split rationale / impact on blank lines into bullet rows */
-function RiPoints({ text }: { text: string }) {
-  const parts = text
+function paragraphsOf(text: string): string[] {
+  return text
     .split(/\n\n/)
-    .map((s) => s.trim())
+    .map((part) => part.trim())
     .filter(Boolean);
-  if (parts.length === 0) return null;
+}
+
+function DecisionCopy({ text }: { text: string }) {
+  const parts = paragraphsOf(text);
+  if (!parts.length) return null;
   return (
-    <ul className="cs-ri-list" role="list">
-      {parts.map((part, i) => (
-        <li key={i} className="cs-ri-item">
-          <span className="cs-ri-item-text">{part}</span>
-        </li>
+    <div className="om-decision-copy">
+      {parts.map((part) => (
+        <p key={part.slice(0, 32)}>{parseBoldSpans(part)}</p>
       ))}
-    </ul>
+    </div>
   );
 }
 
-function DecisionMedia({
-  decision,
-  displayImages,
+function DecisionLabel({
+  children,
+  tone = "meta",
 }: {
-  decision: CaseStudy["sections"]["decisions"][0];
-  displayImages: NonNullable<CaseStudy["sections"]["decisions"][0]["images"]>;
+  children: ReactNode;
+  tone?: "meta" | "teal";
 }) {
-  if (displayImages.length > 0) {
-    return (
-      <div className="cs-visual-wrap cs-visual-wrap--editorial">
-        {displayImages.map((image, imageIndex) => {
-          const isVideo = /\.(mov|mp4|webm)(\?|$)/i.test(image.src);
-          return (
-            <div
-              key={imageIndex}
-              className="cs-visual-frame"
-              style={{
-                marginBottom:
-                  imageIndex < displayImages.length - 1 ? "16px" : 0,
-              }}
-            >
-              <div className="cs-visual-img">
-                {isVideo ? (
-                  <video
-                    src={image.src}
-                    controls
-                    playsInline
-                    className="w-full aspect-video object-contain"
-                    aria-label={image.alt}
-                  />
-                ) : (
-                  <div className="relative w-full aspect-video">
-                    <MotionImage
-                      src={image.src}
-                      alt={image.alt}
-                      caption={image.caption}
-                      fill
-                      objectFit="contain"
-                      lightbox
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    );
-  }
-
   return (
-    <>
-      {decision.imagePlaceholderSplit?.length === 2 ? (
-        <div className="cs-decision-placeholder cs-decision-placeholder--split cs-visual-wrap--editorial">
-          <div className="cs-decision-placeholder-panel">
-            <div className="cs-decision-placeholder-note">
-              {decision.imagePlaceholderSplit[0]}
-            </div>
-          </div>
-          <div className="cs-decision-placeholder-panel">
-            <div className="cs-decision-placeholder-note">
-              {decision.imagePlaceholderSplit[1]}
-            </div>
-          </div>
-        </div>
-      ) : null}
-      {decision.imagePlaceholder && !decision.imagePlaceholderSplit ? (
-        <div className="cs-decision-placeholder cs-visual-wrap--editorial">
-          <div className="cs-decision-placeholder-note">
-            {decision.imagePlaceholder}
-          </div>
-        </div>
-      ) : null}
-      {decision.navExploration && decision.navExploration.length > 0 ? (
-        <div className="cs-decision-nav-wrap cs-visual-wrap--editorial">
-          <div className="cs-decision-nav-exploration">
-            {decision.navExploration.map((n, i) => (
-              <div key={i} className="cs-nav-exp-item">
-                <div className="cs-nei-label">{n.label}</div>
-                <div
-                  className={cn(
-                    "cs-nei-sketch",
-                    n.variant === "mega" && "cs-nei-sketch--mega",
-                    n.variant === "ribbon" && "cs-nei-sketch--ribbon",
-                    n.variant === "panel" && "cs-nei-sketch--panel",
-                  )}
-                  aria-hidden
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      ) : null}
-    </>
+    <p
+      className={cn(
+        "om-decision-label",
+        tone === "teal" && "om-decision-label--teal",
+      )}
+    >
+      {children}
+    </p>
   );
 }
 
-export function DecisionBlock({ decision, index }: DecisionBlockProps) {
-  const displayImages = decision.images ?? [];
-  const reduceMotion = useReducedMotion();
-  const hasRiPanel =
-    Boolean(decision.rationale?.trim()) ||
-    Boolean(decision.impact?.trim()) ||
-    Boolean(decision.designResponse?.trim());
+function mediaFrame(src: string): MediaFrame {
+  const name = decodeURIComponent(src.split("/").pop() ?? src).toLowerCase();
+  if (name.includes("mobile") || name.includes("phone")) return "phone";
+  if (name.includes("noteworthy 1") || name.includes("noteworthy 2")) {
+    return "half";
+  }
+  return "full";
+}
+
+function sketchClass(variant: NavVariant): string {
+  switch (variant) {
+    case "mega":
+      return "cs-nei-sketch--mega";
+    case "ribbon":
+      return "cs-nei-sketch--ribbon";
+    case "panel":
+      return "cs-nei-sketch--panel";
+    default: {
+      const exhaustive: never = variant;
+      return exhaustive;
+    }
+  }
+}
+
+function MediaFigure({
+  image,
+  frame,
+}: {
+  image: DecisionImage;
+  frame: MediaFrame;
+}) {
+  const gif = image.src.toLowerCase().includes(".gif");
+  const framed = frame !== "full";
+  return (
+    <figure
+      className={framed ? `om-media om-media--${frame}` : "om-media om-full"}
+    >
+      <Image
+        src={image.src}
+        alt={image.alt}
+        width={1600}
+        height={1000}
+        sizes={
+          frame === "phone"
+            ? "(max-width: 767px) 100vw, 960px"
+            : frame === "half"
+              ? "(max-width: 767px) 100vw, 640px"
+              : "(max-width: 1023px) 100vw, 960px"
+        }
+        className="om-media-img"
+        unoptimized={gif}
+      />
+      {image.caption ? (
+        <figcaption className="om-caption">{image.caption}</figcaption>
+      ) : null}
+    </figure>
+  );
+}
+
+function MediaGroup({ images }: { images: DecisionImage[] }) {
+  const nodes: ReactNode[] = [];
+  for (let index = 0; index < images.length; ) {
+    const frame = mediaFrame(images[index].src);
+    if (frame === "full") {
+      const image = images[index];
+      nodes.push(<MediaFigure key={image.src} image={image} frame="full" />);
+      index += 1;
+      continue;
+    }
+    const group = [images[index]];
+    let next = index + 1;
+    while (next < images.length && mediaFrame(images[next].src) === frame) {
+      group.push(images[next]);
+      next += 1;
+    }
+    nodes.push(
+      <div
+        key={group[0].src}
+        className={`om-media-row om-media-row--${frame} om-full`}
+      >
+        {group.map((image) => (
+          <MediaFigure key={image.src} image={image} frame={frame} />
+        ))}
+      </div>,
+    );
+    index = next;
+  }
+  return <>{nodes}</>;
+}
+
+function DecisionMedia({ decision }: { decision: Decision }) {
+  const images = (decision.images ?? []).filter((image) => image.src);
+  const split = decision.imagePlaceholderSplit;
+  const note = decision.imagePlaceholder?.trim();
+  const nav = decision.navExploration ?? [];
+  if (!images.length && split?.length !== 2 && !note && !nav.length)
+    return null;
 
   return (
-    <motion.article
-      className="cs-decision cs-decision--editorial"
-      initial={reduceMotion ? { opacity: 1 } : { opacity: 0 }}
-      whileInView={reduceMotion ? undefined : { opacity: 1 }}
-      viewport={{ once: true, amount: 0.1, margin: "0px 0px -32px 0px" }}
-      transition={{ duration: 0.2, ease: [0, 0, 0.2, 1] }}
+    <div className="om-decision-media">
+      {images.length ? <MediaGroup images={images} /> : null}
+      {split?.length === 2 ? (
+        <div className="om-decision-split">
+          <p className="om-decision-context">{split[0]}</p>
+          <p className="om-decision-context">{split[1]}</p>
+        </div>
+      ) : null}
+      {note && split?.length !== 2 ? (
+        <p className="om-decision-context">{note}</p>
+      ) : null}
+      {nav.length ? (
+        <div className="om-decision-nav">
+          {nav.map((item) => (
+            <div key={item.label} className="om-decision-nav-item">
+              <DecisionLabel>{item.label}</DecisionLabel>
+              <div
+                className={cn("cs-nei-sketch", sketchClass(item.variant))}
+                aria-hidden
+              />
+            </div>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+export function DecisionBlock({
+  decision,
+  index,
+}: {
+  decision: Decision;
+  index: number;
+}) {
+  const hasWhy = Boolean(decision.why?.trim());
+  const rationaleLabel = hasWhy
+    ? (decision.rationaleLabel ?? "Trade-off")
+    : (decision.rationaleLabel ?? "Rationale");
+  const sideLabel = hasWhy ? "Why" : (decision.impactLabel ?? "Impact");
+  const sideText = (hasWhy ? decision.why : decision.impact) ?? "";
+  const showRationale = Boolean(decision.rationale?.trim());
+  const showSide = Boolean(sideText.trim());
+  const outcome = hasWhy ? decision.impact.trim() : "";
+  const number = String(index + 1).padStart(2, "0");
+
+  return (
+    <article
+      className="om-decision om-full"
+      data-case-decision=""
+      aria-label={decision.title}
     >
-      <header className="cs-decision-editorial-head">
-        <span className="cs-decision-num">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-        <div className="cs-decision-editorial-titles">
-          <h3 className="cs-decision-title">{decision.title}</h3>
-          {decision.description ? (
-            <p className="cs-decision-body cs-decision-lede">
-              {decision.description}
-            </p>
+      <header className="om-decision-head">
+        <DecisionLabel>{`Key decision ${number}`}</DecisionLabel>
+        <h3 className="om-decision-title">{decision.title}</h3>
+        {decision.description?.trim() ? (
+          <p className="om-decision-context">
+            {parseBoldSpans(decision.description)}
+          </p>
+        ) : null}
+        <DecisionMedia decision={decision} />
+      </header>
+      {showRationale || showSide ? (
+        <div className="om-decision-split om-decision-pair">
+          {showRationale ? (
+            <div className="om-decision-col">
+              <DecisionLabel>{rationaleLabel}</DecisionLabel>
+              <DecisionCopy text={decision.rationale} />
+            </div>
+          ) : null}
+          {showSide ? (
+            <div className="om-decision-col">
+              <DecisionLabel>{sideLabel}</DecisionLabel>
+              <DecisionCopy text={sideText} />
+            </div>
           ) : null}
         </div>
-      </header>
-
-      <div className="cs-decision-body-wrap cs-decision-body-wrap--static">
-        <DecisionMedia decision={decision} displayImages={displayImages} />
-
-        {hasRiPanel ? (
-          <div className="cs-decision-ri-panel">
-            {(decision.rationale?.trim() || decision.impact?.trim()) && (
-              <div className="cs-ri-grid cs-ri-grid--editorial-pair">
-                <div className="cs-ri-col">
-                  <div className="cs-ri-label">Rationale</div>
-                  <RiPoints text={decision.rationale} />
-                </div>
-                <div className="cs-ri-col">
-                  <div className="cs-ri-label">Impact</div>
-                  <RiPoints text={decision.impact} />
-                </div>
-              </div>
-            )}
-            {decision.designResponse?.trim() ? (
-              <div className="cs-ri-grid cs-ri-grid--solutioning">
-                <div className="cs-ri-col" style={{ gridColumn: "1 / -1" }}>
-                  <div className="cs-ri-label">Solutioning</div>
-                  <RiPoints text={decision.designResponse} />
-                </div>
-              </div>
-            ) : null}
+      ) : null}
+      {decision.rationaleReports?.length ? (
+        <div className="om-decision-reports">
+          {decision.rationaleReports.map((report) => (
+            <div key={report.title} className="om-decision-report">
+              <p className="om-decision-report-title">{report.title}</p>
+              <p className="om-decision-report-body">{report.description}</p>
+            </div>
+          ))}
+        </div>
+      ) : null}
+      {outcome ? (
+        <div className="om-decision-outcome">
+          <DecisionLabel tone="teal">
+            {decision.impactLabel ?? "Outcome"}
+          </DecisionLabel>
+          <DecisionCopy text={outcome} />
+        </div>
+      ) : null}
+      {decision.iteration?.trim() ? (
+        <blockquote className="om-statement">
+          <p className="om-statement-label">Iteration</p>
+          <div className="om-statement-body">
+            {paragraphsOf(decision.iteration).map((part) => (
+              <p key={part.slice(0, 32)}>{parseBoldSpans(part)}</p>
+            ))}
           </div>
-        ) : null}
-      </div>
-    </motion.article>
+        </blockquote>
+      ) : null}
+      {decision.designResponse?.trim() ? (
+        <div className="om-decision-follow">
+          <DecisionLabel>Solutioning</DecisionLabel>
+          <DecisionCopy text={decision.designResponse} />
+        </div>
+      ) : null}
+    </article>
   );
 }

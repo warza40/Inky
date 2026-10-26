@@ -796,7 +796,8 @@ body:has(.page-shell--no-topography) #thinking-topography {
 .cs-page--sheets .sys-platform,
 .cs-page--sheets .sheet-nav-tab,
 .cs-page--sheets .sheet-section-number,
-.cs-page--sheets .om-card > .om-subhead {
+.cs-page--sheets .om-card > .om-subhead,
+.cs-page--sheets .om-decision-label {
   font-family: var(--font-sans) !important;
   font-size: var(--case-type-eyebrow) !important;
   font-weight: var(--case-type-eyebrow-weight) !important;
