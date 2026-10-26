@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Fragment, type ReactNode } from "react";
 import type { CaseStudy } from "@/case-studies/omantel";
+import { ImpactStatPanel } from "@/components/case/ImpactStatPanel";
 import { MotionSection } from "@/components/case/MotionSection";
 import { parseBoldSpans, parseMadderSpans } from "@/lib/case-rich-text";
 
@@ -236,45 +237,6 @@ function StorySection({
     <MotionSection id={id} number={number} title={title}>
       <div className="om-grid layout-grid">{children}</div>
     </MotionSection>
-  );
-}
-
-function ImpactGrid({
-  blocks,
-}: {
-  blocks: NonNullable<Sections["journalImpact"]>["blocks"];
-}) {
-  return (
-    <div className="om-stat-grid om-full">
-      {blocks.map((block, index) => {
-        const hasValue = Boolean(
-          block.value?.trim() || block.labelItalic?.trim(),
-        );
-        return (
-          <article
-            key={`${block.metaDetail ?? block.value}-${index}`}
-            className="om-card"
-          >
-            {block.metaCaps ? (
-              <p className="om-stat-eyebrow">{block.metaCaps}</p>
-            ) : null}
-            {hasValue ? (
-              <p className="om-stat-value">
-                {block.value}
-                {block.labelItalic ? ` ${block.labelItalic}` : ""}
-              </p>
-            ) : null}
-            {block.metaDetail ? (
-              hasValue ? (
-                <p className="om-dense">{block.metaDetail}</p>
-              ) : (
-                <p className="sys-impact-copy">{block.metaDetail}</p>
-              )
-            ) : null}
-          </article>
-        );
-      })}
-    </div>
   );
 }
 
@@ -613,10 +575,7 @@ export function SystemCaseMap({ caseStudy }: { caseStudy: CaseStudy }) {
       {hasOverview ? (
         <StorySection id="context" number="01" title="Overview">
           {sections.journalImpact?.blocks?.length ? (
-            <>
-              <p className="om-eyebrow om-full">Impact</p>
-              <ImpactGrid blocks={sections.journalImpact.blocks} />
-            </>
+            <ImpactStatPanel blocks={sections.journalImpact.blocks} />
           ) : null}
           {flow?.paragraphs?.length ? (
             <Prose text={flow.paragraphs.join("\n\n")} madder />
@@ -669,17 +628,14 @@ export function SystemCaseMap({ caseStudy }: { caseStudy: CaseStudy }) {
               {item.title ? <Subhead>{item.title}</Subhead> : null}
               <Prose text={item.content} />
               {item.statBar?.length ? (
-                <div className="om-stat-grid om-full">
-                  {item.statBar.map((stat) => (
-                    <article key={stat.label} className="om-card">
-                      <p className="om-stat-value">
-                        {stat.value}
-                        {stat.valueSup ? stat.valueSup : ""}
-                      </p>
-                      <p className="om-dense">{stat.label}</p>
-                    </article>
-                  ))}
-                </div>
+                <ImpactStatPanel
+                  blocks={item.statBar.map((stat) => ({
+                    value: `${stat.value}${stat.valueSup ?? ""}`,
+                    labelItalic: "",
+                    metaDetail: stat.label,
+                    metaDetailPlain: true,
+                  }))}
+                />
               ) : null}
             </Fragment>
           ))}
