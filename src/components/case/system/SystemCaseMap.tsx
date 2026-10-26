@@ -3,6 +3,10 @@
 import Image from "next/image";
 import { Fragment, type ReactNode } from "react";
 import type { CaseStudy } from "@/case-studies/omantel";
+import {
+  ComparisonCard,
+  ComparisonPanel,
+} from "@/components/case/ComparisonPanel";
 import { ImpactStatPanel } from "@/components/case/ImpactStatPanel";
 import { MotionSection } from "@/components/case/MotionSection";
 import { parseBoldSpans, parseMadderSpans } from "@/lib/case-rich-text";
@@ -342,12 +346,21 @@ function UnderstandingBody({
           )}
         />
       ) : null}
-      {understanding.painPointGroups?.map((group) => (
-        <Fragment key={group.title}>
-          <Subhead>{group.title}</Subhead>
-          <BulletList items={group.items} />
-        </Fragment>
-      ))}
+      {understanding.painPointGroups?.length ? (
+        <ComparisonPanel>
+          {understanding.painPointGroups.map((group) => (
+            <ComparisonCard key={group.title} title={group.title}>
+              <ul className="om-list">
+                {group.items.map((item) => (
+                  <li key={item}>
+                    <Inline text={item} />
+                  </li>
+                ))}
+              </ul>
+            </ComparisonCard>
+          ))}
+        </ComparisonPanel>
+      ) : null}
       {understanding.afterDivider ? (
         <>
           <Subhead>{understanding.afterDivider.title}</Subhead>

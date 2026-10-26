@@ -4936,10 +4936,11 @@ body:has(.cs-page) {
 .cs-persona-card {
   position: relative;
   overflow: visible;
-  background: #fff;
-  border: 1px solid var(--color-border);
-  padding: calc(var(--space-5) + 4px) var(--space-5) var(--space-5);
-  box-shadow: 0 2px 12px rgba(45, 38, 28, 0.07);
+  background: #f8f7f4;
+  border: 1px solid #b8bcc0;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: none;
 }
 .cs-persona-name {
   font-family: var(--font-heading);
@@ -4984,164 +4985,18 @@ body:has(.cs-page) {
   margin-top: 12px;
 }
 .cs-persona-list {
-  list-style: none;
+  list-style: disc;
   margin: 0;
-  padding: 0;
-  font-family: var(--font-body);
+  padding-left: 1.25em;
+  font-family: var(--font-sans, var(--font-body));
   font-optical-sizing: auto;
   font-style: normal;
-  font-size: 11px;
-  color: var(--color-ink-500);
-  line-height: 1.7;
+  font-size: 1rem;
+  color: #14141a;
+  line-height: 1.5;
 }
-.cs-persona-list li::before {
-  content: "· ";
-  color: var(--color-madder-900);
-}
-
-/* Pain point post-its — compact two-column summary (understanding visuals) */
-.cs-pain-points-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(14px, 2.4vw, 22px);
-  margin-top: var(--space-6);
-  padding-top: 10px;
-  align-items: stretch;
-}
-
-.cs-pain-points-card {
-  position: relative;
-  overflow: hidden;
-  margin: 0;
-  padding: clamp(22px, 3vw, 28px) clamp(18px, 2.6vw, 24px);
-  padding-top: clamp(26px, 3.4vw, 32px);
-  border-radius: 2px;
-  box-sizing: border-box;
-  isolation: isolate;
-  transform-origin: 50% 0;
-}
-
-.cs-pain-points-card--tilt-1 {
-  transform: rotate(-0.85deg);
-}
-
-.cs-pain-points-card--tilt-2 {
-  transform: rotate(0.75deg);
-}
-
-.cs-pain-points-card--moss {
-  background-color: var(--color-moss-100);
-  border: 1px solid color-mix(in srgb, var(--color-moss-700) 22%, transparent);
-  border-top-right-radius: 0;
-  box-shadow:
-    2px 3px 0 rgba(62, 72, 52, 0.12),
-    5px 10px 24px rgba(45, 52, 38, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.55);
-}
-
-.cs-pain-points-card--moss::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 34px;
-  height: 34px;
-  z-index: 0;
-  pointer-events: none;
-  background-color: color-mix(in srgb, var(--color-moss-700) 52%, #243018);
-  clip-path: polygon(100% 0, 100% 50%, 50% 0);
-}
-
-.cs-pain-points-card--warm {
-  background: #f7eba8;
-  color: rgba(32, 24, 6, 0.95);
-  border: 1px solid color-mix(in srgb, #c8b432 35%, transparent);
-  box-shadow:
-    2px 3px 0 rgba(120, 95, 40, 0.14),
-    5px 10px 24px rgba(45, 38, 28, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35);
-}
-
-.cs-pain-points-card--warm::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  border-style: solid;
-  border-width: 0 0 14px 14px;
-  border-color: transparent transparent rgba(200, 180, 50, 0.45) transparent;
-  pointer-events: none;
-}
-
-.cs-pain-points-card > * {
-  position: relative;
-  z-index: 1;
-}
-
-.cs-pain-points-title {
-  font-family: var(--font-heading);
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
-  font-weight: 600;
-  font-size: 13px;
-  line-height: 1.35;
-  letter-spacing: -0.01em;
-  margin: 0 0 10px;
-}
-
-.cs-pain-points-card--moss .cs-pain-points-title {
-  color: var(--color-moss-700);
-}
-
-.cs-pain-points-card--warm .cs-pain-points-title {
-  color: rgba(32, 24, 6, 0.92);
-}
-
-.cs-pain-points-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-family: var(--font-body);
-  font-size: 11px;
-  line-height: 1.55;
-}
-
-.cs-pain-points-card--moss .cs-pain-points-list {
-  color: color-mix(
-    in srgb,
-    var(--color-moss-700) 72%,
-    var(--color-ink-900) 28%
-  );
-}
-
-.cs-pain-points-card--warm .cs-pain-points-list {
-  color: rgba(32, 24, 6, 0.82);
-}
-
-.cs-pain-points-list li::before {
-  content: "· ";
-}
-
-.cs-pain-points-card--moss .cs-pain-points-list li::before {
-  color: var(--color-moss-700);
-}
-
-.cs-pain-points-card--warm .cs-pain-points-list li::before {
-  color: rgba(120, 95, 40, 0.85);
-}
-
-@media (max-width: 640px) {
-  .cs-pain-points-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .cs-pain-points-card--tilt-1,
-  .cs-pain-points-card--tilt-2 {
-    transform: none;
-  }
+.cs-persona-list li + li {
+  margin-top: 8px;
 }
 
 .cs-persona-aside {
@@ -5671,50 +5526,6 @@ h3.cs-context-section-title {
 }
 .cs-outcome-visual-wrap--lead {
   margin-bottom: var(--space-10);
-}
-.cs-outcome-ba {
-  display: grid;
-  gap: var(--space-5);
-  margin: var(--space-10) 0 var(--space-8);
-}
-@media (min-width: 720px) {
-  .cs-outcome-ba {
-    grid-template-columns: 1fr 1fr;
-    align-items: stretch;
-  }
-}
-.cs-outcome-ba-block {
-  padding: var(--space-5) var(--space-6);
-  border-radius: var(--radius-md);
-  box-sizing: border-box;
-}
-.cs-outcome-ba-block--before {
-  background: var(--color-ground-secondary);
-  border-left: 3px solid var(--color-ink-300);
-}
-.cs-outcome-ba-block--after {
-  background: var(--color-ground-primary);
-  border: 1px solid var(--color-border);
-  border-left: 3px solid var(--color-madder-900);
-}
-.cs-outcome-ba-label {
-  font-family: var(--font-label);
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
-  font-size: var(--text-sm);
-  font-weight: 300;
-  letter-spacing: 0.06em;
-  color: var(--color-ink-500);
-  display: block;
-  margin-bottom: var(--space-3);
-}
-.cs-outcome-ba-body {
-  font-family: var(--font-body);
-  font-optical-sizing: auto;
-  font-size: 15px;
-  line-height: 1.65;
-  color: var(--color-ink-600);
-  margin: 0;
 }
 .cs-outcome-highlight-list {
   list-style: none;
