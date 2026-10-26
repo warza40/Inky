@@ -466,13 +466,11 @@ body:has(.page-shell--no-topography) #thinking-topography {
    ============================================================ */
 
 .cs-page--sheets {
-  --layout-page-padding: var(--space-component);
   --cs-section-gap: 128px;
   --cs-heading-gap: var(--space-separation);
   --cs-stack-gap: var(--space-component);
   --cs-copy-max: min(var(--layout-prose-max), 100%);
   --cs-content-paper: #f8f7f4;
-  --layout-grid-gutter: var(--space-component);
 }
 
 .cs-page--sheets .layout-rail {
@@ -541,7 +539,7 @@ body:has(.page-shell--no-topography) #thinking-topography {
   overflow: hidden;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1199px) {
   .cs-page--sheets {
     --cs-section-gap: 96px;
   }

@@ -23,9 +23,18 @@
   --layout-wrapper-max: 1328px;
   --layout-page-padding: 24px;
 
-  /* Grid — desktop default */
+  /*
+   * Desktop grid. 1280 rail, 12 columns, 24px gutter.
+   * Column = (1280 − 11×24) / 12 = 84.666…px.
+   * The rail is capped at 1280, so the outer margin at 1440 is 80px.
+   * At 1280 the 24px page margin wins and the rail shrinks to 1232.
+   */
   --layout-grid-cols: 12;
   --layout-grid-gutter: 24px;
+  --layout-grid-col: calc(
+    (var(--layout-content-max) - 11 * var(--layout-grid-gutter)) /
+      var(--layout-grid-cols)
+  );
   --layout-grid-sub-gutter: 16px;
   --layout-grid-sub-cols: 8;
 
@@ -83,17 +92,17 @@
   --nav-link-active-radius: 8px;
 }
 
-/* Tablet: 768–1199px */
+/* Tablet: 768–1199. 8 columns, 24px gutter, 32px margin. */
 @media (max-width: 1199px) and (min-width: 768px) {
   :root {
     --layout-grid-cols: 8;
-    --layout-grid-gutter: 20px;
+    --layout-grid-gutter: 24px;
     --layout-page-padding: 32px;
     --layout-wrapper-max: min(1328px, calc(100vw - 64px));
   }
 }
 
-/* Mobile: below 768px */
+/* Phone: below 768. 4 columns, 16px gutter, 24px margin (within 16–24). */
 @media (max-width: 767px) {
   :root {
     --layout-grid-cols: 4;

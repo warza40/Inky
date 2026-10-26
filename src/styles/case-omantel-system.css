@@ -61,7 +61,7 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   gap: var(--space-1);
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 767px) {
   :is(.cs-page--omantel, .cs-page--system) .sheet-nav-row {
     flex-wrap: wrap;
     overflow: visible;
@@ -143,8 +143,8 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 }
 
 :is(.cs-page--omantel, .cs-page--system) .om-grid {
-  column-gap: var(--space-3);
-  row-gap: var(--space-3);
+  column-gap: var(--layout-grid-gutter);
+  row-gap: var(--layout-grid-gutter);
   width: 100%;
 }
 
@@ -364,8 +364,8 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 :is(.cs-page--omantel, .cs-page--system) .om-stat-grid {
   display: grid;
   grid-template-columns: 1fr;
-  column-gap: var(--space-3);
-  row-gap: var(--space-3);
+  column-gap: var(--layout-grid-gutter);
+  row-gap: var(--layout-grid-gutter);
   width: 100%;
   min-width: 0;
   align-items: stretch;
@@ -465,7 +465,7 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 
 :is(.cs-page--omantel, .cs-page--system) .om-media-row {
   display: grid;
-  gap: var(--cs-stack-gap);
+  gap: var(--layout-grid-gutter);
   min-width: 0;
 }
 
@@ -490,13 +490,13 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 :is(.cs-page--omantel, .cs-page--system)
   .om-media-row--phone:has(> :nth-child(2))
   > .om-media {
-  max-width: calc((100% - var(--space-3)) / 2);
+  max-width: calc((100% - var(--layout-grid-gutter)) / 2);
 }
 
 :is(.cs-page--omantel, .cs-page--system)
   .om-media-row--phone:has(> :nth-child(3))
   > .om-media {
-  max-width: calc((100% - 2 * var(--space-3)) / 3);
+  max-width: calc((100% - 2 * var(--layout-grid-gutter)) / 3);
 }
 
 :is(.cs-page--omantel, .cs-page--system) .om-caption {
@@ -578,33 +578,7 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   color: var(--om-ink);
 }
 
-@media (max-width: 1023px) and (min-width: 768px) {
-  :is(.cs-page--omantel, .cs-page--system) .om-card--half,
-  :is(.cs-page--omantel, .cs-page--system) .om-card--third {
-    grid-column: span 4;
-  }
-
-  :is(.cs-page--omantel, .cs-page--system)
-    .om-card--third:nth-child(3 of .om-card) {
-    grid-column: 1 / -1;
-  }
-
-  :is(.cs-page--omantel, .cs-page--system) .om-stat-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  :is(.cs-page--omantel, .cs-page--system) .om-stat-grid > .om-card {
-    grid-column: auto;
-  }
-
-  :is(.cs-page--omantel, .cs-page--system)
-    .om-stat-grid:has(> .om-card:last-child:nth-child(odd))
-    > .om-card:last-child {
-    grid-column: 1 / -1;
-  }
-}
-
-@media (max-width: 1023px) {
+@media (max-width: 1199px) {
   :is(.cs-page--omantel, .cs-page--system) {
     --cs-section-gap: var(--space-7);
   }
@@ -665,8 +639,7 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
     margin-top: calc(var(--space-4) - var(--space-3));
   }
 
-  /* Stacked cards tighten to 16. Card-to-text stays the 24px stack gap. */
-  :is(.cs-page--omantel, .cs-page--system) .om-card + .om-card,
+  /* Card grid gap is the phone gutter (16). Card-to-text stays 24. */
   :is(.cs-page--omantel, .cs-page--system) .om-decision > .om-statement {
     margin-top: calc(var(--space-2) - var(--space-3));
   }
@@ -847,25 +820,13 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 }
 
 /*
- * Desktop: sticky section nav in rail columns 1–3, content in 4–12.
- * Title and hero stay on the full rail above that split.
- * Body, captions, and half cards share the right edge of column 9
- * (6 columns of this rail, 628px when the rail is 1280).
+ * From tablet up: section nav in columns 1–3, content in the remaining
+ * columns. The hero and footer stay on the full rail above and below that
+ * split. Column tracks are set per breakpoint below.
  */
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   :is(.cs-page--omantel, .cs-page--system) .case-study-layout-inner {
-    --om-rail: min(
-      var(--layout-content-max),
-      calc(100% - 2 * var(--layout-page-padding))
-    );
-    --om-col: calc((var(--om-rail) - 11 * var(--space-component)) / 12);
     display: grid;
-    grid-template-columns:
-      minmax(var(--layout-page-padding), 1fr)
-      calc(3 * var(--om-col) + 2 * var(--space-component))
-      var(--space-component)
-      calc(9 * var(--om-col) + 8 * var(--space-component))
-      minmax(var(--layout-page-padding), 1fr);
     align-items: start;
   }
 
@@ -956,10 +917,102 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
       var(--nav-offset-top) + var(--nav-height) + var(--space-component)
     );
   }
+}
+
+/*
+ * Tablet: 8 columns, 24px gutter, 32px margin.
+ * Content is columns 4–8 (5 tracks). Five does not split evenly, so cards,
+ * stats, and side-by-side images stack to the content edges.
+ * Body and the lede fill their column so a fixed 628px measure cannot
+ * miss the right-hand line.
+ */
+@media (min-width: 768px) and (max-width: 1199px) {
+  :is(.cs-page--omantel, .cs-page--system) .case-study-layout-inner {
+    --cs-gutter: var(--layout-grid-gutter);
+    --cs-rail: min(
+      var(--layout-content-max),
+      calc(100% - 2 * var(--layout-page-padding))
+    );
+    --cs-col: calc((var(--cs-rail) - 7 * var(--cs-gutter)) / 8);
+    grid-template-columns:
+      minmax(var(--layout-page-padding), 1fr)
+      calc(3 * var(--cs-col) + 2 * var(--cs-gutter))
+      var(--cs-gutter)
+      calc(5 * var(--cs-col) + 4 * var(--cs-gutter))
+      minmax(var(--layout-page-padding), 1fr);
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-grid,
+  :is(.cs-page--omantel, .cs-page--system) .om-stat-grid,
+  :is(.cs-page--omantel, .cs-page--system) .om-media-row--half {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-media-row--phone {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-card--half,
+  :is(.cs-page--omantel, .cs-page--system) .om-card--third,
+  :is(.cs-page--omantel, .cs-page--system) .om-stat-grid > .om-card,
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-media-row--phone:has(> :nth-child(2))
+    > .om-media,
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-media-row--phone:has(> :nth-child(3))
+    > .om-media {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .case-study-intro-lede,
+  :is(.cs-page--omantel, .cs-page--system) .om-copy,
+  :is(.cs-page--omantel, .cs-page--system) .om-tldr,
+  :is(.cs-page--omantel, .cs-page--system) .om-caption,
+  :is(.cs-page--omantel, .cs-page--system) .sys-facts {
+    max-width: none;
+  }
+}
+
+/*
+ * Desktop: 12 columns, 24px gutter, 24px page margin, 1280 rail.
+ * Column = (rail − 11×24) / 12. That is 84.67px when the rail is 1280.
+ * Content is columns 4–12. Body is 6 of those 9 (right edge of page column 9).
+ */
+@media (min-width: 1200px) {
+  :is(.cs-page--omantel, .cs-page--system) .case-study-layout-inner {
+    --cs-gutter: var(--layout-grid-gutter);
+    --cs-rail: min(
+      var(--layout-content-max),
+      calc(100% - 2 * var(--layout-page-padding))
+    );
+    --cs-col: calc((var(--cs-rail) - 11 * var(--cs-gutter)) / 12);
+    grid-template-columns:
+      minmax(var(--layout-page-padding), 1fr)
+      calc(3 * var(--cs-col) + 2 * var(--cs-gutter))
+      var(--cs-gutter)
+      calc(9 * var(--cs-col) + 8 * var(--cs-gutter))
+      minmax(var(--layout-page-padding), 1fr);
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .case-study-hero {
+    container-type: inline-size;
+    container-name: case-hero;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .case-study-intro-lede,
+  :is(.cs-page--omantel, .cs-page--system) .sys-facts {
+    max-width: calc(
+      6 * (100cqi - 11 * var(--layout-grid-gutter)) / 12 + 5 *
+        var(--layout-grid-gutter)
+    );
+  }
 
   :is(.cs-page--omantel, .cs-page--system) .case-study-intro-row {
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--space-component);
+    column-gap: var(--layout-grid-gutter);
   }
 
   :is(.cs-page--omantel, .cs-page--system) .case-study-intro-main {
@@ -978,7 +1031,7 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 
   :is(.cs-page--omantel, .cs-page--system) .om-grid {
     grid-template-columns: repeat(9, minmax(0, 1fr));
-    column-gap: var(--space-3);
+    column-gap: var(--layout-grid-gutter);
   }
 
   :is(.cs-page--omantel, .cs-page--system) .om-card--half {
@@ -1014,12 +1067,15 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   :is(.cs-page--omantel, .cs-page--system) .om-copy,
   :is(.cs-page--omantel, .cs-page--system) .om-tldr,
   :is(.cs-page--omantel, .cs-page--system) .om-caption {
-    max-width: calc(200cqw / 3 - var(--space-component) / 3);
+    max-width: calc(200cqw / 3 - var(--layout-grid-gutter) / 3);
   }
 
   /* 7 of the 9 content columns. 737px when the rail is 1280. */
   :is(.cs-page--omantel, .cs-page--system) .om-statement {
-    width: calc(7 * (100cqw - 8 * var(--space-3)) / 9 + 6 * var(--space-3));
+    width: calc(
+      7 * (100cqw - 8 * var(--layout-grid-gutter)) / 9 + 6 *
+        var(--layout-grid-gutter)
+    );
   }
 }
 
@@ -1029,7 +1085,7 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
  */
 :is(.cs-page--omantel, .cs-page--system) #tldr .om-grid {
   --om-cols: 4;
-  --om-gap: var(--space-3);
+  --om-gap: var(--layout-grid-gutter);
   --om-label: calc(
     2 * (100% - (var(--om-cols) - 1) * var(--om-gap)) / var(--om-cols) +
       var(--om-gap)
@@ -1062,7 +1118,7 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 
 :is(.cs-page--omantel, .cs-page--system) #tldr .om-tldr-row {
   grid-template-columns: var(--om-label) minmax(0, 1fr);
-  column-gap: var(--space-2);
+  column-gap: var(--layout-grid-gutter);
   align-items: baseline;
 }
 
@@ -1089,7 +1145,7 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   width: auto;
   max-width: none;
   margin: 0;
-  padding: 0 0 0 calc(var(--om-label) + var(--space-2));
+  padding: 0 0 0 calc(var(--om-label) + var(--layout-grid-gutter));
   list-style: none;
 }
 
@@ -1133,13 +1189,13 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   margin-bottom: calc(var(--space-2) - var(--space-3));
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1199px) {
   :is(.cs-page--omantel, .cs-page--system) #tldr .om-grid {
-    --om-cols: 8;
+    --om-cols: 5;
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
   :is(.cs-page--omantel, .cs-page--system) #tldr .om-grid {
     --om-cols: 9;
   }
@@ -1161,7 +1217,7 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   --om-spark-nav: calc(3 * var(--om-spark-col) + 2 * var(--om-spark-pad));
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
   [data-sparkle-variant="omantel"] .page-sparkle-marks__mark {
     width: 96px !important;
     height: 96px !important;
@@ -1184,7 +1240,7 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   }
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1199px) {
   [data-sparkle-variant="omantel"] .page-sparkle-marks__mark {
     display: none;
   }
