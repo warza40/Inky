@@ -78,13 +78,6 @@
 
 .cs-page--system .sys-facts dt {
   margin: 0;
-  font-family: var(--font-mono);
-  font-size: var(--case-type-eyebrow);
-  font-weight: var(--case-type-eyebrow-weight);
-  line-height: var(--case-type-eyebrow-line);
-  letter-spacing: var(--case-type-eyebrow-track);
-  text-transform: uppercase;
-  color: var(--om-ink);
 }
 
 .cs-page--system .sys-facts dd {
@@ -138,6 +131,6 @@
   font-size: var(--case-type-label-sm);
   font-weight: var(--case-type-label-sm-weight);
   line-height: var(--case-type-label-sm-line);
-  letter-spacing: var(--type-body-tracking);
-  color: var(--om-grey);
+  letter-spacing: var(--case-type-eyebrow-track);
+  color: var(--case-eyebrow-meta, #636370);
 }
