@@ -3,19 +3,8 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import type { CaseStudy } from "@/case-studies/omantel";
-import { GlancePanel } from "@/components/case/GlancePanel";
-import { ImpactStatPanel } from "@/components/case/ImpactStatPanel";
 import { MotionSection } from "@/components/case/MotionSection";
 import { parseBoldSpans } from "@/lib/case-rich-text";
-
-const PROTOTYPE_NDA_LINE =
-  "Details shared under NDA — prototype walkthrough available.";
-
-/**
- * tldrNotes has no label in the case data.
- * Placeholder for the copywriter to confirm.
- */
-const TLDR_NOTES_LABEL = "Constraints";
 
 interface OmantelSystemMapProps {
   caseStudy: CaseStudy;
@@ -277,7 +266,6 @@ function DecisionArticle({
 
 export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
   const sections = caseStudy.sections;
-  const impact = sections.journalImpact?.blocks ?? [];
   const understanding = sections.understanding;
   const hypothesis = sections.hypothesis;
   const collaboration = sections.collaboration;
@@ -290,27 +278,6 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
 
   return (
     <>
-      <StorySection
-        id="tldr"
-        number="01"
-        title="Enterprise reps submit and track bulk SIM batches without Omantel staff"
-      >
-        <GlancePanel
-          className="om-full"
-          rows={caseStudy.tldr ?? []}
-          notes={caseStudy.tldrNotes}
-          notesLabel={TLDR_NOTES_LABEL}
-        />
-        <p className="om-note om-full" data-prototype-slot="omantel">
-          {caseStudy.prototypeHref?.trim() ? (
-            <a href={caseStudy.prototypeHref.trim()}>{PROTOTYPE_NDA_LINE}</a>
-          ) : (
-            PROTOTYPE_NDA_LINE
-          )}
-        </p>
-        <ImpactStatPanel blocks={impact} />
-      </StorySection>
-
       <StorySection
         id="context"
         number="02"

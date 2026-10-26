@@ -161,9 +161,20 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   min-width: 0;
 }
 
-/* Intro. 6 rail columns (628px), on the same left edge as the title. */
+/* Title shares the hero image's left edge and spans its width. */
 :is(.cs-page--omantel, .cs-page--system) .case-study-intro-title {
-  margin-bottom: var(--space-3);
+  width: 100%;
+  max-width: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  border: none;
+  text-wrap: balance;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .case-study-intro-title::before,
+:is(.cs-page--omantel, .cs-page--system) .case-study-intro-title::after {
+  content: none;
+  display: none;
 }
 
 :is(.cs-page--omantel, .cs-page--system) .case-study-intro-row {
@@ -959,7 +970,6 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
     width: 100%;
   }
 
-  :is(.cs-page--omantel, .cs-page--system) .case-study-intro-lede,
   :is(.cs-page--omantel, .cs-page--system) .om-copy,
   :is(.cs-page--omantel, .cs-page--system) .om-tldr,
   :is(.cs-page--omantel, .cs-page--system) .om-caption,
@@ -989,12 +999,6 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
       minmax(var(--layout-page-padding), 1fr);
   }
 
-  :is(.cs-page--omantel, .cs-page--system) .case-study-hero {
-    container-type: inline-size;
-    container-name: case-hero;
-  }
-
-  :is(.cs-page--omantel, .cs-page--system) .case-study-intro-lede,
   :is(.cs-page--omantel, .cs-page--system) .sys-facts {
     max-width: calc(
       6 * (100cqi - 11 * var(--layout-grid-gutter)) / 12 + 5 *
@@ -1074,9 +1078,8 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 /*
  * At a glance, and the hero fact list on the other case pages.
  * One Paper Deep panel, then (on Omantel) the NDA caption, then the KPI panel.
- * Each of those sits 24px apart. The label track is two columns of the
- * block's grid: 9 of the content column on desktop, 5 on tablet, 12 of the
- * hero rail on desktop and 8 on tablet.
+ * Each of those sits 24px apart, inside the full-rail hero. The label
+ * track is two columns of that rail: 12 on desktop, 8 on tablet.
  */
 :is(.cs-page--omantel, .cs-page--system) .om-glance {
   box-sizing: border-box;
@@ -1194,25 +1197,35 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 }
 
 /* The hero sheet clips overflow. The fact panel's hard shadow needs to paint. */
-.cs-page--system .case-study-intro-sheet {
+:is(.cs-page--omantel, .cs-page--system) .case-study-intro-sheet {
   overflow: visible;
 }
 
 @media (min-width: 768px) {
+  :is(.cs-page--omantel, .cs-page--system) .case-study-hero {
+    container-type: inline-size;
+    container-name: case-hero;
+  }
+
+  /*
+   * Lead/M. Seven columns sat short under the full-rail image, so the
+   * measure is eight of the twelve rail columns. Phone stays the full rail.
+   */
+  :is(.cs-page--omantel, .cs-page--system) .case-study-intro-lede,
+  :is(.cs-page--omantel, .cs-page--system) .case-study-intro-pills {
+    width: 100%;
+    max-width: calc(
+      8 * (100cqi - 11 * var(--layout-grid-gutter)) / 12 + 7 *
+        var(--layout-grid-gutter)
+    );
+  }
+
   :is(.cs-page--omantel, .cs-page--system) .om-glance {
     padding: var(--space-4);
   }
 
-  :is(.cs-page--omantel, .cs-page--system) #tldr .om-grid,
-  .cs-page--system .case-study-intro-copy {
+  :is(.cs-page--omantel, .cs-page--system) .case-study-hero-overview {
     container-type: inline-size;
-  }
-
-  :is(.cs-page--omantel, .cs-page--system) #tldr .om-grid {
-    --om-glance-cols: 5;
-  }
-
-  .cs-page--system .case-study-intro-copy {
     --om-glance-cols: 8;
   }
 
@@ -1228,18 +1241,53 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 }
 
 @media (min-width: 1200px) {
-  :is(.cs-page--omantel, .cs-page--system) #tldr .om-grid {
-    --om-glance-cols: 9;
-  }
-
-  .cs-page--system .case-study-intro-copy {
+  :is(.cs-page--omantel, .cs-page--system) .case-study-hero-overview {
     --om-glance-cols: 12;
   }
+}
 
-  .cs-page--system .case-study-intro-copy .om-glance {
-    max-width: calc(
-      6 * (100cqi - 11 * var(--layout-grid-gutter)) / 12 + 5 *
-        var(--layout-grid-gutter)
-    );
-  }
+/* Hero group: image, then the overview, on the full rail. Nav starts after. */
+:is(.cs-page--omantel, .cs-page--system) .case-study-hero-overview {
+  width: 100%;
+  max-width: none;
+  margin: var(--space-6) 0 0;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .case-study-hero-overview-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+:is(.cs-page--omantel, .cs-page--system)
+  .case-study-hero-overview
+  .sheet-section-header {
+  margin-bottom: var(--space-4);
+  padding-bottom: 0;
+  border-bottom: none;
+  box-shadow: none;
+  background-image: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system)
+  .case-study-hero-overview
+  .sheet-section-header::before,
+:is(.cs-page--omantel, .cs-page--system)
+  .case-study-hero-overview
+  .sheet-section-header::after {
+  content: none;
+  display: none;
+}
+
+/* Clip, tape, pin, and the old hero band stay off case pages. */
+.cs-page--sheets .ojo-clip-top,
+.cs-page--sheets .ojo-clip-svg,
+.cs-page--sheets .ojo-tape,
+.cs-page--sheets .cs-persona-tape,
+.cs-page--sheets .ojo-punch-holes,
+.cs-page--sheets .cs-hero-band,
+.cs-page--sheets .cs-hero-overlay,
+.cs-page--sheets .cs-progress-track {
+  display: none !important;
 }
