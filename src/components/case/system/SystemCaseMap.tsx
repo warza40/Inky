@@ -574,9 +574,6 @@ export function SystemCaseMap({ caseStudy }: { caseStudy: CaseStudy }) {
     <>
       {hasOverview ? (
         <StorySection id="context" number="01" title="Overview">
-          {sections.journalImpact?.blocks?.length ? (
-            <ImpactStatPanel blocks={sections.journalImpact.blocks} />
-          ) : null}
           {flow?.paragraphs?.length ? (
             <Prose text={flow.paragraphs.join("\n\n")} madder />
           ) : null}
