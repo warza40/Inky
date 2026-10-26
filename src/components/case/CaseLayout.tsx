@@ -2,8 +2,6 @@ import { CaseMain } from "./CaseMain";
 import { CaseStudyFooter } from "./CaseStudyFooter";
 import { omantelStoryNav, type CaseStudy } from "@/case-studies/omantel";
 import { caseStudyHasVisualsSection } from "@/case-studies/case-visuals";
-import { CaseStudyDirection } from "./CaseStudyDirection";
-import { CaseHeroMedia } from "./CaseHeroMedia";
 import { CaseStudyHero } from "./CaseStudyHero";
 import { CaseStudyLayout } from "@/components/sheets/CaseStudyLayout";
 import { FloatingNav } from "@/components/layout/FloatingNav";
@@ -13,10 +11,6 @@ interface CaseLayoutProps {
   title: string;
   subtitle?: string;
   caseStudy?: CaseStudy;
-}
-
-function formatLabel(str: string): string {
-  return str.replace(/\s+/g, " ").trim();
 }
 
 function buildCaseNavSections(
@@ -101,83 +95,27 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
   const sections = caseStudy ? buildCaseNavSections(caseStudy) : [];
   const hero = caseStudy ? heroCopyFromCaseStudy(caseStudy) : {};
   const isOmantel = caseStudy?.slug === "omantel-bulk-activation";
+  const systemCase = Boolean(caseStudy) && !isOmantel;
   const themeClassName = [
-    caseStudy?.warmthTheme ? `cs-theme-${caseStudy.warmthTheme}` : "",
     isOmantel ? "cs-page--omantel" : "",
+    systemCase ? "cs-page--system" : "",
   ]
     .filter(Boolean)
     .join(" ");
   const facts = caseStudy ? introFacts(caseStudy) : [];
-  const pills = caseStudy?.heroPills ?? [];
 
   const siteHeader = <FloatingNav />;
 
-  const journalHero = (
-    <div className="case-study-intro-sheet paper-content-sheet">
-      {caseStudy ? (
-        <div className="case-study-intro-copy">
-          {hero.metaLine ? (
-            <p className="case-study-intro-meta">{hero.metaLine}</p>
-          ) : null}
-          <h1 className="case-study-intro-title">{formatLabel(title)}</h1>
-          <div className="case-study-intro-row layout-grid">
-            <div className="case-study-intro-main">
-              {hero.problemStatement ? (
-                <p className="case-study-intro-lede">{hero.problemStatement}</p>
-              ) : null}
-              {pills.length > 0 ? (
-                <ul className="case-study-intro-pills">
-                  {pills.map((pill) => (
-                    <li key={pill}>
-                      <span className="site-badge site-badge--tag">{pill}</span>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-            </div>
-            {facts.length > 0 ? (
-              <dl className="case-study-intro-facts">
-                {facts.map((fact) => (
-                  <div key={fact.label} className="case-study-intro-fact">
-                    <dt>{fact.label}</dt>
-                    <dd>{fact.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            ) : null}
-          </div>
-        </div>
-      ) : null}
-      {caseStudy?.heroImage ? (
-        <CaseHeroMedia
-          src={caseStudy.heroImage.src}
-          alt={caseStudy.heroImage.alt}
-        />
-      ) : null}
-      <CaseStudyDirection
-        title={formatLabel(title)}
-        metaLine={hero.metaLine}
-        problemStatement={hero.problemStatement}
-        role={hero.role}
-        warmthTheme={caseStudy?.warmthTheme ?? "madder"}
-        showHeroBand={!caseStudy?.heroImage}
-      />
-    </div>
-  );
-
-  const heroBlock =
-    isOmantel && caseStudy ? (
-      <CaseStudyHero
-        title={title}
-        metaLine={hero.metaLine}
-        lede={hero.problemStatement}
-        caseStudy={caseStudy}
-        facts={facts}
-        includeImpact
-      />
-    ) : (
-      journalHero
-    );
+  const heroBlock = caseStudy ? (
+    <CaseStudyHero
+      title={title}
+      metaLine={hero.metaLine}
+      lede={hero.problemStatement}
+      caseStudy={caseStudy}
+      facts={facts}
+      includeImpact
+    />
+  ) : null;
 
   const footerBlock = (
     <CaseStudyFooter
@@ -194,7 +132,7 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
         header={siteHeader}
         hero={heroBlock}
         footer={footerBlock}
-        sparkleMarks={isOmantel ? "omantel" : "case-study"}
+        sparkleMarks={isOmantel || systemCase ? "omantel" : "case-study"}
       >
         {children}
       </CaseStudyLayout>

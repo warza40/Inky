@@ -370,7 +370,7 @@ body:has(.page-shell--no-topography) #thinking-topography {
   aspect-ratio: 16 / 10;
   border-radius: var(--radius-card);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
 }
 
 .cs-page--sheets .cs-case-hero-media-img {
@@ -385,28 +385,6 @@ body:has(.page-shell--no-topography) #thinking-topography {
   font-family: var(--font-sans);
   font-size: var(--case-type-body);
   line-height: var(--case-type-body-line);
-}
-
-/* Flatten journal decorations inside sheet sections */
-.cs-page--sheets .sheet-section .ojo-punch-holes,
-.cs-page--sheets .sheet-section .ojo-tape-wave,
-.cs-page--sheets .sheet-section .ojo-tape-seigaiha {
-  display: none;
-}
-
-.cs-page--sheets .sheet-section .ojo-problem-legacy-insert,
-.cs-page--sheets .sheet-section .ojo-overview-insert,
-.cs-page--sheets .sheet-section .ojo-decision-inner {
-  border: none;
-  box-shadow: none;
-  background: transparent;
-  padding: 0;
-}
-
-.cs-page--sheets .sheet-section .ojo-overview-impact-rail {
-  margin-bottom: var(--space-6);
-  padding: 0;
-  background: transparent;
 }
 
 .cs-page--sheets .sheet-section .cs-section-head {
@@ -653,7 +631,6 @@ body:has(.page-shell--no-topography) #thinking-topography {
   max-width: 100%;
 }
 
-.cs-page--sheets .cs-pain-points-title,
 .cs-page--sheets .om-pain-title,
 .cs-page--sheets .cs-report-title,
 .cs-page--sheets .cs-persona-name {
@@ -715,7 +692,6 @@ body:has(.page-shell--no-topography) #thinking-topography {
 .cs-page--sheets .cs-ri-item,
 .cs-page--sheets .cs-ri-text,
 .cs-page--sheets .cs-dr-ia-bullets,
-.cs-page--sheets .cs-pain-points-list,
 .cs-page--sheets .om-dense,
 .cs-page--sheets .om-dense p,
 .cs-page--sheets .om-dense li {
@@ -775,7 +751,6 @@ body:has(.page-shell--no-topography) #thinking-topography {
  */
 .cs-page--sheets .ojo-p-label,
 .cs-page--sheets .cs-ri-label,
-.cs-page--sheets .cs-impact-postits-eyebrow,
 .cs-page--sheets .ojo-before-label,
 .cs-page--sheets .ojo-meta-label,
 .cs-page--sheets .ojo-impact-caps,

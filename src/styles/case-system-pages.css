@@ -1,0 +1,136 @@
+/*
+ * Case studies other than Omantel, on the same sheet.
+ * Type uses the same frame styles as Omantel.
+ */
+
+.cs-page--system .case-study-intro-lede {
+  color: var(--om-ink) !important;
+}
+
+.cs-page--system .case-study-intro-title,
+.cs-page--system .sheet-section-title,
+.cs-page--system .om-copy,
+.cs-page--system .om-statement-body,
+.cs-page--system .om-statement-body p {
+  color: #14141a;
+}
+
+.cs-page--system .om-caption,
+.cs-page--system .sys-meta,
+.cs-page--system .case-study-intro-fact dd {
+  color: #636370 !important;
+}
+
+.cs-page--system .om-stat-cell .om-dense {
+  color: #636370 !important;
+}
+
+.cs-page--system .om-card {
+  gap: var(--space-2);
+  height: 100%;
+}
+
+.cs-page--system .om-card .om-list,
+.cs-page--system .om-card .om-list li {
+  font-family: var(--font-sans);
+  font-size: var(--case-type-body-dense);
+  font-weight: var(--weight-body);
+  line-height: var(--case-type-body-dense-line);
+  letter-spacing: var(--type-body-tracking);
+  color: var(--om-ink);
+}
+
+.cs-page--system .sys-subgroup {
+  margin-top: calc(var(--space-5) - var(--space-3));
+}
+
+.cs-page--system .om-grid > .sys-subgroup:first-child {
+  margin-top: 0;
+}
+
+.cs-page--system .sys-facts {
+  display: grid;
+  gap: var(--space-2);
+  width: 100%;
+  max-width: min(100%, var(--measure-body));
+  margin: 0;
+}
+
+@media (max-width: 1199px) {
+  .cs-page--system .sys-facts {
+    max-width: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .cs-page--system .sys-facts {
+    max-width: calc(
+      6 * (100cqi - 11 * var(--layout-grid-gutter)) / 12 + 5 *
+        var(--layout-grid-gutter)
+    );
+  }
+}
+
+.cs-page--system .sys-facts div {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.cs-page--system .sys-facts dt {
+  margin: 0;
+}
+
+.cs-page--system .sys-facts dd {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--case-type-body-dense);
+  font-weight: var(--weight-body);
+  line-height: var(--case-type-body-dense-line);
+  letter-spacing: var(--type-body-tracking);
+  color: var(--om-ink);
+}
+
+.cs-page--system .cs-context-hl {
+  color: var(--om-ink);
+  font-weight: var(--weight-extrabold);
+  font-style: normal;
+}
+
+.cs-page--system .sys-impact-copy {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--case-type-body);
+  font-weight: var(--weight-body);
+  line-height: var(--case-type-body-line);
+  letter-spacing: var(--type-body-tracking);
+  color: var(--om-ink);
+}
+
+.cs-page--system .sys-nav-sketch {
+  height: 80px;
+  border: 1px solid #b8bcc0;
+  border-radius: 8px;
+  background: #f0efea;
+}
+
+.cs-page--system .cs-nei-sketch {
+  background: transparent;
+}
+
+.cs-page--system .cs-nei-sketch--mega::before,
+.cs-page--system .cs-nei-sketch--ribbon::before,
+.cs-page--system .cs-nei-sketch--panel::before,
+.cs-page--system .cs-nei-sketch--panel::after {
+  background: #14141a;
+  opacity: 0.16;
+}
+
+.cs-page--system .sys-platform {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--case-type-label-sm);
+  font-weight: var(--case-type-label-sm-weight);
+  line-height: var(--case-type-label-sm-line);
+  letter-spacing: var(--case-type-eyebrow-track);
+  color: var(--case-eyebrow-meta, #636370);
+}

@@ -53,7 +53,7 @@ export interface CaseStudy {
       images?: Array<{ src: string; alt: string; caption?: string }>;
     };
     /**
-     * Impact metrics — sage moss post-its above overview/context copy (journal + generic case map).
+     * Impact metrics shown in the hero panel.
      */
     journalImpact?: {
       blocks: Array<{
@@ -107,7 +107,7 @@ export interface CaseStudy {
         /** Tooltip shown when hovering over the image (for lightbox thumbnails) */
         hoverTooltip?: string;
       }>;
-      /** Optional post-it pain point groups shown after visuals (titles only) */
+      /** Optional paired pain-point groups shown after visuals (titles only) */
       painPointGroups?: Array<{
         title: string;
         items: string[];

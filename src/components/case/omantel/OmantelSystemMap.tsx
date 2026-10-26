@@ -3,6 +3,10 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import type { CaseStudy } from "@/case-studies/omantel";
+import {
+  ComparisonCard,
+  ComparisonPanel,
+} from "@/components/case/ComparisonPanel";
 import { MotionSection } from "@/components/case/MotionSection";
 import { parseBoldSpans } from "@/lib/case-rich-text";
 
@@ -303,8 +307,8 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
         title="Errors surfaced only after submission, forcing full-batch restarts"
       >
         {sections.outcomeBeforeAfter ? (
-          <>
-            <SystemCard span="half" label="Before">
+          <ComparisonPanel>
+            <ComparisonCard label="Before">
               <div className="om-dense">
                 {paragraphsOf(sections.outcomeBeforeAfter.before).map(
                   (part, index) => (
@@ -314,8 +318,8 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
                   ),
                 )}
               </div>
-            </SystemCard>
-            <SystemCard span="half" label="After">
+            </ComparisonCard>
+            <ComparisonCard label="After" emphasis>
               <div className="om-dense">
                 {paragraphsOf(sections.outcomeBeforeAfter.after).map(
                   (part, index) => (
@@ -325,22 +329,24 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
                   ),
                 )}
               </div>
-            </SystemCard>
-          </>
+            </ComparisonCard>
+          </ComparisonPanel>
         ) : null}
         {understanding?.painPointGroups?.length ? (
-          <>
-            <h3 className="om-eyebrow om-full">Pain points on both sides</h3>
+          <ComparisonPanel
+            label="Pain points on both sides"
+            follow={Boolean(sections.outcomeBeforeAfter)}
+          >
             {understanding.painPointGroups.map((group) => (
-              <SystemCard key={group.title} span="half" title={group.title}>
-                <ul className="om-list om-dense">
+              <ComparisonCard key={group.title} title={group.title}>
+                <ul className="om-list">
                   {group.items.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
-              </SystemCard>
+              </ComparisonCard>
             ))}
-          </>
+          </ComparisonPanel>
         ) : null}
       </StorySection>
 

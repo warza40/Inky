@@ -2,7 +2,7 @@
 
 import type { CaseStudy } from "@/case-studies/omantel";
 import { OmantelSystemMap } from "@/components/case/omantel/OmantelSystemMap";
-import { CaseJournalMap } from "@/components/case/journal/CaseJournalMap";
+import { SystemCaseMap } from "@/components/case/system/SystemCaseMap";
 
 interface CaseMapProps {
   caseStudy: CaseStudy;
@@ -13,5 +13,5 @@ export function CaseMap({ caseStudy }: CaseMapProps) {
     return <OmantelSystemMap caseStudy={caseStudy} />;
   }
 
-  return <CaseJournalMap caseStudy={caseStudy} />;
+  return <SystemCaseMap caseStudy={caseStudy} />;
 }
