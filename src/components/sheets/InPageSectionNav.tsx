@@ -36,25 +36,48 @@ export function InPageSectionNav({
   );
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        });
-      },
-      { rootMargin: "-140px 0px -50% 0px", threshold: 0 },
-    );
+    const markerOffset = () => {
+      const styles = getComputedStyle(document.documentElement);
+      const navTop =
+        Number.parseFloat(styles.getPropertyValue("--nav-offset-top")) || 0;
+      const navHeight =
+        Number.parseFloat(styles.getPropertyValue("--nav-height")) || 0;
+      return navTop + navHeight + 32;
+    };
 
-    sections.forEach(({ id }) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    return () => {
+    let frame = 0;
+    const update = () => {
+      const line = markerOffset();
+      let current = sections[0]?.id ?? "";
       sections.forEach(({ id }) => {
         const el = document.getElementById(id);
-        if (el) observer.unobserve(el);
+        if (!el) return;
+        if (el.getBoundingClientRect().top <= line) current = id;
       });
+      const atBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 8;
+      if (atBottom && sections.length > 0) {
+        current = sections[sections.length - 1]?.id ?? current;
+      }
+      setActiveSection(current);
+    };
+
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(update);
+    };
+
+    update();
+    const resizeObserver = new ResizeObserver(onScroll);
+    resizeObserver.observe(document.documentElement);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      resizeObserver.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
     };
   }, [sections]);
 
