@@ -702,6 +702,57 @@ body:has(.cs-page--omantel)::before,
   max-width: none;
 }
 
+/* The old ink band, dot veil, and madder underline stay off this page. */
+.cs-page--omantel .cs-progress-track,
+.cs-page--omantel .paper-content-sheet::before,
+.cs-page--omantel .paper-content-sheet::after,
+.cs-page--omantel .cs-case-footer.site-footer::before {
+  content: none;
+  display: none;
+}
+
+.cs-page--omantel .cs-case-footer.site-footer {
+  background: transparent;
+  color: var(--om-ink);
+}
+
+.cs-page--omantel .cs-case-footer .cs-next-project {
+  border-bottom-color: var(--om-line);
+}
+
+.cs-page--omantel .cs-case-footer .cs-next-project-label {
+  color: var(--om-grey);
+}
+
+.cs-page--omantel .cs-case-footer .cs-next-project-link,
+.cs-page--omantel .cs-case-footer .cs-next-project-link:hover,
+.cs-page--omantel .cs-case-footer-back,
+.cs-page--omantel .cs-case-footer-back:hover {
+  color: var(--om-ink);
+  border-color: transparent;
+  border-bottom-color: var(--om-ink);
+  background: transparent;
+}
+
+.cs-page--omantel .cs-case-footer-back,
+.cs-page--omantel .cs-case-footer-back:hover {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+}
+
+.cs-page--omantel .cs-case-footer-divider {
+  background: var(--om-line);
+}
+
+.cs-page--omantel .cs-case-footer-copy {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  color: var(--om-grey);
+}
+
 /*
  * Desktop: sticky section nav in rail columns 1–3, content in 4–12.
  * Title and hero stay on the full rail above that split.
