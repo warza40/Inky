@@ -1,14 +1,10 @@
 /*
  * Case studies other than Omantel, on the same sheet.
- * Type overrides stay on the Figma steps from frame 81:1095.
- * Omantel keeps the lede and stat sizes already shipped on #64.
+ * Type uses the same frame styles as Omantel.
  */
 
 .cs-page--system .case-study-intro-lede {
-  font-size: 42px !important;
-  font-weight: 500 !important;
-  line-height: 1.2 !important;
-  color: #14141a !important;
+  color: var(--om-ink) !important;
 }
 
 .cs-page--system .case-study-intro-title,
@@ -25,10 +21,6 @@
   color: #636370 !important;
 }
 
-.cs-page--system .om-stat-value {
-  font-size: 32px !important;
-}
-
 .cs-page--system .om-stat-grid > .om-card .om-dense {
   color: #636370 !important;
 }
@@ -41,10 +33,11 @@
 .cs-page--system .om-card .om-list,
 .cs-page--system .om-card .om-list li {
   font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #14141a;
+  font-size: var(--case-type-body-dense);
+  font-weight: var(--weight-body);
+  line-height: var(--case-type-body-dense-line);
+  letter-spacing: var(--type-body-tracking);
+  color: var(--om-ink);
 }
 
 .cs-page--system .sys-subgroup {
@@ -71,36 +64,38 @@
 .cs-page--system .sys-facts dt {
   margin: 0;
   font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1.4;
-  letter-spacing: 1px;
+  font-size: var(--case-type-eyebrow);
+  font-weight: var(--case-type-eyebrow-weight);
+  line-height: var(--case-type-eyebrow-line);
+  letter-spacing: var(--case-type-eyebrow-track);
   text-transform: uppercase;
-  color: #14141a;
+  color: var(--om-ink);
 }
 
 .cs-page--system .sys-facts dd {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #14141a;
+  font-size: var(--case-type-body-dense);
+  font-weight: var(--weight-body);
+  line-height: var(--case-type-body-dense-line);
+  letter-spacing: var(--type-body-tracking);
+  color: var(--om-ink);
 }
 
 .cs-page--system .cs-context-hl {
-  color: #14141a;
-  font-weight: 800;
+  color: var(--om-ink);
+  font-weight: var(--weight-extrabold);
   font-style: normal;
 }
 
 .cs-page--system .sys-impact-copy {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1.6;
-  color: #14141a;
+  font-size: var(--case-type-body);
+  font-weight: var(--weight-body);
+  line-height: var(--case-type-body-line);
+  letter-spacing: var(--type-body-tracking);
+  color: var(--om-ink);
 }
 
 .cs-page--system .sys-nav-sketch {
@@ -125,8 +120,9 @@
 .cs-page--system .sys-platform {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.4;
-  color: #636370;
+  font-size: var(--case-type-label-sm);
+  font-weight: var(--case-type-label-sm-weight);
+  line-height: var(--case-type-label-sm-line);
+  letter-spacing: var(--type-body-tracking);
+  color: var(--om-grey);
 }
