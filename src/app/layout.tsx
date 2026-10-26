@@ -15,7 +15,6 @@ import "@/styles/hero-console.css";
 import "@/styles/cta-button.css";
 import "@/styles/tamagotchi-character.css";
 import "@/styles/expanding-cursor.css";
-import "@/styles/case-omantel-journal.css";
 import "@/styles/case-omantel-system.css";
 import "@/styles/case-system-pages.css";
 import { ExpandingCursorProvider } from "@/components/layout/ExpandingCursorProvider";

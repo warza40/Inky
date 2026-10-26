@@ -2,11 +2,9 @@ import { CaseMain } from "./CaseMain";
 import { CaseStudyFooter } from "./CaseStudyFooter";
 import { omantelStoryNav, type CaseStudy } from "@/case-studies/omantel";
 import { caseStudyHasVisualsSection } from "@/case-studies/case-visuals";
-import { CaseStudyDirection } from "./CaseStudyDirection";
 import { CaseHeroMedia } from "./CaseHeroMedia";
 import { CaseStudyLayout } from "@/components/sheets/CaseStudyLayout";
 import { FloatingNav } from "@/components/layout/FloatingNav";
-import { isSystemCase } from "@/components/case/system/system-slugs";
 
 interface CaseLayoutProps {
   children: React.ReactNode;
@@ -101,9 +99,8 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
   const sections = caseStudy ? buildCaseNavSections(caseStudy) : [];
   const hero = caseStudy ? heroCopyFromCaseStudy(caseStudy) : {};
   const isOmantel = caseStudy?.slug === "omantel-bulk-activation";
-  const systemCase = caseStudy ? isSystemCase(caseStudy.slug) : false;
+  const systemCase = Boolean(caseStudy) && !isOmantel;
   const themeClassName = [
-    caseStudy?.warmthTheme ? `cs-theme-${caseStudy.warmthTheme}` : "",
     isOmantel ? "cs-page--omantel" : "",
     systemCase ? "cs-page--system" : "",
   ]
@@ -147,16 +144,6 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
                 </dl>
               ) : null}
             </div>
-            {!isOmantel && !systemCase && facts.length > 0 ? (
-              <dl className="case-study-intro-facts">
-                {facts.map((fact) => (
-                  <div key={fact.label} className="case-study-intro-fact">
-                    <dt>{fact.label}</dt>
-                    <dd>{fact.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            ) : null}
           </div>
         </div>
       ) : null}
@@ -166,14 +153,6 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
           alt={caseStudy.heroImage.alt}
         />
       ) : null}
-      <CaseStudyDirection
-        title={formatLabel(title)}
-        metaLine={hero.metaLine}
-        problemStatement={hero.problemStatement}
-        role={hero.role}
-        warmthTheme={caseStudy?.warmthTheme ?? "madder"}
-        showHeroBand={!caseStudy?.heroImage && !systemCase}
-      />
     </div>
   );
 

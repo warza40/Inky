@@ -387,28 +387,6 @@ body:has(.page-shell--no-topography) #thinking-topography {
   line-height: var(--case-type-body-line);
 }
 
-/* Flatten journal decorations inside sheet sections */
-.cs-page--sheets .sheet-section .ojo-punch-holes,
-.cs-page--sheets .sheet-section .ojo-tape-wave,
-.cs-page--sheets .sheet-section .ojo-tape-seigaiha {
-  display: none;
-}
-
-.cs-page--sheets .sheet-section .ojo-problem-legacy-insert,
-.cs-page--sheets .sheet-section .ojo-overview-insert,
-.cs-page--sheets .sheet-section .ojo-decision-inner {
-  border: none;
-  box-shadow: none;
-  background: transparent;
-  padding: 0;
-}
-
-.cs-page--sheets .sheet-section .ojo-overview-impact-rail {
-  margin-bottom: var(--space-6);
-  padding: 0;
-  background: transparent;
-}
-
 .cs-page--sheets .sheet-section .cs-section-head {
   display: none;
 }
