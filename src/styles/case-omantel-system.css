@@ -19,8 +19,6 @@
   --om-paper: #f8f7f4;
   --om-paper-deep: #f0efea;
   --om-line: #b8bcc0;
-  /* Five KPI cards share a row only when each can be at least this wide. */
-  --om-stat-min: 200px;
   --ink: var(--om-ink);
   --ink-soft: var(--om-grey);
   /* One style per role. These stay put when the page title and section heading step. */
@@ -35,6 +33,8 @@
   --case-type-body-dense-line: 1.5;
   --case-type-card-lg: 2rem;
   --case-type-card-lg-line: 1.15;
+  --case-type-card-md: 1.75rem; /* Title/Card/M 28 */
+  --case-type-card-md-line: 1.15;
   --case-type-card-sm: 1.5rem;
   --case-type-card-line: 1.2;
   --case-type-card-weight: 800;
@@ -367,30 +367,62 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   grid-column: span 4;
 }
 
-/* KPI cards. Flat Paper, hard ink shadow. Phone stacks; gap stays 24. */
-:is(.cs-page--omantel, .cs-page--system) .om-stat-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-3);
+/*
+ * One impact panel. Paper Deep, ink border, hard shadow.
+ * Phone is one column, 24px panel padding, horizontal rules only.
+ */
+:is(.cs-page--omantel, .cs-page--system) .om-stat-panel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
   width: 100%;
   min-width: 0;
-  align-items: stretch;
-}
-
-:is(.cs-page--omantel, .cs-page--system) .om-stat-grid > .om-card {
-  grid-column: auto;
-  height: 100%;
-  box-sizing: border-box;
   margin: 0;
   padding: var(--space-3);
-  gap: var(--space-1);
-  justify-content: flex-start;
-  transform: none;
-  background-color: var(--om-paper);
-  background-image: none;
+  background: var(--om-paper-deep);
   border: 2px solid var(--om-ink);
   border-radius: 24px;
   box-shadow: 4px 4px 0 var(--om-ink);
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-items: stretch;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-stat-cell {
+  box-sizing: border-box;
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--om-line);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system)
+  .om-stat-grid
+  > .om-stat-cell:last-child {
+  border-bottom: none;
+}
+
+@media (min-width: 768px) {
+  :is(.cs-page--omantel, .cs-page--system) .om-stat-panel {
+    padding: var(--space-4);
+  }
 }
 
 :is(.cs-page--omantel, .cs-page--system) .om-stat-eyebrow {
@@ -403,20 +435,18 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 
 :is(.cs-page--omantel, .cs-page--system) .om-stat-value {
   margin: 0;
-  min-height: 2.4em;
   font-family: var(--font-sans);
-  font-size: var(--case-type-card-lg);
+  font-size: var(--case-type-card-md);
   font-weight: var(--case-type-card-weight);
-  line-height: var(--case-type-card-lg-line);
+  line-height: var(--case-type-card-md-line);
   letter-spacing: var(--case-type-card-track);
   color: #3f7d68;
 }
 
-:is(.cs-page--omantel, .cs-page--system) .om-stat-grid > .om-card .om-dense {
+:is(.cs-page--omantel, .cs-page--system) .om-stat-cell .om-dense {
+  display: block;
   margin: 0;
-  flex: 1 0 auto;
-  /* Three lines of Body/M, so a shorter caption still matches the row. */
-  min-height: 4.5em;
+  flex: 0 0 auto;
   font-family: var(--font-sans) !important;
   font-size: var(--case-type-body-dense) !important;
   font-weight: var(--weight-body) !important;
@@ -574,7 +604,7 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 
 /* Full-width block above a card row, so the extra 8px does not shift one card. */
 :is(.cs-page--omantel, .cs-page--system) .om-eyebrow:has(+ .om-card),
-:is(.cs-page--omantel, .cs-page--system) .om-eyebrow:has(+ .om-stat-grid),
+:is(.cs-page--omantel, .cs-page--system) .om-eyebrow:has(+ .om-stat-panel),
 :is(.cs-page--omantel, .cs-page--system) .om-subhead:has(+ .om-card),
 :is(.cs-page--omantel, .cs-page--system) .om-copy:has(+ .om-card),
 :is(.cs-page--omantel, .cs-page--system) .om-list:has(+ .om-card),
@@ -678,7 +708,7 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   }
 
   :is(.cs-page--omantel, .cs-page--system) .om-eyebrow:has(+ .om-card),
-  :is(.cs-page--omantel, .cs-page--system) .om-eyebrow:has(+ .om-stat-grid),
+  :is(.cs-page--omantel, .cs-page--system) .om-eyebrow:has(+ .om-stat-panel),
   :is(.cs-page--omantel, .cs-page--system) .om-subhead:has(+ .om-card),
   :is(.cs-page--omantel, .cs-page--system) .om-copy:has(+ .om-card),
   :is(.cs-page--omantel, .cs-page--system) .om-list:has(+ .om-card),
@@ -876,7 +906,6 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   }
 
   :is(.cs-page--omantel, .cs-page--system) .om-grid,
-  :is(.cs-page--omantel, .cs-page--system) .om-stat-grid,
   :is(.cs-page--omantel, .cs-page--system) .om-media-row--half,
   :is(.cs-page--omantel, .cs-page--system) .om-media-row--phone {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -884,13 +913,30 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
     row-gap: var(--layout-grid-gutter);
   }
 
+  /* Two-up. A short last row stays the same cell width. Rules replace the gap. */
+  :is(.cs-page--omantel, .cs-page--system) .om-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-stat-grid
+    > .om-stat-cell:nth-child(odd):not(:last-child) {
+    border-right: 1px solid var(--om-line);
+  }
+
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-stat-grid:not(:has(> .om-stat-cell:last-child:nth-child(odd)))
+    > .om-stat-cell:nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
+
   :is(.cs-page--omantel, .cs-page--system) .om-media-row--phone {
     display: grid;
   }
 
   :is(.cs-page--omantel, .cs-page--system) .om-card--half,
-  :is(.cs-page--omantel, .cs-page--system) .om-card--third,
-  :is(.cs-page--omantel, .cs-page--system) .om-stat-grid > .om-card {
+  :is(.cs-page--omantel, .cs-page--system) .om-card--third {
     grid-column: auto;
     width: auto;
     max-width: none;
@@ -988,14 +1034,25 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
     grid-column: span 3;
   }
 
-  /* Three across, leftover row left-aligned. Five across only when the min fits. */
+  /* Three across. A short last row keeps the same cell width. */
   :is(.cs-page--omantel, .cs-page--system) .om-stat-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-3);
+    gap: 0;
   }
 
-  :is(.cs-page--omantel, .cs-page--system) .om-stat-grid > .om-card {
-    grid-column: auto;
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-stat-grid
+    > .om-stat-cell:not(:nth-child(3n)):not(:last-child) {
+    border-right: 1px solid var(--om-line);
+  }
+
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-stat-grid:has(> .om-stat-cell:last-child:nth-child(3n))
+    > .om-stat-cell:nth-last-child(-n + 3),
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-stat-grid:has(> .om-stat-cell:last-child:nth-child(3n + 2))
+    > .om-stat-cell:nth-last-child(-n + 2) {
+    border-bottom: none;
   }
 
   /* 6 of the 9 content columns. Equals --measure-body (628px) at a 1280 rail. */
@@ -1014,14 +1071,9 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   }
 }
 
-@container om-content (min-width: calc(5 * var(--om-stat-min) + 4 * var(--space-3))) {
-  :is(.cs-page--omantel, .cs-page--system) .om-stat-grid {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-}
-
 /*
- * 01 At a glance. Eyebrow, section heading, Body/M meta, Title/Card/L value, Caption.
+ * 01 At a glance. Eyebrow, section heading, Body/M meta.
+ * Impact values are Title/Card/M inside the shared panel.
  * The label track is two columns of this section's grid. Values share one column.
  */
 :is(.cs-page--omantel, .cs-page--system) #tldr .om-grid {
@@ -1111,10 +1163,6 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   letter-spacing: var(--type-body-tracking) !important;
   text-align: left;
   color: var(--om-grey) !important;
-}
-
-:is(.cs-page--omantel, .cs-page--system) #tldr .om-stat-eyebrow {
-  margin-bottom: calc(var(--space-2) - var(--space-3));
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {

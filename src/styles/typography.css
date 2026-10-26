@@ -166,6 +166,7 @@
   --case-type-lead-weight: 500;
 
   --case-type-card-lg: 2rem; /* 32 */
+  --case-type-card-md: 1.75rem; /* Title/Card/M 28 */
   --case-type-card-sm: 1.5rem; /* 24 */
   --case-type-card-line: 1.2;
   --case-type-card-track: 0;
@@ -199,8 +200,9 @@
   --case-type-eyebrow-track: var(--case-type-label-sm-track);
   --case-type-eyebrow-weight: var(--case-type-label-sm-weight);
 
-  /* Title/Card/L is 115%. Title/Card/S keeps --case-type-card-line (120%). */
+  /* Title/Card/L and Title/Card/M are 115%. Title/Card/S keeps --case-type-card-line (120%). */
   --case-type-card-lg-line: 1.15;
+  --case-type-card-md-line: 1.15;
 
   --case-type-link: var(--type-link);
   --case-type-link-line: 1.2;

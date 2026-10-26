@@ -3,6 +3,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import type { CaseStudy } from "@/case-studies/omantel";
+import { ImpactStatPanel } from "@/components/case/ImpactStatPanel";
 import { MotionSection } from "@/components/case/MotionSection";
 import { parseBoldSpans } from "@/lib/case-rich-text";
 
@@ -196,33 +197,6 @@ function StorySection({
   );
 }
 
-function ImpactStats({
-  blocks,
-  showEyebrow = false,
-}: {
-  blocks: NonNullable<CaseStudy["sections"]["journalImpact"]>["blocks"];
-  showEyebrow?: boolean;
-}) {
-  if (!blocks.length) return null;
-  return (
-    <>
-      {showEyebrow ? (
-        <h3 className="om-eyebrow om-stat-eyebrow om-full">Impact</h3>
-      ) : null}
-      <div className="om-stat-grid om-full">
-        {blocks.map((block) => (
-          <article key={block.value} className="om-card om-card--stat">
-            <p className="om-stat-value">{block.value}</p>
-            {block.metaDetail ? (
-              <p className="om-dense">{block.metaDetail}</p>
-            ) : null}
-          </article>
-        ))}
-      </div>
-    </>
-  );
-}
-
 function DecisionArticle({
   decision,
   index,
@@ -338,7 +312,7 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
             PROTOTYPE_NDA_LINE
           )}
         </p>
-        <ImpactStats blocks={impact} showEyebrow />
+        <ImpactStatPanel blocks={impact} />
       </StorySection>
 
       <StorySection
