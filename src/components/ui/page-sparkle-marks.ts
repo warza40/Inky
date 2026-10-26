@@ -13,13 +13,20 @@ export interface PageSparkleMark {
   y: number;
   /** Size in wireframe px at 1920px artboard width. */
   size: number;
-  /** Hide below this viewport width when set. Homepage Figma instances only. */
+  /** Hide below this viewport width when set. */
   hideBelow?: number;
   /**
    * "open" marks sit in empty paper and may use the higher opacity.
    * Omitted marks are treated as crossing type or a card.
    */
   room?: "open";
+  /**
+   * Case pages only. Anchors the mark in the empty page margin.
+   * "start" is the left margin, "end" is the right. Wireframe x/y are ignored.
+   */
+  edge?: "start" | "end";
+  /** Viewport offset for an anchored mark, as a percentage of the height below the header. */
+  along?: number;
 }
 
 function fromWireframe(
@@ -56,31 +63,40 @@ export const HOMEPAGE_SPARKLE_MARKS: PageSparkleMark[] = [
   fromWireframe("66:2013", "wide", 817, 3917, 522, 768),
 ];
 
-/**
- * Case study pages — same sparkle styles as the homepage, at their
- * wireframe coordinates. Overlap is handled by stacking and opacity.
- */
-export const CASE_STUDY_SPARKLE_MARKS: PageSparkleMark[] = [
-  fromWireframe("cs:solid-nav", "solid", 24, 140, 72),
-  fromWireframe("cs:crosshatch-hero", "crosshatch", 1700, 480, 180),
-  fromWireframe("cs:diamond-hero", "diamond", -180, 980, 260),
-  fromWireframe("cs:scribble", "scribble", -200, 1900, 280),
-  fromWireframe("cs:solid-mid", "solid", 1720, 2300, 180),
-  fromWireframe("cs:crosshatch-mid", "crosshatch", -140, 3000, 220),
-  fromWireframe("cs:solid-grid", "solid", 1760, 3400, 140),
-  fromWireframe("cs:fine", "fine", -160, 4100, 240),
-  fromWireframe("cs:wide", "wide", -160, 4500, 180),
-];
+function marginMark(
+  id: string,
+  edge: "start" | "end",
+  along: number,
+): PageSparkleMark {
+  return {
+    id,
+    style: "solid",
+    x: 0,
+    y: 0,
+    size: 56,
+    hideBelow: 1024,
+    room: "open",
+    edge,
+    along,
+  };
+}
 
 /**
- * Omantel and the other system case pages. Three solid marks at their
- * wireframe coordinates. The right-hand mark meets the content edge, so it
- * stays in the 0.12–0.18 band. The other two sit in open paper.
+ * Case pages. Three solid marks in the empty page margin. When that margin
+ * cannot hold a mark, placement shifts into nav-column whitespace. They are
+ * hidden below 1024px, where the margin is not safe.
  */
+export const CASE_STUDY_SPARKLE_MARKS: PageSparkleMark[] = [
+  marginMark("cs:solid-1", "start", 12),
+  marginMark("cs:solid-2", "end", 46),
+  marginMark("cs:solid-3", "start", 74),
+];
+
+/** Omantel and the other system case pages. Same margin rule as the fallback set. */
 export const OMANTEL_SPARKLE_MARKS: PageSparkleMark[] = [
-  fromWireframe("om:solid-1", "solid", 24, 400, 96, undefined, "open"),
-  fromWireframe("om:solid-2", "solid", 1800, 2200, 96),
-  fromWireframe("om:solid-3", "solid", 24, 4200, 96, undefined, "open"),
+  marginMark("om:solid-1", "start", 12),
+  marginMark("om:solid-2", "end", 46),
+  marginMark("om:solid-3", "start", 74),
 ];
 
 export type PageSparkleVariant = "home" | "case-study" | "omantel";
