@@ -61,18 +61,6 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   gap: var(--space-1);
 }
 
-@media (max-width: 767px) {
-  :is(.cs-page--omantel, .cs-page--system) .sheet-nav-row {
-    flex-wrap: wrap;
-    overflow: visible;
-  }
-
-  :is(.cs-page--omantel, .cs-page--system) .sheet-nav-tab {
-    flex-shrink: 1;
-    white-space: normal;
-  }
-}
-
 :is(.cs-page--omantel, .cs-page--system) .sheet-nav-tab {
   min-width: 24px;
   min-height: 24px;

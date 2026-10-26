@@ -551,6 +551,15 @@ body:has(.page-shell--no-topography) #thinking-topography {
     --cs-heading-gap: var(--space-component);
   }
 
+  /*
+   * Phone has no section nav. display: none drops it from layout and from
+   * the tab order, including the margin it reserved above the hero.
+   * The skip link and the headings stay.
+   */
+  .cs-page--sheets .sheet-nav-wrap {
+    display: none;
+  }
+
   .case-study-intro-main,
   .case-study-intro-facts {
     grid-column: 1 / -1;
