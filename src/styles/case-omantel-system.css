@@ -61,9 +61,60 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   gap: var(--space-1);
 }
 
+@media (max-width: 1023px) {
+  :is(.cs-page--omantel, .cs-page--system) .sheet-nav-row {
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .sheet-nav-tab {
+    flex-shrink: 1;
+    white-space: normal;
+  }
+}
+
 :is(.cs-page--omantel, .cs-page--system) .sheet-nav-tab {
-  min-height: 0;
+  min-width: 24px;
+  min-height: 24px;
   padding: var(--space-1) var(--space-2);
+}
+
+.cs-skip-link {
+  position: fixed;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 80;
+  display: inline-flex;
+  align-items: center;
+  min-width: 24px;
+  min-height: 24px;
+  padding: var(--space-1) var(--space-2);
+  background: var(--om-paper, #f8f7f4);
+  color: var(--om-ink, #14141a);
+  font-family: var(--font-sans);
+  font-size: var(--case-type-link, 1rem);
+  font-weight: var(--case-type-link-weight, 800);
+  line-height: var(--case-type-link-line, 1.2);
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.cs-skip-link:focus {
+  transform: none;
+  outline: 2px solid var(--om-ink, #14141a);
+  outline-offset: 3px;
+}
+
+#case-study-content:focus {
+  outline: none;
+}
+
+#case-study-content:focus-visible {
+  outline: 2px solid var(--om-ink, #14141a);
+  outline-offset: 3px;
+  scroll-margin-top: calc(
+    var(--nav-offset-top) + var(--nav-height) + var(--space-component)
+  );
 }
 
 :is(.cs-page--omantel, .cs-page--system) .sheet-section.paper-elevated-sheet,
@@ -670,6 +721,10 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 :is(.cs-page--omantel, .cs-page--system) .cs-next-project-link,
 :is(.cs-page--omantel, .cs-page--system) .cs-case-footer-back {
   font-family: var(--font-sans);
+  display: inline-flex;
+  align-items: center;
+  min-width: 24px;
+  min-height: 24px;
   font-size: var(--case-type-link);
   font-weight: var(--case-type-link-weight);
   line-height: var(--case-type-link-line);
@@ -695,6 +750,15 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 
 :is(.cs-page--omantel, .cs-page--system) .sheet-nav-tab--active {
   border-bottom-color: var(--badge-teal);
+}
+
+:is(.cs-page--omantel, .cs-page--system) .sheet-nav-tab:focus-visible {
+  outline: 2px solid var(--om-ink);
+  outline-offset: 3px;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .sheet-section-number {
+  color: var(--om-grey);
 }
 
 /* Footer copy sits on the rail. DR/WH keep the inset. */
@@ -808,12 +872,17 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   :is(.cs-page--omantel, .cs-page--system)
     .case-study-layout-inner
     > .layout-rail,
+  :is(.cs-page--omantel, .cs-page--system) .case-study-hero,
   :is(.cs-page--omantel, .cs-page--system) .case-study-layout-main,
   :is(.cs-page--omantel, .cs-page--system) .case-study-layout-content {
     width: 100%;
     max-width: none;
     margin-inline: 0;
     padding-inline: 0;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .case-study-layout-main {
+    display: contents;
   }
 
   :is(.cs-page--omantel, .cs-page--system)
@@ -827,21 +896,18 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
     margin: 0;
   }
 
-  :is(.cs-page--omantel, .cs-page--system)
-    .case-study-layout-inner
-    > .layout-rail:not(.sheet-nav-wrap):not(:last-child) {
+  :is(.cs-page--omantel, .cs-page--system) .case-study-hero {
     grid-column: 2 / 5;
     grid-row: 1;
   }
 
-  :is(.cs-page--omantel, .cs-page--system) .case-study-layout-main {
+  :is(.cs-page--omantel, .cs-page--system) .case-study-layout-content {
     grid-column: 4;
     grid-row: 2;
+    padding-bottom: var(--cs-section-gap);
   }
 
-  :is(.cs-page--omantel, .cs-page--system)
-    .case-study-layout-inner
-    > .layout-rail:last-child {
+  :is(.cs-page--omantel, .cs-page--system) .case-study-footer-rail {
     grid-column: 2 / 5;
     grid-row: 3;
   }
@@ -864,7 +930,7 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   }
 
   :is(.cs-page--omantel, .cs-page--system) .sheet-nav-tab {
-    min-height: 0;
+    min-height: 24px;
     margin: 0;
     padding: var(--space-1) var(--space-2);
     border-bottom: none;

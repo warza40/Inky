@@ -40,6 +40,9 @@ export function CaseStudyLayout({
           themeClassName,
         )}
       >
+        <a className="cs-skip-link" href="#case-study-content">
+          Skip to content
+        </a>
         {header}
 
         <div className="case-study-layout-inner cs-page-inner">
@@ -49,15 +52,22 @@ export function CaseStudyLayout({
             </div>
           ) : null}
 
-          {hero ? <div className="layout-rail">{hero}</div> : null}
-
           <main className="cs-main case-study-layout-main">
-            <div className="layout-rail cs-content case-study-layout-content">
+            {hero ? (
+              <div className="layout-rail case-study-hero">{hero}</div>
+            ) : null}
+            <div
+              id="case-study-content"
+              tabIndex={-1}
+              className="layout-rail cs-content case-study-layout-content"
+            >
               {children}
             </div>
           </main>
 
-          {footer ? <div className="layout-rail">{footer}</div> : null}
+          {footer ? (
+            <div className="layout-rail case-study-footer-rail">{footer}</div>
+          ) : null}
         </div>
       </div>
     </PageShell>

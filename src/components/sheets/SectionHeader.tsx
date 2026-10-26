@@ -20,7 +20,7 @@ export function SectionHeader({
   return (
     <header className={cn("sheet-section-header", className)}>
       {number != null ? (
-        <span className="sheet-section-number" aria-hidden>
+        <span className="sheet-section-number">
           {formatSectionNumber(number)}
         </span>
       ) : null}

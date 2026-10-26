@@ -144,7 +144,7 @@ export function FloatingNav() {
   }, [open, closeMenu]);
 
   return (
-    <header className="floating-nav" aria-label="Site header">
+    <header className="floating-nav" role="banner" aria-label="Site">
       <div className="floating-nav__frame">
         <div className="floating-nav__bar">
           <Link
@@ -187,7 +187,7 @@ export function FloatingNav() {
             })}
           </nav>
 
-          <p className="floating-nav__availability" aria-label="Open to work">
+          <p className="floating-nav__availability">
             <span className="floating-nav__availability-dot" aria-hidden />
             available for work
           </p>

@@ -88,6 +88,7 @@ export function InPageSectionNav({
                 "sheet-nav-tab",
                 activeSection === id && "sheet-nav-tab--active",
               )}
+              aria-current={activeSection === id ? "location" : undefined}
             >
               {label}
             </button>

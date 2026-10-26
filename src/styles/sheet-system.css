@@ -447,6 +447,12 @@ body:has(.page-shell--no-topography) #thinking-topography {
   .sheet-nav-tab {
     transition: none;
   }
+
+  /* Framer sets inline opacity. Keep every section readable when motion is reduced. */
+  .sheet-section {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 @media (max-width: 640px) {

@@ -11,10 +11,7 @@ interface CaseStudyFooterProps {
 
 export function CaseStudyFooter({ nextProject }: CaseStudyFooterProps) {
   return (
-    <footer
-      className="site-footer cs-case-footer"
-      aria-label="Case study footer"
-    >
+    <footer className="site-footer cs-case-footer">
       <div className="cs-case-footer-inner">
         {nextProject}
         <div className="cs-case-footer-actions">

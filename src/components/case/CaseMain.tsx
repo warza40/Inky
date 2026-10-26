@@ -6,5 +6,5 @@ interface CaseMainProps {
 }
 
 export function CaseMain({ children, className }: CaseMainProps) {
-  return <main className={cn("case-main", className)}>{children}</main>;
+  return <div className={cn("case-main", className)}>{children}</div>;
 }
