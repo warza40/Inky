@@ -196,7 +196,7 @@ export function CaseStudyDirection({
               {metaLine ? (
                 <p className="cs-hero-meta-line">{metaLine}</p>
               ) : null}
-              <h1 className="cs-hero-title">{title}</h1>
+              <p className="cs-hero-title">{title}</p>
               {problemStatement ? (
                 <p className="cs-hero-problem-lede">{problemStatement}</p>
               ) : null}

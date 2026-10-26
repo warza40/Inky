@@ -4483,7 +4483,7 @@ body:has(.cs-page) {
   box-sizing: border-box;
 }
 /* Title uses full hero inner width (not the narrower reading cap) */
-.cs-hero-overlay-content > h1.cs-hero-title {
+.cs-hero-overlay-content > .cs-hero-title {
   max-width: 100%;
   width: 100%;
   box-sizing: border-box;
