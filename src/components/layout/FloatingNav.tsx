@@ -50,9 +50,9 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "About me",
-    href: "/#about",
+    href: "/about",
     match: "about",
-    cursor: { title: "About Rachana", hint: "Jump to about section" },
+    cursor: { title: "About Rachana", hint: "Open the about page" },
   },
   {
     label: "Resume",
@@ -62,11 +62,7 @@ const NAV_ITEMS: NavItem[] = [
   },
 ];
 
-function isNavItemActive(
-  item: NavItem,
-  pathname: string,
-  hash: string,
-): boolean {
+function isNavItemActive(item: NavItem, pathname: string): boolean {
   if (!item.match) return false;
 
   switch (item.match) {
@@ -77,28 +73,22 @@ function isNavItemActive(
     case "illustration":
       return pathname.startsWith("/inky-lily");
     case "about":
-      return pathname === "/" && hash === "#about";
-    default:
-      return false;
+      return pathname.startsWith("/about");
+    default: {
+      const unmatched: never = item.match;
+      return unmatched;
+    }
   }
 }
 
 export function FloatingNav() {
   const pathname = usePathname();
-  const [hash, setHash] = useState("");
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const menuRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
   const closeMenu = useCallback(() => setOpen(false), []);
-
-  useEffect(() => {
-    const syncHash = () => setHash(window.location.hash);
-    syncHash();
-    window.addEventListener("hashchange", syncHash);
-    return () => window.removeEventListener("hashchange", syncHash);
-  }, [pathname]);
 
   useEffect(() => {
     if (!open) return;
@@ -165,7 +155,7 @@ export function FloatingNav() {
             aria-label="Primary navigation"
           >
             {NAV_ITEMS.map((item) => {
-              const active = isNavItemActive(item, pathname, hash);
+              const active = isNavItemActive(item, pathname);
 
               return (
                 <Link
@@ -218,7 +208,7 @@ export function FloatingNav() {
           <nav aria-label="Mobile navigation">
             <ul className="floating-nav__mobile-list" role="list">
               {NAV_ITEMS.map((item) => {
-                const active = isNavItemActive(item, pathname, hash);
+                const active = isNavItemActive(item, pathname);
 
                 return (
                   <li key={item.label}>
