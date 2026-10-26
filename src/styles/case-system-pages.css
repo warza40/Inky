@@ -56,6 +56,21 @@
   margin: 0;
 }
 
+@media (max-width: 1199px) {
+  .cs-page--system .sys-facts {
+    max-width: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .cs-page--system .sys-facts {
+    max-width: calc(
+      6 * (100cqi - 11 * var(--layout-grid-gutter)) / 12 + 5 *
+        var(--layout-grid-gutter)
+    );
+  }
+}
+
 .cs-page--system .sys-facts div {
   display: grid;
   gap: var(--space-1);
