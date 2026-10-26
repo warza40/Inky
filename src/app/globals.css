@@ -4929,9 +4929,9 @@ body:has(.cs-page) {
 .cs-persona-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3px;
+  gap: 24px;
   margin: var(--space-6) 0;
-  padding-top: 10px;
+  padding-top: 0;
 }
 .cs-persona-card {
   position: relative;
@@ -6688,9 +6688,10 @@ h3.cs-context-section-title {
     border-bottom: none;
   }
 }
-@media (max-width: 480px) {
+@media (max-width: 767px) {
   .cs-persona-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 }
 

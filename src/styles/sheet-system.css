@@ -633,7 +633,8 @@ body:has(.page-shell--no-topography) #thinking-topography {
 
 .cs-page--sheets .om-pain-title,
 .cs-page--sheets .cs-report-title,
-.cs-page--sheets .cs-persona-name {
+.cs-page--sheets .cs-persona-name,
+.cs-page--sheets .cs-ecosystem-name {
   font-family: var(--font-sans) !important;
   font-size: var(--case-type-card-sm) !important;
   font-weight: var(--case-type-card-weight) !important;
@@ -668,6 +669,7 @@ body:has(.page-shell--no-topography) #thinking-topography {
 .cs-page--sheets .ojo-problem-text,
 .cs-page--sheets .ojo-after-text,
 .cs-page--sheets .cs-ecosystem-intro,
+.cs-page--sheets .cs-ecosystem-desc,
 .cs-page--sheets .cs-body-text,
 .cs-page--sheets .om-copy,
 .cs-page--sheets
@@ -764,6 +766,7 @@ body:has(.page-shell--no-topography) #thinking-topography {
 .cs-page--sheets .cs-context-section-title,
 .cs-page--sheets .cs-meta-label,
 .cs-page--sheets .cs-ecosystem-box-head,
+.cs-page--sheets .cs-ecosystem-badge,
 .cs-page--sheets .cs-ecosystem-eyebrow::before,
 .cs-page--sheets .cs-stat-label,
 .cs-page--sheets .cs-nei-label,
@@ -803,13 +806,6 @@ body:has(.page-shell--no-topography) #thinking-topography {
   color: var(--case-eyebrow-statement, #3f7d68) !important;
 }
 
-.cs-page--sheets .sheet-section .ojo-outcome-paper {
-  padding: 0;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-}
-
 .cs-page--sheets .ojo-p-label::after {
   content: none;
 }
@@ -825,5 +821,36 @@ body:has(.page-shell--no-topography) #thinking-topography {
 
 .cs-page--sheets .ojo-reflection-list {
   margin-top: var(--space-2);
-  padding-left: 0;
+  padding-left: 1.25em;
+  list-style: disc;
+}
+
+.cs-page--sheets .cs-outcome-list,
+.cs-page--sheets .cs-understanding-list {
+  list-style: disc;
+  margin: 0;
+  padding-left: 1.25em;
+}
+
+.cs-page--sheets .cs-outcome-list li,
+.cs-page--sheets .cs-outcome-list li.cs-outcome-result-item,
+.cs-page--sheets .cs-understanding-list li {
+  display: list-item;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: #14141a;
+  font-weight: 400;
+}
+
+.cs-page--sheets .cs-outcome-list li + li,
+.cs-page--sheets .cs-understanding-list li + li {
+  margin-top: 8px;
+}
+
+.cs-page--sheets .cs-outcome-list li::before,
+.cs-page--sheets .cs-understanding-list li::before {
+  content: none;
 }
