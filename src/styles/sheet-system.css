@@ -286,7 +286,7 @@ body:has(.page-shell--no-topography) #thinking-topography {
 }
 
 .case-study-intro-meta {
-  margin: 0 0 var(--space-meta);
+  margin: 0 0 var(--space-2);
   font-family: var(--font-mono);
   font-size: var(--case-type-eyebrow);
   font-weight: var(--case-type-eyebrow-weight);
@@ -328,7 +328,7 @@ body:has(.page-shell--no-topography) #thinking-topography {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-meta);
+  gap: var(--space-2);
   margin: 0;
 }
 
@@ -461,7 +461,7 @@ body:has(.page-shell--no-topography) #thinking-topography {
 
 .cs-page--sheets {
   --layout-page-padding: var(--space-component);
-  --cs-section-gap: clamp(112px, 8.9vw, 128px);
+  --cs-section-gap: 128px;
   --cs-heading-gap: var(--space-separation);
   --cs-stack-gap: var(--space-component);
   --cs-copy-max: min(var(--layout-prose-max), 100%);
@@ -535,15 +535,15 @@ body:has(.page-shell--no-topography) #thinking-topography {
   overflow: hidden;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .cs-page--sheets {
-    --cs-section-gap: var(--space-group);
+    --cs-section-gap: 96px;
   }
 }
 
 @media (max-width: 767px) {
   .cs-page--sheets {
-    --cs-section-gap: var(--space-heading);
+    --cs-section-gap: 64px;
     --cs-heading-gap: var(--space-component);
   }
 
@@ -623,7 +623,7 @@ body:has(.page-shell--no-topography) #thinking-topography {
   font-size: var(--case-type-card-lg) !important;
   font-weight: var(--case-type-card-weight) !important;
   font-style: normal !important;
-  line-height: var(--case-type-card-line) !important;
+  line-height: var(--case-type-card-lg-line) !important;
   letter-spacing: var(--case-type-card-track) !important;
   font-variation-settings: normal !important;
   overflow-wrap: break-word;
@@ -701,10 +701,10 @@ body:has(.page-shell--no-topography) #thinking-topography {
 .cs-page--sheets .om-meta-value,
 .cs-page--sheets .case-study-intro-fact dd {
   font-family: var(--font-sans) !important;
-  font-size: var(--type-body-sm) !important;
+  font-size: var(--case-type-body-dense) !important;
   font-weight: var(--weight-body) !important;
   font-style: normal !important;
-  line-height: var(--type-body-sm-line) !important;
+  line-height: var(--case-type-body-dense-line) !important;
   letter-spacing: 0 !important;
   font-variation-settings: normal !important;
 }
@@ -732,7 +732,7 @@ body:has(.page-shell--no-topography) #thinking-topography {
   font-weight: var(--case-type-mono-section-weight) !important;
   font-style: normal !important;
   line-height: var(--case-type-mono-section-line) !important;
-  letter-spacing: 0 !important;
+  letter-spacing: var(--case-type-mono-section-track) !important;
   text-transform: none !important;
   font-variation-settings: normal !important;
 }

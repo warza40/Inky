@@ -190,6 +190,18 @@
   --case-type-mono-section: var(--type-mono-section);
   --case-type-mono-section-line: var(--type-mono-line);
   --case-type-mono-section-weight: 700;
+  --case-type-mono-section-track: 1px;
+
+  /* Title/Card/L is 115%. Title/Card/S keeps --case-type-card-line (120%). */
+  --case-type-card-lg-line: 1.15;
+
+  --case-type-label-sm: var(--type-label-sm);
+  --case-type-label-sm-line: 1.4;
+  --case-type-label-sm-weight: var(--weight-semibold);
+
+  --case-type-link: var(--type-link);
+  --case-type-link-line: 1.2;
+  --case-type-link-weight: var(--type-link-weight);
 }
 
 /* ── Semantic utility classes ── */
@@ -371,28 +383,22 @@
   }
 }
 
-/* Case study type — tablet, including the 768px check. */
+/*
+ * Page title and section heading step to smaller frame sizes.
+ * Lead, body, and card titles stay on one style. 18, 22, 17, 26, and a
+ * 20px card title are not frame styles, and a second size made one role
+ * differ from page to page.
+ */
 @media (max-width: 1024px) {
   :root {
-    --case-type-page: 3.5rem; /* 56 */
-    --case-type-section: 2.625rem; /* 42 */
-    --case-type-lead: 2rem; /* 32 */
-    --case-type-body: 1.125rem; /* 18 */
-    --case-type-body-lg: var(--case-type-body);
-    --case-type-card-lg: 1.75rem; /* 28 */
-    --case-type-card-sm: 1.375rem; /* 22 */
+    --case-type-page: 3.5rem; /* Heading/Section 56 */
+    --case-type-section: 2.625rem; /* Lead/M 42 */
   }
 }
 
-/* Case study type — mobile, holds from 767 down through 390. */
 @media (max-width: 767px) {
   :root {
-    --case-type-page: 2rem; /* 32 */
-    --case-type-section: 2rem; /* 32 */
-    --case-type-lead: 1.625rem; /* 26 */
-    --case-type-body: 1.0625rem; /* 17 */
-    --case-type-body-lg: var(--case-type-body);
-    --case-type-card-lg: 1.5rem; /* 24 */
-    --case-type-card-sm: 1.25rem; /* 20 */
+    --case-type-page: 2rem; /* Title/Card/L 32 */
+    --case-type-section: 2rem; /* Title/Card/L 32 */
   }
 }
