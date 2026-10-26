@@ -324,9 +324,18 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   padding: 0;
 }
 
-:is(.cs-page--omantel, .cs-page--system) .om-list {
+.cs-page--sheets .om-list {
   margin: 0;
-  padding-left: var(--space-component);
+  padding-left: 1.25em;
+  list-style: disc;
+}
+
+.cs-page--sheets .om-list li + li {
+  margin-top: 8px;
+}
+
+.cs-page--sheets .om-list li::before {
+  content: none;
 }
 
 :is(.cs-page--omantel, .cs-page--system) .om-stakeholder-row {
@@ -376,6 +385,86 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 
 :is(.cs-page--omantel, .cs-page--system) .om-card--third {
   grid-column: span 4;
+}
+
+/*
+ * Comparison panels (Before/After, paired pain groups).
+ * One Paper Deep shell. Inner cards are flat Paper, equal columns from 768.
+ * Pixel sizes, because journal routes do not remap --space-*.
+ */
+.cs-page--sheets .om-compare-panel {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 24px;
+  background: #f0efea;
+  border: 2px solid #14141a;
+  border-radius: 24px;
+  box-shadow: 4px 4px 0 #14141a;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cs-page--sheets .om-compare-panel--follow {
+  margin-top: calc(48px - var(--layout-grid-gutter, 24px));
+}
+
+.cs-page--sheets .om-compare {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.cs-page--sheets .om-compare-card {
+  box-sizing: border-box;
+  min-width: 0;
+  margin: 0;
+  padding: 24px;
+  background: #f8f7f4;
+  border: 1px solid #b8bcc0;
+  border-radius: 16px;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cs-page--sheets .om-compare-card > .om-eyebrow,
+.cs-page--sheets .om-compare-card > .om-pain-title,
+.cs-page--sheets .om-compare-panel > .om-eyebrow {
+  margin: 0;
+}
+
+.cs-page--sheets .om-label--emphasis {
+  color: #3f7d68 !important;
+}
+
+.cs-page--sheets .om-compare-card .om-dense,
+.cs-page--sheets .om-compare-card .om-dense p,
+.cs-page--sheets .om-compare-card .om-list,
+.cs-page--sheets .om-compare-card .om-list li {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: var(--weight-body);
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: var(--type-body-tracking);
+  color: #14141a;
+}
+
+@media (min-width: 768px) {
+  .cs-page--sheets .om-compare-panel {
+    padding: 32px;
+  }
+
+  .cs-page--sheets .om-compare {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
 }
 
 /*
@@ -1280,12 +1369,7 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   display: none;
 }
 
-/* Clip, tape, pin, and the old hero band stay off case pages. */
-.cs-page--sheets .ojo-clip-top,
-.cs-page--sheets .ojo-clip-svg,
-.cs-page--sheets .ojo-tape,
-.cs-page--sheets .cs-persona-tape,
-.cs-page--sheets .ojo-punch-holes,
+/* The old hero band stays off case pages. */
 .cs-page--sheets .cs-hero-band,
 .cs-page--sheets .cs-hero-overlay,
 .cs-page--sheets .cs-progress-track {
