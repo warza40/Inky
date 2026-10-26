@@ -921,10 +921,9 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 
 /*
  * Tablet: 8 columns, 24px gutter, 32px margin.
- * Content is columns 4–8 (5 tracks). Five does not split evenly, so cards,
- * stats, and side-by-side images stack to the content edges.
- * Body and the lede fill their column so a fixed 628px measure cannot
- * miss the right-hand line.
+ * Content is columns 4–8. Paired cards, stats, and side-by-side images are
+ * 50/50 of that content column, with the 24px gutter between them.
+ * Body and the lede fill the content column.
  */
 @media (min-width: 768px) and (max-width: 1199px) {
   :is(.cs-page--omantel, .cs-page--system) .case-study-layout-inner {
@@ -944,27 +943,40 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 
   :is(.cs-page--omantel, .cs-page--system) .om-grid,
   :is(.cs-page--omantel, .cs-page--system) .om-stat-grid,
-  :is(.cs-page--omantel, .cs-page--system) .om-media-row--half {
-    grid-template-columns: minmax(0, 1fr);
+  :is(.cs-page--omantel, .cs-page--system) .om-media-row--half,
+  :is(.cs-page--omantel, .cs-page--system) .om-media-row--phone {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--layout-grid-gutter);
+    row-gap: var(--layout-grid-gutter);
   }
 
   :is(.cs-page--omantel, .cs-page--system) .om-media-row--phone {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
   }
 
   :is(.cs-page--omantel, .cs-page--system) .om-card--half,
   :is(.cs-page--omantel, .cs-page--system) .om-card--third,
-  :is(.cs-page--omantel, .cs-page--system) .om-stat-grid > .om-card,
+  :is(.cs-page--omantel, .cs-page--system) .om-stat-grid > .om-card {
+    grid-column: auto;
+    width: auto;
+    max-width: none;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-media-row--half > .om-media,
+  :is(.cs-page--omantel, .cs-page--system) .om-media-row--phone > .om-media,
   :is(.cs-page--omantel, .cs-page--system)
     .om-media-row--phone:has(> :nth-child(2))
     > .om-media,
   :is(.cs-page--omantel, .cs-page--system)
     .om-media-row--phone:has(> :nth-child(3))
     > .om-media {
-    grid-column: 1 / -1;
+    grid-column: auto;
     width: 100%;
     max-width: 100%;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-media-row--phone .om-media-img {
+    width: 100%;
   }
 
   :is(.cs-page--omantel, .cs-page--system) .case-study-intro-lede,
