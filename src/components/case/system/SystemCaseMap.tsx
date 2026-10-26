@@ -71,11 +71,10 @@ function BulletList({ items }: { items: string[] }) {
 
 type MediaFrame = "full" | "half" | "phone";
 
-function mediaFrame(src: string): MediaFrame {
+function mediaFrame(src: string, alt = ""): MediaFrame {
   const name = decodeURIComponent(src.split("/").pop() ?? src).toLowerCase();
-  // Phone frames are only for portraits near 9:19.5. Current case files,
-  // including the warehouse captures described as mobile, are wide.
-  if (name.includes("portrait-phone")) return "phone";
+  const label = `${name} ${alt}`.toLowerCase();
+  if (label.includes("mobile") || label.includes("phone")) return "phone";
   return "full";
 }
 
@@ -100,23 +99,21 @@ function MediaFigure({
     <figure
       className={framed ? `om-media om-media--${frame}` : "om-media om-full"}
     >
-      <div className="om-media-frame">
-        <Image
-          src={src}
-          alt={alt}
-          width={width ?? 1600}
-          height={height ?? 900}
-          sizes={
-            frame === "phone"
-              ? "(max-width: 767px) 100vw, 320px"
-              : frame === "half"
-                ? "(max-width: 767px) 100vw, 640px"
-                : "(max-width: 767px) 100vw, 960px"
-          }
-          className="om-media-img"
-          unoptimized={gif}
-        />
-      </div>
+      <Image
+        src={src}
+        alt={alt}
+        width={width ?? 1600}
+        height={height ?? 900}
+        sizes={
+          frame === "phone"
+            ? "(max-width: 767px) 100vw, 960px"
+            : frame === "half"
+              ? "(max-width: 767px) 100vw, 640px"
+              : "(max-width: 767px) 100vw, 960px"
+        }
+        className="om-media-img"
+        unoptimized={gif}
+      />
       {caption ? (
         <figcaption className="om-caption">{caption}</figcaption>
       ) : null}
@@ -137,7 +134,7 @@ function MediaGroup({
 }) {
   const nodes: ReactNode[] = [];
   for (let index = 0; index < images.length; ) {
-    const frame = mediaFrame(images[index].src);
+    const frame = mediaFrame(images[index].src, images[index].alt);
     if (frame === "full") {
       const image = images[index];
       nodes.push(
@@ -155,7 +152,10 @@ function MediaGroup({
     }
     const group = [images[index]];
     let next = index + 1;
-    while (next < images.length && mediaFrame(images[next].src) === frame) {
+    while (
+      next < images.length &&
+      mediaFrame(images[next].src, images[next].alt) === frame
+    ) {
       group.push(images[next]);
       next += 1;
     }
