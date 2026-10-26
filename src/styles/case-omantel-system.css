@@ -242,17 +242,9 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   gap: var(--space-2);
 }
 
-/* Mono/Section. Same left edge as the list text beside it. */
+/* Label/S. Same left edge as the list text beside it. */
 :is(.cs-page--omantel, .cs-page--system) .om-copy .om-mono-section {
   padding-left: var(--space-component);
-  font-family: var(--font-mono) !important;
-  font-size: var(--case-type-mono-section) !important;
-  font-weight: var(--case-type-mono-section-weight) !important;
-  font-style: normal !important;
-  line-height: var(--case-type-mono-section-line) !important;
-  letter-spacing: var(--case-type-mono-section-track) !important;
-  text-transform: uppercase !important;
-  color: #3f7d68;
 }
 
 /* Statement cards. 7 content columns on desktop, full width below. */
@@ -276,14 +268,6 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 
 :is(.cs-page--omantel, .cs-page--system) .om-statement-label {
   margin: 0;
-  font-family: var(--font-mono);
-  font-size: var(--case-type-mono-section);
-  font-weight: var(--case-type-mono-section-weight);
-  font-style: normal;
-  line-height: var(--case-type-mono-section-line);
-  letter-spacing: var(--case-type-mono-section-track);
-  text-transform: uppercase;
-  color: #3f7d68;
 }
 
 :is(.cs-page--omantel, .cs-page--system) .om-statement-body {
@@ -304,7 +288,7 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   color: var(--om-ink);
 }
 
-/* Title/Card/S. Card labels stay Mono/Eyebrow. */
+/* Title/Card/S. Card labels are Label/S in the shared eyebrow rule. */
 :is(.cs-page--omantel, .cs-page--system) .om-subhead,
 :is(.cs-page--omantel, .cs-page--system) .om-copy > .om-subhead,
 :is(.cs-page--omantel, .cs-page--system) .om-decision-title,
@@ -320,33 +304,13 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   font-variation-settings: normal !important;
 }
 
-/* Trade-off, Why, and Outcome. Mono/Section, on the same edge as the card body. */
+/* Trade-off, Why, and Outcome sit on the same edge as the card body. */
 :is(.cs-page--omantel, .cs-page--system)
   .om-decision-points
   > .om-card
   > .om-subhead {
   margin: 0;
   padding: 0;
-  font-family: var(--font-mono) !important;
-  font-size: var(--case-type-mono-section) !important;
-  font-weight: var(--case-type-mono-section-weight) !important;
-  font-style: normal !important;
-  line-height: var(--case-type-mono-section-line) !important;
-  letter-spacing: var(--case-type-mono-section-track) !important;
-  text-transform: uppercase !important;
-  color: #3f7d68;
-}
-
-:is(.cs-page--omantel, .cs-page--system) .om-card > .om-subhead,
-:is(.cs-page--omantel, .cs-page--system) .om-copy .om-stakeholder-label {
-  font-family: var(--font-mono) !important;
-  font-size: var(--case-type-eyebrow) !important;
-  font-weight: var(--case-type-eyebrow-weight) !important;
-  font-style: normal !important;
-  line-height: var(--case-type-eyebrow-line) !important;
-  letter-spacing: var(--case-type-eyebrow-track) !important;
-  text-transform: uppercase !important;
-  color: var(--om-ink);
 }
 
 :is(.cs-page--omantel, .cs-page--system) .om-list {
@@ -434,15 +398,7 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   width: max-content;
   max-width: 100%;
   padding: 0;
-  font-family: var(--font-mono) !important;
-  font-size: var(--case-type-eyebrow) !important;
-  font-weight: var(--case-type-eyebrow-weight) !important;
-  font-style: normal !important;
-  line-height: var(--case-type-eyebrow-line) !important;
-  letter-spacing: var(--case-type-eyebrow-track) !important;
-  text-transform: uppercase !important;
   text-align: left;
-  color: var(--om-ink);
 }
 
 :is(.cs-page--omantel, .cs-page--system) .om-stat-value {
@@ -745,24 +701,17 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   }
 }
 
-/* Section tabs and labels — Mono/Eyebrow. DR/WH keep the Hanken row. */
 :is(.cs-page--omantel, .cs-page--system) .cs-next-project-label {
-  font-family: var(--font-mono);
+  margin: 0 0 var(--space-2);
+}
+
+/* Label/S. Tags share the eyebrow metrics so phone badges cannot drop to Micro 10. */
+:is(.cs-page--omantel, .cs-page--system) .site-badge--tag {
+  font-family: var(--font-sans);
   font-size: var(--case-type-eyebrow);
   font-weight: var(--case-type-eyebrow-weight);
   line-height: var(--case-type-eyebrow-line);
   letter-spacing: var(--case-type-eyebrow-track);
-  text-transform: uppercase;
-  margin: 0 0 var(--space-2);
-}
-
-/* Label/S */
-:is(.cs-page--omantel, .cs-page--system) .site-badge--tag {
-  font-family: var(--font-sans);
-  font-size: var(--case-type-label-sm);
-  font-weight: var(--case-type-label-sm-weight);
-  line-height: var(--case-type-label-sm-line);
-  letter-spacing: var(--type-body-tracking);
   text-transform: none;
   padding: var(--space-1) var(--space-2);
 }
@@ -782,19 +731,8 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   text-transform: none;
 }
 
-:is(.cs-page--omantel, .cs-page--system) .sheet-nav-tab {
-  font-family: var(--font-mono);
-  font-size: var(--case-type-eyebrow);
-  font-weight: var(--case-type-eyebrow-weight);
-  line-height: var(--case-type-eyebrow-line);
-  letter-spacing: var(--case-type-eyebrow-track);
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-
 :is(.cs-page--omantel, .cs-page--system) .sheet-nav-tab:hover,
 :is(.cs-page--omantel, .cs-page--system) .sheet-nav-tab--active {
-  color: var(--ink);
   font-weight: var(--case-type-eyebrow-weight);
 }
 
@@ -805,10 +743,6 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 :is(.cs-page--omantel, .cs-page--system) .sheet-nav-tab:focus-visible {
   outline: 2px solid var(--om-ink);
   outline-offset: 3px;
-}
-
-:is(.cs-page--omantel, .cs-page--system) .sheet-section-number {
-  color: var(--om-grey);
 }
 
 /* The old ink band, dot veil, and madder underline stay off these pages. */
@@ -1101,18 +1035,6 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 
 :is(.cs-page--omantel, .cs-page--system) #tldr .sheet-section-header {
   margin-bottom: var(--space-4);
-}
-
-:is(.cs-page--omantel, .cs-page--system) #tldr .om-eyebrow,
-:is(.cs-page--omantel, .cs-page--system) #tldr .om-stat-eyebrow {
-  font-family: var(--font-mono) !important;
-  font-size: var(--case-type-eyebrow) !important;
-  font-weight: var(--case-type-eyebrow-weight) !important;
-  font-style: normal !important;
-  line-height: var(--case-type-eyebrow-line) !important;
-  letter-spacing: var(--case-type-eyebrow-track) !important;
-  text-transform: uppercase !important;
-  color: var(--om-ink);
 }
 
 :is(.cs-page--omantel, .cs-page--system) #tldr .om-tldr {

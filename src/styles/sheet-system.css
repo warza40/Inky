@@ -287,13 +287,13 @@ body:has(.page-shell--no-topography) #thinking-topography {
 
 .case-study-intro-meta {
   margin: 0 0 var(--space-2);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--case-type-eyebrow);
   font-weight: var(--case-type-eyebrow-weight);
   line-height: var(--case-type-eyebrow-line);
   letter-spacing: var(--case-type-eyebrow-track);
-  text-transform: uppercase;
-  color: var(--ink-soft);
+  text-transform: none;
+  color: var(--case-eyebrow-meta, #636370);
 }
 
 .case-study-intro-title {
@@ -590,15 +590,15 @@ body:has(.page-shell--no-topography) #thinking-topography {
    ============================================================ */
 
 .cs-page.cs-page--sheets {
-  --ojo-eyebrow-font: var(--font-mono);
+  --ojo-eyebrow-font: var(--font-sans);
   --ojo-eyebrow-size: var(--case-type-eyebrow);
   --ojo-eyebrow-weight: var(--case-type-eyebrow-weight);
   --ojo-eyebrow-track: var(--case-type-eyebrow-track);
-  --cs-milestone-font: var(--font-mono);
+  --cs-milestone-font: var(--font-sans);
   --cs-milestone-size: var(--case-type-eyebrow);
   --cs-milestone-weight: var(--case-type-eyebrow-weight);
   --cs-milestone-tracking: var(--case-type-eyebrow-track);
-  --cs-milestone-transform: uppercase;
+  --cs-milestone-transform: none;
 }
 
 .cs-page--sheets .case-study-intro-title,
@@ -692,7 +692,15 @@ body:has(.page-shell--no-topography) #thinking-topography {
 .cs-page--sheets .cs-ecosystem-intro,
 .cs-page--sheets .cs-body-text,
 .cs-page--sheets .om-copy,
-.cs-page--sheets .om-copy p,
+.cs-page--sheets
+  .om-copy
+  p:not(
+    .om-mono-section,
+    .om-stakeholder-label,
+    .om-eyebrow,
+    .om-subhead,
+    .om-statement-label
+  ),
 .cs-page--sheets .om-copy li {
   font-family: var(--font-sans) !important;
   font-size: var(--case-type-body) !important;
@@ -747,18 +755,23 @@ body:has(.page-shell--no-topography) #thinking-topography {
   font-variation-settings: normal !important;
 }
 
-.cs-page--sheets .cs-context-section-title,
+/* Section subheads stay Title/Card/S. Card labels join the Label/S group below. */
 .cs-page--sheets .om-subhead {
-  font-family: var(--font-mono) !important;
-  font-size: var(--case-type-mono-section) !important;
-  font-weight: var(--case-type-mono-section-weight) !important;
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-card-sm) !important;
+  font-weight: var(--case-type-card-weight) !important;
   font-style: normal !important;
-  line-height: var(--case-type-mono-section-line) !important;
-  letter-spacing: var(--case-type-mono-section-track) !important;
+  line-height: var(--case-type-card-line) !important;
+  letter-spacing: var(--case-type-card-track) !important;
   text-transform: none !important;
   font-variation-settings: normal !important;
 }
 
+/*
+ * Label/S. One eyebrow for every case page: 14px semibold sans,
+ * line 1.4, tracking 0.2px, sentence case. Meta is grey.
+ * Statement-card labels reuse the metrics and switch to teal below.
+ */
 .cs-page--sheets .ojo-p-label,
 .cs-page--sheets .cs-ri-label,
 .cs-page--sheets .cs-impact-postits-eyebrow,
@@ -770,29 +783,48 @@ body:has(.page-shell--no-topography) #thinking-topography {
 .cs-page--sheets .cs-reflection-label,
 .cs-page--sheets .cs-ecosystem-eyebrow-text,
 .cs-page--sheets .cs-persona-section-label,
+.cs-page--sheets .cs-persona-age,
+.cs-page--sheets .cs-persona-works,
+.cs-page--sheets .cs-context-section-title,
+.cs-page--sheets .cs-meta-label,
+.cs-page--sheets .cs-ecosystem-box-head,
+.cs-page--sheets .cs-ecosystem-eyebrow::before,
+.cs-page--sheets .cs-stat-label,
+.cs-page--sheets .cs-nei-label,
+.cs-page--sheets .cs-dr-ia-placeholder-label,
+.cs-page--sheets .cs-decision-placeholder-note,
+.cs-page--sheets .cs-section-label-prefix,
+.cs-page--sheets .cs-understanding-goal-label,
+.cs-page--sheets .ojo-beat-label,
+.cs-page--sheets .ojo-d-impact-label,
 .cs-page--sheets .case-study-intro-meta,
 .cs-page--sheets .case-study-intro-fact dt,
-.cs-page--sheets .om-eyebrow {
-  font-family: var(--font-mono) !important;
+.cs-page--sheets .om-eyebrow,
+.cs-page--sheets .om-stat-eyebrow,
+.cs-page--sheets .om-mono-section,
+.cs-page--sheets .om-copy .om-mono-section,
+.cs-page--sheets .om-stakeholder-label,
+.cs-page--sheets .om-copy .om-stakeholder-label,
+.cs-page--sheets .om-statement-label,
+.cs-page--sheets .cs-next-project-label,
+.cs-page--sheets .sys-facts dt,
+.cs-page--sheets .sys-platform,
+.cs-page--sheets .sheet-nav-tab,
+.cs-page--sheets .sheet-section-number,
+.cs-page--sheets .om-card > .om-subhead {
+  font-family: var(--font-sans) !important;
   font-size: var(--case-type-eyebrow) !important;
   font-weight: var(--case-type-eyebrow-weight) !important;
   font-style: normal !important;
   line-height: var(--case-type-eyebrow-line) !important;
   letter-spacing: var(--case-type-eyebrow-track) !important;
-  text-transform: uppercase !important;
+  text-transform: none !important;
   font-variation-settings: normal !important;
+  color: var(--case-eyebrow-meta, #636370) !important;
 }
 
-.cs-page--sheets .sheet-section-number {
-  font-family: var(--font-mono) !important;
-  font-size: var(--type-mono-index) !important;
-  font-weight: 700 !important;
-  font-style: normal !important;
-  line-height: var(--type-mono-line) !important;
-  letter-spacing: 0 !important;
-  text-transform: none !important;
-  color: var(--om-grey, #636370);
-  font-variation-settings: normal !important;
+.cs-page--sheets .om-statement-label {
+  color: var(--case-eyebrow-statement, #3f7d68) !important;
 }
 
 .cs-page--sheets .sheet-section .ojo-outcome-paper {
