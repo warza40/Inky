@@ -1547,6 +1547,17 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   }
 }
 
+/* Journal routes wrap each decision, so the articles are not siblings. */
+.cs-page--sheets .ojo-decision-follow {
+  margin-top: 0;
+}
+
+.cs-page--sheets .ojo-decision-follow > .om-decision {
+  margin-top: 48px;
+  padding-top: 48px;
+  border-top: 1px solid #b8bcc0;
+}
+
 @media (max-width: 767px) {
   .cs-page--sheets .om-decision + .om-decision {
     margin-top: 32px;
@@ -1562,5 +1573,10 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 
   .cs-page--sheets .om-decision > .om-statement {
     padding: 24px;
+  }
+
+  .cs-page--sheets .ojo-decision-follow > .om-decision {
+    margin-top: 32px;
+    padding-top: 32px;
   }
 }
