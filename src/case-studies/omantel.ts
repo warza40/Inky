@@ -288,8 +288,8 @@ export const omantelStoryNav: ReadonlyArray<{ id: string; label: string }> = [
 ];
 
 /**
- * Hero and outcome stats. Static strings only — never a counter.
- * Same five, same order, in both places.
+ * At a glance stats. Static strings only — never a counter.
+ * Shown once, after the NDA line. Section 07 does not repeat them.
  */
 export const omantelImpactBlocks: NonNullable<
   CaseStudy["sections"]["journalImpact"]

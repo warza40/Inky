@@ -246,7 +246,7 @@ function DecisionArticle({
       <h3 className="om-decision-title">{decision.title}</h3>
       {decision.description ? <Copy text={decision.description} /> : null}
       <MediaGroup images={images} />
-      <div className="om-grid layout-grid om-full">
+      <div className="om-decision-points om-grid layout-grid om-full">
         {decision.rationale?.trim() ? (
           <SystemCard span="half" label={rationaleLabel}>
             <div className="om-dense">
@@ -466,7 +466,6 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
         number="07"
         title="Confirmation moved from 48–72 hours to immediate"
       >
-        <ImpactStats blocks={impact} />
         <MediaGroup images={sections.outcomeImages ?? []} />
       </StorySection>
 

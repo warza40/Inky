@@ -19,6 +19,8 @@
   --om-paper: #f8f7f4;
   --om-paper-deep: #f0efea;
   --om-line: #b8bcc0;
+  /* Five KPI cards share a row only when each can be at least this wide. */
+  --om-stat-min: 200px;
   --ink: var(--om-ink);
   --ink-soft: var(--om-grey);
   /* One style per role. These stay put when the page title and section heading step. */
@@ -318,6 +320,23 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   font-variation-settings: normal !important;
 }
 
+/* Trade-off, Why, and Outcome. Mono/Section, on the same edge as the card body. */
+:is(.cs-page--omantel, .cs-page--system)
+  .om-decision-points
+  > .om-card
+  > .om-subhead {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-mono) !important;
+  font-size: var(--case-type-mono-section) !important;
+  font-weight: var(--case-type-mono-section-weight) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-mono-section-line) !important;
+  letter-spacing: var(--case-type-mono-section-track) !important;
+  text-transform: uppercase !important;
+  color: #3f7d68;
+}
+
 :is(.cs-page--omantel, .cs-page--system) .om-card > .om-subhead,
 :is(.cs-page--omantel, .cs-page--system) .om-copy .om-stakeholder-label {
   font-family: var(--font-mono) !important;
@@ -384,24 +403,30 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   grid-column: span 4;
 }
 
-/* Impact and Outcome stats. Own grid so a leftover pair can sit at half width. */
+/* KPI cards. Flat Paper, hard ink shadow. Phone stacks; gap stays 24. */
 :is(.cs-page--omantel, .cs-page--system) .om-stat-grid {
   display: grid;
   grid-template-columns: 1fr;
-  column-gap: var(--layout-grid-gutter);
-  row-gap: var(--layout-grid-gutter);
+  gap: var(--space-3);
   width: 100%;
   min-width: 0;
   align-items: stretch;
 }
 
 :is(.cs-page--omantel, .cs-page--system) .om-stat-grid > .om-card {
-  grid-column: 1 / -1;
+  grid-column: auto;
   height: 100%;
   box-sizing: border-box;
+  margin: 0;
   padding: var(--space-3);
   gap: var(--space-1);
   justify-content: flex-start;
+  transform: none;
+  background-color: var(--om-paper);
+  background-image: none;
+  border: 2px solid var(--om-ink);
+  border-radius: 24px;
+  box-shadow: 4px 4px 0 var(--om-ink);
 }
 
 :is(.cs-page--omantel, .cs-page--system) .om-stat-eyebrow {
@@ -433,6 +458,9 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 
 :is(.cs-page--omantel, .cs-page--system) .om-stat-grid > .om-card .om-dense {
   margin: 0;
+  flex: 1 0 auto;
+  /* Three lines of Body/M, so a shorter caption still matches the row. */
+  min-height: 4.5em;
   font-family: var(--font-sans) !important;
   font-size: var(--case-type-body-dense) !important;
   font-weight: var(--weight-body) !important;
@@ -550,12 +578,35 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 /*
  * Card spacing, on the 8px scale. Grid row and column gap stay 24.
  * Adjacent text is 32 (8 more than the 24px stack). A card group to the
- * next subheading or decision is 48. Inner padding is 32.
+ * next subheading is 48. Decisions are spaced separately. Inner padding is 32.
  */
 :is(.cs-page--omantel, .cs-page--system) .om-card + .om-eyebrow,
-:is(.cs-page--omantel, .cs-page--system) .om-card + .om-subhead,
-:is(.cs-page--omantel, .cs-page--system) .om-decision + .om-decision {
+:is(.cs-page--omantel, .cs-page--system) .om-card + .om-subhead {
   margin-top: calc(var(--space-5) - var(--space-3));
+}
+
+/* One decision to the next: 64, on top of the section grid's row gap. */
+:is(.cs-page--omantel, .cs-page--system) .om-decision + .om-decision {
+  margin-top: calc(var(--space-6) - var(--layout-grid-gutter));
+}
+
+/* Trade-off/Why on one row from tablet up. 48 between that row, Outcome, and Iteration. */
+:is(.cs-page--omantel, .cs-page--system) .om-decision > .om-decision-points {
+  grid-template-columns: 1fr;
+  column-gap: var(--space-3);
+  row-gap: var(--space-5);
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-decision-points > .om-card {
+  grid-column: auto;
+  width: auto;
+  max-width: none;
+}
+
+@media (min-width: 768px) {
+  :is(.cs-page--omantel, .cs-page--system) .om-decision > .om-decision-points {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 :is(.cs-page--omantel, .cs-page--system) .om-media + .om-eyebrow,
@@ -582,9 +633,16 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   .om-decision
   > .om-decision-title
   + .om-grid,
-:is(.cs-page--omantel, .cs-page--system) .om-decision > .om-eyebrow + .om-grid,
-:is(.cs-page--omantel, .cs-page--system) .om-decision > .om-statement {
+:is(.cs-page--omantel, .cs-page--system) .om-decision > .om-eyebrow + .om-grid {
   margin-top: calc(var(--space-4) - var(--space-3));
+}
+
+/* Flex gap is 24. The extra 24 makes Iteration 48 below Outcome. */
+:is(.cs-page--omantel, .cs-page--system) .om-decision > .om-statement {
+  margin-top: calc(var(--space-5) - var(--space-3));
+  border: 2px solid var(--om-ink);
+  border-radius: 24px;
+  box-shadow: 4px 4px 0 var(--om-ink);
 }
 
 :is(.cs-page--omantel, .cs-page--system) #decisions .om-decision:last-child {
@@ -661,11 +719,6 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   :is(.cs-page--omantel, .cs-page--system) .om-media-row + .om-eyebrow,
   :is(.cs-page--omantel, .cs-page--system) .om-media-row + .om-subhead {
     margin-top: calc(var(--space-4) - var(--space-3));
-  }
-
-  /* Card grid gap is the phone gutter (16). Card-to-text stays 24. */
-  :is(.cs-page--omantel, .cs-page--system) .om-decision > .om-statement {
-    margin-top: calc(var(--space-2) - var(--space-3));
   }
 
   :is(.cs-page--omantel, .cs-page--system) .om-eyebrow:has(+ .om-card),
@@ -1001,25 +1054,14 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
     grid-column: span 3;
   }
 
+  /* Three across, leftover row left-aligned. Five across only when the min fits. */
   :is(.cs-page--omantel, .cs-page--system) .om-stat-grid {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-3);
   }
 
   :is(.cs-page--omantel, .cs-page--system) .om-stat-grid > .om-card {
-    grid-column: span 2;
-  }
-
-  /* Five stats: three across, then the leftover pair at half width. */
-  :is(.cs-page--omantel, .cs-page--system)
-    .om-stat-grid:has(> .om-card:last-child:nth-child(3n + 2))
-    > .om-card:nth-last-child(-n + 2) {
-    grid-column: span 3;
-  }
-
-  :is(.cs-page--omantel, .cs-page--system)
-    .om-stat-grid:has(> .om-card:last-child:nth-child(3n + 1))
-    > .om-card:last-child {
-    grid-column: 1 / -1;
+    grid-column: auto;
   }
 
   /* 6 of the 9 content columns. Equals --measure-body (628px) at a 1280 rail. */
@@ -1035,6 +1077,12 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
       7 * (100cqw - 8 * var(--layout-grid-gutter)) / 9 + 6 *
         var(--layout-grid-gutter)
     );
+  }
+}
+
+@container om-content (min-width: calc(5 * var(--om-stat-min) + 4 * var(--space-3))) {
+  :is(.cs-page--omantel, .cs-page--system) .om-stat-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
 
