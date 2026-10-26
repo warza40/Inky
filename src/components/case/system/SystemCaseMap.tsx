@@ -7,12 +7,12 @@ import {
   ComparisonCard,
   ComparisonPanel,
 } from "@/components/case/ComparisonPanel";
+import { DecisionBlock } from "@/components/case/DecisionBlock";
 import { ImpactStatPanel } from "@/components/case/ImpactStatPanel";
 import { MotionSection } from "@/components/case/MotionSection";
 import { parseBoldSpans, parseMadderSpans } from "@/lib/case-rich-text";
 
 type Sections = CaseStudy["sections"];
-type Decision = Sections["decisions"][number];
 type Understanding = NonNullable<Sections["understanding"]>;
 
 function paragraphsOf(text: string): string[] {
@@ -440,122 +440,6 @@ function UnderstandingBody({
   );
 }
 
-function DecisionArticle({
-  decision,
-  index,
-}: {
-  decision: Decision;
-  index: number;
-}) {
-  const hasWhy = Boolean(decision.why?.trim());
-  const rationaleLabel = hasWhy
-    ? (decision.rationaleLabel ?? "Trade-off")
-    : (decision.rationaleLabel ?? "Rationale");
-  const sideLabel = hasWhy ? "Why" : (decision.impactLabel ?? "Impact");
-  const sideText = hasWhy ? decision.why : decision.impact;
-
-  return (
-    <article className="om-decision om-full" aria-label={decision.title}>
-      <p className="om-eyebrow">
-        Decision {String(index + 1).padStart(2, "0")}
-      </p>
-      <h3 className="om-decision-title">{decision.title}</h3>
-      {decision.description?.trim() ? (
-        <Prose text={decision.description} />
-      ) : null}
-      {decision.images?.length ? <MediaGroup images={decision.images} /> : null}
-      {decision.imagePlaceholder && !decision.imagePlaceholderSplit ? (
-        <Prose text={decision.imagePlaceholder} />
-      ) : null}
-      {decision.imagePlaceholderSplit?.length === 2 ? (
-        <>
-          <Prose text={decision.imagePlaceholderSplit[0]} />
-          <Prose text={decision.imagePlaceholderSplit[1]} />
-        </>
-      ) : null}
-      {decision.navExploration?.length ? (
-        <div className="om-grid layout-grid om-full">
-          {decision.navExploration.map((item) => (
-            <SystemCard key={item.label} span="third" label={item.label}>
-              <div
-                className={`cs-nei-sketch sys-nav-sketch cs-nei-sketch--${item.variant}`}
-                aria-hidden
-              />
-            </SystemCard>
-          ))}
-        </div>
-      ) : null}
-      <div className="om-decision-points om-grid layout-grid om-full">
-        {decision.rationale?.trim() || decision.rationaleReports?.length ? (
-          <SystemCard span="half" label={rationaleLabel}>
-            <div className="om-dense">
-              {paragraphsOf(decision.rationale).map((part) => (
-                <p key={part.slice(0, 24)}>
-                  <Inline text={part} />
-                </p>
-              ))}
-            </div>
-          </SystemCard>
-        ) : null}
-        {sideText?.trim() ? (
-          <SystemCard span="half" label={sideLabel}>
-            <div className="om-dense">
-              {paragraphsOf(sideText).map((part) => (
-                <p key={part.slice(0, 24)}>
-                  <Inline text={part} />
-                </p>
-              ))}
-            </div>
-          </SystemCard>
-        ) : null}
-        {hasWhy && decision.impact?.trim() ? (
-          <SystemCard span="half" label={decision.impactLabel ?? "Outcome"}>
-            <div className="om-dense">
-              {paragraphsOf(decision.impact).map((part) => (
-                <p key={part.slice(0, 24)}>
-                  <Inline text={part} />
-                </p>
-              ))}
-            </div>
-          </SystemCard>
-        ) : null}
-        {decision.rationaleReports?.map((report, reportIndex) => (
-          <SystemCard
-            key={report.title}
-            span="half"
-            label={String(reportIndex + 1).padStart(2, "0")}
-            title={report.title}
-          >
-            <div className="om-dense">
-              <p>{report.description}</p>
-            </div>
-          </SystemCard>
-        ))}
-        {decision.designResponse?.trim() ? (
-          <SystemCard span="half" label="Solutioning">
-            <div className="om-dense">
-              {paragraphsOf(decision.designResponse).map((part) => (
-                <p key={part.slice(0, 24)}>
-                  <Inline text={part} />
-                </p>
-              ))}
-            </div>
-          </SystemCard>
-        ) : null}
-      </div>
-      {decision.iteration?.trim() ? (
-        <StatementCard label="Iteration">
-          {paragraphsOf(decision.iteration).map((part) => (
-            <p key={part.slice(0, 24)}>
-              <Inline text={part} />
-            </p>
-          ))}
-        </StatementCard>
-      ) : null}
-    </article>
-  );
-}
-
 export function SystemCaseMap({ caseStudy }: { caseStudy: CaseStudy }) {
   const sections = caseStudy.sections;
   const flow = sections.contextFlow;
@@ -674,7 +558,7 @@ export function SystemCaseMap({ caseStudy }: { caseStudy: CaseStudy }) {
       {hasDecisions ? (
         <StorySection id="decisions" number="03" title="Key Decisions">
           {sections.decisions.map((decision, index) => (
-            <DecisionArticle
+            <DecisionBlock
               key={`${decision.title}-${index}`}
               decision={decision}
               index={index}

@@ -230,7 +230,7 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 :is(.cs-page--omantel, .cs-page--system) .om-decision {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: 0;
 }
 
 :is(.cs-page--omantel, .cs-page--system) .om-copy p,
@@ -302,7 +302,6 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 /* Title/Card/S. Card labels are Label/S in the shared eyebrow rule. */
 :is(.cs-page--omantel, .cs-page--system) .om-subhead,
 :is(.cs-page--omantel, .cs-page--system) .om-copy > .om-subhead,
-:is(.cs-page--omantel, .cs-page--system) .om-decision-title,
 :is(.cs-page--omantel, .cs-page--system) .om-pain-title {
   font-family: var(--font-sans) !important;
   font-size: var(--case-type-card-sm) !important;
@@ -671,28 +670,18 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   margin-top: calc(var(--space-5) - var(--space-3));
 }
 
-/* One decision to the next: 64, on top of the section grid's row gap. */
-:is(.cs-page--omantel, .cs-page--system) .om-decision + .om-decision {
-  margin-top: calc(var(--space-6) - var(--layout-grid-gutter));
+/* Between decisions: 96 (64 on phone), with the rule halfway. The section grid's row gap counts. */
+.cs-page--sheets .om-decision + .om-decision {
+  margin-top: 48px;
+  padding-top: 48px;
+  border-top: 1px solid #b8bcc0;
 }
 
-/* Trade-off/Why on one row from tablet up. 48 between that row, Outcome, and Iteration. */
-:is(.cs-page--omantel, .cs-page--system) .om-decision > .om-decision-points {
-  grid-template-columns: 1fr;
-  column-gap: var(--space-3);
-  row-gap: var(--space-5);
-}
-
-:is(.cs-page--omantel, .cs-page--system) .om-decision-points > .om-card {
-  grid-column: auto;
-  width: auto;
-  max-width: none;
-}
-
-@media (min-width: 768px) {
-  :is(.cs-page--omantel, .cs-page--system) .om-decision > .om-decision-points {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+:is(.cs-page--omantel, .cs-page--system)
+  .om-grid
+  > .om-decision
+  + .om-decision {
+  margin-top: calc(48px - var(--layout-grid-gutter));
 }
 
 :is(.cs-page--omantel, .cs-page--system) .om-media + .om-eyebrow,
@@ -723,9 +712,8 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   margin-top: calc(var(--space-4) - var(--space-3));
 }
 
-/* Flex gap is 24. The extra 24 makes Iteration 48 below Outcome. */
 :is(.cs-page--omantel, .cs-page--system) .om-decision > .om-statement {
-  margin-top: calc(var(--space-5) - var(--space-3));
+  margin-top: 32px;
   border: 2px solid var(--om-ink);
   border-radius: 24px;
   box-shadow: 4px 4px 0 var(--om-ink);
@@ -1374,4 +1362,205 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 .cs-page--sheets .cs-hero-overlay,
 .cs-page--sheets .cs-progress-track {
   display: none !important;
+}
+
+/*
+ * Shared decision block. Pixel sizes, so journal pages (no page space scale)
+ * and system pages land on the same measurements.
+ * Title group to Trade-off is 32. Outcome is 48 after that row.
+ * Iteration is 32 after Outcome. The next decision is 96 (64 on phone).
+ */
+.cs-page--sheets .om-decision {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  min-width: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.cs-page--sheets .om-decision-head,
+.cs-page--sheets .om-decision-col,
+.cs-page--sheets .om-decision-outcome,
+.cs-page--sheets .om-decision-follow,
+.cs-page--sheets .om-decision-report,
+.cs-page--sheets .om-decision-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  width: 100%;
+}
+
+.cs-page--sheets .om-decision-label {
+  margin: 0;
+}
+
+.cs-page--sheets .om-decision-label--teal {
+  color: #3f7d68 !important;
+}
+
+.cs-page--sheets .om-decision-title {
+  margin: 8px 0 0 !important;
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-card-lg) !important;
+  font-weight: var(--case-type-card-weight) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-card-lg-line) !important;
+  letter-spacing: var(--case-type-card-track) !important;
+  text-transform: none !important;
+  color: #14141a !important;
+  font-variation-settings: normal !important;
+}
+
+.cs-page--sheets .om-decision-context {
+  margin: 16px 0 0;
+  font-family: var(--font-sans) !important;
+  font-size: 1rem !important;
+  font-weight: var(--weight-body) !important;
+  font-style: normal !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0 !important;
+  color: #636370 !important;
+}
+
+.cs-page--sheets .om-decision-media .om-decision-context {
+  margin-top: 0;
+}
+
+.cs-page--sheets .om-decision-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.cs-page--sheets .om-decision-copy p,
+.cs-page--sheets .om-decision-report-body {
+  margin: 0;
+  font-family: var(--font-sans) !important;
+  font-size: 1rem !important;
+  font-weight: var(--weight-body) !important;
+  font-style: normal !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0 !important;
+  color: #14141a !important;
+}
+
+.cs-page--sheets .om-decision-media {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  margin-top: 32px;
+}
+
+.cs-page--sheets .om-decision-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+  margin: 0;
+}
+
+.cs-page--sheets .om-decision > .om-decision-pair,
+.cs-page--sheets .om-decision > .om-decision-reports,
+.cs-page--sheets .om-decision > .om-decision-outcome,
+.cs-page--sheets .om-decision > .om-decision-follow {
+  margin-top: 48px;
+}
+
+.cs-page--sheets .om-decision > .om-decision-pair {
+  margin-top: 32px;
+}
+
+.cs-page--sheets .om-decision-reports {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+.cs-page--sheets .om-decision-report-title {
+  margin: 0;
+  font-family: var(--font-sans) !important;
+  font-size: 1rem !important;
+  font-weight: var(--weight-semibold) !important;
+  line-height: 1.5 !important;
+  color: #14141a !important;
+}
+
+.cs-page--sheets .om-decision-report-body {
+  margin-top: 8px;
+}
+
+.cs-page--sheets .om-decision-nav {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+.cs-page--sheets .om-decision-nav-item {
+  gap: 8px;
+}
+
+.cs-page--sheets .om-decision .cs-nei-sketch {
+  width: 100%;
+  height: 80px;
+  border: 1px solid #b8bcc0;
+  border-radius: 8px;
+  background: #f0efea;
+}
+
+.cs-page--sheets .om-decision .cs-nei-sketch--mega::before,
+.cs-page--sheets .om-decision .cs-nei-sketch--ribbon::before,
+.cs-page--sheets .om-decision .cs-nei-sketch--panel::before,
+.cs-page--sheets .om-decision .cs-nei-sketch--panel::after {
+  background: #14141a;
+  opacity: 0.16;
+}
+
+.cs-page--sheets .om-decision > .om-statement {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 32px 0 0;
+  padding: 32px;
+  background: #f0efea;
+  border: 2px solid #14141a;
+  border-radius: 24px;
+  box-shadow: 4px 4px 0 #14141a;
+}
+
+@media (min-width: 768px) {
+  .cs-page--sheets .om-decision-split,
+  .cs-page--sheets .om-decision-reports {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .cs-page--sheets .om-decision-nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .cs-page--sheets .om-decision + .om-decision {
+    margin-top: 32px;
+    padding-top: 32px;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-grid
+    > .om-decision
+    + .om-decision {
+    margin-top: calc(32px - var(--layout-grid-gutter));
+  }
+
+  .cs-page--sheets .om-decision > .om-statement {
+    padding: 24px;
+  }
 }

@@ -7,14 +7,13 @@ import {
   ComparisonCard,
   ComparisonPanel,
 } from "@/components/case/ComparisonPanel";
+import { DecisionBlock } from "@/components/case/DecisionBlock";
 import { MotionSection } from "@/components/case/MotionSection";
 import { parseBoldSpans } from "@/lib/case-rich-text";
 
 interface OmantelSystemMapProps {
   caseStudy: CaseStudy;
 }
-
-type Decision = CaseStudy["sections"]["decisions"][number];
 
 function paragraphsOf(text: string): string[] {
   return text
@@ -159,26 +158,6 @@ function StatementCard({
   );
 }
 
-function SystemCard({
-  span,
-  label,
-  title,
-  children,
-}: {
-  span: "half" | "third";
-  label?: string;
-  title?: string;
-  children: ReactNode;
-}) {
-  return (
-    <article className={`om-card om-card--${span}`}>
-      {label ? <p className="om-subhead">{label}</p> : null}
-      {title ? <h3 className="om-pain-title">{title}</h3> : null}
-      {children}
-    </article>
-  );
-}
-
 function StorySection({
   id,
   number,
@@ -194,77 +173,6 @@ function StorySection({
     <MotionSection id={id} number={number} title={title}>
       <div className="om-grid layout-grid">{children}</div>
     </MotionSection>
-  );
-}
-
-function DecisionArticle({
-  decision,
-  index,
-}: {
-  decision: Decision;
-  index: number;
-}) {
-  const hasWhy = Boolean(decision.why?.trim());
-  const images = (decision.images ?? []).filter((image) => image.src);
-  const rationaleLabel = hasWhy
-    ? (decision.rationaleLabel ?? "Trade-off")
-    : (decision.rationaleLabel ?? "Rationale");
-  const sideLabel = hasWhy ? "Why" : (decision.impactLabel ?? "Impact");
-  const sideText = hasWhy ? decision.why : decision.impact;
-
-  return (
-    <article className="om-decision om-full" aria-label={decision.title}>
-      <p className="om-eyebrow">
-        Decision {String(index + 1).padStart(2, "0")}
-      </p>
-      <h3 className="om-decision-title">{decision.title}</h3>
-      {decision.description ? <Copy text={decision.description} /> : null}
-      <MediaGroup images={images} />
-      <div className="om-decision-points om-grid layout-grid om-full">
-        {decision.rationale?.trim() ? (
-          <SystemCard span="half" label={rationaleLabel}>
-            <div className="om-dense">
-              {paragraphsOf(decision.rationale).map((part, partIndex) => (
-                <p key={`${partIndex}-${part.slice(0, 16)}`}>
-                  {parseBoldSpans(part)}
-                </p>
-              ))}
-            </div>
-          </SystemCard>
-        ) : null}
-        {sideText?.trim() ? (
-          <SystemCard span="half" label={sideLabel}>
-            <div className="om-dense">
-              {paragraphsOf(sideText).map((part, partIndex) => (
-                <p key={`${partIndex}-${part.slice(0, 16)}`}>
-                  {parseBoldSpans(part)}
-                </p>
-              ))}
-            </div>
-          </SystemCard>
-        ) : null}
-        {hasWhy && decision.impact?.trim() ? (
-          <SystemCard span="half" label={decision.impactLabel ?? "Outcome"}>
-            <div className="om-dense">
-              {paragraphsOf(decision.impact).map((part, partIndex) => (
-                <p key={`${partIndex}-${part.slice(0, 16)}`}>
-                  {parseBoldSpans(part)}
-                </p>
-              ))}
-            </div>
-          </SystemCard>
-        ) : null}
-      </div>
-      {decision.iteration?.trim() ? (
-        <StatementCard label="Iteration">
-          {paragraphsOf(decision.iteration).map((part, partIndex) => (
-            <p key={`${partIndex}-${part.slice(0, 16)}`}>
-              {parseBoldSpans(part)}
-            </p>
-          ))}
-        </StatementCard>
-      ) : null}
-    </article>
   );
 }
 
@@ -396,7 +304,7 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
         title="Five decisions that enabled unassisted submission"
       >
         {sections.decisions.map((decision, index) => (
-          <DecisionArticle
+          <DecisionBlock
             key={decision.title}
             decision={decision}
             index={index}
