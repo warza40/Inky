@@ -47,25 +47,12 @@ function BulletList({ items }: { items: string[] }) {
 
 type MediaFrame = "full" | "half" | "phone";
 
-/**
- * Natural width/height from the files in public/Omantel assets.
- * Phone frames are only for portraits near 9:19.5. The mobile captures
- * are wide composites (about 1.4 and 1.78), so they stay full-width.
- */
-const IMAGE_RATIOS: Record<string, number> = {
-  "om mobile 1.gif": 1009 / 713,
-  "om-mobile.png": 3840 / 2160,
-  "noteworthy 1.png": 2154 / 1140,
-  "noteworthy 2.png": 1520 / 1346,
-};
-
 function mediaFrame(src: string): MediaFrame {
   const name = decodeURIComponent(src.split("/").pop() ?? src).toLowerCase();
+  if (name.includes("mobile") || name.includes("phone")) return "phone";
   if (name.includes("noteworthy 1") || name.includes("noteworthy 2")) {
     return "half";
   }
-  const ratio = IMAGE_RATIOS[name];
-  if (ratio !== undefined && ratio < 0.75) return "phone";
   return "full";
 }
 
@@ -86,23 +73,21 @@ function MediaFigure({
     <figure
       className={framed ? `om-media om-media--${frame}` : "om-media om-full"}
     >
-      <div className="om-media-frame">
-        <Image
-          src={src}
-          alt={alt}
-          width={1600}
-          height={1000}
-          sizes={
-            frame === "phone"
-              ? "(max-width: 767px) 100vw, 320px"
-              : frame === "half"
-                ? "(max-width: 767px) 100vw, 640px"
-                : "(max-width: 767px) 100vw, 960px"
-          }
-          className="om-media-img"
-          unoptimized={gif}
-        />
-      </div>
+      <Image
+        src={src}
+        alt={alt}
+        width={1600}
+        height={1000}
+        sizes={
+          frame === "phone"
+            ? "(max-width: 767px) 100vw, 960px"
+            : frame === "half"
+              ? "(max-width: 767px) 100vw, 640px"
+              : "(max-width: 1023px) 100vw, 960px"
+        }
+        className="om-media-img"
+        unoptimized={gif}
+      />
       {caption ? (
         <figcaption className="om-caption">{caption}</figcaption>
       ) : null}

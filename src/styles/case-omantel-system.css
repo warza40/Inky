@@ -363,41 +363,45 @@ body:has(.cs-page--omantel)::before,
   min-width: 0;
 }
 
-.cs-page--omantel .om-media-frame,
+/* Screens sit on the page. The picture keeps its own radius and hairline. */
 .cs-page--omantel .cs-case-hero-media {
   box-sizing: border-box;
   margin-top: 0;
-  padding: var(--space-4);
-  overflow: hidden;
-  border: 1px solid var(--om-line);
-  border-radius: 16px;
-  background: var(--om-paper-deep);
+  padding: 0;
+  overflow: visible;
+  border: none;
+  border-radius: 0;
+  background: transparent;
   box-shadow: none;
   aspect-ratio: auto;
-}
-
-.cs-page--omantel .om-media.om-full .om-media-img,
-.cs-page--omantel .cs-case-hero-media-img {
-  aspect-ratio: 16 / 9;
-}
-
-.cs-page--omantel .om-media--half .om-media-img {
-  aspect-ratio: 4 / 3;
-}
-
-.cs-page--omantel .om-media--phone .om-media-img {
-  aspect-ratio: 9 / 19.5;
+  height: auto;
 }
 
 .cs-page--omantel .om-media-img,
 .cs-page--omantel .cs-case-hero-media-img {
   display: block;
+  box-sizing: border-box;
   width: 100%;
-  height: auto;
+  height: auto !important;
   max-width: 100%;
+  aspect-ratio: auto !important;
   object-fit: contain;
-  object-position: center;
-  background: var(--om-paper-deep);
+  object-position: left center;
+  background: transparent !important;
+  border: 1px solid #b8bcc0;
+  border-radius: 16px;
+  box-shadow: none;
+}
+
+.cs-page--omantel .om-media--phone {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.cs-page--omantel .om-media--phone .om-media-img {
+  width: auto;
+  max-width: 100%;
+  max-height: 640px;
 }
 
 .cs-page--omantel .om-media-row {
@@ -411,7 +415,25 @@ body:has(.cs-page--omantel)::before,
 }
 
 .cs-page--omantel .om-media-row--phone {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  grid-template-columns: none;
+}
+
+.cs-page--omantel .om-media-row--phone > .om-media {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.cs-page--omantel .om-media-row--phone:has(> :nth-child(2)) > .om-media {
+  max-width: calc((100% - var(--space-3)) / 2);
+}
+
+.cs-page--omantel .om-media-row--phone:has(> :nth-child(3)) > .om-media {
+  max-width: calc((100% - 2 * var(--space-3)) / 3);
 }
 
 .cs-page--omantel .om-caption {
@@ -524,6 +546,10 @@ body:has(.cs-page--omantel)::before,
     --cs-section-gap: var(--space-7);
   }
 
+  .cs-page--omantel .om-media--phone .om-media-img {
+    max-height: 560px;
+  }
+
   .cs-page--omantel .case-study-intro-lede {
     font-size: 20px !important;
     line-height: 1.45 !important;
@@ -561,14 +587,22 @@ body:has(.cs-page--omantel)::before,
     gap: 4px;
   }
 
-  .cs-page--omantel .om-media-frame,
-  .cs-page--omantel .cs-case-hero-media {
-    padding: var(--space-2);
+  .cs-page--omantel .om-media--phone .om-media-img {
+    width: 100%;
+    max-height: 520px;
   }
 
   .cs-page--omantel .om-media-row--half,
   .cs-page--omantel .om-media-row--phone {
+    display: grid;
     grid-template-columns: 1fr;
+  }
+
+  .cs-page--omantel .om-media-row--phone > .om-media,
+  .cs-page--omantel .om-media-row--phone:has(> :nth-child(2)) > .om-media,
+  .cs-page--omantel .om-media-row--phone:has(> :nth-child(3)) > .om-media {
+    width: 100%;
+    max-width: 100%;
   }
 
   .cs-page--omantel .om-media + .om-eyebrow,
