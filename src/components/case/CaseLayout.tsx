@@ -2,6 +2,7 @@ import { CaseMain } from "./CaseMain";
 import { CaseStudyFooter } from "./CaseStudyFooter";
 import { omantelStoryNav, type CaseStudy } from "@/case-studies/omantel";
 import { caseStudyHasVisualsSection } from "@/case-studies/case-visuals";
+import { GlancePanel } from "@/components/case/GlancePanel";
 import { CaseHeroMedia } from "./CaseHeroMedia";
 import { CaseStudyLayout } from "@/components/sheets/CaseStudyLayout";
 import { FloatingNav } from "@/components/layout/FloatingNav";
@@ -134,14 +135,7 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
                 </ul>
               ) : null}
               {systemCase && facts.length > 0 ? (
-                <dl className="sys-facts">
-                  {facts.map((fact) => (
-                    <div key={fact.label}>
-                      <dt>{fact.label}</dt>
-                      <dd>{fact.value}</dd>
-                    </div>
-                  ))}
-                </dl>
+                <GlancePanel rows={facts} />
               ) : null}
             </div>
           </div>
