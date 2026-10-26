@@ -502,10 +502,19 @@ body:has(.page-shell--no-topography) #thinking-topography {
 .cs-page--sheets .sheet-section {
   padding: 0;
   background-color: var(--cs-content-paper);
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.cs-page--sheets .sheet-section.paper-elevated-sheet::before,
+.cs-page--sheets .sheet-section.paper-elevated-sheet::after {
+  content: none;
+  display: none;
 }
 
 .cs-page--sheets .sheet-section-header {
-  margin-bottom: var(--cs-heading-gap);
+  margin-bottom: var(--space-separation);
   padding-bottom: 0;
 }
 
@@ -520,7 +529,7 @@ body:has(.page-shell--no-topography) #thinking-topography {
 }
 
 .cs-page--sheets .case-study-layout-main {
-  padding-bottom: var(--cs-section-gap);
+  padding-bottom: var(--space-6);
 }
 
 .cs-page--sheets .sheet-nav,
@@ -763,8 +772,7 @@ body:has(.page-shell--no-topography) #thinking-topography {
 .cs-page--sheets .cs-persona-section-label,
 .cs-page--sheets .case-study-intro-meta,
 .cs-page--sheets .case-study-intro-fact dt,
-.cs-page--sheets .om-eyebrow,
-.cs-page--sheets .sheet-section-number {
+.cs-page--sheets .om-eyebrow {
   font-family: var(--font-mono) !important;
   font-size: var(--case-type-eyebrow) !important;
   font-weight: var(--case-type-eyebrow-weight) !important;
@@ -773,4 +781,41 @@ body:has(.page-shell--no-topography) #thinking-topography {
   letter-spacing: var(--case-type-eyebrow-track) !important;
   text-transform: uppercase !important;
   font-variation-settings: normal !important;
+}
+
+.cs-page--sheets .sheet-section-number {
+  font-family: var(--font-mono) !important;
+  font-size: var(--type-mono-index) !important;
+  font-weight: 700 !important;
+  font-style: normal !important;
+  line-height: var(--type-mono-line) !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: var(--om-grey, #636370);
+  font-variation-settings: normal !important;
+}
+
+.cs-page--sheets .sheet-section .ojo-outcome-paper {
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.cs-page--sheets .ojo-p-label::after {
+  content: none;
+}
+
+.cs-page--sheets .cs-reflection-label {
+  margin: var(--space-separation) 0 var(--space-2);
+  padding-left: 0;
+}
+
+.cs-page--sheets .ojo-reflection-p {
+  margin-top: var(--space-separation);
+}
+
+.cs-page--sheets .ojo-reflection-list {
+  margin-top: var(--space-2);
+  padding-left: 0;
 }

@@ -180,19 +180,17 @@ function SystemCard({
 
 function StorySection({
   id,
-  label,
   number,
   title,
   children,
 }: {
   id: string;
-  label: string;
   number: string;
   title: string;
   children: ReactNode;
 }) {
   return (
-    <MotionSection id={id} number={`${number}  ${label}`} title={title}>
+    <MotionSection id={id} number={number} title={title}>
       <div className="om-grid layout-grid">{children}</div>
     </MotionSection>
   );
@@ -313,7 +311,6 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
     <>
       <StorySection
         id="tldr"
-        label="At a glance"
         number="01"
         title="Enterprise reps submit and track bulk SIM batches without Omantel staff"
       >
@@ -346,7 +343,6 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
 
       <StorySection
         id="context"
-        label="Goal"
         number="02"
         title="Self-service was the prerequisite for scaling B2B bulk requests"
       >
@@ -366,7 +362,6 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
 
       <StorySection
         id="problem"
-        label="Problem"
         number="03"
         title="Errors surfaced only after submission, forcing full-batch restarts"
       >
@@ -414,7 +409,6 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
 
       <StorySection
         id="ambiguity"
-        label="Ambiguity"
         number="04"
         title="Ops walkthroughs showed errors starting across three disconnected tools"
       >
@@ -435,7 +429,6 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
 
       <StorySection
         id="hypothesis"
-        label="Hypothesis"
         number="05"
         title="Validating at entry would prevent full-batch restarts"
       >
@@ -456,7 +449,6 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
 
       <StorySection
         id="decisions"
-        label="Decisions"
         number="06"
         title="Five decisions that enabled unassisted submission"
       >
@@ -471,7 +463,6 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
 
       <StorySection
         id="outcome"
-        label="Outcome"
         number="07"
         title="Confirmation moved from 48–72 hours to immediate"
       >
@@ -481,7 +472,6 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
 
       <StorySection
         id="collaboration"
-        label="Collaboration"
         number="08"
         title="Aligning a key stakeholder on guardrails for expert users"
       >
@@ -500,14 +490,13 @@ export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
 
       <StorySection
         id="learnings"
-        label="Learnings"
         number="09"
         title="Expertise does not remove the need for guardrails"
       >
         <BulletList items={learnings?.learned ?? []} />
         {learnings?.moreTime?.length ? (
-          <div className="om-copy">
-            <p className="om-subhead">With more time, I would:</p>
+          <div className="om-more-time om-copy">
+            <p className="om-mono-section">With more time, I would:</p>
             <BulletList items={learnings.moreTime} />
           </div>
         ) : null}

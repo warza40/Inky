@@ -4,7 +4,6 @@ import { omantelStoryNav, type CaseStudy } from "@/case-studies/omantel";
 import { caseStudyHasVisualsSection } from "@/case-studies/case-visuals";
 import { CaseStudyDirection } from "./CaseStudyDirection";
 import { CaseHeroMedia } from "./CaseHeroMedia";
-import { CaseNextProject } from "./CaseNextProject";
 import { CaseStudyLayout } from "@/components/sheets/CaseStudyLayout";
 import { FloatingNav } from "@/components/layout/FloatingNav";
 
@@ -167,14 +166,8 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
 
   const footerBlock = (
     <CaseStudyFooter
-      nextProject={
-        caseStudy ? (
-          <CaseNextProject
-            currentSlug={caseStudy.slug}
-            nextSlugOverride={caseStudy.nextProjectSlug}
-          />
-        ) : undefined
-      }
+      currentSlug={caseStudy?.slug}
+      nextSlugOverride={caseStudy?.nextProjectSlug}
     />
   );
 

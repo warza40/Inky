@@ -34,6 +34,8 @@ export function PageSparkleMarks({ variant }: PageSparkleMarksProps) {
           key={mark.id}
           className="page-sparkle-marks__mark"
           data-sparkle-id={mark.id}
+          data-sparkle-style={mark.style}
+          data-sparkle-room={mark.room ?? undefined}
           data-hide-below={mark.hideBelow ?? undefined}
           style={{
             left: wireframeCss(mark.x),

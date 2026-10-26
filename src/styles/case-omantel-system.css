@@ -47,6 +47,12 @@ body:has(:is(.cs-page--omantel, .cs-page--system)) {
   background-image: none;
 }
 
+/* The case shell sits outside the sparkle layer. Leave it clear so the
+   Paper body shows through, and the marks stay behind the type. */
+.case-main:has(:is(.cs-page--omantel, .cs-page--system)) {
+  background-color: transparent;
+}
+
 body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 :is(.cs-page--omantel, .cs-page--system)::before {
   content: none;
@@ -105,12 +111,21 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   );
 }
 
+:is(.cs-page--omantel, .cs-page--system) .sheet-section,
 :is(.cs-page--omantel, .cs-page--system) .sheet-section.paper-elevated-sheet,
 :is(.cs-page--omantel, .cs-page--system)
   .sheet-section.paper-elevated-sheet:hover,
 :is(.cs-page--omantel, .cs-page--system)
-  .sheet-section.paper-elevated-sheet.paper-elevated-sheet--active {
-  background: var(--cs-content-paper, #f8f7f4);
+  .sheet-section.paper-elevated-sheet.paper-elevated-sheet--active,
+:is(.cs-page--omantel, .cs-page--system) .case-study-intro-sheet,
+:is(.cs-page--omantel, .cs-page--system)
+  .case-study-intro-sheet.paper-content-sheet,
+:is(.cs-page--omantel, .cs-page--system) .sheet-nav,
+:is(.cs-page--omantel, .cs-page--system) .cs-case-footer {
+  /* Same colour as the Paper body, left clear so a sparkle under the type
+     stays visible. Cards and images keep their own fills. */
+  background: transparent;
+  background-color: transparent;
   border: none;
   border-radius: 0;
   box-shadow: none;
@@ -213,8 +228,29 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 }
 
 :is(.cs-page--omantel, .cs-page--system) .om-subhead,
-:is(.cs-page--omantel, .cs-page--system) .om-eyebrow {
+:is(.cs-page--omantel, .cs-page--system) .om-eyebrow,
+:is(.cs-page--omantel, .cs-page--system) .om-mono-section {
   margin: 0;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-more-time {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-2);
+}
+
+/* Mono/Section. Same left edge as the list text beside it. */
+:is(.cs-page--omantel, .cs-page--system) .om-copy .om-mono-section {
+  padding-left: var(--space-component);
+  font-family: var(--font-mono) !important;
+  font-size: var(--case-type-mono-section) !important;
+  font-weight: var(--case-type-mono-section-weight) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-mono-section-line) !important;
+  letter-spacing: var(--case-type-mono-section-track) !important;
+  text-transform: uppercase !important;
+  color: #3f7d68;
 }
 
 /* Statement cards. 7 content columns on desktop, full width below. */
@@ -722,89 +758,12 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   color: var(--om-grey);
 }
 
-/* Footer copy sits on the rail. DR/WH keep the inset. */
-:is(.cs-page--omantel, .cs-page--system) .cs-case-footer-inner {
-  width: 100%;
-  max-width: none;
-  padding-inline: 0;
-}
-
-:is(.cs-page--omantel, .cs-page--system) .cs-case-footer-copy {
-  max-width: none;
-}
-
 /* The old ink band, dot veil, and madder underline stay off these pages. */
 :is(.cs-page--omantel, .cs-page--system) .cs-progress-track,
 :is(.cs-page--omantel, .cs-page--system) .paper-content-sheet::before,
-:is(.cs-page--omantel, .cs-page--system) .paper-content-sheet::after,
-:is(.cs-page--omantel, .cs-page--system) .cs-case-footer.site-footer::before {
+:is(.cs-page--omantel, .cs-page--system) .paper-content-sheet::after {
   content: none;
   display: none;
-}
-
-:is(.cs-page--omantel, .cs-page--system) .cs-case-footer.site-footer {
-  background: transparent;
-  color: var(--om-ink);
-}
-
-:is(.cs-page--omantel, .cs-page--system) .cs-case-footer .cs-next-project {
-  border-bottom-color: var(--om-line);
-}
-
-:is(.cs-page--omantel, .cs-page--system)
-  .cs-case-footer
-  .cs-next-project-label {
-  color: var(--om-grey);
-}
-
-:is(.cs-page--omantel, .cs-page--system) .cs-case-footer .cs-next-project-link,
-:is(.cs-page--omantel, .cs-page--system)
-  .cs-case-footer
-  .cs-next-project-link:hover,
-:is(.cs-page--omantel, .cs-page--system) .cs-case-footer-back,
-:is(.cs-page--omantel, .cs-page--system) .cs-case-footer-back:hover {
-  color: var(--om-ink);
-  border-color: transparent;
-  border-bottom-color: var(--om-ink);
-  background: transparent;
-}
-
-:is(.cs-page--omantel, .cs-page--system) .cs-case-footer-back,
-:is(.cs-page--omantel, .cs-page--system) .cs-case-footer-back:hover {
-  padding: 0;
-  border: none;
-  border-radius: 0;
-}
-
-:is(.cs-page--omantel, .cs-page--system) .cs-case-footer-divider {
-  background: var(--om-line);
-}
-
-:is(.cs-page--omantel, .cs-page--system) .cs-case-footer-copy {
-  font-family: var(--font-sans);
-  font-size: var(--case-type-caption);
-  font-style: normal;
-  font-weight: var(--weight-body);
-  line-height: var(--case-type-caption-line);
-  letter-spacing: var(--type-body-tracking);
-  color: var(--om-grey);
-}
-
-:is(.cs-page--omantel, .cs-page--system) .cs-case-footer-inner {
-  padding: var(--space-3) 0;
-}
-
-:is(.cs-page--omantel, .cs-page--system)
-  .cs-case-footer-inner:has(.cs-next-project) {
-  padding-top: var(--space-5);
-}
-
-:is(.cs-page--omantel, .cs-page--system) .cs-case-footer .cs-next-project {
-  padding: 0 0 var(--space-5);
-}
-
-:is(.cs-page--omantel, .cs-page--system) .cs-case-footer-divider {
-  margin: var(--space-3) 0 var(--space-2);
 }
 
 /*
@@ -853,11 +812,11 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   :is(.cs-page--omantel, .cs-page--system) .case-study-layout-content {
     grid-column: 4;
     grid-row: 2;
-    padding-bottom: var(--cs-section-gap);
+    padding-bottom: var(--space-6);
   }
 
   :is(.cs-page--omantel, .cs-page--system) .case-study-footer-rail {
-    grid-column: 2 / 5;
+    grid-column: 4;
     grid-row: 3;
   }
 
@@ -1096,7 +1055,6 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
   margin-bottom: var(--space-4);
 }
 
-:is(.cs-page--omantel, .cs-page--system) #tldr .sheet-section-number,
 :is(.cs-page--omantel, .cs-page--system) #tldr .om-eyebrow,
 :is(.cs-page--omantel, .cs-page--system) #tldr .om-stat-eyebrow {
   font-family: var(--font-mono) !important;
@@ -1198,50 +1156,5 @@ body:has(:is(.cs-page--omantel, .cs-page--system))::before,
 @media (min-width: 1200px) {
   :is(.cs-page--omantel, .cs-page--system) #tldr .om-grid {
     --om-cols: 9;
-  }
-}
-
-/*
- * Three solid 96px sparkles in the sticky-nav column (the only margin wide
- * enough to hold them without covering the content). Hidden once that column
- * goes away. Homepage and other case studies use a different variant.
- */
-.case-study-layout:has(:is(.cs-page--omantel, .cs-page--system)) {
-  --om-spark-pad: 24px;
-  --om-spark-rail: min(
-    var(--layout-content-max),
-    calc(100% - 2 * var(--om-spark-pad))
-  );
-  --om-spark-side: calc((100% - var(--om-spark-rail)) / 2);
-  --om-spark-col: calc((var(--om-spark-rail) - 11 * var(--om-spark-pad)) / 12);
-  --om-spark-nav: calc(3 * var(--om-spark-col) + 2 * var(--om-spark-pad));
-}
-
-@media (min-width: 1200px) {
-  [data-sparkle-variant="omantel"] .page-sparkle-marks__mark {
-    width: 96px !important;
-    height: 96px !important;
-    right: auto !important;
-    left: calc(
-      var(--om-spark-side) + (var(--om-spark-nav) - 96px) / 2
-    ) !important;
-  }
-
-  [data-sparkle-variant="omantel"] .page-sparkle-marks__mark:nth-child(1) {
-    top: 2040px !important;
-  }
-
-  [data-sparkle-variant="omantel"] .page-sparkle-marks__mark:nth-child(2) {
-    top: 3600px !important;
-  }
-
-  [data-sparkle-variant="omantel"] .page-sparkle-marks__mark:nth-child(3) {
-    top: 5600px !important;
-  }
-}
-
-@media (max-width: 1199px) {
-  [data-sparkle-variant="omantel"] .page-sparkle-marks__mark {
-    display: none;
   }
 }

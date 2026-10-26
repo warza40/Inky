@@ -352,3 +352,78 @@
     text-align: right;
   }
 }
+
+/* Case pages use this footer, on the page paper. */
+.cs-case-footer.site-footer {
+  --footer-bg: transparent;
+  --footer-ink: #14141a;
+  --footer-divider: #b8bcc0;
+  --footer-soft: #636370;
+  background: transparent;
+  color: var(--footer-ink);
+}
+
+.cs-case-footer .site-footer__inner {
+  width: 100%;
+  padding: 0;
+}
+
+.cs-case-footer .site-footer__rail {
+  gap: 48px;
+  max-width: none;
+}
+
+.cs-case-footer-links,
+.cs-case-footer-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  min-width: 0;
+}
+
+.cs-case-footer .site-footer__divider {
+  width: 100%;
+  background: #b8bcc0;
+}
+
+.cs-case-footer .site-footer__case-link {
+  display: inline-flex;
+  align-items: center;
+  min-width: 24px;
+  min-height: 24px;
+  font-family: var(--font-sans);
+  font-size: var(--type-link);
+  font-weight: var(--type-link-weight);
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: var(--footer-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.cs-case-footer .site-footer__case-link:focus-visible {
+  outline: 2px solid var(--footer-ink);
+  outline-offset: 3px;
+}
+
+.cs-case-footer .site-footer__copyright {
+  max-width: none;
+  font-family: var(--font-sans);
+  font-size: var(--type-caption);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--type-caption-line);
+  letter-spacing: 0;
+  text-align: left;
+  color: #636370;
+}
+
+@media (max-width: 767px) {
+  .cs-case-footer .site-footer__rail,
+  .cs-case-footer-links,
+  .cs-case-footer-meta {
+    gap: 24px;
+  }
+}

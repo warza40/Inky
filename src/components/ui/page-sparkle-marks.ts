@@ -13,8 +13,13 @@ export interface PageSparkleMark {
   y: number;
   /** Size in wireframe px at 1920px artboard width. */
   size: number;
-  /** Hide below this viewport width when set. */
+  /** Hide below this viewport width when set. Homepage Figma instances only. */
   hideBelow?: number;
+  /**
+   * "open" marks sit in empty paper and may use the higher opacity.
+   * Omitted marks are treated as crossing type or a card.
+   */
+  room?: "open";
 }
 
 function fromWireframe(
@@ -24,8 +29,9 @@ function fromWireframe(
   y: number,
   size: number,
   hideBelow?: number,
+  room?: "open",
 ): PageSparkleMark {
-  return { id, style, x, y, size, hideBelow };
+  return { id, style, x, y, size, hideBelow, room };
 }
 
 /**
@@ -51,26 +57,30 @@ export const HOMEPAGE_SPARKLE_MARKS: PageSparkleMark[] = [
 ];
 
 /**
- * Case study pages — same sparkle styles as the homepage, parked in the
- * side gutters so they sit beside the 1280 content column instead of on it.
+ * Case study pages — same sparkle styles as the homepage, at their
+ * wireframe coordinates. Overlap is handled by stacking and opacity.
  */
 export const CASE_STUDY_SPARKLE_MARKS: PageSparkleMark[] = [
   fromWireframe("cs:solid-nav", "solid", 24, 140, 72),
   fromWireframe("cs:crosshatch-hero", "crosshatch", 1700, 480, 180),
-  fromWireframe("cs:diamond-hero", "diamond", -180, 980, 260, 768),
+  fromWireframe("cs:diamond-hero", "diamond", -180, 980, 260),
   fromWireframe("cs:scribble", "scribble", -200, 1900, 280),
-  fromWireframe("cs:solid-mid", "solid", 1720, 2300, 180, 768),
+  fromWireframe("cs:solid-mid", "solid", 1720, 2300, 180),
   fromWireframe("cs:crosshatch-mid", "crosshatch", -140, 3000, 220),
   fromWireframe("cs:solid-grid", "solid", 1760, 3400, 140),
-  fromWireframe("cs:fine", "fine", -160, 4100, 240, 768),
-  fromWireframe("cs:wide", "wide", -160, 4500, 180, 768),
+  fromWireframe("cs:fine", "fine", -160, 4100, 240),
+  fromWireframe("cs:wide", "wide", -160, 4500, 180),
 ];
 
-/** Omantel only. Three solid marks; CSS pins them to 96px in the page margins. */
+/**
+ * Omantel and the other system case pages. Three solid marks at their
+ * wireframe coordinates. The right-hand mark meets the content edge, so it
+ * stays in the 0.12–0.18 band. The other two sit in open paper.
+ */
 export const OMANTEL_SPARKLE_MARKS: PageSparkleMark[] = [
-  fromWireframe("om:solid-1", "solid", 24, 400, 96),
+  fromWireframe("om:solid-1", "solid", 24, 400, 96, undefined, "open"),
   fromWireframe("om:solid-2", "solid", 1800, 2200, 96),
-  fromWireframe("om:solid-3", "solid", 24, 4200, 96),
+  fromWireframe("om:solid-3", "solid", 24, 4200, 96, undefined, "open"),
 ];
 
 export type PageSparkleVariant = "home" | "case-study" | "omantel";

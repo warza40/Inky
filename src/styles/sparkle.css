@@ -31,6 +31,7 @@
 .page-sparkle-marks {
   position: absolute;
   inset: 0;
+  /* Below .paper-canvas-content (z-index 1) and the case inner (z-index 2). */
   z-index: 0;
   pointer-events: none;
   overflow: visible;
@@ -42,8 +43,15 @@
   display: block;
   aspect-ratio: 1;
   line-height: 0;
-  opacity: 0.62;
+  /* Quiet enough for a solid #1C1C1E mark under ink. Open paper is louder. */
+  opacity: 0.15;
+  z-index: 0;
+  pointer-events: none;
   transform: translateZ(0);
+}
+
+.page-sparkle-marks__mark[data-sparkle-room="open"] {
+  opacity: 0.35;
 }
 
 .page-sparkle-marks__img {
@@ -54,17 +62,9 @@
 }
 
 @media (max-width: 767px) {
-  .page-sparkle-marks__mark[data-hide-below="768"] {
+  /* Homepage Figma instances only. Case marks stay visible when they overlap. */
+  .page-sparkle-marks[data-sparkle-variant="home"]
+    .page-sparkle-marks__mark[data-hide-below="768"] {
     display: none;
-  }
-
-  .page-sparkle-marks__mark {
-    opacity: 0.48;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .page-sparkle-marks__mark {
-    opacity: 0.38;
   }
 }
