@@ -510,7 +510,7 @@ function DecisionArticle({
           ))}
         </div>
       ) : null}
-      <div className="om-grid layout-grid om-full">
+      <div className="om-decision-points om-grid layout-grid om-full">
         {decision.rationale?.trim() || decision.rationaleReports?.length ? (
           <SystemCard span="half" label={rationaleLabel}>
             <div className="om-dense">
