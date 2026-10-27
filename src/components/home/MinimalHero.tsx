@@ -21,12 +21,13 @@ export function MinimalHero() {
               <br />
               Also studying behaviour, systems and AI.
             </p>
-            <HeroSocialLinks />
+            <HeroSocialLinks className="home-hero__socials--desk" />
           </div>
         </GridCell>
         <GridCell className="home-hero__device-cell">
           <HeroConsole />
         </GridCell>
+        <HeroSocialLinks className="home-hero__socials--phone" />
       </LayoutGrid>
     </Section>
   );
