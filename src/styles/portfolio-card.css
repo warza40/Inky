@@ -166,7 +166,113 @@
   outline-offset: 4px;
 }
 
-/* Bento grid — Figma 67:1019 uses 320px media in both narrow + wide slots */
+/* Homepage Work cards — style C, every breakpoint. */
+.home-bento-grid .portfolio-card,
+.home-bento-grid .portfolio-card--feature {
+  gap: var(--space-component);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.home-bento-grid .portfolio-card__media,
 .home-bento-grid .portfolio-card--feature .portfolio-card__media {
-  min-height: var(--portfolio-media-height);
+  aspect-ratio: 16 / 9;
+  min-height: 0;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: #f0efea;
+  box-shadow: none;
+  overflow: hidden;
+  transition: border-color 200ms ease;
+}
+
+.home-bento-grid .portfolio-card__media-image-wrap {
+  /* The 2px hover border sits inside the 16:9 box, so the mockup stays 24px from the outer edge. */
+  inset: calc(var(--space-component) - 2px);
+}
+
+.home-bento-grid .portfolio-card__media-image,
+.home-bento-grid .portfolio-card__media-video {
+  object-fit: contain;
+  object-position: center;
+  transition: transform 200ms ease;
+}
+
+.home-bento-grid .portfolio-card__body {
+  gap: var(--space-tight);
+}
+
+.home-bento-grid .portfolio-card__title,
+.home-bento-grid .portfolio-card--feature .portfolio-card__title {
+  font-size: 1.5rem;
+  font-weight: var(--weight-extrabold);
+  line-height: var(--type-title-card-sm-line);
+  letter-spacing: 0;
+  color: #14141a;
+}
+
+.home-bento-grid .portfolio-card__description,
+.home-bento-grid .portfolio-card--feature .portfolio-card__description {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #636370;
+}
+
+.home-bento-grid .site-badge.portfolio-card__tag {
+  margin-top: var(--space-tight);
+  padding: 4px 12px;
+  border: 1px solid #3f7d68;
+  border-radius: 999px;
+  background: transparent;
+  color: #3f7d68;
+  font-family: var(--font-sans);
+  font-size: var(--case-type-label-sm);
+  font-weight: var(--case-type-label-sm-weight);
+  line-height: var(--case-type-label-sm-line);
+  letter-spacing: var(--case-type-label-sm-track);
+  text-transform: none;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+.home-bento-grid .portfolio-card:hover .portfolio-card__media,
+.home-bento-grid .portfolio-card:focus-visible .portfolio-card__media {
+  border-color: #14141a;
+}
+
+.home-bento-grid .portfolio-card:hover .portfolio-card__media-image,
+.home-bento-grid .portfolio-card:focus-visible .portfolio-card__media-image,
+.home-bento-grid .portfolio-card:hover .portfolio-card__media-video,
+.home-bento-grid .portfolio-card:focus-visible .portfolio-card__media-video {
+  transform: translateY(-4px);
+}
+
+.home-bento-grid .portfolio-card:hover .site-badge.portfolio-card__tag,
+.home-bento-grid .portfolio-card:focus-visible .site-badge.portfolio-card__tag {
+  background: #3f7d68;
+  border-color: #3f7d68;
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-bento-grid .portfolio-card__media,
+  .home-bento-grid .portfolio-card__media-image,
+  .home-bento-grid .portfolio-card__media-video,
+  .home-bento-grid .site-badge.portfolio-card__tag {
+    transition: none;
+  }
+
+  .home-bento-grid .portfolio-card:hover .portfolio-card__media-image,
+  .home-bento-grid .portfolio-card:focus-visible .portfolio-card__media-image,
+  .home-bento-grid .portfolio-card:hover .portfolio-card__media-video,
+  .home-bento-grid .portfolio-card:focus-visible .portfolio-card__media-video {
+    transform: none;
+  }
 }

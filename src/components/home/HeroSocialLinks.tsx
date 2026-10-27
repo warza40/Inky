@@ -71,9 +71,14 @@ function HeroSocialItem({ link }: { link: SocialLink }) {
   );
 }
 
-export function HeroSocialLinks() {
+export function HeroSocialLinks({ className }: { className?: string }) {
   return (
-    <nav className="home-hero__socials" aria-label="Social links">
+    <nav
+      className={
+        className ? `home-hero__socials ${className}` : "home-hero__socials"
+      }
+      aria-label="Social links"
+    >
       {SOCIAL_LINKS.map((link) => (
         <HeroSocialItem key={link.id} link={link} />
       ))}

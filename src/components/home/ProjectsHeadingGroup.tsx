@@ -1,10 +1,9 @@
-/** Figma 133:1786 — handwritten work section callout; arrow from the sentence end. */
+/** Handwritten work-section callout; arrow sits at the end of the label. */
 export function ProjectsHeadingGroup() {
   return (
     <h2 className="projects-heading-group">
-      <span className="projects-heading-group__lead">Projects I&apos;ve </span>
       <span className="projects-heading-group__end">
-        worked on
+        <span className="projects-heading-group__label">My Work</span>
         <img
           src="/icons/curly-arrow.svg"
           alt=""

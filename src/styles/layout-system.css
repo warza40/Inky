@@ -333,8 +333,43 @@
 /* Reset legacy globals.css `.work-section` — minimal home uses layout-system only */
 .minimal-home .work-section {
   background: transparent;
+  background-image: none;
   border-top: none;
   padding-inline: 0;
+}
+
+/*
+ * The canvas grid lives on the body, under the sparkle layer. A plate the
+ * colour of the page sits behind those marks so the Work section is plain
+ * paper, and the marks stay at 0.15 between the plate and the type.
+ */
+.layout-main > .paper-canvas-content {
+  z-index: auto;
+  isolation: auto;
+}
+
+.minimal-home main > * {
+  position: relative;
+  z-index: 1;
+}
+
+.minimal-home main > .work-section {
+  z-index: auto;
+}
+
+.minimal-home .work-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--paper-bg);
+  pointer-events: none;
+}
+
+.minimal-home .work-section__intro,
+.minimal-home .home-bento-grid {
+  position: relative;
+  z-index: 1;
 }
 
 /* ── Selected work ── */
@@ -397,10 +432,15 @@
 .projects-heading-group__end {
   display: inline-flex;
   align-items: flex-start;
+  flex-wrap: wrap;
   column-gap: 8px;
+  row-gap: 4px;
   max-width: 100%;
-  white-space: nowrap;
   vertical-align: top;
+}
+
+.projects-heading-group__label {
+  white-space: nowrap;
 }
 
 .projects-heading-group__arrow {
@@ -474,11 +514,81 @@
   .work-section {
     overflow: visible;
   }
+
+  .minimal-home .work-section .page-container__inner {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--layout-grid-gutter);
+    row-gap: 0;
+    align-items: start;
+  }
+
+  .work-section__intro {
+    grid-column: 1 / 4;
+    gap: var(--space-control);
+    min-width: 0;
+  }
+
+  .work-section__badge.site-badge {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    font-family: var(--font-sans);
+    font-size: var(--case-type-label-sm);
+    font-weight: var(--case-type-label-sm-weight);
+    line-height: var(--case-type-label-sm-line);
+    letter-spacing: var(--case-type-label-sm-track);
+    text-transform: none;
+    color: var(--accent-type);
+  }
+
+  .home-bento-grid {
+    grid-column: 4 / 13;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--layout-grid-gutter);
+    row-gap: var(--space-heading);
+    align-items: start;
+  }
 }
 
-@media (max-width: 1199px) {
+/* Tablet: heading above a 50/50 pair. 8 columns, 24px gutter, 32px margin. */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .home-bento-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--layout-grid-gutter);
+    row-gap: var(--space-heading);
+    align-items: start;
+  }
+
+  .home-bento-grid__item--r1c1 {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .home-bento-grid__item--r1c2 {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .home-bento-grid__item--r2c1 {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .home-bento-grid__item--r2c2 {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+/* Phone: stacked, 16px apart, heading above the cards. */
+@media (max-width: 767px) {
   .home-bento-grid {
     grid-template-columns: 1fr;
+    column-gap: var(--layout-grid-gutter);
+    row-gap: var(--layout-grid-gutter);
+    align-items: start;
   }
 
   .home-bento-grid__item--r1c1,
@@ -575,6 +685,15 @@
   }
 
   .minimal-home .home-hero {
+    /* Clear the floating bar, which can grow past --nav-height, then add the token. */
+    padding-top: calc(
+      var(--nav-offset-top) +
+        max(
+          var(--nav-height),
+          var(--nav-item-height) + 2 * var(--nav-bar-pad-y) + 4px
+        ) +
+        var(--space-heading)
+    );
     padding-bottom: var(--space-component);
   }
 }

@@ -54,6 +54,13 @@
   opacity: 0.35;
 }
 
+/* Homepage marks that cross a card or a line of type stay quiet and behind it. */
+.page-sparkle-marks[data-sparkle-variant="home"] .page-sparkle-marks__mark {
+  opacity: 0.15;
+  z-index: 0;
+  pointer-events: none;
+}
+
 .page-sparkle-marks__img {
   display: block;
   width: 100%;
