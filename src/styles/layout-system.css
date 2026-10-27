@@ -383,8 +383,20 @@
   overflow: visible;
 }
 
-.work-section__badge {
+/* Outlined teal pill — same Label/S treatment as the Work card tags. */
+.work-section__badge.site-badge {
   margin-bottom: 0;
+  padding: 4px 12px;
+  border: 1px solid var(--accent-type);
+  border-radius: 999px;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: var(--case-type-label-sm);
+  font-weight: var(--case-type-label-sm-weight);
+  line-height: var(--case-type-label-sm-line);
+  letter-spacing: var(--case-type-label-sm-track);
+  text-transform: none;
+  color: var(--accent-type);
 }
 
 /* Tighter hero → work transition — Figma section scale, reduced first inset */
@@ -418,7 +430,7 @@
   color: var(--ink-soft);
 }
 
-/* Figma 133:1786 — heading + curly arrow from the sentence end */
+/* Nanum Pen callout. The arrow hangs off the label, not the column. */
 .projects-heading-group {
   margin: 0;
   max-width: 100%;
@@ -429,37 +441,38 @@
   color: var(--accent-type);
 }
 
-.projects-heading-group__end {
-  display: inline-flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  column-gap: 8px;
-  row-gap: 4px;
-  max-width: 100%;
-  vertical-align: top;
+.projects-heading-group__lockup {
+  display: inline;
 }
 
-.projects-heading-group__label {
+.projects-heading-group__anchor {
+  position: relative;
+  display: inline-block;
   white-space: nowrap;
 }
 
 .projects-heading-group__arrow {
-  flex-shrink: 0;
+  position: absolute;
+  /* Tail of the stroke sits at the top-left of the artwork. */
+  left: calc(100% + 4px);
+  top: 50%;
   width: 146px;
+  /* Preflight caps images at the anchor's width. The drawing hangs past that word. */
+  max-width: none;
   height: auto;
   aspect-ratio: 147.4 / 97.5404;
-  position: relative;
-  top: -8px;
+  transform-origin: 1px 1px;
+  pointer-events: none;
+}
+
+/* Same artwork, swung down so the head aims under the line. */
+.projects-heading-group__arrow--down {
+  transform: rotate(62deg);
 }
 
 @media (max-width: 767px) {
-  .projects-heading-group__end {
-    column-gap: 6px;
-  }
-
   .projects-heading-group__arrow {
-    width: min(120px, 38vw);
-    top: -4px;
+    width: min(112px, 30vw);
   }
 }
 
@@ -527,20 +540,7 @@
     grid-column: 1 / 4;
     gap: var(--space-control);
     min-width: 0;
-  }
-
-  .work-section__badge.site-badge {
-    padding: 0;
-    border: 0;
-    border-radius: 0;
-    background: none;
-    font-family: var(--font-sans);
-    font-size: var(--case-type-label-sm);
-    font-weight: var(--case-type-label-sm-weight);
-    line-height: var(--case-type-label-sm-line);
-    letter-spacing: var(--case-type-label-sm-track);
-    text-transform: none;
-    color: var(--accent-type);
+    overflow: visible;
   }
 
   .home-bento-grid {

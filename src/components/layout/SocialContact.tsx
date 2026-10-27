@@ -2,9 +2,10 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
 import { SOCIAL_LINKS, type SocialLink } from "@/data/social-links";
 import { expandingCursorAttrs } from "@/lib/expanding-cursor";
+import { cn } from "@/lib/utils";
+import { HandwrittenHeading } from "./HandwrittenHeading";
 import { SocialContactComposer } from "./SocialContactComposer";
 import { SubstackIcon } from "./SubstackIcon";
-import { cn } from "@/lib/utils";
 
 export type SocialContactFormat = "section" | "card";
 export type SocialContactState = "default" | "compose";
@@ -94,7 +95,11 @@ export function SocialContact({
               Social contact
             </Badge>
           )}
-          <h2 className="social-contact__title">Reach out to me through.</h2>
+          <HandwrittenHeading
+            text="Reach out to me through."
+            direction="down"
+            className="social-contact__title"
+          />
           {isCard ? (
             <p className="social-contact__lede">
               Find my work, notes, updates, or send a message directly.
