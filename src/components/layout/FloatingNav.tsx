@@ -11,7 +11,7 @@ import {
 } from "@/lib/expanding-cursor";
 import { TamagotchiNavIcon } from "./TamagotchiNavIcon";
 
-import { RESUME_URL } from "@/data/social-links";
+import { RESUME_CURSOR, RESUME_URL } from "@/data/social-links";
 
 type NavMatch = "work" | "experiments" | "illustration" | "about";
 
@@ -58,7 +58,7 @@ const NAV_ITEMS: NavItem[] = [
     label: "Resume",
     href: RESUME_URL,
     external: true,
-    cursor: { title: "View resume", hint: "Opens PDF in new tab" },
+    cursor: RESUME_CURSOR,
   },
 ];
 

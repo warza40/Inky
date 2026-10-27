@@ -21,6 +21,11 @@ export interface SocialLink {
 export const RESUME_URL =
   "https://drive.google.com/file/d/1YLpIkQ_7flK5AFmGmah-YLom1F2cjMpy/view?usp=sharing";
 
+export const RESUME_CURSOR: ExpandingCursorPrompt = {
+  title: "View resume",
+  hint: "Opens in a new tab",
+};
+
 export const SOCIAL_LINKS: SocialLink[] = [
   {
     id: "linkedin",
@@ -70,9 +75,6 @@ export const SOCIAL_LINKS: SocialLink[] = [
     href: RESUME_URL,
     external: true,
     icon: Download,
-    cursor: {
-      title: "View resume",
-      hint: "Opens PDF in new tab",
-    },
+    cursor: RESUME_CURSOR,
   },
 ];

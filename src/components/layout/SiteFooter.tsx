@@ -3,7 +3,7 @@ import { CtaButton } from "@/components/ui/CtaButton";
 import { Sparkle } from "@/components/ui/Sparkle";
 import { TamagotchiNavIcon } from "@/components/layout/TamagotchiNavIcon";
 import { LayoutGrid, GridCell } from "@/components/layout/LayoutGrid";
-import { RESUME_URL } from "@/data/social-links";
+import { RESUME_CURSOR, RESUME_URL } from "@/data/social-links";
 
 const CONTACT_EMAIL = "rachanamandal@gmail.com";
 const PLOTTER_AI_URL = "https://plotter.ai";
@@ -49,7 +49,12 @@ function HomeSiteFooter() {
                   <CtaButton href={`mailto:${CONTACT_EMAIL}`} variant="primary">
                     Email me
                   </CtaButton>
-                  <CtaButton href={RESUME_URL} external variant="secondary">
+                  <CtaButton
+                    href={RESUME_URL}
+                    external
+                    variant="secondary"
+                    cursor={RESUME_CURSOR}
+                  >
                     View resume
                   </CtaButton>
                 </div>
