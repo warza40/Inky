@@ -4,7 +4,7 @@ type ArrowDirection = "right" | "down";
 
 /**
  * Nanum Pen callout. The arrow is anchored to the last word, not the column.
- * `down` turns the same artwork toward whatever sits under the line.
+ * `down` uses a drawing whose tail is the top-left, so it hangs below the line.
  */
 export function HandwrittenHeading({
   text,
@@ -29,11 +29,15 @@ export function HandwrittenHeading({
         <span className="projects-heading-group__anchor">
           {end}
           <img
-            src="/icons/curly-arrow.svg"
+            src={
+              pointsDown
+                ? "/icons/curly-arrow-down.svg"
+                : "/icons/curly-arrow.svg"
+            }
             alt=""
             aria-hidden
-            width={147}
-            height={98}
+            width={pointsDown ? 104 : 147}
+            height={pointsDown ? 158 : 98}
             className={cn(
               "projects-heading-group__arrow",
               pointsDown && "projects-heading-group__arrow--down",

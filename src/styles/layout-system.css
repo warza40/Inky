@@ -461,18 +461,23 @@
   max-width: none;
   height: auto;
   aspect-ratio: 147.4 / 97.5404;
-  transform-origin: 1px 1px;
   pointer-events: none;
 }
 
-/* Same artwork, swung down so the head aims under the line. */
+/* Down drawing is already aimed below the line, so it is not rotated. */
 .projects-heading-group__arrow--down {
-  transform: rotate(62deg);
+  width: 60px;
+  aspect-ratio: 104 / 158;
 }
 
-@media (max-width: 767px) {
-  .projects-heading-group__arrow {
-    width: min(112px, 30vw);
+/* Cards sit under the heading below desktop. Keep the arrow off their top edge. */
+@media (max-width: 1199px) {
+  .work-section .projects-heading-group__arrow {
+    width: 80px;
+  }
+
+  .minimal-home .work-section .home-bento-grid {
+    margin-top: 24px;
   }
 }
 

@@ -65,6 +65,8 @@
 .social-contact__title {
   margin: 0;
   max-width: none;
+  /* Room for the downward arrow, plus the intro gap, so it clears the icons. */
+  padding-bottom: 64px;
 }
 
 .social-contact__lede {
