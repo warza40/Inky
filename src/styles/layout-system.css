@@ -432,10 +432,15 @@
 .projects-heading-group__end {
   display: inline-flex;
   align-items: flex-start;
+  flex-wrap: wrap;
   column-gap: 8px;
+  row-gap: 4px;
   max-width: 100%;
-  white-space: nowrap;
   vertical-align: top;
+}
+
+.projects-heading-group__label {
+  white-space: nowrap;
 }
 
 .projects-heading-group__arrow {
@@ -521,6 +526,7 @@
   .work-section__intro {
     grid-column: 1 / 4;
     gap: var(--space-control);
+    min-width: 0;
   }
 
   .work-section__badge.site-badge {
@@ -535,27 +541,6 @@
     letter-spacing: var(--case-type-label-sm-track);
     text-transform: none;
     color: var(--accent-type);
-  }
-
-  .projects-heading-group {
-    font-family: var(--font-sans);
-    font-size: var(--type-heading-section);
-    font-weight: var(--weight-heading);
-    line-height: var(--type-heading-section-line);
-    letter-spacing: var(--type-heading-section-tracking);
-    color: var(--ink);
-    text-wrap: balance;
-    hyphens: none;
-    overflow-wrap: normal;
-  }
-
-  .projects-heading-group__end {
-    display: inline;
-    white-space: normal;
-  }
-
-  .projects-heading-group__arrow {
-    display: none;
   }
 
   .home-bento-grid {
