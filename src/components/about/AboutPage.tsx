@@ -58,7 +58,7 @@ export function AboutPage() {
               <GridCell col={{ start: 7, end: 13 }}>
                 <dl className="about-page__rows">
                   <div className="about-page__row">
-                    <dt className="about-page__label">THE WORK</dt>
+                    <dt className="about-page__label">Work</dt>
                     <dd className="about-page__value">
                       <p>
                         My work so far has been across B2B, SaaS and enterprise
@@ -77,7 +77,7 @@ export function AboutPage() {
                   </div>
 
                   <div className="about-page__row">
-                    <dt className="about-page__label">HOW I THINK</dt>
+                    <dt className="about-page__label">How I think</dt>
                     <dd className="about-page__value">
                       <p>
                         I tend to pay attention to rooms — not whether an idea
@@ -101,7 +101,7 @@ export function AboutPage() {
                   </div>
 
                   <div className="about-page__row">
-                    <dt className="about-page__label">BACKGROUND</dt>
+                    <dt className="about-page__label">Background</dt>
                     <dd className="about-page__value">
                       <p>
                         HCI at masters level, computer science before that.
@@ -120,7 +120,7 @@ export function AboutPage() {
                   </div>
 
                   <div className="about-page__row">
-                    <dt className="about-page__label">AVAILABILITY</dt>
+                    <dt className="about-page__label">Availability</dt>
                     <dd className="about-page__value">
                       <p>
                         <span className="about-page__pill">
