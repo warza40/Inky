@@ -1,5 +1,9 @@
 import Link from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
+import {
+  expandingCursorAttrs,
+  type ExpandingCursorPrompt,
+} from "@/lib/expanding-cursor";
 import { cn } from "@/lib/utils";
 
 export type CtaButtonVariant = "primary" | "secondary" | "ghost";
@@ -20,6 +24,7 @@ type CtaButtonAsLink = CtaButtonBaseProps & {
   href: string;
   external?: boolean;
   disabled?: boolean;
+  cursor?: ExpandingCursorPrompt;
 };
 
 export type CtaButtonProps = CtaButtonAsButton | CtaButtonAsLink;
@@ -45,7 +50,9 @@ export function CtaButton({
   );
 
   if ("href" in rest && rest.href) {
-    const { href, external, disabled, ...linkRest } = rest as CtaButtonAsLink;
+    const { href, external, disabled, cursor, ...linkRest } =
+      rest as CtaButtonAsLink;
+    const cursorProps = cursor ? expandingCursorAttrs(cursor) : {};
 
     if (disabled) {
       return (
@@ -66,6 +73,7 @@ export function CtaButton({
           {...(external
             ? { target: "_blank", rel: "noopener noreferrer" }
             : {})}
+          {...cursorProps}
           {...linkRest}
         >
           {children}
@@ -74,7 +82,7 @@ export function CtaButton({
     }
 
     return (
-      <Link href={href} className={classes} {...linkRest}>
+      <Link href={href} className={classes} {...cursorProps} {...linkRest}>
         {children}
       </Link>
     );
