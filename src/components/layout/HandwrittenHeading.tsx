@@ -36,8 +36,8 @@ export function HandwrittenHeading({
             }
             alt=""
             aria-hidden
-            width={pointsDown ? 104 : 147}
-            height={pointsDown ? 158 : 98}
+            width={pointsDown ? 107 : 147}
+            height={pointsDown ? 162 : 98}
             className={cn(
               "projects-heading-group__arrow",
               pointsDown && "projects-heading-group__arrow--down",

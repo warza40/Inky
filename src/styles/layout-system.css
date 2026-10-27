@@ -464,11 +464,11 @@
   pointer-events: none;
 }
 
-/* Same down drawing, mirrored around its tail (viewBox 3, 2). */
+/* Mirrored around its tail. ViewBox is 106.633×162 so the same 104:158 box fits the turned tip. */
 .projects-heading-group__arrow--down {
   width: 60px;
   aspect-ratio: 104 / 158;
-  transform-origin: calc(100% * 3 / 104) calc(100% * 2 / 158);
+  transform-origin: calc(100% * 3 / 106.633) calc(100% * 2 / 162);
   transform: scaleX(-1);
 }
 
