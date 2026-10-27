@@ -350,6 +350,10 @@
     row-gap: var(--space-separation);
   }
 
+  .home-hero__badge {
+    margin-bottom: var(--space-control);
+  }
+
   .home-hero__lede {
     max-width: none;
     margin-bottom: 0;

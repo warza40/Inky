@@ -575,6 +575,15 @@
   }
 
   .minimal-home .home-hero {
+    /* Clear the floating bar, which can grow past --nav-height, then add the token. */
+    padding-top: calc(
+      var(--nav-offset-top) +
+        max(
+          var(--nav-height),
+          var(--nav-item-height) + 2 * var(--nav-bar-pad-y) + 4px
+        ) +
+        var(--space-heading)
+    );
     padding-bottom: var(--space-component);
   }
 }
