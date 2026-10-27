@@ -342,17 +342,51 @@
 }
 
 @media (max-width: 767px) {
+  /* Flatten the hero so the console can sit between the lede and the socials. */
+  .home-hero__grid {
+    row-gap: 0;
+    reading-flow: grid-order;
+  }
+
+  .home-hero__copy-cell,
+  .home-hero__copy,
+  .home-hero__device-cell {
+    display: contents;
+  }
+
+  .home-hero__badge,
+  .home-hero__title,
+  .home-hero__lede,
+  .home-hero__socials,
+  .home-hero__grid .hero-console {
+    grid-column: 1 / -1;
+  }
+
+  .home-hero__badge {
+    order: 1;
+  }
+
+  .home-hero__title {
+    order: 2;
+  }
+
   .home-hero__lede {
+    order: 3;
     max-width: none;
     margin-bottom: var(--space-separation);
   }
 
-  .home-hero__socials {
-    gap: 16px 20px;
+  .home-hero__grid .hero-console {
+    order: 4;
+    justify-self: start;
+    width: min(100%, 22rem);
+    margin-bottom: var(--space-separation);
   }
 
-  .hero-console {
-    width: min(100%, 22rem);
+  .home-hero__socials {
+    order: 5;
+    flex-wrap: nowrap;
+    gap: 16px 20px;
   }
 
   .hero-console__sparkle--left {
