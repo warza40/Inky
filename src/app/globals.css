@@ -4483,7 +4483,7 @@ body:has(.cs-page) {
   box-sizing: border-box;
 }
 /* Title uses full hero inner width (not the narrower reading cap) */
-.cs-hero-overlay-content > h1.cs-hero-title {
+.cs-hero-overlay-content > .cs-hero-title {
   max-width: 100%;
   width: 100%;
   box-sizing: border-box;
@@ -4795,167 +4795,19 @@ body:has(.cs-page) {
   box-sizing: border-box;
   padding: clamp(var(--space-10), 4vw, var(--space-12)) 0
     clamp(var(--space-16), 6vw, var(--space-20));
-  scroll-padding-top: 108px; /* clear of sticky nav (progress + nav wrap) */
+  /* Floating nav plus the sticky section bar. 108px landed the section number under that bar. */
+  scroll-padding-top: calc(var(--nav-height) + 4.5rem);
 }
 .cs-section,
 .cs-hero {
-  scroll-margin-top: 108px;
+  scroll-margin-top: calc(var(--nav-height) + 4.5rem);
 }
 .cs-content {
   font-family: var(--font-body);
   font-optical-sizing: auto;
 }
 
-/* Case study footer — extends homepage .site-footer (ink, parchment, dotted veil) */
-.cs-page .cs-case-footer.site-footer {
-  position: relative;
-  isolation: isolate;
-  z-index: 2;
-  width: 100%;
-  margin-top: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background: var(--ink);
-  color: var(--parchment);
-}
-
-.cs-page .cs-case-footer.site-footer::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image: radial-gradient(
-    circle,
-    rgba(245, 239, 228, 0.08) 1px,
-    transparent 1px
-  );
-  background-size: 20px 20px;
-  background-position: 10px 10px;
-  background-attachment: fixed;
-}
-
-.cs-case-footer-inner {
-  position: relative;
-  z-index: 1;
-  width: min(var(--cs-column-cap), 100%);
-  max-width: 100%;
-  margin-inline: auto;
-  box-sizing: border-box;
-  padding: 20px max(var(--fluid-gutter), env(safe-area-inset-left, 0px)) 24px
-    max(var(--fluid-gutter), env(safe-area-inset-right, 0px));
-}
-
-.cs-case-footer-inner:has(.cs-next-project) {
-  padding-top: 48px;
-}
-
-.cs-case-footer-inner:has(.cs-next-project) .cs-case-footer-actions {
-  padding-top: 8px;
-}
-
-/* Next project — inside case footer only (same rail as main; dark footer band) */
-.cs-case-footer .cs-next-project {
-  margin: 0;
-  padding: 0 0 40px;
-  border: none;
-  border-bottom: 1px solid rgba(245, 239, 228, 0.1);
-}
-
-.cs-case-footer .cs-next-project-label {
-  font-family: var(--font-label);
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
-  font-size: var(--text-eyebrow);
-  font-weight: var(--weight-eyebrow);
-  letter-spacing: var(--tracking-wider);
-  text-transform: none;
-  color: rgba(245, 239, 228, 0.35);
-  margin: 0 0 12px;
-}
-
-.cs-case-footer .cs-next-project-link {
-  font-family: var(--font-heading);
-  font-size: clamp(1.125rem, 2vw + 0.5rem, 1.5rem);
-  font-weight: 500;
-  color: var(--parchment);
-  text-decoration: none;
-  border-bottom: 2px solid var(--cs-footer-link);
-  padding-bottom: 2px;
-  transition:
-    color 150ms ease,
-    border-color 150ms ease;
-}
-
-.cs-case-footer .cs-next-project-link:hover {
-  color: var(--cs-footer-link-hover);
-  border-bottom-color: var(--cs-footer-link-hover);
-}
-
-.cs-case-footer-actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.cs-case-footer-back {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-label);
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
-  font-size: var(--text-eyebrow);
-  font-weight: var(--weight-eyebrow);
-  letter-spacing: var(--tracking-wider);
-  text-transform: none;
-  color: rgba(245, 239, 228, 0.88);
-  text-decoration: none;
-  padding: 10px 18px;
-  border: 1px solid rgba(245, 239, 228, 0.22);
-  border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.04);
-  transition:
-    border-color 150ms ease,
-    color 150ms ease,
-    background 150ms ease;
-}
-.cs-case-footer-back:hover {
-  border-color: var(--cs-footer-link);
-  color: var(--parchment);
-}
-.cs-case-footer-divider {
-  height: 1px;
-  background: rgba(245, 239, 228, 0.1);
-  margin: 20px 0 16px;
-}
-.cs-case-footer-copy {
-  font-family: var(--font-heading);
-  font-size: 14px;
-  font-style: italic;
-  font-weight: 400;
-  line-height: 1.65;
-  letter-spacing: normal;
-  color: rgba(245, 239, 228, 0.45);
-  margin: 0;
-  max-width: min(100%, 42rem);
-}
-@media (max-width: 768px) {
-  .cs-case-footer-inner {
-    padding: 20px 24px 24px;
-  }
-  .cs-case-footer-inner:has(.cs-next-project) {
-    padding-top: 48px;
-  }
-}
-
-@media (max-width: 480px) {
-  .cs-case-footer-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-}
+/* Case study footer is the homepage site footer, case variant. Styles live in site-footer.css. */
 
 /* Hero → first body section: DS vertical rhythm */
 .cs-hero {
@@ -5043,127 +4895,6 @@ body:has(.cs-page) {
   color: var(--color-ink-900);
   line-height: 1.75;
   margin: 0;
-}
-
-/* Context — impact metrics as moss post-its (`sections.journalImpact`; all cases) */
-.cs-impact-postits-section {
-  /* Sibling gaps use `#context .cs-section-body > * + *` (same rhythm as `#problem`). */
-  margin: 0;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-h3.cs-impact-postits-eyebrow {
-  margin: 0;
-}
-
-.cs-impact-postits-eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  box-sizing: border-box;
-  margin: 0 0 var(--space-3);
-  font-family: var(--cs-milestone-font);
-  font-optical-sizing: auto;
-  font-variation-settings:
-    "wdth" 100,
-    "wght" var(--cs-milestone-weight);
-  font-size: var(--cs-milestone-size);
-  font-weight: var(--cs-milestone-weight);
-  letter-spacing: var(--cs-milestone-tracking);
-  text-transform: var(--cs-milestone-transform);
-  color: var(--cs-milestone-paper-fg);
-}
-
-.cs-impact-postits-eyebrow::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--cs-milestone-rule-paper);
-}
-
-.cs-impact-postits-grid {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
-  gap: var(--space-5);
-  align-items: start;
-}
-
-.cs-impact-postit {
-  margin: 0;
-  padding: clamp(20px, 3.2vw, 28px) clamp(18px, 2.8vw, 26px);
-  box-sizing: border-box;
-  background: var(--color-moss-100);
-  border: 1px solid color-mix(in srgb, var(--color-moss-700) 22%, transparent);
-  border-radius: 2px;
-  box-shadow:
-    2px 3px 0 rgba(62, 72, 52, 0.12),
-    5px 10px 24px rgba(45, 52, 38, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  transform-origin: 50% 0;
-}
-
-.cs-impact-postit--1 {
-  transform: rotate(-1.05deg);
-}
-.cs-impact-postit--2 {
-  transform: rotate(0.85deg);
-}
-.cs-impact-postit--3 {
-  transform: rotate(-0.65deg);
-}
-
-.cs-impact-postit .ojo-impact-stat:last-child {
-  margin-bottom: 0;
-}
-
-.cs-impact-postit .ojo-impact-value {
-  color: var(--color-moss-700);
-}
-
-.cs-impact-postit .ojo-impact-suffix {
-  color: color-mix(
-    in srgb,
-    var(--color-moss-700) 76%,
-    var(--color-ink-900) 24%
-  );
-}
-
-.cs-impact-postit .ojo-impact-suffix--scale {
-  color: color-mix(
-    in srgb,
-    var(--color-moss-700) 76%,
-    var(--color-ink-900) 24%
-  );
-}
-
-.cs-impact-postit .ojo-impact-caps {
-  color: color-mix(in srgb, var(--color-moss-700) 82%, transparent);
-}
-
-.cs-impact-postit .ojo-impact-detail {
-  color: color-mix(
-    in srgb,
-    var(--color-moss-700) 72%,
-    var(--color-ink-900) 28%
-  );
-  white-space: pre-line;
-}
-
-.cs-impact-postit .ojo-impact-detail--plain {
-  color: var(--color-ink-900);
-}
-
-@media (max-width: 640px) {
-  .cs-impact-postit--1,
-  .cs-impact-postit--2,
-  .cs-impact-postit--3 {
-    transform: none;
-  }
 }
 
 /* Case context — ecosystem (four products module; aligned with static HTML reference) */
@@ -5406,17 +5137,18 @@ h3.cs-impact-postits-eyebrow {
 .cs-persona-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3px;
+  gap: 24px;
   margin: var(--space-6) 0;
-  padding-top: 10px;
+  padding-top: 0;
 }
 .cs-persona-card {
   position: relative;
   overflow: visible;
-  background: #fff;
-  border: 1px solid var(--color-border);
-  padding: calc(var(--space-5) + 4px) var(--space-5) var(--space-5);
-  box-shadow: 0 2px 12px rgba(45, 38, 28, 0.07);
+  background: #f8f7f4;
+  border: 1px solid #b8bcc0;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: none;
 }
 .cs-persona-name {
   font-family: var(--font-heading);
@@ -5461,164 +5193,18 @@ h3.cs-impact-postits-eyebrow {
   margin-top: 12px;
 }
 .cs-persona-list {
-  list-style: none;
+  list-style: disc;
   margin: 0;
-  padding: 0;
-  font-family: var(--font-body);
+  padding-left: 1.25em;
+  font-family: var(--font-sans, var(--font-body));
   font-optical-sizing: auto;
   font-style: normal;
-  font-size: 11px;
-  color: var(--color-ink-500);
-  line-height: 1.7;
+  font-size: 1rem;
+  color: #14141a;
+  line-height: 1.5;
 }
-.cs-persona-list li::before {
-  content: "· ";
-  color: var(--color-madder-900);
-}
-
-/* Pain point post-its — compact two-column summary (understanding visuals) */
-.cs-pain-points-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(14px, 2.4vw, 22px);
-  margin-top: var(--space-6);
-  padding-top: 10px;
-  align-items: stretch;
-}
-
-.cs-pain-points-card {
-  position: relative;
-  overflow: hidden;
-  margin: 0;
-  padding: clamp(22px, 3vw, 28px) clamp(18px, 2.6vw, 24px);
-  padding-top: clamp(26px, 3.4vw, 32px);
-  border-radius: 2px;
-  box-sizing: border-box;
-  isolation: isolate;
-  transform-origin: 50% 0;
-}
-
-.cs-pain-points-card--tilt-1 {
-  transform: rotate(-0.85deg);
-}
-
-.cs-pain-points-card--tilt-2 {
-  transform: rotate(0.75deg);
-}
-
-.cs-pain-points-card--moss {
-  background-color: var(--color-moss-100);
-  border: 1px solid color-mix(in srgb, var(--color-moss-700) 22%, transparent);
-  border-top-right-radius: 0;
-  box-shadow:
-    2px 3px 0 rgba(62, 72, 52, 0.12),
-    5px 10px 24px rgba(45, 52, 38, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.55);
-}
-
-.cs-pain-points-card--moss::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 34px;
-  height: 34px;
-  z-index: 0;
-  pointer-events: none;
-  background-color: color-mix(in srgb, var(--color-moss-700) 52%, #243018);
-  clip-path: polygon(100% 0, 100% 50%, 50% 0);
-}
-
-.cs-pain-points-card--warm {
-  background: #f7eba8;
-  color: rgba(32, 24, 6, 0.95);
-  border: 1px solid color-mix(in srgb, #c8b432 35%, transparent);
-  box-shadow:
-    2px 3px 0 rgba(120, 95, 40, 0.14),
-    5px 10px 24px rgba(45, 38, 28, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35);
-}
-
-.cs-pain-points-card--warm::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  border-style: solid;
-  border-width: 0 0 14px 14px;
-  border-color: transparent transparent rgba(200, 180, 50, 0.45) transparent;
-  pointer-events: none;
-}
-
-.cs-pain-points-card > * {
-  position: relative;
-  z-index: 1;
-}
-
-.cs-pain-points-title {
-  font-family: var(--font-heading);
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
-  font-weight: 600;
-  font-size: 13px;
-  line-height: 1.35;
-  letter-spacing: -0.01em;
-  margin: 0 0 10px;
-}
-
-.cs-pain-points-card--moss .cs-pain-points-title {
-  color: var(--color-moss-700);
-}
-
-.cs-pain-points-card--warm .cs-pain-points-title {
-  color: rgba(32, 24, 6, 0.92);
-}
-
-.cs-pain-points-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-family: var(--font-body);
-  font-size: 11px;
-  line-height: 1.55;
-}
-
-.cs-pain-points-card--moss .cs-pain-points-list {
-  color: color-mix(
-    in srgb,
-    var(--color-moss-700) 72%,
-    var(--color-ink-900) 28%
-  );
-}
-
-.cs-pain-points-card--warm .cs-pain-points-list {
-  color: rgba(32, 24, 6, 0.82);
-}
-
-.cs-pain-points-list li::before {
-  content: "· ";
-}
-
-.cs-pain-points-card--moss .cs-pain-points-list li::before {
-  color: var(--color-moss-700);
-}
-
-.cs-pain-points-card--warm .cs-pain-points-list li::before {
-  color: rgba(120, 95, 40, 0.85);
-}
-
-@media (max-width: 640px) {
-  .cs-pain-points-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .cs-pain-points-card--tilt-1,
-  .cs-pain-points-card--tilt-2 {
-    transform: none;
-  }
+.cs-persona-list li + li {
+  margin-top: 8px;
 }
 
 .cs-persona-aside {
@@ -6148,50 +5734,6 @@ h3.cs-context-section-title {
 }
 .cs-outcome-visual-wrap--lead {
   margin-bottom: var(--space-10);
-}
-.cs-outcome-ba {
-  display: grid;
-  gap: var(--space-5);
-  margin: var(--space-10) 0 var(--space-8);
-}
-@media (min-width: 720px) {
-  .cs-outcome-ba {
-    grid-template-columns: 1fr 1fr;
-    align-items: stretch;
-  }
-}
-.cs-outcome-ba-block {
-  padding: var(--space-5) var(--space-6);
-  border-radius: var(--radius-md);
-  box-sizing: border-box;
-}
-.cs-outcome-ba-block--before {
-  background: var(--color-ground-secondary);
-  border-left: 3px solid var(--color-ink-300);
-}
-.cs-outcome-ba-block--after {
-  background: var(--color-ground-primary);
-  border: 1px solid var(--color-border);
-  border-left: 3px solid var(--color-madder-900);
-}
-.cs-outcome-ba-label {
-  font-family: var(--font-label);
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
-  font-size: var(--text-sm);
-  font-weight: 300;
-  letter-spacing: 0.06em;
-  color: var(--color-ink-500);
-  display: block;
-  margin-bottom: var(--space-3);
-}
-.cs-outcome-ba-body {
-  font-family: var(--font-body);
-  font-optical-sizing: auto;
-  font-size: 15px;
-  line-height: 1.65;
-  color: var(--color-ink-600);
-  margin: 0;
 }
 .cs-outcome-highlight-list {
   list-style: none;
@@ -7354,9 +6896,10 @@ h3.cs-context-section-title {
     border-bottom: none;
   }
 }
-@media (max-width: 480px) {
+@media (max-width: 767px) {
   .cs-persona-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 }
 
@@ -8697,72 +8240,6 @@ h3.cs-context-section-title {
   color: #e5e5e5;
 }
 
-/* ── Omantel journal `.cs-page` skin (loads after `.cs-page` defaults in this file) ── */
-.cs-page.cs-page--journal-omantel {
-  --ojo-leather: #16100a;
-  --ojo-cream: #ede5d0;
-  --ojo-cream-mid: #e4d8be;
-  --ojo-ink: #1a140d;
-  --ojo-ink-mid: #4a3d2e;
-  --ojo-ink-faded: #7a6a54;
-  --ojo-grid: rgba(120, 95, 55, 0.09);
-  --ojo-rule: rgba(120, 95, 55, 0.15);
-  --ojo-sheet-margin-x: 52px;
-  --ojo-note-content-inset: 12px;
-  --ojo-sheet-content-start: calc(
-    var(--ojo-sheet-margin-x) + var(--ojo-note-content-inset)
-  );
-
-  /* Leather canvas — large rail matches homepage WORK strip; rails read at small caps sizes */
-  --section-rail-title-fg: rgba(252, 248, 238, 0.96);
-  --section-rail-prefix-fg: rgba(240, 232, 216, 0.78);
-  --ojo-eyebrow-font: var(--font-body);
-  --ojo-eyebrow-size: 9px;
-  --ojo-eyebrow-weight: 700;
-  --ojo-eyebrow-track: 0.16em;
-  --ojo-eyebrow-paper: rgba(44, 36, 26, 0.92);
-  --ojo-eyebrow-rule-paper: rgba(120, 95, 55, 0.28);
-  --ojo-eyebrow-dark: rgba(248, 242, 228, 0.94);
-  --ojo-eyebrow-rule-dark: rgba(210, 188, 150, 0.32);
-
-  --cs-milestone-font: var(--ojo-eyebrow-font);
-  --cs-milestone-size: var(--ojo-eyebrow-size);
-  --cs-milestone-weight: var(--ojo-eyebrow-weight);
-  --cs-milestone-tracking: var(--ojo-eyebrow-track);
-  --cs-milestone-transform: none;
-  --cs-milestone-optical-align: none;
-  --cs-milestone-rail-fg: var(--ojo-eyebrow-dark);
-  --cs-milestone-paper-fg: var(--ojo-eyebrow-paper);
-  --cs-milestone-rule-rail: var(--ojo-eyebrow-rule-dark);
-  --cs-milestone-rule-paper: var(--ojo-eyebrow-rule-paper);
-
-  background-color: var(--ojo-leather);
-}
-
-body:has(.cs-page.cs-page--journal-omantel) {
-  background: var(--ojo-leather);
-}
-
-.cs-page.cs-page--journal-omantel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image: radial-gradient(
-    rgba(196, 168, 130, 0.055) 1px,
-    transparent 1px
-  );
-  background-size: 28px 28px;
-  background-repeat: repeat;
-  background-position: 0 0;
-  background-attachment: scroll;
-}
-
-.cs-page.cs-page--journal-omantel > .home-bg-grid {
-  opacity: 0;
-}
-
 /* =====================================================================
  * Mobile responsiveness — global + shared case shell (append-only)
  * Breakpoints: 1024 / 768 / 390 per mobile spec
@@ -8775,7 +8252,7 @@ body:has(.cs-page.cs-page--journal-omantel) {
 
 @media (max-width: 768px) {
   body {
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   img,

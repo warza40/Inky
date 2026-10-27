@@ -189,11 +189,15 @@ export const disasterRecoveryCase: CaseStudy = {
             src: "/DM%20assets/IA.png",
             alt: "Information architecture exploration for navigation and discoverability",
             caption: "Information architecture",
+            width: 2352,
+            height: 2208,
           },
           {
             src: "/DM%20assets/User%20flows.png",
             alt: "User flows for key navigation paths",
             caption: "User flows",
+            width: 2586,
+            height: 852,
           },
         ],
         content:

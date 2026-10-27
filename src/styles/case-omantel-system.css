@@ -1,0 +1,1615 @@
+/* Omantel on the shared sheet rail. One section pattern, one card, one media frame. */
+
+/*
+ * Page-scoped spacing scale. :root already uses --space-1..8 as a 4px rem
+ * scale, so these values live on the Omantel page only.
+ * 8, 16, 24, 32, 48, 64, 96, 128.
+ */
+:is(.cs-page--omantel, .cs-page--system) {
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  --space-7: 96px;
+  --space-8: 128px;
+  --om-ink: #14141a;
+  --om-grey: #636370;
+  --om-paper: #f8f7f4;
+  --om-paper-deep: #f0efea;
+  --om-line: #b8bcc0;
+  --ink: var(--om-ink);
+  --ink-soft: var(--om-grey);
+  /* One style per role. These stay put when the page title and section heading step. */
+  --case-type-lead: 2.625rem;
+  --case-type-lead-line: 1.2;
+  --case-type-lead-weight: 500;
+  --case-type-body: 1.25rem;
+  --case-type-body-line: 1.6;
+  --case-type-body-lg: var(--case-type-body);
+  --case-type-body-lg-line: var(--case-type-body-line);
+  --case-type-body-dense: 1rem;
+  --case-type-body-dense-line: 1.5;
+  --case-type-card-lg: 2rem;
+  --case-type-card-lg-line: 1.15;
+  --case-type-card-md: 1.75rem; /* Title/Card/M 28 */
+  --case-type-card-md-line: 1.15;
+  --case-type-card-sm: 1.5rem;
+  --case-type-card-line: 1.2;
+  --case-type-card-weight: 800;
+  --paper-sheet: var(--om-paper);
+  --cs-content-paper: var(--om-paper);
+  --cs-section-gap: var(--space-8);
+}
+
+/* Plain paper. The dot grid and body grain stay on every other page. */
+body:has(:is(.cs-page--omantel, .cs-page--system)) {
+  background-color: var(--om-paper, #f8f7f4);
+  background-image: none;
+}
+
+/* The case shell sits outside the sparkle layer. Leave it clear so the
+   Paper body shows through, and the marks stay behind the type. */
+.case-main:has(:is(.cs-page--omantel, .cs-page--system)) {
+  background-color: transparent;
+}
+
+body:has(:is(.cs-page--omantel, .cs-page--system))::before,
+:is(.cs-page--omantel, .cs-page--system)::before {
+  content: none;
+}
+
+/* Homepage tiles keep their shadow. This only wins if one is inside Omantel. */
+:is(.cs-page--omantel, .cs-page--system) .sheet-card--tile:hover {
+  box-shadow: none;
+}
+
+.cs-page--sheets .sheet-nav,
+.cs-page--sheets .sheet-nav-tab,
+.cs-page--sheets .sheet-nav-tab--active {
+  border: none;
+  border-bottom: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.cs-page--sheets .sheet-nav-tab {
+  min-width: 24px;
+  min-height: 24px;
+  padding: 0;
+  font-weight: 400;
+  color: #636370;
+}
+
+.cs-page--sheets .sheet-nav-tab--active {
+  font-weight: 400;
+  color: #14141a;
+  border-bottom-color: transparent;
+}
+
+.cs-skip-link {
+  position: fixed;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 80;
+  display: inline-flex;
+  align-items: center;
+  min-width: 24px;
+  min-height: 24px;
+  padding: var(--space-1) var(--space-2);
+  background: var(--om-paper, #f8f7f4);
+  color: var(--om-ink, #14141a);
+  font-family: var(--font-sans);
+  font-size: var(--case-type-link, 1rem);
+  font-weight: var(--case-type-link-weight, 800);
+  line-height: var(--case-type-link-line, 1.2);
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.cs-skip-link:focus {
+  transform: none;
+  outline: 2px solid var(--om-ink, #14141a);
+  outline-offset: 3px;
+}
+
+#case-study-content:focus {
+  outline: none;
+}
+
+#case-study-content:focus-visible {
+  outline: 2px solid var(--om-ink, #14141a);
+  outline-offset: 3px;
+  scroll-margin-top: calc(
+    var(--nav-offset-top) + var(--nav-height) + var(--space-component)
+  );
+}
+
+:is(.cs-page--omantel, .cs-page--system) .sheet-section,
+:is(.cs-page--omantel, .cs-page--system) .sheet-section.paper-elevated-sheet,
+:is(.cs-page--omantel, .cs-page--system)
+  .sheet-section.paper-elevated-sheet:hover,
+:is(.cs-page--omantel, .cs-page--system)
+  .sheet-section.paper-elevated-sheet.paper-elevated-sheet--active,
+:is(.cs-page--omantel, .cs-page--system) .case-study-intro-sheet,
+:is(.cs-page--omantel, .cs-page--system)
+  .case-study-intro-sheet.paper-content-sheet,
+:is(.cs-page--omantel, .cs-page--system) .sheet-nav,
+:is(.cs-page--omantel, .cs-page--system) .cs-case-footer {
+  /* Same colour as the Paper body, left clear so a sparkle under the type
+     stays visible. Cards and images keep their own fills. */
+  background: transparent;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system)
+  .sheet-section.paper-elevated-sheet::before,
+:is(.cs-page--omantel, .cs-page--system)
+  .sheet-section.paper-elevated-sheet::after {
+  display: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .sheet-section-header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-tight);
+  border-bottom: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-grid {
+  column-gap: var(--layout-grid-gutter);
+  row-gap: var(--layout-grid-gutter);
+  width: 100%;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-copy,
+:is(.cs-page--omantel, .cs-page--system) .om-tldr,
+:is(.cs-page--omantel, .cs-page--system) .om-caption {
+  width: 100%;
+  max-width: var(--measure-body);
+  min-width: 0;
+}
+
+/* Title shares the hero image's left edge and spans its width. */
+:is(.cs-page--omantel, .cs-page--system) .case-study-intro-title {
+  width: 100%;
+  max-width: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  border: none;
+  text-wrap: balance;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .case-study-intro-title::before,
+:is(.cs-page--omantel, .cs-page--system) .case-study-intro-title::after {
+  content: none;
+  display: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .case-study-intro-row {
+  justify-items: start;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .case-study-intro-main {
+  align-items: flex-start;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .case-study-intro-pills {
+  justify-content: flex-start;
+  margin: 0;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .case-study-intro-lede {
+  width: 100%;
+  max-width: min(100%, var(--measure-body));
+  min-width: 0;
+  margin-inline: 0;
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-lead) !important;
+  font-weight: var(--case-type-lead-weight) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-lead-line) !important;
+  letter-spacing: var(--case-type-lead-track) !important;
+  text-align: left;
+  text-wrap: pretty;
+  color: var(--om-ink) !important;
+  font-variation-settings: normal !important;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-copy,
+:is(.cs-page--omantel, .cs-page--system) .om-tldr {
+  grid-column: 1 / -1;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-full,
+:is(.cs-page--omantel, .cs-page--system) .om-decision {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-copy,
+:is(.cs-page--omantel, .cs-page--system) .om-dense {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-control);
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-decision {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-copy p,
+:is(.cs-page--omantel, .cs-page--system) .om-dense p,
+:is(.cs-page--omantel, .cs-page--system) .om-statement,
+:is(.cs-page--omantel, .cs-page--system) .om-statement p {
+  margin: 0;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-subhead,
+:is(.cs-page--omantel, .cs-page--system) .om-eyebrow,
+:is(.cs-page--omantel, .cs-page--system) .om-mono-section {
+  margin: 0;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-more-time {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-2);
+}
+
+/* Label/S. Same left edge as the list text beside it. */
+:is(.cs-page--omantel, .cs-page--system) .om-copy .om-mono-section {
+  padding-left: var(--space-component);
+}
+
+/* Statement cards. 7 content columns on desktop, full width below. */
+:is(.cs-page--omantel, .cs-page--system) .om-statement {
+  grid-column: 1 / -1;
+  align-self: start;
+  justify-self: start;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: var(--space-4);
+  background: var(--om-paper-deep);
+  border: 2px solid var(--om-ink);
+  border-radius: 24px;
+  box-shadow: 4px 4px 0 var(--om-ink);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-statement-label {
+  margin: 0;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-statement-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-statement-body,
+:is(.cs-page--omantel, .cs-page--system) .om-statement-body p {
+  font-family: var(--font-sans);
+  font-size: var(--case-type-body);
+  font-weight: var(--weight-body);
+  font-style: normal;
+  line-height: var(--case-type-body-line);
+  letter-spacing: var(--type-body-tracking);
+  color: var(--om-ink);
+}
+
+/* Title/Card/S. Card labels are Label/S in the shared eyebrow rule. */
+:is(.cs-page--omantel, .cs-page--system) .om-subhead,
+:is(.cs-page--omantel, .cs-page--system) .om-copy > .om-subhead,
+:is(.cs-page--omantel, .cs-page--system) .om-pain-title {
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-card-sm) !important;
+  font-weight: var(--case-type-card-weight) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-card-line) !important;
+  letter-spacing: var(--case-type-card-track) !important;
+  text-transform: none !important;
+  color: var(--om-ink);
+  font-variation-settings: normal !important;
+}
+
+/* Trade-off, Why, and Outcome sit on the same edge as the card body. */
+:is(.cs-page--omantel, .cs-page--system)
+  .om-decision-points
+  > .om-card
+  > .om-subhead {
+  margin: 0;
+  padding: 0;
+}
+
+.cs-page--sheets .om-list {
+  margin: 0;
+  padding-left: 1.25em;
+  list-style: disc;
+}
+
+.cs-page--sheets .om-list li + li {
+  margin-top: 8px;
+}
+
+.cs-page--sheets .om-list li::before {
+  content: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-stakeholder-row {
+  display: grid;
+  gap: var(--space-tight);
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-copy .om-stakeholder-label {
+  margin: 0;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-tldr {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-tldr-row {
+  display: grid;
+  grid-template-columns: minmax(6rem, 8rem) minmax(0, 1fr);
+  gap: var(--space-tight);
+  align-items: baseline;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-tldr-row dt,
+:is(.cs-page--omantel, .cs-page--system) .om-tldr-row dd {
+  margin: 0;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-card {
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-4);
+  background: var(--om-paper);
+  border: 2px solid var(--om-ink);
+  border-radius: 24px;
+  box-shadow: 4px 4px 0 var(--om-ink);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-card--half {
+  grid-column: span 6;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-card--third {
+  grid-column: span 4;
+}
+
+/*
+ * Comparison panels (Before/After, paired pain groups).
+ * One Paper Deep shell. Inner cards are flat Paper, equal columns from 768.
+ * Pixel sizes, because journal routes do not remap --space-*.
+ */
+.cs-page--sheets .om-compare-panel {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 24px;
+  background: #f0efea;
+  border: 2px solid #14141a;
+  border-radius: 24px;
+  box-shadow: 4px 4px 0 #14141a;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cs-page--sheets .om-compare-panel--follow {
+  margin-top: calc(48px - var(--layout-grid-gutter, 24px));
+}
+
+.cs-page--sheets .om-compare {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.cs-page--sheets .om-compare-card {
+  box-sizing: border-box;
+  min-width: 0;
+  margin: 0;
+  padding: 24px;
+  background: #f8f7f4;
+  border: 1px solid #b8bcc0;
+  border-radius: 16px;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cs-page--sheets .om-compare-card > .om-eyebrow,
+.cs-page--sheets .om-compare-card > .om-pain-title,
+.cs-page--sheets .om-compare-panel > .om-eyebrow {
+  margin: 0;
+}
+
+.cs-page--sheets .om-label--emphasis {
+  color: #3f7d68 !important;
+}
+
+.cs-page--sheets .om-compare-card .om-dense,
+.cs-page--sheets .om-compare-card .om-dense p,
+.cs-page--sheets .om-compare-card .om-list,
+.cs-page--sheets .om-compare-card .om-list li {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: var(--weight-body);
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: var(--type-body-tracking);
+  color: #14141a;
+}
+
+@media (min-width: 768px) {
+  .cs-page--sheets .om-compare-panel {
+    padding: 32px;
+  }
+
+  .cs-page--sheets .om-compare {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+/*
+ * One impact panel. Paper Deep, ink border, hard shadow.
+ * Phone is one column, 24px panel padding, horizontal rules only.
+ */
+:is(.cs-page--omantel, .cs-page--system) .om-stat-panel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-3);
+  background: var(--om-paper-deep);
+  border: 2px solid var(--om-ink);
+  border-radius: 24px;
+  box-shadow: 4px 4px 0 var(--om-ink);
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-items: stretch;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-stat-cell {
+  box-sizing: border-box;
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--om-line);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system)
+  .om-stat-grid
+  > .om-stat-cell:last-child {
+  border-bottom: none;
+}
+
+@media (min-width: 768px) {
+  :is(.cs-page--omantel, .cs-page--system) .om-stat-panel {
+    padding: var(--space-4);
+  }
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-stat-eyebrow {
+  justify-self: start;
+  width: max-content;
+  max-width: 100%;
+  padding: 0;
+  text-align: left;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-stat-value {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--case-type-card-md);
+  font-weight: var(--case-type-card-weight);
+  line-height: var(--case-type-card-md-line);
+  letter-spacing: var(--case-type-card-track);
+  color: #3f7d68;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-stat-cell .om-dense {
+  display: block;
+  margin: 0;
+  flex: 0 0 auto;
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-body-dense) !important;
+  font-weight: var(--weight-body) !important;
+  line-height: var(--case-type-body-dense-line) !important;
+  letter-spacing: var(--type-body-tracking) !important;
+  color: var(--om-grey) !important;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-media {
+  margin: 0;
+  min-width: 0;
+}
+
+/* Screens sit on the page. The picture keeps its own radius and hairline. */
+:is(.cs-page--omantel, .cs-page--system) .cs-case-hero-media {
+  box-sizing: border-box;
+  margin-top: 0;
+  padding: 0;
+  overflow: visible;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  aspect-ratio: auto;
+  height: auto;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-media-img,
+:is(.cs-page--omantel, .cs-page--system) .cs-case-hero-media-img {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto !important;
+  max-width: 100%;
+  aspect-ratio: auto !important;
+  object-fit: contain;
+  object-position: left center;
+  background: transparent !important;
+  border: 1px solid #b8bcc0;
+  border-radius: 16px;
+  box-shadow: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-media--phone {
+  width: fit-content;
+  max-width: 100%;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-media--phone .om-media-img {
+  width: auto;
+  max-width: 100%;
+  max-height: 640px;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-media-row {
+  display: grid;
+  gap: var(--layout-grid-gutter);
+  min-width: 0;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-media-row--half {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-media-row--phone {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  grid-template-columns: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-media-row--phone > .om-media {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+}
+
+:is(.cs-page--omantel, .cs-page--system)
+  .om-media-row--phone:has(> :nth-child(2))
+  > .om-media {
+  max-width: calc((100% - var(--layout-grid-gutter)) / 2);
+}
+
+:is(.cs-page--omantel, .cs-page--system)
+  .om-media-row--phone:has(> :nth-child(3))
+  > .om-media {
+  max-width: calc((100% - 2 * var(--layout-grid-gutter)) / 3);
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-caption {
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-caption) !important;
+  font-weight: var(--weight-body) !important;
+  line-height: var(--case-type-caption-line) !important;
+  letter-spacing: var(--type-body-tracking) !important;
+  color: var(--om-grey) !important;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-caption {
+  margin: var(--space-2) 0 0;
+}
+
+/* Card captions stay 16. At a glance meta and scope use the section body. */
+:is(.cs-page--omantel, .cs-page--system) .om-card .om-dense,
+:is(.cs-page--omantel, .cs-page--system) .om-card .om-dense li {
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-body-dense) !important;
+  font-weight: var(--weight-body) !important;
+  line-height: var(--case-type-body-dense-line) !important;
+  letter-spacing: var(--type-body-tracking) !important;
+  color: var(--om-ink) !important;
+}
+
+/*
+ * Card spacing, on the 8px scale. Grid row and column gap stay 24.
+ * Adjacent text is 32 (8 more than the 24px stack). A card group to the
+ * next subheading is 48. Decisions are spaced separately. Inner padding is 32.
+ */
+:is(.cs-page--omantel, .cs-page--system) .om-card + .om-eyebrow,
+:is(.cs-page--omantel, .cs-page--system) .om-card + .om-subhead {
+  margin-top: calc(var(--space-5) - var(--space-3));
+}
+
+/* Between decisions: 96 (64 on phone), with the rule halfway. The section grid's row gap counts. */
+.cs-page--sheets .om-decision + .om-decision {
+  margin-top: 48px;
+  padding-top: 48px;
+  border-top: 1px solid #b8bcc0;
+}
+
+:is(.cs-page--omantel, .cs-page--system)
+  .om-grid
+  > .om-decision
+  + .om-decision {
+  margin-top: calc(48px - var(--layout-grid-gutter));
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-media + .om-eyebrow,
+:is(.cs-page--omantel, .cs-page--system) .om-media + .om-subhead,
+:is(.cs-page--omantel, .cs-page--system) .om-media-row + .om-eyebrow,
+:is(.cs-page--omantel, .cs-page--system) .om-media-row + .om-subhead {
+  margin-top: calc(var(--space-5) - var(--space-3));
+}
+
+/* Full-width block above a card row, so the extra 8px does not shift one card. */
+:is(.cs-page--omantel, .cs-page--system) .om-eyebrow:has(+ .om-card),
+:is(.cs-page--omantel, .cs-page--system) .om-eyebrow:has(+ .om-stat-panel),
+:is(.cs-page--omantel, .cs-page--system) .om-subhead:has(+ .om-card),
+:is(.cs-page--omantel, .cs-page--system) .om-copy:has(+ .om-card),
+:is(.cs-page--omantel, .cs-page--system) .om-list:has(+ .om-card),
+:is(.cs-page--omantel, .cs-page--system) .om-tldr:has(+ .om-card) {
+  margin-bottom: calc(var(--space-4) - var(--space-3));
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-card + .om-copy,
+:is(.cs-page--omantel, .cs-page--system) .om-card + .om-list,
+:is(.cs-page--omantel, .cs-page--system) .om-decision > .om-copy + .om-grid,
+:is(.cs-page--omantel, .cs-page--system)
+  .om-decision
+  > .om-decision-title
+  + .om-grid,
+:is(.cs-page--omantel, .cs-page--system) .om-decision > .om-eyebrow + .om-grid {
+  margin-top: calc(var(--space-4) - var(--space-3));
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-decision > .om-statement {
+  margin-top: 32px;
+  border: 2px solid var(--om-ink);
+  border-radius: 24px;
+  box-shadow: 4px 4px 0 var(--om-ink);
+}
+
+:is(.cs-page--omantel, .cs-page--system) #decisions .om-decision:last-child {
+  margin-bottom: 0;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-decision .om-copy,
+:is(.cs-page--omantel, .cs-page--system) .om-decision .om-media,
+:is(.cs-page--omantel, .cs-page--system) .om-decision .layout-grid {
+  margin: 0;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .sheet-section-title,
+:is(.cs-page--omantel, .cs-page--system) .om-copy {
+  color: var(--om-ink);
+}
+
+@media (max-width: 1199px) {
+  :is(.cs-page--omantel, .cs-page--system) {
+    --cs-section-gap: var(--space-7);
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-media--phone .om-media-img {
+    max-height: 640px;
+  }
+}
+
+@media (max-width: 767px) {
+  :is(.cs-page--omantel, .cs-page--system) {
+    --cs-section-gap: var(--space-6);
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-statement {
+    padding: var(--space-3);
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-card--half,
+  :is(.cs-page--omantel, .cs-page--system) .om-card--third {
+    grid-column: 1 / -1;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-tldr-row {
+    grid-template-columns: 1fr;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-stakeholder-row {
+    gap: var(--space-1);
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-media--phone .om-media-img {
+    width: 100%;
+    max-height: 520px;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-media-row--half,
+  :is(.cs-page--omantel, .cs-page--system) .om-media-row--phone {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-media-row--phone > .om-media,
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-media-row--phone:has(> :nth-child(2))
+    > .om-media,
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-media-row--phone:has(> :nth-child(3))
+    > .om-media {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-media + .om-eyebrow,
+  :is(.cs-page--omantel, .cs-page--system) .om-media + .om-subhead,
+  :is(.cs-page--omantel, .cs-page--system) .om-media-row + .om-eyebrow,
+  :is(.cs-page--omantel, .cs-page--system) .om-media-row + .om-subhead {
+    margin-top: calc(var(--space-4) - var(--space-3));
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-eyebrow:has(+ .om-card),
+  :is(.cs-page--omantel, .cs-page--system) .om-eyebrow:has(+ .om-stat-panel),
+  :is(.cs-page--omantel, .cs-page--system) .om-subhead:has(+ .om-card),
+  :is(.cs-page--omantel, .cs-page--system) .om-copy:has(+ .om-card),
+  :is(.cs-page--omantel, .cs-page--system) .om-list:has(+ .om-card),
+  :is(.cs-page--omantel, .cs-page--system) .om-tldr:has(+ .om-card) {
+    margin-bottom: 0;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-card + .om-copy,
+  :is(.cs-page--omantel, .cs-page--system) .om-card + .om-list,
+  :is(.cs-page--omantel, .cs-page--system) .om-decision > .om-copy + .om-grid,
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-decision
+    > .om-decision-title
+    + .om-grid,
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-decision
+    > .om-eyebrow
+    + .om-grid {
+    margin-top: 0;
+  }
+}
+
+:is(.cs-page--omantel, .cs-page--system) .cs-next-project-label {
+  margin: 0 0 var(--space-2);
+}
+
+/* Label/S. Tags share the eyebrow metrics so phone badges cannot drop to Micro 10. */
+:is(.cs-page--omantel, .cs-page--system) .site-badge--tag {
+  font-family: var(--font-sans);
+  font-size: var(--case-type-eyebrow);
+  font-weight: var(--case-type-eyebrow-weight);
+  line-height: var(--case-type-eyebrow-line);
+  letter-spacing: var(--case-type-eyebrow-track);
+  text-transform: none;
+  padding: var(--space-1) var(--space-2);
+}
+
+/* Link */
+:is(.cs-page--omantel, .cs-page--system) .cs-next-project-link,
+:is(.cs-page--omantel, .cs-page--system) .cs-case-footer-back {
+  font-family: var(--font-sans);
+  display: inline-flex;
+  align-items: center;
+  min-width: 24px;
+  min-height: 24px;
+  font-size: var(--case-type-link);
+  font-weight: var(--case-type-link-weight);
+  line-height: var(--case-type-link-line);
+  letter-spacing: var(--type-body-tracking);
+  text-transform: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .sheet-nav-tab:focus-visible {
+  outline: 2px solid var(--om-ink);
+  outline-offset: 3px;
+}
+
+/* The old ink band, dot veil, and madder underline stay off these pages. */
+:is(.cs-page--omantel, .cs-page--system) .cs-progress-track,
+:is(.cs-page--omantel, .cs-page--system) .paper-content-sheet::before,
+:is(.cs-page--omantel, .cs-page--system) .paper-content-sheet::after {
+  content: none;
+  display: none;
+}
+
+/*
+ * From tablet up: section nav in columns 1–3, content in the remaining
+ * columns. The hero and footer stay on the full rail above and below that
+ * split. Column tracks are set per breakpoint below.
+ */
+@media (min-width: 768px) {
+  .cs-page--sheets .case-study-layout-inner {
+    display: grid;
+    align-items: start;
+  }
+
+  .cs-page--sheets .case-study-layout-inner > .layout-rail,
+  .cs-page--sheets .case-study-hero,
+  .cs-page--sheets .case-study-layout-main,
+  .cs-page--sheets .case-study-layout-content {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+
+  .cs-page--sheets .case-study-layout-main {
+    display: contents;
+  }
+
+  .cs-page--sheets .case-study-layout-inner > .sheet-nav-wrap {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: stretch;
+    position: static;
+    width: auto;
+    margin: 0;
+  }
+
+  .cs-page--sheets .case-study-hero {
+    grid-column: 2 / 5;
+    grid-row: 1;
+  }
+
+  .cs-page--sheets .case-study-layout-content {
+    grid-column: 4;
+    grid-row: 2;
+    padding-bottom: var(--space-6);
+  }
+
+  .cs-page--sheets .case-study-footer-rail {
+    grid-column: 4;
+    grid-row: 3;
+  }
+
+  .cs-page--sheets .sheet-nav {
+    position: sticky;
+    top: calc(var(--nav-offset-top) + var(--nav-height) + 16px);
+    z-index: 15;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .cs-page--sheets .sheet-nav-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    overflow: visible;
+  }
+
+  .cs-page--sheets .sheet-nav-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 24px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-bottom: none;
+    border-left: none;
+    background: transparent;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0;
+    text-align: left;
+    text-transform: none;
+    white-space: normal;
+    color: #636370;
+  }
+
+  .cs-page--sheets .sheet-nav-tab::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: transparent;
+    flex: 0 0 6px;
+  }
+
+  .cs-page--sheets .sheet-nav-tab:hover,
+  .cs-page--sheets .sheet-nav-tab--active {
+    border: none;
+    border-bottom-color: transparent;
+    font-weight: 400;
+    color: #14141a;
+  }
+
+  .cs-page--sheets .sheet-nav-tab--active::before {
+    background: #3f7d68;
+  }
+
+  .cs-page--sheets .sheet-nav-tab:focus-visible {
+    outline: 2px solid #14141a;
+    outline-offset: 3px;
+  }
+
+  .cs-page--sheets .cs-section,
+  .cs-page--sheets .cs-hero {
+    scroll-margin-top: calc(
+      var(--nav-offset-top) + var(--nav-height) + var(--space-component)
+    );
+  }
+
+  .cs-page--sheets .cs-main {
+    scroll-padding-top: calc(
+      var(--nav-offset-top) + var(--nav-height) + var(--space-component)
+    );
+  }
+}
+
+/*
+ * Tablet: 8 columns, 24px gutter, 32px margin.
+ * The section nav is columns 1–2. Content is columns 3–8.
+ * Paired cards, stats, and side-by-side images are 50/50 of that content
+ * column, with the 24px gutter between them.
+ * Body and the lede fill the content column.
+ */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .cs-page--sheets .case-study-layout-inner {
+    --cs-gutter: var(--layout-grid-gutter);
+    --cs-rail: min(
+      var(--layout-content-max),
+      calc(100% - 2 * var(--layout-page-padding))
+    );
+    --cs-col: calc((var(--cs-rail) - 7 * var(--cs-gutter)) / 8);
+    grid-template-columns:
+      minmax(var(--layout-page-padding), 1fr)
+      calc(2 * var(--cs-col) + 1 * var(--cs-gutter))
+      var(--cs-gutter)
+      calc(6 * var(--cs-col) + 5 * var(--cs-gutter))
+      minmax(var(--layout-page-padding), 1fr);
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-grid,
+  :is(.cs-page--omantel, .cs-page--system) .om-media-row--half,
+  :is(.cs-page--omantel, .cs-page--system) .om-media-row--phone {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--layout-grid-gutter);
+    row-gap: var(--layout-grid-gutter);
+  }
+
+  /* Two-up. A short last row stays the same cell width. Rules replace the gap. */
+  :is(.cs-page--omantel, .cs-page--system) .om-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-stat-grid
+    > .om-stat-cell:nth-child(odd):not(:last-child) {
+    border-right: 1px solid var(--om-line);
+  }
+
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-stat-grid:not(:has(> .om-stat-cell:last-child:nth-child(odd)))
+    > .om-stat-cell:nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-media-row--phone {
+    display: grid;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-card--half,
+  :is(.cs-page--omantel, .cs-page--system) .om-card--third {
+    grid-column: auto;
+    width: auto;
+    max-width: none;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-media-row--half > .om-media,
+  :is(.cs-page--omantel, .cs-page--system) .om-media-row--phone > .om-media,
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-media-row--phone:has(> :nth-child(2))
+    > .om-media,
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-media-row--phone:has(> :nth-child(3))
+    > .om-media {
+    grid-column: auto;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-media-row--phone .om-media-img {
+    width: 100%;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-copy,
+  :is(.cs-page--omantel, .cs-page--system) .om-tldr,
+  :is(.cs-page--omantel, .cs-page--system) .om-caption,
+  :is(.cs-page--omantel, .cs-page--system) .sys-facts {
+    max-width: none;
+  }
+}
+
+/*
+ * Desktop: 12 columns, 24px gutter, 24px page margin, 1280 rail.
+ * Column = (rail − 11×24) / 12. That is 84.67px when the rail is 1280.
+ * Content is columns 4–12. Body is 6 of those 9 (right edge of page column 9).
+ */
+@media (min-width: 1200px) {
+  .cs-page--sheets .case-study-layout-inner {
+    --cs-gutter: var(--layout-grid-gutter);
+    --cs-rail: min(
+      var(--layout-content-max),
+      calc(100% - 2 * var(--layout-page-padding))
+    );
+    --cs-col: calc((var(--cs-rail) - 11 * var(--cs-gutter)) / 12);
+    grid-template-columns:
+      minmax(var(--layout-page-padding), 1fr)
+      calc(3 * var(--cs-col) + 2 * var(--cs-gutter))
+      var(--cs-gutter)
+      calc(9 * var(--cs-col) + 8 * var(--cs-gutter))
+      minmax(var(--layout-page-padding), 1fr);
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .sys-facts {
+    max-width: calc(
+      6 * (100cqi - 11 * var(--layout-grid-gutter)) / 12 + 5 *
+        var(--layout-grid-gutter)
+    );
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .case-study-intro-row {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--layout-grid-gutter);
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .case-study-intro-main {
+    grid-column: 1 / -1;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .cs-case-hero-media {
+    width: 100%;
+    margin-inline: 0;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .case-study-layout-content {
+    container-type: inline-size;
+    container-name: om-content;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-grid {
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    column-gap: var(--layout-grid-gutter);
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-card--half {
+    grid-column: span 6;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-card--third {
+    grid-column: span 3;
+  }
+
+  /* Three across. A short last row keeps the same cell width. */
+  :is(.cs-page--omantel, .cs-page--system) .om-stat-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-stat-grid
+    > .om-stat-cell:not(:nth-child(3n)):not(:last-child) {
+    border-right: 1px solid var(--om-line);
+  }
+
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-stat-grid:has(> .om-stat-cell:last-child:nth-child(3n))
+    > .om-stat-cell:nth-last-child(-n + 3),
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-stat-grid:has(> .om-stat-cell:last-child:nth-child(3n + 2))
+    > .om-stat-cell:nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
+
+  /* 6 of the 9 content columns. Equals --measure-body (628px) at a 1280 rail. */
+  :is(.cs-page--omantel, .cs-page--system) .om-copy,
+  :is(.cs-page--omantel, .cs-page--system) .om-tldr,
+  :is(.cs-page--omantel, .cs-page--system) .om-caption {
+    max-width: calc(200cqw / 3 - var(--layout-grid-gutter) / 3);
+  }
+
+  /* 7 of the 9 content columns. 737px when the rail is 1280. */
+  :is(.cs-page--omantel, .cs-page--system) .om-statement {
+    width: calc(
+      7 * (100cqw - 8 * var(--layout-grid-gutter)) / 9 + 6 *
+        var(--layout-grid-gutter)
+    );
+  }
+}
+
+/*
+ * At a glance, and the hero fact list on the other case pages.
+ * One Paper Deep panel, then (on Omantel) the NDA caption, then the KPI panel.
+ * Each of those sits 24px apart, inside the full-rail hero. The label
+ * track is two columns of that rail: 12 on desktop, 8 on tablet.
+ */
+:is(.cs-page--omantel, .cs-page--system) .om-glance {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: var(--space-3);
+  background: var(--om-paper-deep);
+  border: 2px solid var(--om-ink);
+  border-radius: 24px;
+  box-shadow: 4px 4px 0 var(--om-ink);
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-glance-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--space-1);
+  align-items: start;
+  margin: 0;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--om-line);
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-glance-row:last-child {
+  border-bottom: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-glance dt,
+:is(.cs-page--omantel, .cs-page--system) .om-glance dd {
+  margin: 0;
+  min-width: 0;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-glance dt {
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-label-sm) !important;
+  font-weight: var(--case-type-label-sm-weight) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-label-sm-line) !important;
+  letter-spacing: var(--case-type-label-sm-track) !important;
+  text-transform: none !important;
+  color: var(--om-grey) !important;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-glance dd,
+:is(.cs-page--omantel, .cs-page--system) .om-glance-notes,
+:is(.cs-page--omantel, .cs-page--system) .om-glance-notes li {
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-body-dense) !important;
+  font-weight: var(--weight-body) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-body-dense-line) !important;
+  letter-spacing: var(--type-body-tracking) !important;
+  text-transform: none !important;
+  color: var(--om-ink) !important;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-glance-notes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-glance-notes li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .om-glance-notes li::before,
+:is(.cs-page--omantel, .cs-page--system) .om-glance-notes li::marker {
+  content: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system) #tldr .om-grid {
+  row-gap: var(--space-3);
+}
+
+:is(.cs-page--omantel, .cs-page--system) #tldr .sheet-section-header {
+  margin-bottom: var(--space-4);
+  padding-bottom: 0;
+  border-bottom: none;
+  box-shadow: none;
+  background-image: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system) #tldr .sheet-section-header::before,
+:is(.cs-page--omantel, .cs-page--system) #tldr .sheet-section-header::after {
+  content: none;
+  display: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system) #tldr .om-note {
+  margin: 0;
+  max-width: none;
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-caption) !important;
+  font-weight: var(--weight-body) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-caption-line) !important;
+  letter-spacing: var(--type-body-tracking) !important;
+  text-align: left;
+  text-transform: none !important;
+  color: var(--om-grey) !important;
+}
+
+:is(.cs-page--omantel, .cs-page--system) #tldr .om-note a {
+  color: inherit;
+  font: inherit;
+  font-style: normal;
+  text-decoration: underline;
+}
+
+/* The hero sheet clips overflow. The fact panel's hard shadow needs to paint. */
+:is(.cs-page--omantel, .cs-page--system) .case-study-intro-sheet {
+  overflow: visible;
+}
+
+@media (min-width: 768px) {
+  :is(.cs-page--omantel, .cs-page--system) .case-study-hero {
+    container-type: inline-size;
+    container-name: case-hero;
+  }
+
+  /*
+   * Lead/M. Seven columns sat short under the full-rail image, so the
+   * measure is eight of the twelve rail columns. Phone stays the full rail.
+   */
+  :is(.cs-page--omantel, .cs-page--system) .case-study-intro-lede,
+  :is(.cs-page--omantel, .cs-page--system) .case-study-intro-pills {
+    width: 100%;
+    max-width: calc(
+      8 * (100cqi - 11 * var(--layout-grid-gutter)) / 12 + 7 *
+        var(--layout-grid-gutter)
+    );
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-glance {
+    padding: var(--space-4);
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .case-study-hero-overview {
+    container-type: inline-size;
+    --om-glance-cols: 8;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system) .om-glance-row {
+    --om-glance-label: calc(
+      2 * (100cqi - (var(--om-glance-cols) - 1) * var(--layout-grid-gutter)) /
+        var(--om-glance-cols) + var(--layout-grid-gutter)
+    );
+    grid-template-columns: var(--om-glance-label) minmax(0, 1fr);
+    column-gap: var(--layout-grid-gutter);
+    row-gap: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  :is(.cs-page--omantel, .cs-page--system) .case-study-hero-overview {
+    --om-glance-cols: 12;
+  }
+}
+
+/* Hero group: image, then the overview, on the full rail. Nav starts after. */
+:is(.cs-page--omantel, .cs-page--system) .case-study-hero-overview {
+  width: 100%;
+  max-width: none;
+  margin: var(--space-6) 0 0;
+}
+
+:is(.cs-page--omantel, .cs-page--system) .case-study-hero-overview-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+:is(.cs-page--omantel, .cs-page--system)
+  .case-study-hero-overview
+  .sheet-section-header {
+  margin-bottom: var(--space-4);
+  padding-bottom: 0;
+  border-bottom: none;
+  box-shadow: none;
+  background-image: none;
+}
+
+:is(.cs-page--omantel, .cs-page--system)
+  .case-study-hero-overview
+  .sheet-section-header::before,
+:is(.cs-page--omantel, .cs-page--system)
+  .case-study-hero-overview
+  .sheet-section-header::after {
+  content: none;
+  display: none;
+}
+
+/* The old hero band stays off case pages. */
+.cs-page--sheets .cs-hero-band,
+.cs-page--sheets .cs-hero-overlay,
+.cs-page--sheets .cs-progress-track {
+  display: none !important;
+}
+
+/*
+ * Shared decision block. Pixel sizes, so journal pages (no page space scale)
+ * and system pages land on the same measurements.
+ * Title group to Trade-off is 32. Outcome is 48 after that row.
+ * Iteration is 32 after Outcome. The next decision is 96 (64 on phone).
+ */
+.cs-page--sheets .om-decision {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  min-width: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.cs-page--sheets .om-decision-head,
+.cs-page--sheets .om-decision-col,
+.cs-page--sheets .om-decision-outcome,
+.cs-page--sheets .om-decision-follow,
+.cs-page--sheets .om-decision-report,
+.cs-page--sheets .om-decision-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  width: 100%;
+}
+
+.cs-page--sheets .om-decision-label {
+  margin: 0;
+}
+
+.cs-page--sheets .om-decision-label--teal {
+  color: #3f7d68 !important;
+}
+
+.cs-page--sheets .om-decision-title {
+  margin: 8px 0 0 !important;
+  font-family: var(--font-sans) !important;
+  font-size: var(--case-type-card-lg) !important;
+  font-weight: var(--case-type-card-weight) !important;
+  font-style: normal !important;
+  line-height: var(--case-type-card-lg-line) !important;
+  letter-spacing: var(--case-type-card-track) !important;
+  text-transform: none !important;
+  color: #14141a !important;
+  font-variation-settings: normal !important;
+}
+
+.cs-page--sheets .om-decision-context {
+  margin: 16px 0 0;
+  font-family: var(--font-sans) !important;
+  font-size: 1rem !important;
+  font-weight: var(--weight-body) !important;
+  font-style: normal !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0 !important;
+  color: #636370 !important;
+}
+
+.cs-page--sheets .om-decision-media .om-decision-context {
+  margin-top: 0;
+}
+
+.cs-page--sheets .om-decision-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.cs-page--sheets .om-decision-copy p,
+.cs-page--sheets .om-decision-report-body {
+  margin: 0;
+  font-family: var(--font-sans) !important;
+  font-size: 1rem !important;
+  font-weight: var(--weight-body) !important;
+  font-style: normal !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0 !important;
+  color: #14141a !important;
+}
+
+.cs-page--sheets .om-decision-media {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  margin-top: 32px;
+}
+
+.cs-page--sheets .om-decision-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+  margin: 0;
+}
+
+.cs-page--sheets .om-decision > .om-decision-pair,
+.cs-page--sheets .om-decision > .om-decision-reports,
+.cs-page--sheets .om-decision > .om-decision-outcome,
+.cs-page--sheets .om-decision > .om-decision-follow {
+  margin-top: 48px;
+}
+
+.cs-page--sheets .om-decision > .om-decision-pair {
+  margin-top: 32px;
+}
+
+.cs-page--sheets .om-decision-reports {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+.cs-page--sheets .om-decision-report-title {
+  margin: 0;
+  font-family: var(--font-sans) !important;
+  font-size: 1rem !important;
+  font-weight: var(--weight-semibold) !important;
+  line-height: 1.5 !important;
+  color: #14141a !important;
+}
+
+.cs-page--sheets .om-decision-report-body {
+  margin-top: 8px;
+}
+
+.cs-page--sheets .om-decision-nav {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+.cs-page--sheets .om-decision-nav-item {
+  gap: 8px;
+}
+
+.cs-page--sheets .om-decision .cs-nei-sketch {
+  width: 100%;
+  height: 80px;
+  border: 1px solid #b8bcc0;
+  border-radius: 8px;
+  background: #f0efea;
+}
+
+.cs-page--sheets .om-decision .cs-nei-sketch--mega::before,
+.cs-page--sheets .om-decision .cs-nei-sketch--ribbon::before,
+.cs-page--sheets .om-decision .cs-nei-sketch--panel::before,
+.cs-page--sheets .om-decision .cs-nei-sketch--panel::after {
+  background: #14141a;
+  opacity: 0.16;
+}
+
+.cs-page--sheets .om-decision > .om-statement {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 32px 0 0;
+  padding: 32px;
+  background: #f0efea;
+  border: 2px solid #14141a;
+  border-radius: 24px;
+  box-shadow: 4px 4px 0 #14141a;
+}
+
+@media (min-width: 768px) {
+  .cs-page--sheets .om-decision-split,
+  .cs-page--sheets .om-decision-reports {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .cs-page--sheets .om-decision-nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+/* Journal routes wrap each decision, so the articles are not siblings. */
+.cs-page--sheets .ojo-decision-follow {
+  margin-top: 0;
+}
+
+.cs-page--sheets .ojo-decision-follow > .om-decision {
+  margin-top: 48px;
+  padding-top: 48px;
+  border-top: 1px solid #b8bcc0;
+}
+
+@media (max-width: 767px) {
+  .cs-page--sheets .om-decision + .om-decision {
+    margin-top: 32px;
+    padding-top: 32px;
+  }
+
+  :is(.cs-page--omantel, .cs-page--system)
+    .om-grid
+    > .om-decision
+    + .om-decision {
+    margin-top: calc(32px - var(--layout-grid-gutter));
+  }
+
+  .cs-page--sheets .om-decision > .om-statement {
+    padding: 24px;
+  }
+
+  .cs-page--sheets .ojo-decision-follow > .om-decision {
+    margin-top: 32px;
+    padding-top: 32px;
+  }
+}

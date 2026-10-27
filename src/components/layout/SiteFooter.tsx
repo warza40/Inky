@@ -8,7 +8,15 @@ import { RESUME_URL } from "@/data/social-links";
 const CONTACT_EMAIL = "rachanamandal@gmail.com";
 const PLOTTER_AI_URL = "https://plotter.ai";
 
-export function SiteFooter() {
+type SiteFooterProps =
+  | { variant?: "home" }
+  | {
+      variant: "case";
+      nextHref?: string;
+      copyright: string;
+    };
+
+function HomeSiteFooter() {
   return (
     <footer id="footer" className="site-footer" aria-label="Footer">
       <div className="site-footer__inner">
@@ -114,4 +122,47 @@ export function SiteFooter() {
       </div>
     </footer>
   );
+}
+
+function CaseSiteFooter({
+  nextHref,
+  copyright,
+}: {
+  nextHref?: string;
+  copyright: string;
+}) {
+  return (
+    <footer className="site-footer cs-case-footer" aria-label="Footer">
+      <div className="site-footer__inner">
+        <div className="site-footer__rail">
+          <div className="cs-case-footer-links">
+            {nextHref ? (
+              <Link href={nextHref} className="site-footer__case-link">
+                Next case study →
+              </Link>
+            ) : null}
+            <Link href="/" className="site-footer__case-link">
+              Back to home
+            </Link>
+          </div>
+          <div className="cs-case-footer-meta">
+            <hr className="site-footer__divider" />
+            <p className="site-footer__copyright">{copyright}</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export function SiteFooter(props: SiteFooterProps) {
+  switch (props.variant) {
+    case "case":
+      return (
+        <CaseSiteFooter nextHref={props.nextHref} copyright={props.copyright} />
+      );
+    case "home":
+    case undefined:
+      return <HomeSiteFooter />;
+  }
 }

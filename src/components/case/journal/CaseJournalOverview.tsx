@@ -3,7 +3,7 @@
 import Image from "next/image";
 import type { CaseStudy } from "@/case-studies/omantel";
 import { parseMadderSpans } from "@/lib/case-rich-text";
-import { CaseImpactPostIts } from "@/components/case/CaseImpactPostIts";
+import { ImpactStatPanel } from "@/components/case/ImpactStatPanel";
 import { ContextEcosystem } from "@/components/case/ContextEcosystem";
 import { CaseContextFlow } from "@/components/case/CaseContextFlow";
 
@@ -23,7 +23,7 @@ interface CaseJournalOverviewProps {
   caseStudy: CaseStudy;
 }
 
-/** Leather strip + cream paper; mirrors CaseContextSection, journal styling */
+/** Overview narrative on the shared Paper Deep panel. */
 export function CaseJournalOverview({ caseStudy }: CaseJournalOverviewProps) {
   const s = caseStudy.sections;
   const cf = s.contextFlow;
@@ -43,20 +43,13 @@ export function CaseJournalOverview({ caseStudy }: CaseJournalOverviewProps) {
     <div className="ojo-overview-section">
       {hasImpact ? (
         <div className="ojo-overview-impact-rail">
-          <h3 className="cs-impact-postits-eyebrow">Impact</h3>
-          <CaseImpactPostIts
-            blocks={ji!.blocks}
-            className="ojo-impact-postits--on-leather"
-          />
+          <h3 className="om-eyebrow">Impact</h3>
+          <ImpactStatPanel blocks={ji!.blocks} />
         </div>
       ) : null}
 
       {hasFlowNarrative ? (
-        <div className="ojo-overview-insert ojo-paper ojo-paper-shadow">
-          <div className="ojo-punch-holes ojo-punch-holes--dual" aria-hidden>
-            <span className="ojo-punch-hole" />
-            <span className="ojo-punch-hole" />
-          </div>
+        <div className="ojo-overview-insert om-sheet-panel">
           <div className="ojo-overview-inner ojo-overview-inner--stacked">
             <div className="ojo-overview-narrative">
               <div className="ojo-p-label">Overview</div>
@@ -90,11 +83,7 @@ export function CaseJournalOverview({ caseStudy }: CaseJournalOverviewProps) {
           ) : null}
         </div>
       ) : s.contextSections && s.contextSections.length > 0 ? (
-        <div className="ojo-overview-insert ojo-paper ojo-paper-shadow">
-          <div className="ojo-punch-holes ojo-punch-holes--dual" aria-hidden>
-            <span className="ojo-punch-hole" />
-            <span className="ojo-punch-hole" />
-          </div>
+        <div className="ojo-overview-insert om-sheet-panel">
           <div className="ojo-context-text cs-context-text--sections ojo-overview-inner--stacked">
             {s.contextSections.map((section, i) => (
               <section key={i} className="cs-context-section">
@@ -105,11 +94,7 @@ export function CaseJournalOverview({ caseStudy }: CaseJournalOverviewProps) {
           </div>
         </div>
       ) : s.context ? (
-        <div className="ojo-overview-insert ojo-paper ojo-paper-shadow">
-          <div className="ojo-punch-holes ojo-punch-holes--dual" aria-hidden>
-            <span className="ojo-punch-hole" />
-            <span className="ojo-punch-hole" />
-          </div>
+        <div className="ojo-overview-insert om-sheet-panel">
           <div className="ojo-overview-inner ojo-overview-inner--stacked">
             <div className="ojo-overview-narrative">
               <div className="ojo-p-label">Overview</div>
@@ -127,11 +112,7 @@ export function CaseJournalOverview({ caseStudy }: CaseJournalOverviewProps) {
           </div>
         </div>
       ) : showAimOnlyPaper ? (
-        <div className="ojo-overview-insert ojo-paper ojo-paper-shadow">
-          <div className="ojo-punch-holes ojo-punch-holes--dual" aria-hidden>
-            <span className="ojo-punch-hole" />
-            <span className="ojo-punch-hole" />
-          </div>
+        <div className="ojo-overview-insert om-sheet-panel">
           <div className="ojo-overview-inner ojo-overview-inner--stacked">
             <div className="ojo-overview-narrative">
               <div className="ojo-p-label">Constraints &amp; context</div>
@@ -144,11 +125,7 @@ export function CaseJournalOverview({ caseStudy }: CaseJournalOverviewProps) {
       ) : null}
 
       {s.contextEcosystem ? (
-        <div className="ojo-context-ecosystem-paper ojo-overview-insert ojo-paper ojo-paper-shadow">
-          <div className="ojo-punch-holes ojo-punch-holes--dual" aria-hidden>
-            <span className="ojo-punch-hole" />
-            <span className="ojo-punch-hole" />
-          </div>
+        <div className="ojo-context-ecosystem-paper ojo-overview-insert om-sheet-panel">
           <div className="ojo-context-ecosystem-inner">
             <ContextEcosystem data={s.contextEcosystem} />
           </div>

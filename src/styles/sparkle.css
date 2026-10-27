@@ -31,6 +31,7 @@
 .page-sparkle-marks {
   position: absolute;
   inset: 0;
+  /* Below .paper-canvas-content (z-index 1) and the case inner (z-index 2). */
   z-index: 0;
   pointer-events: none;
   overflow: visible;
@@ -42,8 +43,15 @@
   display: block;
   aspect-ratio: 1;
   line-height: 0;
-  opacity: 0.62;
+  /* Quiet enough for a solid #1C1C1E mark under ink. Open paper is louder. */
+  opacity: 0.15;
+  z-index: 0;
+  pointer-events: none;
   transform: translateZ(0);
+}
+
+.page-sparkle-marks__mark[data-sparkle-room="open"] {
+  opacity: 0.35;
 }
 
 .page-sparkle-marks__img {
@@ -53,18 +61,50 @@
   object-fit: contain;
 }
 
-@media (max-width: 767px) {
-  .page-sparkle-marks__mark[data-hide-below="768"] {
-    display: none;
-  }
+/*
+ * Case marks sit in the page margin. 16px fits the 24px margin at 1280
+ * before measurement moves them. A wide margin grows the mark; a narrow
+ * one moves it into nav-column whitespace. Either way the box stays off
+ * the content column, with the layer under the type.
+ */
+.page-sparkle-marks[data-sparkle-variant="omantel"]
+  .page-sparkle-marks__mark[data-sparkle-edge],
+.page-sparkle-marks[data-sparkle-variant="case-study"]
+  .page-sparkle-marks__mark[data-sparkle-edge] {
+  position: fixed;
+  z-index: 0;
+  width: 16px;
+  overflow: hidden;
+  pointer-events: none;
+  top: max(
+    calc(var(--nav-offset-top) + var(--nav-height) + 16px),
+    var(--sparkle-along, 20%)
+  );
+}
 
-  .page-sparkle-marks__mark {
-    opacity: 0.48;
+.page-sparkle-marks__mark[data-sparkle-edge="start"] {
+  left: 4px;
+  right: auto;
+}
+
+.page-sparkle-marks__mark[data-sparkle-edge="end"] {
+  left: auto;
+  right: 4px;
+}
+
+@media (max-width: 767px) {
+  /* Homepage Figma instances only. */
+  .page-sparkle-marks[data-sparkle-variant="home"]
+    .page-sparkle-marks__mark[data-hide-below="768"] {
+    display: none;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .page-sparkle-marks__mark {
-    opacity: 0.38;
+@media (max-width: 1023px) {
+  /* No safe margin or nav column below 1024. */
+  .page-sparkle-marks[data-sparkle-variant="omantel"] .page-sparkle-marks__mark,
+  .page-sparkle-marks[data-sparkle-variant="case-study"]
+    .page-sparkle-marks__mark {
+    display: none !important;
   }
 }

@@ -4,11 +4,7 @@ import { omantelStoryNav, type CaseStudy } from "@/case-studies/omantel";
 import { caseStudyHasVisualsSection } from "@/case-studies/case-visuals";
 import { CaseStudyDirection } from "./CaseStudyDirection";
 import { CaseHeroMedia } from "./CaseHeroMedia";
-import { CaseNextProject } from "./CaseNextProject";
-import { JournalCaseFooterNext } from "@/components/case/journal/JournalCaseFooterNext";
-import { JournalFooterSeam } from "@/components/case/journal/JournalFooterSeam";
-import { OmantelJournalHero } from "@/components/case/journal/OmantelJournalHero";
-import { OmantelJournalTitlePaper } from "@/components/case/journal/OmantelJournalTitlePaper";
+import { CaseStudyHero } from "./CaseStudyHero";
 import { CaseStudyLayout } from "@/components/sheets/CaseStudyLayout";
 import { FloatingNav } from "@/components/layout/FloatingNav";
 
@@ -89,54 +85,74 @@ function heroCopyFromCaseStudy(caseStudy: CaseStudy): {
   };
 }
 
+function introFacts(
+  caseStudy: CaseStudy,
+): Array<{ label: string; value: string }> {
+  const overview = caseStudy.overview;
+  const focusValue = overview.tools ?? overview.focus;
+  return [
+    { label: "Company", value: overview.company },
+    { label: "Problem", value: overview.problem },
+    { label: overview.tools ? "Tools" : "Focus", value: focusValue },
+  ].filter((fact) => fact.value.trim());
+}
+
 export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
   const sections = caseStudy ? buildCaseNavSections(caseStudy) : [];
   const hero = caseStudy ? heroCopyFromCaseStudy(caseStudy) : {};
-  const isOmantelJournal = caseStudy?.slug === "omantel-bulk-activation";
+  const isOmantel = caseStudy?.slug === "omantel-bulk-activation";
   const themeClassName = [
     caseStudy?.warmthTheme ? `cs-theme-${caseStudy.warmthTheme}` : "",
-    isOmantelJournal ? "cs-page--journal-omantel" : "",
+    isOmantel ? "cs-page--omantel" : "",
   ]
     .filter(Boolean)
     .join(" ");
+  const facts = caseStudy ? introFacts(caseStudy) : [];
+  const pills = caseStudy?.heroPills ?? [];
 
   const siteHeader = <FloatingNav />;
 
-  const heroBlock = (
+  const journalHero = (
     <div className="case-study-intro-sheet paper-content-sheet">
-      {caseStudy?.heroImage ? (
-        isOmantelJournal ? (
-          <OmantelJournalHero
-            src={caseStudy.heroImage.src}
-            alt={caseStudy.heroImage.alt}
-          />
-        ) : (
-          <CaseHeroMedia
-            src={caseStudy.heroImage.src}
-            alt={caseStudy.heroImage.alt}
-          />
-        )
-      ) : null}
-      {isOmantelJournal && caseStudy ? (
-        <OmantelJournalTitlePaper
-          slug={caseStudy.slug}
-          metaLine={hero.metaLine}
-          title={formatLabel(title)}
-          problemStatement={hero.problemStatement}
-          heroPills={caseStudy.heroPills}
-          hideMeta={Boolean(caseStudy.tldr?.length)}
-          overview={caseStudy.overview}
-        />
-      ) : caseStudy ? (
+      {caseStudy ? (
         <div className="case-study-intro-copy">
           {hero.metaLine ? (
             <p className="case-study-intro-meta">{hero.metaLine}</p>
           ) : null}
           <h1 className="case-study-intro-title">{formatLabel(title)}</h1>
-          {hero.problemStatement ? (
-            <p className="case-study-intro-lede">{hero.problemStatement}</p>
-          ) : null}
+          <div className="case-study-intro-row layout-grid">
+            <div className="case-study-intro-main">
+              {hero.problemStatement ? (
+                <p className="case-study-intro-lede">{hero.problemStatement}</p>
+              ) : null}
+              {pills.length > 0 ? (
+                <ul className="case-study-intro-pills">
+                  {pills.map((pill) => (
+                    <li key={pill}>
+                      <span className="site-badge site-badge--tag">{pill}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+            {facts.length > 0 ? (
+              <dl className="case-study-intro-facts">
+                {facts.map((fact) => (
+                  <div key={fact.label} className="case-study-intro-fact">
+                    <dt>{fact.label}</dt>
+                    <dd>{fact.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            ) : null}
+          </div>
         </div>
+      ) : null}
+      {caseStudy?.heroImage ? (
+        <CaseHeroMedia
+          src={caseStudy.heroImage.src}
+          alt={caseStudy.heroImage.alt}
+        />
       ) : null}
       <CaseStudyDirection
         title={formatLabel(title)}
@@ -144,33 +160,30 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
         problemStatement={hero.problemStatement}
         role={hero.role}
         warmthTheme={caseStudy?.warmthTheme ?? "madder"}
-        showHeroBand={!isOmantelJournal && !caseStudy?.heroImage}
+        showHeroBand={!caseStudy?.heroImage}
       />
     </div>
   );
 
-  const footerBlock = (
-    <>
-      {isOmantelJournal ? <JournalFooterSeam /> : null}
-      <CaseStudyFooter
-        journalLayout={isOmantelJournal}
-        nextProject={
-          caseStudy ? (
-            isOmantelJournal ? (
-              <JournalCaseFooterNext
-                currentSlug={caseStudy.slug}
-                nextSlugOverride={caseStudy.nextProjectSlug}
-              />
-            ) : (
-              <CaseNextProject
-                currentSlug={caseStudy.slug}
-                nextSlugOverride={caseStudy.nextProjectSlug}
-              />
-            )
-          ) : undefined
-        }
+  const heroBlock =
+    isOmantel && caseStudy ? (
+      <CaseStudyHero
+        title={title}
+        metaLine={hero.metaLine}
+        lede={hero.problemStatement}
+        caseStudy={caseStudy}
+        facts={facts}
+        includeImpact
       />
-    </>
+    ) : (
+      journalHero
+    );
+
+  const footerBlock = (
+    <CaseStudyFooter
+      currentSlug={caseStudy?.slug}
+      nextSlugOverride={caseStudy?.nextProjectSlug}
+    />
   );
 
   return (
@@ -181,6 +194,7 @@ export function CaseLayout({ children, title, caseStudy }: CaseLayoutProps) {
         header={siteHeader}
         hero={heroBlock}
         footer={footerBlock}
+        sparkleMarks={isOmantel ? "omantel" : "case-study"}
       >
         {children}
       </CaseStudyLayout>

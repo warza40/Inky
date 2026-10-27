@@ -11,7 +11,7 @@ interface CaseUnderstandingFlowSectionProps {
   afterDivider: AfterDivider;
 }
 
-/** User-flow carousel (dark stage) + narrative copy (cream sheet) — mirrors Key Decisions layout. */
+/** User-flow carousel plus narrative copy on a Paper Deep panel. */
 export function CaseUnderstandingFlowSection({
   afterDivider,
 }: CaseUnderstandingFlowSectionProps) {
@@ -22,7 +22,7 @@ export function CaseUnderstandingFlowSection({
     <div className="ojo-user-flow-section">
       <CaseUnderstandingFlowCarousel images={images} />
       <div className="ojo-user-flow-content">
-        <div className="ojo-paper ojo-paper-shadow ojo-user-flow-inner">
+        <div className="om-sheet-panel ojo-user-flow-inner">
           <div className="cs-understanding-subsection">
             <h3 className="cs-context-section-title">{afterDivider.title}</h3>
             {afterDivider.goal ? (

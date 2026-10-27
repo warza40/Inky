@@ -113,12 +113,7 @@ export function OmantelJournalOutcome({
 
       {hasPaper ? (
         <div className={hasOutcomeImages ? "ojo-outcome-text-wrap" : undefined}>
-          <div className="ojo-outcome-paper ojo-paper ojo-paper-shadow">
-            <div className="ojo-punch-holes" aria-hidden>
-              <span className="ojo-punch-hole" />
-              <span className="ojo-punch-hole" />
-              <span className="ojo-punch-hole" />
-            </div>
+          <div className="ojo-outcome-paper om-sheet-panel">
             {(highlights?.length ?? 0) > 0 ? (
               <>
                 <div className="ojo-p-label">Outcome</div>

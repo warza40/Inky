@@ -490,53 +490,6 @@
   }
 }
 
-/* ── About ── */
-
-.about-section__title {
-  margin: 0;
-  font-family: var(--font-sans);
-  font-size: var(--type-section-title);
-  font-weight: var(--weight-heading);
-  line-height: var(--type-section-title-line);
-  letter-spacing: var(--type-section-title-tracking);
-  color: var(--ink);
-  text-wrap: balance;
-}
-
-.about-section__narrative {
-  max-width: none;
-  font-family: var(--font-sans);
-  font-size: var(--type-body-lg);
-  font-weight: var(--weight-body);
-  line-height: var(--type-body-lg-line);
-  letter-spacing: 0;
-  color: var(--ink-soft);
-}
-
-.about-section__narrative p {
-  margin: 0 0 var(--space-component);
-}
-
-.about-section__narrative p:last-child {
-  margin-bottom: 0;
-}
-
-.about-section__content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-component);
-}
-
-.about-section__note {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: var(--type-body-sm);
-  font-weight: var(--weight-body);
-  line-height: var(--type-body-sm-line);
-  letter-spacing: var(--type-body-tracking);
-  color: var(--ink-soft);
-}
-
 /* ── Contact — sits on canvas grid, no filled band ── */
 
 .home-contact-footer {

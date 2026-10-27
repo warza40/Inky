@@ -143,6 +143,70 @@
   --type-page-title: var(--type-display-title);
   --type-page-title-line: var(--type-display-title-line);
   --type-page-title-tracking: var(--type-display-title-tracking);
+
+  /*
+   * Case-study roles — exact Figma steps (file Website, 81:1095).
+   * Applied only under .cs-page--sheets in sheet-system.css.
+   * Homepage keeps the fluid aliases above; do not point home rules here.
+   * Desktop is the default. 1024 and 767 match the existing breakpoints.
+   */
+  --case-type-page: 4.5rem; /* 72 */
+  --case-type-page-line: 1.05;
+  --case-type-page-track: 0;
+  --case-type-page-weight: 900;
+
+  --case-type-section: 3.5rem; /* 56 */
+  --case-type-section-line: 1.1;
+  --case-type-section-track: 0;
+  --case-type-section-weight: 900;
+
+  --case-type-lead: 2.625rem; /* 42 */
+  --case-type-lead-line: 1.2;
+  --case-type-lead-track: 0;
+  --case-type-lead-weight: 500;
+
+  --case-type-card-lg: 2rem; /* 32 */
+  --case-type-card-md: 1.75rem; /* Title/Card/M 28 */
+  --case-type-card-sm: 1.5rem; /* 24 */
+  --case-type-card-line: 1.2;
+  --case-type-card-track: 0;
+  --case-type-card-weight: 800;
+
+  /* Long-form narrative is Body/L. Dense copy stays Body/M. */
+  --case-type-body: 1.25rem; /* 20 */
+  --case-type-body-line: 1.6;
+  --case-type-body-lg: var(--case-type-body);
+  --case-type-body-lg-line: var(--case-type-body-line);
+  --case-type-body-dense: var(--type-body);
+  --case-type-body-dense-line: var(--type-body-line);
+
+  --case-type-caption: var(--type-caption);
+  --case-type-caption-line: var(--type-caption-line);
+
+  /*
+   * Label/S is the only case-page eyebrow.
+   * 14px, semibold, line 1.4, tracking 0.2px. Sans is set where the token is applied.
+   * Mono/Eyebrow 11 and Micro 10 stay homepage tokens and are not used here.
+   */
+  --case-type-label-sm: var(--type-label-sm);
+  --case-type-label-sm-line: 1.4;
+  --case-type-label-sm-weight: var(--weight-semibold);
+  --case-type-label-sm-track: 0.2px;
+  --case-eyebrow-meta: #636370;
+  --case-eyebrow-statement: #3f7d68;
+
+  --case-type-eyebrow: var(--case-type-label-sm);
+  --case-type-eyebrow-line: var(--case-type-label-sm-line);
+  --case-type-eyebrow-track: var(--case-type-label-sm-track);
+  --case-type-eyebrow-weight: var(--case-type-label-sm-weight);
+
+  /* Title/Card/L and Title/Card/M are 115%. Title/Card/S keeps --case-type-card-line (120%). */
+  --case-type-card-lg-line: 1.15;
+  --case-type-card-md-line: 1.15;
+
+  --case-type-link: var(--type-link);
+  --case-type-link-line: 1.2;
+  --case-type-link-weight: var(--type-link-weight);
 }
 
 /* ── Semantic utility classes ── */
@@ -321,5 +385,25 @@
   :root {
     --type-display-hero: clamp(2.625rem, 10vw, 3.5rem);
     --type-heading-section: clamp(1.875rem, 7vw, 2.5rem);
+  }
+}
+
+/*
+ * Page title and section heading step to smaller frame sizes.
+ * Lead, body, and card titles stay on one style. 18, 22, 17, 26, and a
+ * 20px card title are not frame styles, and a second size made one role
+ * differ from page to page.
+ */
+@media (max-width: 1024px) {
+  :root {
+    --case-type-page: 3.5rem; /* Heading/Section 56 */
+    --case-type-section: 2.625rem; /* Lead/M 42 */
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --case-type-page: 2rem; /* Title/Card/L 32 */
+    --case-type-section: 2rem; /* Title/Card/L 32 */
   }
 }

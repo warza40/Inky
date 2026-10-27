@@ -1,0 +1,356 @@
+"use client";
+
+import Image from "next/image";
+import type { ReactNode } from "react";
+import type { CaseStudy } from "@/case-studies/omantel";
+import {
+  ComparisonCard,
+  ComparisonPanel,
+} from "@/components/case/ComparisonPanel";
+import { DecisionBlock } from "@/components/case/DecisionBlock";
+import { MotionSection } from "@/components/case/MotionSection";
+import { parseBoldSpans } from "@/lib/case-rich-text";
+
+interface OmantelSystemMapProps {
+  caseStudy: CaseStudy;
+}
+
+function paragraphsOf(text: string): string[] {
+  return text
+    .split(/\n\n/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+}
+
+function Copy({ text }: { text: string }) {
+  const parts = paragraphsOf(text);
+  if (!parts.length) return null;
+  return (
+    <div className="om-copy">
+      {parts.map((part, index) => (
+        <p key={`${index}-${part.slice(0, 24)}`}>{parseBoldSpans(part)}</p>
+      ))}
+    </div>
+  );
+}
+
+function BulletList({ items }: { items: string[] }) {
+  if (!items.length) return null;
+  return (
+    <ul className="om-list om-copy">
+      {items.map((item) => (
+        <li key={item}>{parseBoldSpans(item)}</li>
+      ))}
+    </ul>
+  );
+}
+
+type MediaFrame = "full" | "half" | "phone";
+
+function mediaFrame(src: string): MediaFrame {
+  const name = decodeURIComponent(src.split("/").pop() ?? src).toLowerCase();
+  if (name.includes("mobile") || name.includes("phone")) return "phone";
+  if (name.includes("noteworthy 1") || name.includes("noteworthy 2")) {
+    return "half";
+  }
+  return "full";
+}
+
+function MediaFigure({
+  src,
+  alt,
+  caption,
+  frame = "full",
+}: {
+  src: string;
+  alt: string;
+  caption?: string;
+  frame?: MediaFrame;
+}) {
+  const gif = src.toLowerCase().includes(".gif");
+  const framed = frame !== "full";
+  return (
+    <figure
+      className={framed ? `om-media om-media--${frame}` : "om-media om-full"}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        width={1600}
+        height={1000}
+        sizes={
+          frame === "phone"
+            ? "(max-width: 767px) 100vw, 960px"
+            : frame === "half"
+              ? "(max-width: 767px) 100vw, 640px"
+              : "(max-width: 1023px) 100vw, 960px"
+        }
+        className="om-media-img"
+        unoptimized={gif}
+      />
+      {caption ? (
+        <figcaption className="om-caption">{caption}</figcaption>
+      ) : null}
+    </figure>
+  );
+}
+
+function MediaGroup({
+  images,
+}: {
+  images: Array<{ src: string; alt?: string; caption?: string }>;
+}) {
+  const nodes: ReactNode[] = [];
+  for (let index = 0; index < images.length; ) {
+    const frame = mediaFrame(images[index].src);
+    if (frame === "full") {
+      const image = images[index];
+      nodes.push(
+        <MediaFigure
+          key={image.src}
+          src={image.src}
+          alt={image.alt ?? ""}
+          caption={image.caption}
+        />,
+      );
+      index += 1;
+      continue;
+    }
+    const group = [images[index]];
+    let next = index + 1;
+    while (next < images.length && mediaFrame(images[next].src) === frame) {
+      group.push(images[next]);
+      next += 1;
+    }
+    nodes.push(
+      <div
+        key={group[0].src}
+        className={`om-media-row om-media-row--${frame} om-full`}
+      >
+        {group.map((image) => (
+          <MediaFigure
+            key={image.src}
+            src={image.src}
+            alt={image.alt ?? ""}
+            caption={image.caption}
+            frame={frame}
+          />
+        ))}
+      </div>,
+    );
+    index = next;
+  }
+  return <>{nodes}</>;
+}
+
+function StatementCard({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) {
+  return (
+    <blockquote className="om-statement">
+      <p className="om-statement-label">{label}</p>
+      <div className="om-statement-body">{children}</div>
+    </blockquote>
+  );
+}
+
+function StorySection({
+  id,
+  number,
+  title,
+  children,
+}: {
+  id: string;
+  number: string;
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <MotionSection id={id} number={number} title={title}>
+      <div className="om-grid layout-grid">{children}</div>
+    </MotionSection>
+  );
+}
+
+export function OmantelSystemMap({ caseStudy }: OmantelSystemMapProps) {
+  const sections = caseStudy.sections;
+  const understanding = sections.understanding;
+  const hypothesis = sections.hypothesis;
+  const collaboration = sections.collaboration;
+  const learnings = sections.learnings;
+  const conceptualImages = (understanding?.images ?? []).filter(
+    (image): image is { src: string; alt?: string; caption?: string } =>
+      Boolean(image.src),
+  );
+  const flowImages = understanding?.afterDivider?.images ?? [];
+
+  return (
+    <>
+      <StorySection
+        id="context"
+        number="02"
+        title="Self-service was the prerequisite for scaling B2B bulk requests"
+      >
+        {sections.goal ? (
+          <StatementCard label="Goal">
+            <p>{parseBoldSpans(sections.goal)}</p>
+          </StatementCard>
+        ) : null}
+        {sections.contextFlow?.paragraphs?.length ? (
+          <div className="om-copy">
+            {sections.contextFlow.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{parseBoldSpans(paragraph)}</p>
+            ))}
+          </div>
+        ) : null}
+      </StorySection>
+
+      <StorySection
+        id="problem"
+        number="03"
+        title="Errors surfaced only after submission, forcing full-batch restarts"
+      >
+        {sections.outcomeBeforeAfter ? (
+          <ComparisonPanel>
+            <ComparisonCard label="Before">
+              <div className="om-dense">
+                {paragraphsOf(sections.outcomeBeforeAfter.before).map(
+                  (part, index) => (
+                    <p key={`${index}-${part.slice(0, 16)}`}>
+                      {parseBoldSpans(part)}
+                    </p>
+                  ),
+                )}
+              </div>
+            </ComparisonCard>
+            <ComparisonCard label="After" emphasis>
+              <div className="om-dense">
+                {paragraphsOf(sections.outcomeBeforeAfter.after).map(
+                  (part, index) => (
+                    <p key={`${index}-${part.slice(0, 16)}`}>
+                      {parseBoldSpans(part)}
+                    </p>
+                  ),
+                )}
+              </div>
+            </ComparisonCard>
+          </ComparisonPanel>
+        ) : null}
+        {understanding?.painPointGroups?.length ? (
+          <ComparisonPanel
+            label="Pain points on both sides"
+            follow={Boolean(sections.outcomeBeforeAfter)}
+          >
+            {understanding.painPointGroups.map((group) => (
+              <ComparisonCard key={group.title} title={group.title}>
+                <ul className="om-list">
+                  {group.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </ComparisonCard>
+            ))}
+          </ComparisonPanel>
+        ) : null}
+      </StorySection>
+
+      <StorySection
+        id="ambiguity"
+        number="04"
+        title="Ops walkthroughs showed errors starting across three disconnected tools"
+      >
+        <Copy text={understanding?.content ?? ""} />
+        <MediaGroup images={conceptualImages} />
+        {understanding?.afterDivider?.title ? (
+          <h3 className="om-subhead om-full">
+            {understanding.afterDivider.title}
+          </h3>
+        ) : null}
+        <MediaGroup
+          images={flowImages.filter(
+            (image): image is { src: string; alt?: string; caption?: string } =>
+              Boolean(image.src),
+          )}
+        />
+      </StorySection>
+
+      <StorySection
+        id="hypothesis"
+        number="05"
+        title="Validating at entry would prevent full-batch restarts"
+      >
+        {hypothesis ? (
+          <>
+            <StatementCard label="Hypothesis">
+              <p>{parseBoldSpans(hypothesis.quote)}</p>
+            </StatementCard>
+            {hypothesis.signals.length > 0 ? (
+              <>
+                <p className="om-subhead om-full">Success signals</p>
+                <BulletList items={hypothesis.signals} />
+              </>
+            ) : null}
+          </>
+        ) : null}
+      </StorySection>
+
+      <StorySection
+        id="decisions"
+        number="06"
+        title="Five decisions that enabled unassisted submission"
+      >
+        {sections.decisions.map((decision, index) => (
+          <DecisionBlock
+            key={decision.title}
+            decision={decision}
+            index={index}
+          />
+        ))}
+      </StorySection>
+
+      <StorySection
+        id="outcome"
+        number="07"
+        title="Confirmation moved from 48–72 hours to immediate"
+      >
+        <MediaGroup images={sections.outcomeImages ?? []} />
+      </StorySection>
+
+      <StorySection
+        id="collaboration"
+        number="08"
+        title="Aligning a key stakeholder on guardrails for expert users"
+      >
+        {collaboration?.intro ? <Copy text={collaboration.intro} /> : null}
+        {collaboration?.points?.length ? (
+          <div className="om-stakeholder om-copy">
+            {collaboration.points.map((point) => (
+              <div key={point.label} className="om-stakeholder-row">
+                <p className="om-stakeholder-label">{point.label}</p>
+                <p>{point.text}</p>
+              </div>
+            ))}
+          </div>
+        ) : null}
+      </StorySection>
+
+      <StorySection
+        id="learnings"
+        number="09"
+        title="Expertise does not remove the need for guardrails"
+      >
+        <BulletList items={learnings?.learned ?? []} />
+        {learnings?.moreTime?.length ? (
+          <div className="om-more-time om-copy">
+            <p className="om-mono-section">With more time, I would:</p>
+            <BulletList items={learnings.moreTime} />
+          </div>
+        ) : null}
+      </StorySection>
+    </>
+  );
+}

@@ -1,48 +1,29 @@
-import type { ReactNode } from "react";
-import Link from "next/link";
+import { SiteFooter } from "@/components/layout/SiteFooter";
+import { getCaseStudy, getNextCaseStudy } from "@/case-studies";
 
 const CASE_FOOTER_COPY =
   "© 2025 · Built with Warmth DS · An outcome of brainstorming sessions with Claude and coding with Cursor.";
 
 interface CaseStudyFooterProps {
-  /** When set (e.g. CaseNextProject), renders above footer actions in this footer */
-  nextProject?: ReactNode;
-  /** Journal case: next project sits beside “Back to home” in the dark footer band */
-  journalLayout?: boolean;
+  currentSlug?: string;
+  nextSlugOverride?: string;
 }
 
 export function CaseStudyFooter({
-  nextProject,
-  journalLayout = false,
+  currentSlug,
+  nextSlugOverride,
 }: CaseStudyFooterProps) {
+  const next = currentSlug
+    ? nextSlugOverride
+      ? getCaseStudy(nextSlugOverride)
+      : getNextCaseStudy(currentSlug)
+    : undefined;
+
   return (
-    <footer
-      className={`site-footer cs-case-footer${journalLayout ? " cs-case-footer--journal" : ""}`}
-      aria-label="Case study footer"
-    >
-      <div className="cs-case-footer-inner">
-        {journalLayout ? (
-          <div className="cs-case-footer-top">
-            <div className="cs-case-footer-actions">
-              <Link href="/" className="cs-case-footer-back">
-                Back to home
-              </Link>
-            </div>
-            {nextProject}
-          </div>
-        ) : (
-          <>
-            {nextProject}
-            <div className="cs-case-footer-actions">
-              <Link href="/" className="cs-case-footer-back">
-                Back to home
-              </Link>
-            </div>
-          </>
-        )}
-        <div className="cs-case-footer-divider" aria-hidden />
-        <p className="cs-case-footer-copy">{CASE_FOOTER_COPY}</p>
-      </div>
-    </footer>
+    <SiteFooter
+      variant="case"
+      nextHref={next ? `/case/${next.slug}` : undefined}
+      copyright={CASE_FOOTER_COPY}
+    />
   );
 }
