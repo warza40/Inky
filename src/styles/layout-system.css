@@ -464,10 +464,12 @@
   pointer-events: none;
 }
 
-/* Down drawing is already aimed below the line, so it is not rotated. */
+/* Same down drawing, mirrored around its tail (viewBox 3, 2). */
 .projects-heading-group__arrow--down {
   width: 60px;
   aspect-ratio: 104 / 158;
+  transform-origin: calc(100% * 3 / 104) calc(100% * 2 / 158);
+  transform: scaleX(-1);
 }
 
 /* Cards sit under the heading below desktop. Keep the arrow off their top edge. */

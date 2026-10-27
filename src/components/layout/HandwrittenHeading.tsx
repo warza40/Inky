@@ -4,7 +4,7 @@ type ArrowDirection = "right" | "down";
 
 /**
  * Nanum Pen callout. The arrow is anchored to the last word, not the column.
- * `down` uses a drawing whose tail is the top-left, so it hangs below the line.
+ * `down` hangs below the line and is mirrored around that tail.
  */
 export function HandwrittenHeading({
   text,
