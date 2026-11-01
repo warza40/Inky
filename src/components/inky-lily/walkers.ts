@@ -24,8 +24,18 @@ function makeInky(sz: number, variant: number, eyeMode: EyeMode) {
   const eyeY = -(h * 0.57);
   const positions = {
     walk: { lx: -(sz * 0.13), ly: eyeY, rx: sz * 0.13, ry: eyeY },
-    look: { lx: -(sz * 0.115), ly: eyeY + sz * 0.02, rx: sz * 0.145, ry: eyeY - sz * 0.015 },
-    wide: { lx: -(sz * 0.13), ly: eyeY - sz * 0.01, rx: sz * 0.13, ry: eyeY - sz * 0.01 },
+    look: {
+      lx: -(sz * 0.115),
+      ly: eyeY + sz * 0.02,
+      rx: sz * 0.145,
+      ry: eyeY - sz * 0.015,
+    },
+    wide: {
+      lx: -(sz * 0.13),
+      ly: eyeY - sz * 0.01,
+      rx: sz * 0.13,
+      ry: eyeY - sz * 0.01,
+    },
   };
   const ep = positions[eyeMode] ?? positions.walk;
   const eR = eyeMode === "wide" ? er * 1.38 : er;
@@ -117,7 +127,17 @@ let rafId: number | null = null;
 let timer: ReturnType<typeof setTimeout> | null = null;
 /** Only the first scheduled spawn uses `firstSpawnDelay*`; all later uses `minInterval`/`maxInterval`. */
 let useFirstSpawnDelay = true;
+/**
+ * Bumped when the studio mounts and again when it unmounts.
+ * Client navigations keep this module alive, so timers from the previous
+ * visit must not reopen the door or leave the state machine stuck.
+ */
+let session = 0;
 const prints: HTMLDivElement[] = [];
+
+function isCurrent(id: number): boolean {
+  return id === session;
+}
 
 const BOBS = ["bob-a", "bob-b", "bob-c", "bob-d", "bob-e"];
 
@@ -135,16 +155,24 @@ function mkPrint(x: number) {
   setTimeout(() => p.remove(), 5200);
 }
 
-function schedule() {
+function schedule(id: number) {
+  if (!isCurrent(id)) return;
+  if (timer) clearTimeout(timer);
   const d = useFirstSpawnDelay
     ? CONFIG.firstSpawnDelayMin +
       Math.random() * (CONFIG.firstSpawnDelayMax - CONFIG.firstSpawnDelayMin)
-    : CONFIG.minInterval + Math.random() * (CONFIG.maxInterval - CONFIG.minInterval);
+    : CONFIG.minInterval +
+      Math.random() * (CONFIG.maxInterval - CONFIG.minInterval);
   useFirstSpawnDelay = false;
-  timer = setTimeout(spawn, d);
+  timer = setTimeout(() => {
+    timer = null;
+    if (!isCurrent(id)) return;
+    spawn(id);
+  }, d);
 }
 
-function despawn() {
+function despawn(id: number) {
+  if (!isCurrent(id)) return;
   if (rafId) cancelAnimationFrame(rafId);
   rafId = null;
   const g = document.getElementById("group");
@@ -155,10 +183,11 @@ function despawn() {
   prints.length = 0;
   walkers = [];
   ST = "idle";
-  schedule();
+  schedule(id);
 }
 
-function scatter(grp: HTMLElement) {
+function scatter(grp: HTMLElement, id: number) {
+  if (!isCurrent(id)) return;
   ST = "scattering";
   walkers.forEach((w, i) => {
     const dx = (Math.random() - 0.5) * 150;
@@ -170,6 +199,7 @@ function scatter(grp: HTMLElement) {
     w.el.style.animation = `scatter .62s ${i * 0.07}s cubic-bezier(.4,0,1,1) both`;
   });
   setTimeout(() => {
+    if (!isCurrent(id)) return;
     grp.innerHTML = "";
     grp.classList.remove("live");
     prints.forEach((p) => p.remove());
@@ -185,16 +215,18 @@ export function openDoor() {
 }
 
 export function closeDoor() {
+  const id = session;
   const v = document.getElementById("veil");
   if (!v) return;
   v.style.transition = "opacity .45s";
   v.style.opacity = "0";
   setTimeout(() => {
+    if (!isCurrent(id)) return;
     v.classList.remove("open");
     v.style.opacity = "";
     v.style.transition = "";
     ST = "idle";
-    schedule();
+    schedule(id);
   }, 450);
 }
 
@@ -204,18 +236,21 @@ export function enterStudio() {
   }
 }
 
-function trigger(grp: HTMLElement, left: boolean) {
+function trigger(grp: HTMLElement, left: boolean, id: number) {
+  if (!isCurrent(id)) return;
   ST = "stopped";
   if (rafId) cancelAnimationFrame(rafId);
   rafId = null;
 
   walkers.forEach((w, i) => {
     setTimeout(() => {
+      if (!isCurrent(id)) return;
       w.el.style.animation = "stop-squish .42s ease both";
     }, i * 55);
   });
 
   setTimeout(() => {
+    if (!isCurrent(id)) return;
     walkers.forEach((w) => {
       w.inner.innerHTML = makeInky(w.sz, w.v, "wide");
       if (!left) {
@@ -226,6 +261,7 @@ function trigger(grp: HTMLElement, left: boolean) {
   }, 480);
 
   setTimeout(() => {
+    if (!isCurrent(id)) return;
     walkers.forEach((w) => {
       w.inner.innerHTML = makeInky(w.sz, w.v, "look");
       if (!left) {
@@ -236,10 +272,14 @@ function trigger(grp: HTMLElement, left: boolean) {
   }, 940);
 
   const pauseAfterLook = 1000 + Math.random() * 1000;
-  setTimeout(() => scatter(grp), 940 + pauseAfterLook);
+  setTimeout(() => {
+    if (!isCurrent(id)) return;
+    scatter(grp, id);
+  }, 940 + pauseAfterLook);
 }
 
-function spawn() {
+function spawn(id: number) {
+  if (!isCurrent(id)) return;
   if (ST !== "idle") return;
   const grpEl = document.getElementById("group");
   if (!grpEl) return;
@@ -282,10 +322,12 @@ function spawn() {
     const fd = (parseFloat(dur) * 0.72).toFixed(2) + "s";
     const bd = (parseFloat(dur) * 0.88).toFixed(2) + "s";
     inner.querySelectorAll(".lf,.rf").forEach((t) => {
-      (t as SVGPathElement).style.animation = `leg-f ${fd} ${del} ease-in-out infinite`;
+      (t as SVGPathElement).style.animation =
+        `leg-f ${fd} ${del} ease-in-out infinite`;
     });
     inner.querySelectorAll(".lb,.rb").forEach((t) => {
-      (t as SVGPathElement).style.animation = `leg-b ${bd} ${del} ease-in-out infinite`;
+      (t as SVGPathElement).style.animation =
+        `leg-b ${bd} ${del} ease-in-out infinite`;
     });
 
     const sh = document.createElement("div");
@@ -300,7 +342,7 @@ function spawn() {
 
   grp.classList.add("live");
   grp.onclick = () => {
-    if (ST === "walking") trigger(grp, left);
+    if (ST === "walking") trigger(grp, left, id);
   };
 
   let t0: number | null = null;
@@ -310,6 +352,7 @@ function spawn() {
   ST = "walking";
 
   function step(ts: number) {
+    if (!isCurrent(id)) return;
     if (!t0) t0 = ts;
     if (ST !== "walking") return;
     const drift = Math.sin(ts * 0.0018) * 4 + Math.cos(ts * 0.00135) * 2.5;
@@ -318,7 +361,8 @@ function spawn() {
 
     walkers.forEach((w, i) => {
       const str =
-        Math.sin(ts * 0.0019 + i * 1.7) * 3 + Math.cos(ts * 0.0014 + i * 0.9) * 1.8;
+        Math.sin(ts * 0.0019 + i * 1.7) * 3 +
+        Math.cos(ts * 0.0014 + i * 0.9) * 1.8;
       w.el.style.transform = `translateX(${str}px)`;
     });
 
@@ -327,7 +371,7 @@ function spawn() {
     }
 
     if (left ? cx < endX : cx > endX) {
-      despawn();
+      despawn(id);
       return;
     }
     rafId = requestAnimationFrame(step);
@@ -338,34 +382,59 @@ function spawn() {
 function devSpawn() {
   if (timer) clearTimeout(timer);
   timer = null;
-  if (ST === "idle") spawn();
+  if (ST === "idle") spawn(session);
   else if (ST === "walking") {
     const g = document.getElementById("group");
-    if (g) trigger(g, true);
+    if (g) trigger(g, true, session);
   }
 }
 
 export function initInkyWalkers(root: HTMLElement) {
+  const id = ++session;
+  ST = "idle";
   useFirstSpawnDelay = true;
-  schedule();
+  if (timer) {
+    clearTimeout(timer);
+    timer = null;
+  }
+  if (rafId) {
+    cancelAnimationFrame(rafId);
+    rafId = null;
+  }
+  schedule(id);
 
   let kb = "";
 
   const onKey = (e: KeyboardEvent) => {
     const t = e.target as HTMLElement | null;
-    if (t && (t.closest("input, textarea, [contenteditable='true']") || t.isContentEditable)) {
+    if (
+      t &&
+      (t.closest("input, textarea, [contenteditable='true']") ||
+        t.isContentEditable)
+    ) {
       return;
     }
 
     // Use e.code (physical key), not e.key — Option/Alt combos often change e.key on macOS.
     // Avoid Cmd/Ctrl+Shift+G: Chrome uses Cmd+G / Cmd+Shift+G for Find and may not deliver the event to the page.
-    if (e.code === "KeyG" && e.shiftKey && e.altKey && !e.metaKey && !e.ctrlKey) {
+    if (
+      e.code === "KeyG" &&
+      e.shiftKey &&
+      e.altKey &&
+      !e.metaKey &&
+      !e.ctrlKey
+    ) {
       e.preventDefault();
       devSpawn();
       return;
     }
     // Fallback: Cmd+Shift+9 / Ctrl+Shift+9 (usually not bound by the browser).
-    if (e.code === "Digit9" && e.shiftKey && (e.metaKey || e.ctrlKey) && !e.altKey) {
+    if (
+      e.code === "Digit9" &&
+      e.shiftKey &&
+      (e.metaKey || e.ctrlKey) &&
+      !e.altKey
+    ) {
       e.preventDefault();
       devSpawn();
       return;
@@ -403,7 +472,7 @@ export function initInkyWalkers(root: HTMLElement) {
   document.head.appendChild(
     document.createComment(`
   you're the kind of person who reads source code. follow the small ones.
-`)
+`),
   );
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -413,8 +482,11 @@ export function initInkyWalkers(root: HTMLElement) {
   }
 
   return () => {
+    if (session === id) session += 1;
     if (timer) clearTimeout(timer);
+    timer = null;
     if (rafId) cancelAnimationFrame(rafId);
+    rafId = null;
     window.removeEventListener("keydown", onKey, true);
     document.removeEventListener("mousemove", onMove);
     doorClick?.removeEventListener("mouseenter", onEnter);
@@ -423,9 +495,11 @@ export function initInkyWalkers(root: HTMLElement) {
     if (g) {
       g.innerHTML = "";
       g.classList.remove("live");
+      g.onclick = null;
     }
     prints.forEach((p) => p.remove());
     prints.length = 0;
     walkers = [];
+    ST = "idle";
   };
 }
